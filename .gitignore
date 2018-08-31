@@ -1,0 +1,44 @@
+*.class
+*.jar
+.gradle
+
+## Intellij
+.idea/
+*.ipr
+*.iws
+*.iml
+out/
+
+# This prop file contains a sdk.dir meant to point to your local Android SDK
+local.properties
+
+## Eclipse
+.classpath
+.project
+.metadata
+**/bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+
+.settings/
+.loadpath
+.externalToolBuilders/
+*.launch
+
+## NetBeans
+**/nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml
+
+## OS Specific
+.DS_Store
+Icon
+ehthumbs.db
+Thumbs.db
