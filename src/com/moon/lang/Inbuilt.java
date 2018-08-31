@@ -1,16 +1,12 @@
 package com.moon.lang;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.regex.Pattern;
 
 class Inbuilt {
     public static Map<String, MoonCallable> inBuilts  = new HashMap<>();
