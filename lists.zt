@@ -1,0 +1,18 @@
+class List {
+    List(type) {
+        this.type = type;
+        this.list = list(type);
+    }
+
+    add(object) {
+        listAdd(this.list, object);
+    }
+
+    get(position) {
+        return getItem(this.list, position);
+    }
+
+    reset() {
+        this.list = list(this.type);
+    }
+}
