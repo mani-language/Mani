@@ -349,5 +349,3 @@ let inst = B();
 inst.methodB1();  // prints methodA1
                   //        methodB1
 ~~~~
-
-[Miscellaneous Programs](/misc)
