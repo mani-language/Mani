@@ -5,7 +5,7 @@
 
 <b>Version</b> <small>1.0.0</small>
 
-> An embeddable programming language.
+> An awesome, super simple language!
 
 * Simple and lightweight
 * No external dependencies
