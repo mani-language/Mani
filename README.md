@@ -9,7 +9,7 @@
 
 * Simple and lightweight
 * No external dependencies
-* Register based virtual machine
+* Straight recursive descent paser
 
 
 ## What is it?
