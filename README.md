@@ -1,6 +1,6 @@
 
 <p align="center">
-<img src="docs/assets/images/logo.png" height="200px" alt="Moon Lang" title="Moon Lang">
+<img src="docs/assets/images/logo_outlined.png" height="200px" alt="Moon Lang" title="Moon Lang">
 </p>
 
 <b>Version</b> <small>1.0.0</small>
