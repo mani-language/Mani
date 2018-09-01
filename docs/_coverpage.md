@@ -9,7 +9,7 @@
 
 * Simple and lightweight
 * No external dependencies
-* Register based virtual machine
+* Straight recursive descent paser
 
 [GitHub](https://github.com/crazywolf132/moonlang)
 [Lets go!](#Moon-Lang)
