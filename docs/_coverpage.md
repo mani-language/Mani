@@ -12,5 +12,5 @@
 * Register based virtual machine
 
 [GitHub](https://github.com/crazywolf132/moonlang)
-[Lets go!](README.md)
+[Lets go!](#Moon-Lang)
 
