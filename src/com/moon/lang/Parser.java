@@ -306,6 +306,34 @@ class Parser {
             } else if (match(DOT)) {
                 Token name = consume(IDENTIFIER, "Expect property name after '.' .");
                 expr = new Expr.Get(expr, name);
+            } else if(match(PLUS_PLUS)) {
+            	Token increment = new Token(PLUS, "+", null, previous().line);
+	        	 if(expr instanceof Expr.Variable) {
+	        		 Token name = ((Expr.Variable)expr).name;
+	                 Expr.Variable lhs_var = new Expr.Variable(name);
+	                 Expr.Binary bin_expr = new Expr.Binary(lhs_var, increment, new Expr.Literal(new Double(1)));
+	                 expr = new Expr.Assign(name, bin_expr);
+	             } else if (expr instanceof Expr.Get) {
+	                 Expr.Get get = (Expr.Get) expr;
+	                 Expr.Binary bin_expr = new Expr.Binary(get, increment, new Expr.Literal(new Double(1)));
+                     expr = new Expr.Set(get.object, get.name, bin_expr);
+	             } else {
+	            	 error(previous(), "Invalid assignment target");
+	             }
+            } else if (match(MINUS_MINUS)) {
+            	Token decrement = new Token(MINUS, "-", null, previous().line);
+            	if(expr instanceof Expr.Variable) {
+	                 Token name = ((Expr.Variable)expr).name;	                 
+	                 Expr.Variable lhs_var = new Expr.Variable(name);
+	                 Expr.Binary bin_expr = new Expr.Binary(lhs_var, decrement, new Expr.Literal(new Double(1)));
+	                 expr = new Expr.Assign(name, bin_expr);
+	             } else if (expr instanceof Expr.Get) {
+	                 Expr.Get get = (Expr.Get) expr;
+	                 Expr.Binary bin_expr = new Expr.Binary(get, decrement, new Expr.Literal(new Double(1)));
+                     expr = new Expr.Set(get.object, get.name, bin_expr);
+	             } else {
+	            	 error(previous(), "Invalid assignment target");
+	             }
             } else {
                 break;
             }
