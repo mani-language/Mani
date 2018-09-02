@@ -9,7 +9,7 @@ import java.nio.file.Paths;
 import java.util.*;
 
 class Inbuilt {
-    public static Map<String, MoonCallable> inBuilts  = new HashMap<String, MoonCallable>();
+    public static Map<String, MoonCallable> inBuilts  = new HashMap<>();
     static{
 
     inBuilts.put("str", new MoonCallable() {

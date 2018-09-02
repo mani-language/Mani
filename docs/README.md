@@ -145,6 +145,40 @@ let res = smap.get("firstname"); // This will assign the result "Brayden" to the
 
 > Once again, the key will always be a string
 
+## Files
+~~~ moon
+// Usage File(filename);
+
+let f = File("file.txt"); // This will create a file instance.
+~~~
+
+### Loading the file
+~~~ moon
+f.load(); // Reads the file that we designated earlier.
+~~~
+> This does not return the contents of the file or anything.
+
+### Seeing file contents
+~~~ moon
+// After running f.load();
+
+say f.contents; // This will return exactly what was in the file.
+~~~
+
+### Splitting to list
+~~~ moon
+// Make sure file is loaded first.
+
+// Usage file.toList(listObj);
+
+let l = List("String"); // Used to store the file contents
+
+f.toList(l); // Will split by each line, to the list object.
+
+list.show(); // Will display an array with the file contents, split by each line.
+~~~
+
+> The file will only be split by the line.
 
 # Basics
 ## Comments, Variables, Value Types and Assignment
@@ -177,15 +211,19 @@ a = true; // assign a to true
 ## Operators
 
 ~~~~ moon
-say 1 + 2;
-say 1 - 2;
-say 5 * 30;
-say 30/6;
-say 22.0/7.0;
-say "hello" + "hi";
-say 1 + "one";
-say "hello" * 5;      // prints hello five times
-say 5 * "hello";      // Runtime Error
+let i = 1;
+
+say i += 1;             // 2
+say i -= 1;             // 0
+say 1 + 2;              // 3
+say 1 - 2;              // -1
+say 5 * 30;             // 150
+say 30/6;               // 5
+say 22.0/7.0;           // 3.142857142857143
+say "hello" + "hi";     // hellohi
+say 1 + "one";          // 1one
+say "hello" * 5;        // prints hello five times
+say 5 * "hello";        // Runtime Error
 ~~~~
 
 ## The print Statement
@@ -295,12 +333,12 @@ greet("Mir")  // with argument(s)
 ## Inbuilt Functions
 
 ~~~~ moon
-let rand   = random(10);      // Takes a number, n, and returns a random number between 0 and n
-let name   = readString();    // reads a string from user
-let number = readInt();       // reads a number from user otherwise `nil`
-
+let rand   = random(10);            // Takes a number, n, and returns a random number between 0 and n
+let name   = readString();          // reads a string from user
+let number = readInt();             // reads a number from user otherwise `nil`
+let result = ask("Who are you?");   // Prints "Who are you?" to console, and waits for text response.
 ~~~~
-
+> Other built in functions can be found under the Stand Library section
 
 ## Classes
 
@@ -322,9 +360,9 @@ class Greeting {
 ## Class Instance
 
 ~~~~ moon
-let greeting = Greeting("Immad");
-say greeeting.sayHello();     // prints Hello Immad
-say greeting.sayNight();      // prints Good Night Immad
+let greeting = Greeting("John");
+say greeeting.sayHello();     // prints Hello John
+say greeting.sayNight();      // prints Good Night John
 ~~~~
 
 > * A value cannot be retured from the constrcutor.
