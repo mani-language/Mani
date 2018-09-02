@@ -296,9 +296,9 @@ class Parser {
             Expr right = unary();
             return new Expr.Unary(operator, right);
         }
-        return call();
+        return post();
     }
-    private Expr call() {
+    private Expr post() {
         Expr expr = primary();
         while(true) {
             if(match(LEFT_PAREN)) {
@@ -306,6 +306,10 @@ class Parser {
             } else if (match(DOT)) {
                 Token name = consume(IDENTIFIER, "Expect property name after '.' .");
                 expr = new Expr.Get(expr, name);
+            } else if(match(PLUS_PLUS)) {
+            	expr = new Expr.PostIncrementExpression(expr, previous());
+            } else if (match(MINUS_MINUS)) {
+            	expr = new Expr.PostDecrementExpression(expr, previous());
             } else {
                 break;
             }

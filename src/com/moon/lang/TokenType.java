@@ -9,7 +9,10 @@ enum TokenType {
 
     // combined assignment ops
     PLUS_ASSIGN, MINUS_ASSIGN, SLASH_ASSIGN, STAR_ASSIGN,
-
+    
+    //Increment and decrement
+    PLUS_PLUS, MINUS_MINUS,
+    
     //Literals
     IDENTIFIER, NUMBER, STRING,
 

@@ -60,8 +60,24 @@ class Lexer {
             case ',': addToken(COMMA); break;
             case '.': addToken(DOT); break;
             case ';': addToken(SEMICOLON); break;
-            case '-': addToken(match('=') ? MINUS_ASSIGN : MINUS); break;
-            case '+': addToken(match('=') ? PLUS_ASSIGN : PLUS); break;
+            case '-':
+            	if (match('=')) {
+            		addToken(MINUS_ASSIGN);
+            	} else if (match('-')) {
+            		addToken(MINUS_MINUS);
+            	} else {
+            		addToken(MINUS);
+            	}
+            	break;
+            case '+':
+            	if (match('=')) {
+            		addToken(PLUS_ASSIGN);
+            	} else if (match('+')) {
+            		addToken(PLUS_PLUS);
+            	} else {
+            		addToken(PLUS);
+            	}
+            	break;
             case '*': addToken(match('=') ? STAR_ASSIGN : STAR); break;
             case '!': addToken(match('=') ? BANG_EQUAL : BANG); break;
             case '=': addToken(match('=') ? EQUAL_EQUAL : EQUAL); break;
