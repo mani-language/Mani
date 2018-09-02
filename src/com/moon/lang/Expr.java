@@ -30,7 +30,7 @@ abstract class Expr {
     final Token name;
     final Expr value;
   }
-
+  
   static class Binary extends Expr {
     Binary(Expr left, Token operator, Expr right) {
       this.left = left;
@@ -165,6 +165,7 @@ abstract class Expr {
     final Token operator;
     final Expr right;
   }
+  
   static class Variable extends Expr {
     Variable(Token name) {
       this.name = name;
