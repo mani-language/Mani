@@ -1,9 +1,7 @@
 //Parser for moonLang - A straight recursive descent paser.
 package com.moon.lang;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import static com.moon.lang.TokenType.*;
 
@@ -28,18 +26,52 @@ class Parser {
     }
     
     private Expr assignment() {
+
         Expr expr = or();
-        if(match(EQUAL) || match(VAR_ARROW)) {
-            Token equals = previous();
+
+        if(match(EQUAL) || match(VAR_ARROW) || match(MINUS_ASSIGN) || match(PLUS_ASSIGN) || match(STAR_ASSIGN) || match(SLASH_ASSIGN)) {
+            Token op = previous();
+            TokenType op_type = op.type;
+
+            final boolean is_assign_op = op_type == MINUS_ASSIGN
+                    || op_type == PLUS_ASSIGN
+                    || op_type == STAR_ASSIGN
+                    || op_type == SLASH_ASSIGN;
+
+            TokenType bin_op_type = null;
+            switch (op_type) {
+                case PLUS_ASSIGN:  bin_op_type = PLUS; break;
+                case MINUS_ASSIGN: bin_op_type = MINUS; break;
+                case STAR_ASSIGN: bin_op_type = STAR; break;
+                case SLASH_ASSIGN: bin_op_type = SLASH; break;
+            }
+
             Expr value = assignment();
             if(expr instanceof Expr.Variable) {
                 Token name = ((Expr.Variable)expr).name;
+
+                if (is_assign_op) {
+                    Token bin_op = new Token(bin_op_type, op.lexeme, op.literal, op.line);
+
+                    Expr.Variable lhs_var = new Expr.Variable(name);
+                    Expr.Binary bin_expr = new Expr.Binary(lhs_var, bin_op, value);
+                    return new Expr.Assign(name, bin_expr);
+                }
+
                 return new Expr.Assign(name, value);
             } else if (expr instanceof Expr.Get) {
                 Expr.Get get = (Expr.Get) expr;
+
+                if (is_assign_op) {
+                    Token bin_op = new Token(bin_op_type, op.lexeme, op.literal, op.line);
+
+                    Expr.Binary bin_expr = new Expr.Binary(get, bin_op, value);
+                    return new Expr.Set(get.object, get.name, bin_expr);
+                }
+
                 return new Expr.Set(get.object, get.name, value);
             }
-            error(equals, "Invalid assignment target");
+            error(op, "Invalid assignment target");
         }
 
         return expr;
