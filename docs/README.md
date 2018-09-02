@@ -213,6 +213,8 @@ a = true; // assign a to true
 ~~~~ moon
 let i = 1;
 
+say i++;                // 2
+say i--;                // 0
 say i += 1;             // 2
 say i -= 1;             // 0
 say 1 + 2;              // 3
