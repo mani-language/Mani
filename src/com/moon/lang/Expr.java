@@ -1,7 +1,5 @@
 package com.moon.lang;
 
-import static com.moon.lang.TokenType.PLUS;
-
 import java.util.List;
 
 abstract class Expr {
