@@ -13,8 +13,6 @@
 
 [![CircleCI](https://circleci.com/gh/crazywolf132/MoonLang.svg?style=svg)](https://circleci.com/gh/crazywolf132/MoonLang)
 
-[![CircleCI](https://circleci.com/gh/crazywolf132/MoonLang.svg?style=svg)](https://circleci.com/gh/crazywolf132/MoonLang)
-
 ## What is it?
 Moon lang is an interpreted language that is simple to learn, and easy to use.
 
