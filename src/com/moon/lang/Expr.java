@@ -165,19 +165,6 @@ abstract class Expr {
     final Token operator;
     final Expr right;
   }
-  
-  static class PostIncrementExpression extends Binary {
-	  PostIncrementExpression(Expr expr, Token operator) {
-		  super(expr, operator, new Expr.Literal(new Double(1)));
-	  }
-  }
-  
-  static class PostDecrementExpression extends Binary {
-	  PostDecrementExpression(Expr expr, Token operator) {
-		  super(expr, operator, new Expr.Literal(new Double(1)));
-	  }
-  }
-  
   static class Variable extends Expr {
     Variable(Token name) {
       this.name = name;

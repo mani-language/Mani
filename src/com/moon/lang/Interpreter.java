@@ -250,9 +250,6 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
             case MINUS:
                 checkNumberOperands(expr.operator, left, right);
                 return (double) left  - (double) right;
-            case MINUS_MINUS:
-            	checkNumberOperands(expr.operator, left, right);
-            	return (double) left - (double) right;
             case SLASH:
                 checkNumberOperands(expr.operator, left, right);
                 return (double) left / (double) right;
@@ -283,9 +280,6 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
                     return (String) left + (String) right;
                 }
                 throw new RuntimeError(expr.operator, "Operands must be numbers or strings");
-            case PLUS_PLUS:
-            	checkNumberOperands(expr.operator, left, right);
-            	return (double)left + (double)right;
             case GREATER:
                 checkNumberOperands(expr.operator, left, right);
                 return (double) left > (double) right;
