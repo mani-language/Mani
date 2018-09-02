@@ -1,5 +1,8 @@
 package com.moon.lang;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -7,6 +10,8 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.List;
+import javax.swing.*;
 
 class Inbuilt {
     public static Map<String, MoonCallable> inBuilts  = new HashMap<>();
@@ -165,6 +170,19 @@ class Inbuilt {
         }
     });
 
+    inBuilts.put("trim", new MoonCallable() {
+        @Override
+        public int arity() {
+            return 1;
+        }
+
+        @Override
+        public Object call(Interpreter interpreter, List<Object> arguments) {
+            String str = arguments.get(0).toString();
+            return str.trim();
+        }
+    });
+
     inBuilts.put("pow", new MoonCallable() {
         @Override
         public int arity() {
@@ -200,19 +218,9 @@ class Inbuilt {
     	}
     });
 
-    inBuilts.put("dict", new MoonCallable() {
-        @Override
-        public int arity() {
-            return 0;
-        }
-
-        @Override
-        public Object call(Interpreter interpreter, List<Object> arguments) {
-            List<String> db = new ArrayList<>();
-            db.add("Wowza");
-            return db;
-        }
-    });
+    /*
+    Everything todo with the lists STD:
+     */
 
     inBuilts.put("list", new MoonCallable() {
         @Override
@@ -335,6 +343,10 @@ class Inbuilt {
         }
     });
 
+    /*
+    Everything todo with the maps STD:
+     */
+
     inBuilts.put("map", new MoonCallable() {
         @Override
         public int arity() {
@@ -391,19 +403,6 @@ class Inbuilt {
                 return db.get(arguments.get(1));
             }
             return null;
-        }
-    });
-
-    inBuilts.put("trim", new MoonCallable() {
-        @Override
-        public int arity() {
-            return 1;
-        }
-
-        @Override
-        public Object call(Interpreter interpreter, List<Object> arguments) {
-            String str = arguments.get(0).toString();
-            return str.trim();
         }
     });
 
@@ -491,6 +490,148 @@ class Inbuilt {
         @Override
         public Object call(Interpreter interpreter, List<Object> arguments) {
             return arguments.get(0).getClass().getSimpleName();
+        }
+    });
+
+    /*
+    Everything todo with the screens STD:
+     */
+
+    inBuilts.put("Frame", new MoonCallable() {
+        @Override
+        public int arity() {
+            return 3;
+        }
+
+        @Override
+        public Object call(Interpreter interpreter, List<Object> arguments) {
+            //creating instance of JFrame
+            JFrame f = (arguments.get(2) != null) ? new JFrame(arguments.get(2).toString()): new JFrame();
+            f.setSize(new Double((Double) arguments.get(0)).intValue(),new Double((Double) arguments.get(1)).intValue());
+            f.setLayout(null);
+            return f;
+        }
+    });
+
+    inBuilts.put("FVis", new MoonCallable() {
+        @Override
+        public int arity() {
+            return 2;
+        }
+
+        @Override
+        public Object call(Interpreter interpreter, List<Object> arguments) {
+            if (arguments.get(1) instanceof Boolean) {
+                JFrame f = (JFrame) arguments.get(0);
+                f.setVisible((Boolean) arguments.get(1));
+                return null;
+            }
+            return "FVis : requires boolean";
+        }
+    });
+
+    inBuilts.put("addButton", new MoonCallable() {
+        @Override
+        public int arity() {
+            return 6;
+        }
+
+        @Override
+        public Object call(Interpreter interpreter, List<Object> arguments) {
+            if (arguments.get(0) instanceof JPanel) {
+                JButton b = new JButton(arguments.get(5).toString());
+                int x = Std.DoubleToInt((double) arguments.get(1));
+                int y = Std.DoubleToInt((double) arguments.get(2));
+                int width = Std.DoubleToInt((double) arguments.get(3));
+                int height = Std.DoubleToInt((double) arguments.get(4));
+                b.setBounds(x, y, width, height);
+
+                JPanel p = (JPanel) arguments.get(0);
+                p.add(b);
+                return b;
+            }
+            return "addButton : requires - frame, x, y, width, height, title";
+        }
+    });
+
+    inBuilts.put("makePanel", new MoonCallable() {
+        @Override
+        public int arity() {
+            return 0;
+        }
+
+        @Override
+        public Object call(Interpreter interpreter, List<Object> arguments) {
+            return new JPanel(new BorderLayout());
+        }
+    });
+
+    inBuilts.put("frameAdd", new MoonCallable() {
+        @Override
+        public int arity() {
+            return 2;
+        }
+
+        @Override
+        public Object call(Interpreter interpreter, List<Object> arguments) {
+            if (arguments.get(0) instanceof JFrame && arguments.get(1) instanceof JPanel) {
+                JFrame f = (JFrame) arguments.get(0);
+                JPanel p = (JPanel) arguments.get(1);
+                f.add(p);
+                return null;
+            }
+            return "frameAdd : Must be a frame and a panel";
+        }
+    });
+
+    inBuilts.put("panelAdd", new MoonCallable() {
+        @Override
+        public int arity() {
+            return 3;
+        }
+
+        @Override
+        public Object call(Interpreter interpreter, List<Object> arguments) {
+            JPanel p = (JPanel) arguments.get(0);
+
+            Boolean isPos = (arguments.get(2).toString() == null) ? false : true;
+            String pos = "";
+            switch(arguments.get(2).toString().toLowerCase()) {
+                case "west":
+                    pos = BorderLayout.WEST;
+                    break;
+                case "east":
+                    pos = BorderLayout.EAST;
+                    break;
+                case "north":
+                    pos = BorderLayout.NORTH;
+                    break;
+                case "south":
+                    pos = BorderLayout.SOUTH;
+                    break;
+            }
+
+            String res = arguments.get(1).getClass().getSimpleName();
+            switch(res) {
+                case "JButton":
+                    JButton b = (JButton) arguments.get(1);
+                    if (isPos) {
+                        p.add(b, pos);
+                    } else {
+                        p.add(b);
+                    }
+                    p.add(b);
+                    break;
+                case "JPanel":
+                    JPanel pan = (JPanel) arguments.get(1);
+                    if (isPos) {
+                        p.add(pan, pos);
+                    } else {
+                        p.add(pan);
+                    }
+            }
+
+            return null;
         }
     });
  }

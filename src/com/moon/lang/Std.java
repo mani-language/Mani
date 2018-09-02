@@ -43,6 +43,10 @@ public class Std {
         return "-2";
     }
 
+    public static int DoubleToInt(double item) {
+        return new Double(item).intValue();
+    }
+
     public static String loadFile(Interpreter interpreter, String f) {
         try {
             byte[] bytes = Files.readAllBytes(Paths.get(f));

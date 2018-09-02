@@ -11,6 +11,7 @@
 * No external dependencies
 * Straight recursive descent paser
 
+[![CircleCI](https://circleci.com/gh/crazywolf132/MoonLang.svg?style=svg)](https://circleci.com/gh/crazywolf132/MoonLang)
 
 [![CircleCI](https://circleci.com/gh/crazywolf132/MoonLang.svg?style=svg)](https://circleci.com/gh/crazywolf132/MoonLang)
 
