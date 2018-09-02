@@ -9,8 +9,7 @@ import java.nio.file.Paths;
 import java.util.*;
 
 class Inbuilt {
-    public static Map<String, MoonCallable> inBuilts  = new HashMap<>();
-
+    public static Map<String, MoonCallable> inBuilts  = new HashMap<String, MoonCallable>();
     static{
 
     inBuilts.put("str", new MoonCallable() {
@@ -225,10 +224,10 @@ class Inbuilt {
         public Object call(Interpreter interpreter, List<Object> arguments) {
             switch((String) arguments.get(0)) {
                 case "String":
-                    List<String> db = new ArrayList<>();
+                    List<String> db = new ArrayList<String>();
                     return db;
                 case "Object":
-                    List<Object> odb = new ArrayList<>();
+                    List<Object> odb = new ArrayList<Object>();
                     return odb;
             }
             return null;
