@@ -1,6 +1,6 @@
 
 <p align="center">
-<img src="docs/assets/images/logo_outlined.png" height="200px" alt="Moon Lang" title="Moon Lang">
+<img src="docs/assets/images/logo_outlined.png" height="200px" alt="Máni" title="Máni">
 </p>
 
 <b>Version</b> <small>1.0.0</small>
@@ -14,7 +14,7 @@
 [![CircleCI](https://circleci.com/gh/crazywolf132/MoonLang.svg?style=svg)](https://circleci.com/gh/crazywolf132/MoonLang)
 
 ## What is it?
-Moon lang is an interpreted language that is simple to learn, and easy to use.
+Máni is an interpreted language that is simple to learn, and easy to use.
 
 The idea behind it is, take some of the good parts of other languages like nodejs, python etc.
 Implement them into this, and try and build an "Alpha" language... if that is even a such thing.
