@@ -27,7 +27,7 @@ import("files"); // Loads the files library
 ~~~
 ## Loading
 ~~~ moon
-load("somefile.moon"); // Loads the local file called "somefile.moon" if it exists.
+load("somefile.mn"); // Loads the local file called "somefile.mn" if it exists.
 ~~~
 
 > Whats the difference? <br>
