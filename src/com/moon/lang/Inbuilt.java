@@ -14,6 +14,13 @@ import java.util.List;
 import javax.swing.*;
 
 class Inbuilt {
+
+    /**
+     * This file creates a list called "inBuilts" that contains functions / API's that can be used by the stdlib
+     * This is loaded before anything else.
+     */
+
+
     public static Map<String, MoonCallable> inBuilts  = new HashMap<>();
     static{
 

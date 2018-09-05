@@ -196,7 +196,7 @@ class Parser {
         consume(SEMICOLON, "Expect ';' after return.");
         return new Stmt.Return(keyword, value);
     }
-   private Stmt breakStatement() {
+    private Stmt breakStatement() {
    	Token keyword = previous();
         consume(SEMICOLON, "Expect ';' after break.");
         return new Stmt.Break(keyword);

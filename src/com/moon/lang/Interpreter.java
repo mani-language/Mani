@@ -12,6 +12,10 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
     private Environment environment = globals;
     
     Interpreter() {
+        /*
+         * Loading the inBuilts hashMap, which is the built in functions / apis for the language.
+         * We are just defining them in the enviroment
+         */
         if(! Inbuilt.inBuilts.isEmpty()) {
             for(String key : Inbuilt.inBuilts.keySet()) {
                 globals.define(key, Inbuilt.inBuilts.get(key));
@@ -19,6 +23,10 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
         }
     }
 
+    /**
+     * This function is used to go through every single statement and execute it, one by one.
+     * @param statements
+     */
     void interpret(List<Stmt> statements) {
         try{
             for(Stmt statement : statements) {
@@ -29,6 +37,11 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
         }
     }
 
+    /**
+     * This function converts whatever it is given, to a string to be used.
+     * @param object
+     * @return
+     */
     private String stringfy(Object object) {
         if(object == null) return "nil";
         if(object instanceof Double) {

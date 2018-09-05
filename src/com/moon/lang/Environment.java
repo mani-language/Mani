@@ -15,6 +15,12 @@ class Environment {
         this.enclosing = enclosing;
     }
 
+    /**
+     * Adding the variables to the enviroment. Both what the user defines, but also what the API's define.
+     * @param name
+     * @param value
+     */
+
     void define(String name, Object value) {
         values.put(name, value);
     }
@@ -35,6 +41,14 @@ class Environment {
        return environment;
     }
 
+    /**
+     * Takes the variable that the user (the code) is looking for. It checks to see if it is defined in the enviroment
+     * before returning it to whatever called this function. If it doesnt exist, then it will let the user know.
+     *
+     * @param name
+     * @return
+     */
+
     Object get(Token name) {
         if(values.containsKey(name.lexeme)) {
             return values.get(name.lexeme);
@@ -42,6 +56,12 @@ class Environment {
         if(enclosing != null) return enclosing.get(name);
         throw new RuntimeError(name, "Undefined variable '" + name.lexeme +"'.");
     }
+
+    /**
+     * This function is used to re-assign the values of already created variables in the enviroment.
+     * @param name
+     * @param value
+     */
 
     void assign(Token name, Object value) {
         if(values.containsKey(name.lexeme)) {
