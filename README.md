@@ -280,6 +280,16 @@ if(a == 42) {
     say "failed";
 }
 
+// if-else if-else
+
+if(a == 42) {
+    say "solved";
+} else if (a == 24) {
+    say "oh... its actually 24";
+} else {
+    say "failed";
+}
+
 ~~~~
 
 ## Loops
