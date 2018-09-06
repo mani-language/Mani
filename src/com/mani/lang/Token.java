@@ -1,4 +1,4 @@
-package com.moon.lang;
+package com.mani.lang;
 
 class Token {
     final TokenType type;

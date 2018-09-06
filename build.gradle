@@ -1,16 +1,16 @@
 println """
 *******************************************
- You are building Moon Lang! 
+ You are building Mani! 
  Output files will be in /build/libs
 *******************************************
 """
-group 'MoonLang'
+group 'Mani'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
 apply plugin: 'application'
 
-mainClassName = 'Moon'
+mainClassName = 'Mani'
 
 sourceSets.main.java.srcDirs = ['src']
 
@@ -21,12 +21,12 @@ version 'Stable'
 
 task start(type: JavaExec) {
     classpath sourceSets.main.runtimeClasspath
-    main = "com.moon.lang.Moon"
+    main = "com.mani.lang.Mani"
 }
 
 jar {
     manifest {
-        attributes 'Main-Class': 'com.moon.lang.Moon'
+        attributes 'Main-Class': 'com.mani.lang.Mani'
     }
 }
 

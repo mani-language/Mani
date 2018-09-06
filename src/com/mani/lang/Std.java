@@ -1,4 +1,4 @@
-package com.moon.lang;
+package com.mani.lang;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,13 +17,13 @@ public class Std {
     public static List<String> loaded = new ArrayList<>();
 
     public static void Load() {
-        File folder = new File(System.getProperty( "user.home" ) + "/moonLang");
+        File folder = new File(System.getProperty( "user.home" ) + "/mani");
         File[] listOfFiles = folder.listFiles();
 
         for (File file : listOfFiles) {
             if (file.isFile()) {
                 String name =  file.getName();
-                std.put(name.substring(0, name.lastIndexOf(".")), System.getProperty("user.home") + "/moonLang/" + name);
+                std.put(name.substring(0, name.lastIndexOf(".")), System.getProperty("user.home") + "/mani/" + name);
             }
         }
 

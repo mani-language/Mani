@@ -1,4 +1,4 @@
-package com.moon.lang;
+package com.mani.lang;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,7 +12,7 @@ import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import java.util.List;
 
-public class Moon {
+public class Mani {
     public static boolean hadError = false;
     public static boolean hadRuntimeError = false;
     public static boolean hasInternet = false;
@@ -23,7 +23,7 @@ public class Moon {
             hasInternet = checkInternet();
 
             if(args.length > 1) {
-                System.out.println("Usage moon [Script.moon]");
+                System.out.println("Usage moon [Script.mn]");
             } else if (args.length == 1) {
                 runFile(args[0]);
             } else {
@@ -47,7 +47,7 @@ public class Moon {
     }
 
     private static void runFile(String path) {
-        if(path.endsWith(".moon")) {
+        if(path.endsWith(".mn")) {
             try {
                 byte[] bytes = Files.readAllBytes(Paths.get(path));
                 run(new String(bytes, Charset.defaultCharset()));
@@ -58,12 +58,12 @@ public class Moon {
                 System.out.println(e.getMessage());
             }
         } else {
-            System.err.println("Moon scripts must end with '.moon'.");
+            System.err.println("Mani scripts must end with '.mn'.");
         }
     }
 
     private static void runPrompt() {
-        System.out.println("The \u001B[36mMoon\033[0m Programming Language");
+        System.out.println("The \u001B[36mMani\033[0m Programming Language");
         try{
             InputStreamReader input = new InputStreamReader(System.in);
             BufferedReader reader = new BufferedReader(input);

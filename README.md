@@ -21,12 +21,12 @@ Implement them into this, and try and build an "Alpha" language... if that is ev
 
 # Importing and Loading
 ## Importing
-~~~ moon
+~~~ mani
 import("lists"); // Loads the lists library
 import("files"); // Loads the files library
 ~~~
 ## Loading
-~~~ moon
+~~~ mani
 load("somefile.mn"); // Loads the local file called "somefile.mn" if it exists.
 ~~~
 
@@ -37,21 +37,21 @@ The difference is, Importing loads the standard libraries, whereas Loading loads
 # Standard Library
 ## Lists
 
-~~~ moon
+~~~ mani
 let l = List("String");   // Creates a String list
 let obj = List("Object"); // Creates an Object list
 ~~~
 
 ### Displaying the list
 
-~~~ moon
+~~~ mani
 say l;      // Will show: List instance
 l.show();   // Will show: []
 ~~~
 
 ### Adding items to the list
 
-~~~ moon
+~~~ mani
 l.add("some string");  // This will add "some string" to the String list
 
 say l; // Will now show [some string]
@@ -63,7 +63,7 @@ l.show(); // Will now show [some string, something else]
 
 ### Replacing a string
 
-~~~ moon
+~~~ mani
 // Usage is: list.replace(position, string);
 l.replace(1, "banana");
 
@@ -72,7 +72,7 @@ l.show(); // We will now see... [some string, banana]
 
 ### Deleting a position
 
-~~~ moon
+~~~ mani
 // Usage is: list.delete(position);
 l.delete(1);
 
@@ -80,7 +80,7 @@ l.show(); // Will now show [some string]
 ~~~
 
 ### Reset the list
-~~~ moon
+~~~ mani
 // Usage is: list.reset();
 l.reset();
 
@@ -88,7 +88,7 @@ l.show(); // Will now once again show []
 ~~~
 
 ### Triming items in list
-~~~ moon
+~~~ mani
 // Usage is: list.trimEach();
 
 // first we will add some strings to work with.
@@ -102,7 +102,7 @@ l.show(); // The list will now look like this: [whitespace, after]
 ~~~
 
 ### Direct Listing
-~~~ moon
+~~~ mani
 // THIS FEATURE IS ONLY IF YOU KNOW HOW TO USE THE LANGUAGE API
 
 // Usage list.direct(non_list_object);
@@ -124,13 +124,13 @@ norm.direct(d);
 
 
 ## Maps
-~~~ moon
+~~~ mani
 let smap = Map("String"); // Creates a String map
 let omap = Map("Object"); // Creates an Object map
 ~~~
 
 ### Adding items
-~~~ moon
+~~~ mani
 // Usage : mapItem.add(key, value);
 
 smap.add("firstname", "Brayden"); // This will add a key value pair to the String map
@@ -140,7 +140,7 @@ smap.add("firstname", "Brayden"); // This will add a key value pair to the Strin
 > The key must always be a string.
 
 ### Showing the map
-~~~ moon
+~~~ mani
 // Usage : mapItem.show();
 
 say smap; // This will only say: Map instance
@@ -148,7 +148,7 @@ smap.show(); // Will show you the contents of the map.
 ~~~
 
 ### Get map item
-~~~ moon
+~~~ mani
 // Usage : mapItem.get(key);
 
 smap.get("firstname");      // This will not display anything, as it returns the information instead.
@@ -160,27 +160,27 @@ let res = smap.get("firstname"); // This will assign the result "Brayden" to the
 > Once again, the key will always be a string
 
 ## Files
-~~~ moon
+~~~ mani
 // Usage File(filename);
 
 let f = File("file.txt"); // This will create a file instance.
 ~~~
 
 ### Loading the file
-~~~ moon
+~~~ mani
 f.load(); // Reads the file that we designated earlier.
 ~~~
 > This does not return the contents of the file or anything.
 
 ### Seeing file contents
-~~~ moon
+~~~ mani
 // After running f.load();
 
 say f.contents; // This will return exactly what was in the file.
 ~~~
 
 ### Splitting to list
-~~~ moon
+~~~ mani
 // Make sure file is loaded first.
 
 // Usage file.toList(listObj);
@@ -196,17 +196,17 @@ list.show(); // Will display an array with the file contents, split by each line
 
 # Basics
 ## Comments, Variables, Value Types and Assignment
-~~~~ moon
+~~~~ mani
 // This is a comment
 ~~~~
 
-~~~ moon
+~~~ mani
 let a;      // declare and assign nil to a
 let b = 50; // declare and assign 50 to b
 
 ~~~
 
-~~~~ moon
+~~~~ mani
 let a = nil;    // value nil
 let a = true;   // boolean true
 let a = false;  // boolean false
@@ -215,7 +215,7 @@ let a = 123.32; // number
 let a = "hello"; // string
 ~~~~
 
-~~~~ moon
+~~~~ mani
 a = 32;   // assign to 32
 a = true; // assign a to true
 ~~~~
@@ -224,7 +224,7 @@ a = true; // assign a to true
 
 ## Operators
 
-~~~~ moon
+~~~~ mani
 let i = 1;
 
 say i++;                // 2
@@ -244,14 +244,14 @@ say 5 * "hello";        // Runtime Error
 
 ## The print Statement
 
-~~~~ moon
+~~~~ mani
 say "hello"; // prints hello
 say 1+2+3;   //prints 6
 ~~~~
 
 ## Block Statement 
 
-~~~~ moon
+~~~~ mani
 let x = 0;
 {
     x = x + 1;
@@ -265,7 +265,7 @@ say y;         // Undefined variable;
 
 ## Conditonal statements
 
-~~~~ moon
+~~~~ mani
 // if
 
 if(a == 42) {
@@ -284,7 +284,7 @@ if(a == 42) {
 
 ## Loops
  
-~~~~ moon
+~~~~ mani
 // While Loop
 
 while(a < 42) {
@@ -302,7 +302,7 @@ for( let i = 0 ; i < 50 ; i = i + 1 ) {
 for(;;) say "infinite loop";
 ~~~~ 
 ## Break Keyword
-~~~~ moon
+~~~~ mani
 let x = 0;
 while(true) {
     say x;
@@ -314,7 +314,7 @@ while(true) {
 ~~~~
 ## Functions
 
-~~~~ moon
+~~~~ mani
 fn hello() {
     say "hello";
 }
@@ -328,7 +328,7 @@ fn greet(name) {
 
 ## Closures
 
-~~~~ moon
+~~~~ mani
 // A function that returns updated `count` on every call
 fn makeCounter() {
     let count = 0;
@@ -342,13 +342,13 @@ fn makeCounter() {
 
 ## Function calls
 
-~~~~ moon
+~~~~ mani
 hello();      // without argument(s)
 greet("Mir")  // with argument(s)
 ~~~~
 ## Inbuilt Functions
 
-~~~~ moon
+~~~~ mani
 let rand   = random(10);            // Takes a number, n, and returns a random number between 0 and n
 let name   = readString();          // reads a string from user
 let number = readInt();             // reads a number from user otherwise `nil`
@@ -358,7 +358,7 @@ let result = ask("Who are you?");   // Prints "Who are you?" to console, and wai
 
 ## Classes
 
-~~~~ moon
+~~~~ mani
 class Greeting {
     Greeting(name) { // The Constructor
         this.name = name; // Instance field
@@ -375,7 +375,7 @@ class Greeting {
 ~~~~
 ## Class Instance
 
-~~~~ moon
+~~~~ mani
 let greeting = Greeting("John");
 say greeeting.sayHello();     // prints Hello John
 say greeting.sayNight();      // prints Good Night John
@@ -385,7 +385,7 @@ say greeting.sayNight();      // prints Good Night John
 
 ## Inheritance
 
-~~~~ moon
+~~~~ mani
 class A {
     methodA1() {
         say "methodA1";

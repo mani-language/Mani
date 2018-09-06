@@ -1,4 +1,4 @@
-package com.moon.lang;
+package com.mani.lang;
 
 class Return extends RuntimeException {
     final Object value;

@@ -1,6 +1,4 @@
-package com.moon.lang;
-
-import com.sun.org.apache.xpath.internal.operations.Bool;
+package com.mani.lang;
 
 import java.awt.*;
 import java.io.File;
@@ -21,10 +19,10 @@ class Inbuilt {
      */
 
 
-    public static Map<String, MoonCallable> inBuilts  = new HashMap<>();
+    public static Map<String, ManiCallable> inBuilts  = new HashMap<>();
     static{
 
-    inBuilts.put("str", new MoonCallable() {
+    inBuilts.put("str", new ManiCallable() {
         @Override
         public int arity() {
             return 1;
@@ -36,7 +34,7 @@ class Inbuilt {
         }
     });
 
-    inBuilts.put("readInt", new MoonCallable(){
+    inBuilts.put("readInt", new ManiCallable(){
         @Override
         public int arity() {
             return 0;
@@ -55,7 +53,7 @@ class Inbuilt {
         
     }); 
 
-    inBuilts.put("readString", new MoonCallable(){
+    inBuilts.put("readString", new ManiCallable(){
         @Override
         public int arity() {
             return 0;
@@ -73,7 +71,7 @@ class Inbuilt {
         }
     });
     
-    inBuilts.put("date", new MoonCallable(){
+    inBuilts.put("date", new ManiCallable(){
         @Override
         public int arity() {
             return 0;
@@ -85,7 +83,7 @@ class Inbuilt {
         }
     });
     
-    inBuilts.put("random", new MoonCallable(){
+    inBuilts.put("random", new ManiCallable(){
         @Override
         public int arity() {
             return 1;
@@ -104,7 +102,7 @@ class Inbuilt {
         }
     });
 
-    inBuilts.put("randRange", new MoonCallable() {
+    inBuilts.put("randRange", new ManiCallable() {
         @Override
         public int arity() {
             return 2;
@@ -119,7 +117,7 @@ class Inbuilt {
         }
     });
 
-    inBuilts.put("ask", new MoonCallable() {
+    inBuilts.put("ask", new ManiCallable() {
         @Override
         public int arity() {
             return 1;
@@ -139,7 +137,7 @@ class Inbuilt {
         }
     });
 
-    inBuilts.put("getFile", new MoonCallable() {
+    inBuilts.put("getFile", new ManiCallable() {
         @Override
         public int arity() {
             return 1;
@@ -164,7 +162,7 @@ class Inbuilt {
         }
     });
 
-    inBuilts.put("split", new MoonCallable() {
+    inBuilts.put("split", new ManiCallable() {
         @Override
         public int arity() {
             return 2;
@@ -177,7 +175,7 @@ class Inbuilt {
         }
     });
 
-    inBuilts.put("trim", new MoonCallable() {
+    inBuilts.put("trim", new ManiCallable() {
         @Override
         public int arity() {
             return 1;
@@ -190,7 +188,7 @@ class Inbuilt {
         }
     });
 
-    inBuilts.put("pow", new MoonCallable() {
+    inBuilts.put("pow", new ManiCallable() {
         @Override
         public int arity() {
             return 2;
@@ -208,7 +206,7 @@ class Inbuilt {
         }
     });
     
-    inBuilts.put("sqrt", new MoonCallable(){
+    inBuilts.put("sqrt", new ManiCallable(){
     	@Override
     	public int arity() {
     		return 1;
@@ -229,7 +227,7 @@ class Inbuilt {
     Everything todo with the lists STD:
      */
 
-    inBuilts.put("list", new MoonCallable() {
+    inBuilts.put("list", new ManiCallable() {
         @Override
         public int arity() {
             return 1;
@@ -249,7 +247,7 @@ class Inbuilt {
         }
     });
 
-    inBuilts.put("listAdd", new MoonCallable() {
+    inBuilts.put("listAdd", new ManiCallable() {
         @Override
         public int arity() {
             return 2;
@@ -262,7 +260,7 @@ class Inbuilt {
                 db = (List<String>) arguments.get(0);
                 db.add(arguments.get(1).toString());
                 return db;
-            } else if (arguments.get(1) instanceof MoonInstance || arguments.get(1) instanceof Object) {
+            } else if (arguments.get(1) instanceof ManiInstance || arguments.get(1) instanceof Object) {
                 List<Object> db;
                 db = (List<Object>) arguments.get(0);
                 db.add(arguments.get(1));
@@ -277,7 +275,7 @@ class Inbuilt {
         }
     });
 
-    inBuilts.put("listReplace", new MoonCallable() {
+    inBuilts.put("listReplace", new ManiCallable() {
         @Override
         public int arity() {
             return 3;
@@ -292,7 +290,7 @@ class Inbuilt {
         }
     });
 
-    inBuilts.put("listDel", new MoonCallable() {
+    inBuilts.put("listDel", new ManiCallable() {
         @Override
         public int arity() {
             return 2;
@@ -307,7 +305,7 @@ class Inbuilt {
         }
     });
 
-    inBuilts.put("objSize", new MoonCallable() {
+    inBuilts.put("objSize", new ManiCallable() {
         @Override
         public int arity() {
             return 1;
@@ -328,7 +326,7 @@ class Inbuilt {
         }
     });
 
-    inBuilts.put("getItem", new MoonCallable() {
+    inBuilts.put("getItem", new ManiCallable() {
         @Override
         public int arity() {
             return 2;
@@ -354,7 +352,7 @@ class Inbuilt {
     Everything todo with the maps STD:
      */
 
-    inBuilts.put("map", new MoonCallable() {
+    inBuilts.put("map", new ManiCallable() {
         @Override
         public int arity() {
             return 1;
@@ -374,7 +372,7 @@ class Inbuilt {
         }
     });
 
-    inBuilts.put("mapAdd", new MoonCallable() {
+    inBuilts.put("mapAdd", new ManiCallable() {
         @Override
         public int arity() {
             return 3;
@@ -396,7 +394,7 @@ class Inbuilt {
         }
     });
 
-    inBuilts.put("mapFind", new MoonCallable() {
+    inBuilts.put("mapFind", new ManiCallable() {
         @Override
         public int arity() {
             return 2;
@@ -413,7 +411,7 @@ class Inbuilt {
         }
     });
 
-    inBuilts.put("load", new MoonCallable() {
+    inBuilts.put("load", new ManiCallable() {
         @Override
         public int arity() {
             return 1;
@@ -442,7 +440,7 @@ class Inbuilt {
         }
     });
 
-    inBuilts.put("import", new MoonCallable() {
+    inBuilts.put("import", new ManiCallable() {
         @Override
         public int arity() {
             return 1;
@@ -488,7 +486,7 @@ class Inbuilt {
         }
     });
 
-    inBuilts.put("check", new MoonCallable() {
+    inBuilts.put("check", new ManiCallable() {
         @Override
         public int arity() {
             return 1;
@@ -504,7 +502,7 @@ class Inbuilt {
     Everything todo with the screens STD:
      */
 
-    inBuilts.put("Frame", new MoonCallable() {
+    inBuilts.put("Frame", new ManiCallable() {
         @Override
         public int arity() {
             return 3;
@@ -520,7 +518,7 @@ class Inbuilt {
         }
     });
 
-    inBuilts.put("FVis", new MoonCallable() {
+    inBuilts.put("FVis", new ManiCallable() {
         @Override
         public int arity() {
             return 2;
@@ -537,7 +535,7 @@ class Inbuilt {
         }
     });
 
-    inBuilts.put("addButton", new MoonCallable() {
+    inBuilts.put("addButton", new ManiCallable() {
         @Override
         public int arity() {
             return 6;
@@ -561,7 +559,7 @@ class Inbuilt {
         }
     });
 
-    inBuilts.put("makePanel", new MoonCallable() {
+    inBuilts.put("makePanel", new ManiCallable() {
         @Override
         public int arity() {
             return 0;
@@ -573,7 +571,7 @@ class Inbuilt {
         }
     });
 
-    inBuilts.put("frameAdd", new MoonCallable() {
+    inBuilts.put("frameAdd", new ManiCallable() {
         @Override
         public int arity() {
             return 2;
@@ -591,7 +589,7 @@ class Inbuilt {
         }
     });
 
-    inBuilts.put("panelAdd", new MoonCallable() {
+    inBuilts.put("panelAdd", new ManiCallable() {
         @Override
         public int arity() {
             return 3;

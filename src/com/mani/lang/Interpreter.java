@@ -1,4 +1,4 @@
-package com.moon.lang;
+package com.mani.lang;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,7 +33,7 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
                 execute(statement);
             }
         } catch(RuntimeError error) {
-            Moon.runtimeError(error);
+            Mani.runtimeError(error);
         }
     }
 
@@ -104,7 +104,7 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
         Object superclass = null;
         if(stmt.superclass != null) {
            superclass =  evaluate(stmt.superclass);
-           if(!(superclass instanceof MoonClass)) {
+           if(!(superclass instanceof ManiClass)) {
                throw new RuntimeError(stmt.superclass.name, "Superclass must be a class.");
            }
         }
@@ -115,13 +115,13 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
             environment.define("super", superclass);
         }
 
-        Map<String, MoonFunction> methods = new HashMap<>();
+        Map<String, ManiFunction> methods = new HashMap<>();
         for(Stmt.Function method : stmt.methods) {
-            MoonFunction function = new MoonFunction(method, environment, ((String)method.name.lexeme).equals((String)stmt.name.lexeme));
+            ManiFunction function = new ManiFunction(method, environment, ((String)method.name.lexeme).equals((String)stmt.name.lexeme));
             methods.put(method.name.lexeme, function);
         }
 
-        MoonClass klass = new MoonClass(stmt.name.lexeme, (MoonClass) superclass, methods);
+        ManiClass klass = new ManiClass(stmt.name.lexeme, (ManiClass) superclass, methods);
         if(superclass != null) {
             environment = environment.enclosing;
         }
@@ -143,7 +143,7 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
 
     @Override
     public Void visitFunctionStmt(Stmt.Function stmt) {
-        MoonFunction function = new MoonFunction(stmt, environment, false);
+        ManiFunction function = new ManiFunction(stmt, environment, false);
         environment.define(stmt.name.lexeme, function);
         return null;
     }
@@ -320,10 +320,10 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
         for(Expr argument : expr.arguments) {
             arguments.add(evaluate(argument));
         }
-        if(! (callee instanceof MoonCallable)) {
+        if(! (callee instanceof ManiCallable)) {
             throw new RuntimeError(expr.paren, "Can only call functions and classes");
         }
-        MoonCallable function = (MoonCallable)callee;
+        ManiCallable function = (ManiCallable)callee;
         if(arguments.size() !=  function.arity()) {
             throw new RuntimeError(expr.paren, "Expected "+ function.arity() +" argument(s) but got "+ arguments.size() + ".");
         }
@@ -333,8 +333,8 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
     @Override
     public Object visitGetExpr(Expr.Get expr) {
         Object object = evaluate(expr.object);
-        if(object instanceof MoonInstance) {
-            return ((MoonInstance)object).get(expr.name);
+        if(object instanceof ManiInstance) {
+            return ((ManiInstance)object).get(expr.name);
         }
         throw new RuntimeError(expr.name, "Only instances have properties.");
     }
@@ -342,20 +342,20 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
     public Object visitSetExpr(Expr.Set expr) {
         Object object = evaluate(expr.object);
 
-        if(!(object instanceof MoonInstance)) {
+        if(!(object instanceof ManiInstance)) {
             throw new RuntimeError(expr.name, "Only instances have fields.");
         }
         Object value = evaluate(expr.value);
-        ((MoonInstance)object).set(expr.name, value);
+        ((ManiInstance)object).set(expr.name, value);
         return value;
     }
 
     @Override
     public Object visitSuperExpr(Expr.Super expr) {
         int distance = locals.get(expr);
-        MoonClass superclass = (MoonClass) environment.getAt(distance, "super");
-        MoonInstance object = (MoonInstance) environment.getAt(distance - 1, "this");
-        MoonFunction method = superclass.findMethod(object, expr.method.lexeme);
+        ManiClass superclass = (ManiClass) environment.getAt(distance, "super");
+        ManiInstance object = (ManiInstance) environment.getAt(distance - 1, "this");
+        ManiFunction method = superclass.findMethod(object, expr.method.lexeme);
         if(method == null) {
             throw new RuntimeError(expr.method, "Undefined property '" + expr.method.lexeme +"'.");
         }

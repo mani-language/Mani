@@ -1,4 +1,4 @@
-package com.moon.lang;
+package com.mani.lang;
 
 import java.util.HashMap;
 import java.util.List;
@@ -52,7 +52,7 @@ class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
         if(scopes.isEmpty()) return;
         Map<String, Boolean> scope = scopes.peek();
         if(scope.containsKey(name.lexeme)) {
-            Moon.error(name, "Variable already exists in this scope.");
+            Mani.error(name, "Variable already exists in this scope.");
         }
         scope.put(name.lexeme, false);
     }
@@ -144,11 +144,11 @@ class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
     @Override
     public Void visitReturnStmt(Stmt.Return stmt) {
         if(currentFunction == FunctionType.NONE) {
-            Moon.error(stmt.keyword, "Cannot return from top-level code.");
+            Mani.error(stmt.keyword, "Cannot return from top-level code.");
         }
         if(stmt.value != null) {
             if(currentFunction == FunctionType.INITIALIZER) {
-                Moon.error(stmt.keyword, "Cannot return value from an initializer.");
+                Mani.error(stmt.keyword, "Cannot return value from an initializer.");
             }
             resolve(stmt.value);
         }
@@ -176,7 +176,7 @@ class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
     @Override
     public Void visitVariableExpr(Expr.Variable expr) {
         if(!scopes.isEmpty() && scopes.peek().get(expr.name.lexeme) == Boolean.FALSE) {
-            Moon.error(expr.name, "Cannot read local variable in its own initializer.");
+            Mani.error(expr.name, "Cannot read local variable in its own initializer.");
         }
         resolveLocal(expr, expr.name);
         return null;
@@ -221,9 +221,9 @@ class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
     @Override
     public Void visitSuperExpr(Expr.Super expr) {
         if(currentClass == ClassType.NONE) {
-            Moon.error(expr.keyword, "Cannot use super outside of a class.");
+            Mani.error(expr.keyword, "Cannot use super outside of a class.");
         } else if (currentClass != ClassType.SUBCLASS) {
-            Moon.error(expr.keyword, "Cannot use super in a class with no superclass.");
+            Mani.error(expr.keyword, "Cannot use super in a class with no superclass.");
         }
         resolveLocal(expr, expr.keyword);
         return null;
@@ -255,7 +255,7 @@ class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
     @Override
     public  Void visitThisExpr(Expr.This expr) {
         if(currentClass == ClassType.NONE) {
-            Moon.error(expr.keyword, "Cannot use this outside of a class.");
+            Mani.error(expr.keyword, "Cannot use this outside of a class.");
             return null;
         }
         resolveLocal(expr, expr.keyword);
@@ -265,7 +265,7 @@ class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
     @Override
     public Void visitBreakStmt(Stmt.Break stmt) {
         if(!isInLoop) {
-            Moon.error(stmt.keyword, "Cannot use break outside of a loop.");
+            Mani.error(stmt.keyword, "Cannot use break outside of a loop.");
         }
         return null;
     }

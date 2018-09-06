@@ -1,11 +1,11 @@
-package com.moon.lang;
+package com.mani.lang;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.moon.lang.TokenType.*;
+import static com.mani.lang.TokenType.*;
 
 class Lexer {
      private static final Map<String, TokenType> keywords;
@@ -90,7 +90,7 @@ class Lexer {
                     identifier();
                 }
                 else {
-                    Moon.error(line, "Unexpected character");
+                    Mani.error(line, "Unexpected character");
                 }
                 break;
         }
@@ -117,7 +117,7 @@ class Lexer {
             advance();
         }
         if(isAtEnd()){
-            Moon.error(line, "Unterminated string");
+            Mani.error(line, "Unterminated string");
             return;
         }
         //The closing "

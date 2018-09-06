@@ -1,22 +1,22 @@
-package com.moon.lang;
+package com.mani.lang;
 
 import java.util.List;
 
-class MoonFunction implements MoonCallable {
+class ManiFunction implements ManiCallable {
     private final Stmt.Function declaration;
     private final Environment closure;
     private final Boolean isInitializer;
 
-    MoonFunction(Stmt.Function declaration, Environment closure, Boolean isInitializer) {
+    ManiFunction(Stmt.Function declaration, Environment closure, Boolean isInitializer) {
         this.declaration = declaration;
         this.closure = closure;
         this.isInitializer = isInitializer;
     }
 
-    MoonFunction bind(MoonInstance instance) {
+    ManiFunction bind(ManiInstance instance) {
         Environment environment = new Environment(closure);
         environment.define("this", instance);
-        return new MoonFunction(declaration, environment, isInitializer);
+        return new ManiFunction(declaration, environment, isInitializer);
     }
 
     @Override
@@ -44,6 +44,6 @@ class MoonFunction implements MoonCallable {
 
     @Override
     public String toString() {
-        return "<moonFn " + declaration.name.lexeme + ">" ;
+        return "<maniFn " + declaration.name.lexeme + ">" ;
     }
 }

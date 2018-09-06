@@ -1,14 +1,14 @@
-package com.moon.lang;
+package com.mani.lang;
 
 import java.util.HashMap;
 import java.util.Map;
 
-class MoonInstance {
+class ManiInstance {
 
-    private MoonClass klass;
+    private ManiClass klass;
     final private Map<String, Object> fields = new HashMap<>();
 
-    MoonInstance(MoonClass klass) {
+    ManiInstance(ManiClass klass) {
         this.klass = klass;
     } 
 
@@ -17,7 +17,7 @@ class MoonInstance {
             return fields.get(name.lexeme);
         }
 
-        MoonFunction method = klass.findMethod(this, name.lexeme);
+        ManiFunction method = klass.findMethod(this, name.lexeme);
         if(method != null) return method;
         throw new RuntimeError(name, "Undefined Property '" + name.lexeme +"'.");
     }
