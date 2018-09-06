@@ -1,0 +1,45 @@
+assign_op:
+    '='
+    | '+='
+    | '-='
+    | '*='
+    | '/='
+    | '<<';
+
+unary_op:
+    '&'
+    | '+'
+    | '-'
+    | '\'
+    | '*'
+    | '!'
+    | 'or'
+    | 'and';
+
+classes: 'cl' NAME '>>' '{' functions* | private_functions* | privateClasses* '}'
+privateClasses: PRIVATE 'cl' NAME '>>' '{' functions* | private_functions* '}'
+
+functions: 'fn' NAME '(' fun_params ')' '>>' block;
+private_functions: PRIVATE 'fn' NAME '(' fun_params ')' '>>' block; 
+
+block : '{' statement* '}' ;
+statement : block
+           | variableDeclaration
+           | reassignVariable
+           | printStatement 
+           | errorStatement;
+
+printStatement: PRINT ID;
+variableDeclaration: VARIABLE ID EQUALS value;
+privateVariable: PRIVATE VARIABLE ID EQUALS value;
+reassignVariable: value '>>' ID;
+errorStatement: SCREAM ID;
+
+VARIABLE: 'let' | 'set' | 'var';
+PRIVATE: 'hush | internal'
+PRINT: 'say';
+SCREAM: 'scream';
+EQUALS: '=';
+NUMBER: [0-9]+;
+STRING: '"'.*'"';
+ID: [a-zA-Z0-9]+ ;
