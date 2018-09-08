@@ -28,6 +28,8 @@ statement : block
            | reassignVariable
            | printStatement 
            | errorStatement;
+           
+foorLoop : 'for' '(' VARIABLE EQUALS value ';' condition ';' VARIABLE EQUALS value ')' block;
 
 printStatement: PRINT ID;
 variableDeclaration: VARIABLE ID EQUALS value;
