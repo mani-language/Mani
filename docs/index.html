@@ -24,7 +24,7 @@
   <script src="//unpkg.com/prismjs/components/prism-bash.min.js"></script>
   <script src="//unpkg.com/prismjs/components/prism-java.min.js"></script>
   <script type="application/javascript">
-    Prism.languages.moon = Prism.languages.extend('clike', {
+    Prism.languages.mani = Prism.languages.extend('clike', {
       'keyword': /\b(?:for|if|private|this|else|return|class|super|while|let|say|fn|true|false|nil)\b/,
       'number': /\b0b[01]+\b|\b0x[\da-f]*\.?[\da-fp-]+\b|(?:\b\d+\.?\d*|\B\.\d+)(?:e[+-]?\d+)?[df]?/i,
       'operator': {
@@ -33,7 +33,7 @@
       }
     });
 
-    Prism.languages.insertBefore('moon', 'function', {
+    Prism.languages.insertBefore('mani', 'function', {
       'annotation': {
         alias: 'punctuation',
         pattern: /(^|[^.])@\w+/,
@@ -41,12 +41,12 @@
       }
     });
 
-    Prism.languages.insertBefore('moon', 'class-name', {
+    Prism.languages.insertBefore('mani', 'class-name', {
       'generics': {
         pattern: /<\s*\w+(?:\.\w+)?(?:\s*,\s*\w+(?:\.\w+)?)*>/i,
         alias: 'function',
         inside: {
-          keyword: Prism.languages.zeta.keyword,
+          keyword: Prism.languages.mani.keyword,
           punctuation: /[<>(),.:]/
         }
       }
