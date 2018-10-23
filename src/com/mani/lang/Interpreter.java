@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
+public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
     
     final Environment globals = new Environment();
     private final Map<Expr, Integer> locals = new HashMap<>();
@@ -21,6 +21,10 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
                 globals.define(key, Inbuilt.inBuilts.get(key));
             }
         }
+    }
+
+    public void addSTD(String key, ManiCallable mani) {
+        globals.define(key, mani);
     }
 
     /**

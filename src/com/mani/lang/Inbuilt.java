@@ -11,7 +11,9 @@ import java.util.*;
 import java.util.List;
 import javax.swing.*;
 
-class Inbuilt {
+import com.mani.lang.Modules.Module;
+
+public class Inbuilt {
 
     /**
      * This file creates a list called "inBuilts" that contains functions / API's that can be used by the stdlib
@@ -20,7 +22,48 @@ class Inbuilt {
 
 
     public static Map<String, ManiCallable> inBuilts  = new HashMap<>();
+    
+    public static void addFunction(String key, ManiCallable mani) {
+        System.err.println("Adding: " + key + ", " + mani);
+        inBuilts.put(key, mani);
+    }
     static{
+        inBuilts.put("find", new ManiCallable() {
+
+            @Override
+            public int arity() {
+                return 1;
+            }
+
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                return inBuilts.get(arguments.get(0).toString());
+            }
+
+        });
+
+    inBuilts.put("use", new ManiCallable() {
+        @Override
+        public int arity() {
+            return 1;
+        }
+
+        @Override
+        public Object call(Interpreter interpreter, List<Object> arguments) {
+            if (arguments.size() != 1) {
+                System.out.println("Please provide 1 argument with what library to use.");
+                return "Please provide 1 argument with what library to use.";
+            }
+            try {
+                final String moduleName = arguments.get(0).toString();
+                final Module module = (Module) Class.forName("com.mani.lang.Modules." + moduleName + "." + moduleName).newInstance();
+                module.init(interpreter);
+                return null;
+            } catch (Exception e) {
+                return "Couldnt load for some reason!";
+            }
+        }
+    });
 
     inBuilts.put("str", new ManiCallable() {
         @Override

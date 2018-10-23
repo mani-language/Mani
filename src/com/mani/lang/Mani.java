@@ -23,7 +23,7 @@ public class Mani {
             hasInternet = checkInternet();
 
             if(args.length > 1) {
-                System.out.println("Usage moon [Script.mn]");
+                System.out.println("Usage mani [Script.mn]");
             } else if (args.length == 1) {
                 runFile(args[0]);
             } else {
