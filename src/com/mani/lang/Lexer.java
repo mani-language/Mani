@@ -20,7 +20,6 @@ class Lexer {
         keywords.put("if", IF);
         keywords.put("nil", NIL);
         keywords.put("say", PRINT);
-        keywords.put("fag", FAG);
         keywords.put("or", OR);
         keywords.put("return", RETURN);
         keywords.put("super", SUPER);

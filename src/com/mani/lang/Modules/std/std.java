@@ -17,6 +17,8 @@ public final class std implements Module{
         interpreter.addSTD("sleep", new std_sleep());
         interpreter.addSTD("sort", new std_sort());
         interpreter.addSTD("trim", new std_trim());
+        interpreter.addSTD("length", new std_length());
+        interpreter.addSTD("toChar", new std_toChar());
         interpreter.addSTD("find", new ManiCallable(){
         
             @Override
