@@ -27,6 +27,11 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
         globals.define(key, mani);
     }
 
+    public ManiFunction getFunction(String key) {
+        System.out.println("before...");
+        return (ManiFunction) globals.get(key);
+    }
+
     /**
      * This function is used to go through every single statement and execute it, one by one.
      * @param statements
@@ -222,7 +227,6 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
             case BANG:
                 return !isTruthy(right);
             case MINUS:
-                System.err.println("REMOVING!!!");
                 checkNumberOperand(expr.operator, right);
                 return -(double) right;
         }
@@ -328,7 +332,7 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
             throw new RuntimeError(expr.paren, "Can only call functions and classes");
         }
         ManiCallable function = (ManiCallable)callee;
-        if(arguments.size() !=  function.arity()) {
+        if(function.arity() != -1 && arguments.size() != function.arity()) {
             throw new RuntimeError(expr.paren, "Expected "+ function.arity() +" argument(s) but got "+ arguments.size() + ".");
         }
         return function.call(this, arguments);

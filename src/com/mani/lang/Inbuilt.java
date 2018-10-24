@@ -21,7 +21,7 @@ public class Inbuilt {
      */
 
 
-    public static Map<String, ManiCallable> inBuilts  = new HashMap<>();
+    public static Map<String, ManiCallable> inBuilts = new HashMap<>();
     
     static{
         inBuilts.put("find", new ManiCallable() {
@@ -265,54 +265,6 @@ public class Inbuilt {
         /*
         Everything todo with the lists STD:
         */
-
-        inBuilts.put("list", new ManiCallable() {
-            @Override
-            public int arity() {
-                return 1;
-            }
-
-            @Override
-            public Object call(Interpreter interpreter, List<Object> arguments) {
-                switch((String) arguments.get(0)) {
-                    case "String":
-                        List<String> db = new ArrayList<String>();
-                        return db;
-                    case "Object":
-                        List<Object> odb = new ArrayList<Object>();
-                        return odb;
-                }
-                return null;
-            }
-        });
-
-        inBuilts.put("listAdd", new ManiCallable() {
-            @Override
-            public int arity() {
-                return 2;
-            }
-
-            @Override
-            public Object call(Interpreter interpreter, List<Object> arguments) {
-                if (arguments.get(1) instanceof String) {
-                    List<String> db;
-                    db = (List<String>) arguments.get(0);
-                    db.add(arguments.get(1).toString());
-                    return db;
-                } else if (arguments.get(1) instanceof ManiInstance || arguments.get(1) instanceof Object) {
-                    List<Object> db;
-                    db = (List<Object>) arguments.get(0);
-                    db.add(arguments.get(1));
-                    return db;
-                } else if (arguments.get(1) instanceof Integer) {
-                    List<Integer> db;
-                    db = (List<Integer>) arguments.get(0);
-                    db.add(new Double((Double) arguments.get(1)).intValue());
-                }
-
-                return "nope";
-            }
-        });
 
         inBuilts.put("listReplace", new ManiCallable() {
             @Override

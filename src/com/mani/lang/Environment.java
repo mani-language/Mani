@@ -57,6 +57,14 @@ class Environment {
         throw new RuntimeError(name, "Undefined variable '" + name.lexeme +"'.");
     }
 
+    Object get(String name) {
+        if (values.containsKey(name)) {
+            return values.get(name);
+        }
+        if (enclosing != null) return enclosing.get(name);
+        throw new RuntimeError(null, "Undefined variable '" + name + "'.");
+    }
+
     /**
      * This function is used to re-assign the values of already created variables in the enviroment.
      * @param name

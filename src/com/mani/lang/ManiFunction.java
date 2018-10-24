@@ -2,7 +2,7 @@ package com.mani.lang;
 
 import java.util.List;
 
-class ManiFunction implements ManiCallable {
+public class ManiFunction implements ManiCallable {
     private final Stmt.Function declaration;
     private final Environment closure;
     private final Boolean isInitializer;
