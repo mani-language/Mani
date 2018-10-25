@@ -14,7 +14,7 @@ public final class std_length implements ManiCallable {
 
     @Override
 	public Object call(Interpreter interpreter, List<Object> arguments) {
-		return arguments.get(0).toString().length();
+		return new Double(arguments.get(0).toString().length());
 	}
 
 }

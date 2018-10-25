@@ -10,6 +10,34 @@ public final class types implements Module {
 
     @Override
     public void init(Interpreter interpreter) {
+        interpreter.addSTD("toAscii", new ManiCallable(){
+            @Override
+            public int arity() {
+                return 1;
+            }
+
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                char character = (char) arguments.get(0).toString().charAt(0);
+                int pos = character;
+                return new Double(pos);
+            }
+        });
+        interpreter.addSTD("toNumber", new ManiCallable(){
+            @Override
+            public int arity() {
+                return 1;
+            }
+            
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                try{
+                    return new Double(arguments.get(0).toString());
+                } catch(Exception e) {
+                    return "Could not convert to number";
+                }
+            }
+        });
         interpreter.addSTD("isDigit", new ManiCallable(){
             @Override
             public int arity() {
