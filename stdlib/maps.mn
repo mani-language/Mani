@@ -1,0 +1,55 @@
+use("maps");
+
+class Map {
+    Map() {
+        this.map = newMap();
+    }
+
+    add(key, val) {
+        mapAddItem(this.map, key, val);
+    }
+
+    get(key) {
+        return mapGetValue(this.map, key);
+    }
+
+    del(key) {
+        return mapRemoveItem(this.map, key);
+    }
+
+    update(key, val) {
+        return mapUpdateItem(this.map, key, val);
+    }
+
+    getKeys() {
+        return mapGetKeys(this.map);
+    }
+
+    copy(newMap) {
+        this.map = newMap;
+    }
+
+    size() {
+        return mapLength(this.map);
+    }
+
+    exists(key) {
+        return mapKeyExists(this.map, key);
+    }
+
+    combine(list1, list2) {
+        this.map = arraysToMap(list1.raw(), list2.raw());
+    }
+
+    raw() {
+        return this.map;
+    }
+
+    reset() {
+        this.map = map(this.type);
+    }
+
+    show() {
+        say this.map;
+    }
+}

@@ -47,6 +47,10 @@ public class Std {
         return new Double(item).intValue();
     }
 
+    public static Double intToDouble(int item) {
+        return new Double(item);
+    }
+
     public static String loadFile(Interpreter interpreter, String f) {
         try {
             byte[] bytes = Files.readAllBytes(Paths.get(f));

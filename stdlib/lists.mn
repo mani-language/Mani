@@ -1,7 +1,12 @@
+use("arrays");
+
 class List {
-    List(type) {
-        this.type = type;
-        this.list = list(type);
+    List() {
+        this.list = newArray();
+    }
+
+    raw() {
+        return this.list;
     }
 
     direct(object) {

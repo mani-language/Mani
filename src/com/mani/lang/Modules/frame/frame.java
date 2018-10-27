@@ -2,6 +2,7 @@ package com.mani.lang.Modules.frame;
 
 import com.mani.lang.Interpreter;
 import com.mani.lang.ManiCallable;
+import com.mani.lang.Std;
 import com.mani.lang.Modules.Module;
 
 import java.awt.Color;
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -35,6 +37,8 @@ public final class frame implements Module {
     public void init(Interpreter interpreter) {
         interpreter.addSTD("window", new CreateWindow());
         interpreter.addSTD("windowVis", new setVisibility());
+        interpreter.addSTD("windowButton", new windowButton());
+        interpreter.addSTD("buttonVis", new setButtonVis());
         interpreter.addSTD("keyPressed", new keyPressed());
     }
 
@@ -82,6 +86,22 @@ public final class frame implements Module {
 		}   
     }
 
+    private static class setButtonVis implements ManiCallable {
+
+        @Override
+        public int arity() {
+            return 2;
+        }
+
+        @Override
+        public Object call(Interpreter interpreter, List<Object> arguments) {
+            JButton btn = (JButton) arguments.get(0);
+            btn.setVisible((Boolean) arguments.get(1) ? false : true);
+            return (Boolean) arguments.get(1) ? false : true;
+        }
+
+    }
+
     private static class setVisibility implements ManiCallable {
 
         @Override
@@ -109,6 +129,31 @@ public final class frame implements Module {
         @Override
         public Object call(Interpreter interpreter, List<Object> arguments) {
             return lastKey;
+        }
+    }
+
+    private static class windowButton implements ManiCallable {
+
+        @Override
+        public int arity() {
+            return -1;
+        }
+
+        @Override
+        public Object call(Interpreter interpreter, List<Object> arguments) {
+            if (arguments.size() < 1) {
+                return "Please provide atleast a button name.";
+            }
+            JButton b = new JButton(arguments.get(0).toString());
+            if (arguments.size() == 5) {
+                int x = Std.DoubleToInt((double) arguments.get(1));
+                int y = Std.DoubleToInt((double) arguments.get(2));
+                int w = Std.DoubleToInt((double) arguments.get(3));
+                int h = Std.DoubleToInt((double) arguments.get(4));
+                b.setBounds(x, y, w, h);
+            }
+            panel.add(b);
+            return null;
         }
 
     }

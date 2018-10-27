@@ -296,49 +296,6 @@ public class Inbuilt {
             }
         });
 
-        inBuilts.put("objSize", new ManiCallable() {
-            @Override
-            public int arity() {
-                return 1;
-            }
-
-            @Override
-            public Object call(Interpreter interpreter, List<Object> arguments) {
-                if (arguments.get(0) instanceof ArrayList) {
-                    List<Object> db;
-                    db = (List<Object>) arguments.get(0);
-                    return new Double(db.size());
-                } else if (arguments.get(0) instanceof HashMap) {
-                    HashMap<Object, Object> db;
-                    db = (HashMap<Object, Object>) arguments.get(0);
-                    return new Double(db.size());
-                }
-                return "objSize : Expecting List or Map as first argument!";
-            }
-        });
-
-        inBuilts.put("getItem", new ManiCallable() {
-            @Override
-            public int arity() {
-                return 2;
-            }
-
-            @Override
-            public Object call(Interpreter interpreter, List<Object> arguments) {
-                if (arguments.get(0) instanceof ArrayList) {
-                    List<String> db;
-                    db = (List<String>) arguments.get(0);
-
-                    return db.get(new Double((Double) arguments.get(1)).intValue());
-                } else if(arguments.get(0) instanceof HashMap) {
-                    Map<String, String> db;
-                    db = (Map<String, String>) arguments.get(0);
-                    return db.get(arguments.get(1));
-                }
-                return "getItem : please make sure argument 1 is a list, and argument 2 is an int.";
-            }
-        });
-
         /*
         Everything todo with the maps STD:
         */
@@ -474,18 +431,6 @@ public class Inbuilt {
                 }
 
                 return "Expected argument 1 to be a String";
-            }
-        });
-
-        inBuilts.put("check", new ManiCallable() {
-            @Override
-            public int arity() {
-                return 1;
-            }
-
-            @Override
-            public Object call(Interpreter interpreter, List<Object> arguments) {
-                return arguments.get(0).getClass().getSimpleName();
             }
         });
 
