@@ -16,6 +16,7 @@ abstract class Expr {
     R visitSetExpr(Set expr);
     R visitUnaryExpr(Unary expr);
     R visitVariableExpr(Variable expr);
+    R visitCopyExpr(Copy expr);
   }
   static class Assign extends Expr {
     Assign(Token name, Expr value) {
@@ -29,6 +30,20 @@ abstract class Expr {
 
     final Token name;
     final Expr value;
+  }
+
+  static class Copy extends Expr {
+    Copy(Token name, Token from) {
+      this.name = name;
+      this.from = from;
+    }
+
+    <R> R accept(Visitor<R> visitor) {
+      return visitor.visitCopyExpr(this);
+    }
+
+    final Token name;
+    final Token from;
   }
   
   static class Binary extends Expr {

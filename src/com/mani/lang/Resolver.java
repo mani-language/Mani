@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
+import com.mani.lang.Expr.Copy;
+
 class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
     private final Interpreter interpreter;
     private final Stack<Map<String, Boolean>> scopes = new Stack<>();
@@ -276,6 +278,12 @@ class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
         resolve(stmt.condition);
         resolve(stmt.body);
         isInLoop = enclosignLoop;
+        return null;
+    }
+    
+    @Override
+    public Void visitCopyExpr(Expr.Copy expr) {
+        resolveLocal(expr, expr.name);
         return null;
     }
  }

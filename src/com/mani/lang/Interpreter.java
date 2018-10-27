@@ -28,7 +28,6 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
     }
 
     public ManiFunction getFunction(String key) {
-        System.out.println("before...");
         return (ManiFunction) globals.get(key);
     }
 
@@ -218,6 +217,17 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
             globals.assign(expr.name, value);
         }
         return value;
+    }
+
+    @Override
+    public Object visitCopyExpr(Expr.Copy expr) {
+       Integer distance = locals.get(expr);
+       if (distance != null) {
+           environment.assignAt(distance, expr.name, globals.get(expr.from));
+       } else {
+           globals.assign(expr.name, globals.get(expr.from));
+       }
+       return globals.get(expr.from);
     }
 
     @Override

@@ -27,6 +27,15 @@ class Parser {
 
         Expr expr = or();
 
+        if (match(TokenType.ASSIGN_ARROW)) {
+            Expr value = assignment();
+            if (expr instanceof Expr.Variable) {
+                Token name = ((Expr.Variable)expr).name;
+                Token now = previous();
+                return new Expr.Copy(now, name);
+            }
+        }
+
         if(match(TokenType.EQUAL) || match(TokenType.VAR_ARROW) || match(TokenType.MINUS_ASSIGN) || match(TokenType.PLUS_ASSIGN) || match(TokenType.STAR_ASSIGN) || match(TokenType.SLASH_ASSIGN)) {
             Token op = previous();
             TokenType op_type = op.type;
@@ -52,10 +61,10 @@ class Parser {
                     Token bin_op = new Token(bin_op_type, op.lexeme, op.literal, op.line);
 
                     Expr.Variable lhs_var = new Expr.Variable(name);
+                    System.err.println(lhs_var.name + " " + bin_op.type + " " + value);
                     Expr.Binary bin_expr = new Expr.Binary(lhs_var, bin_op, value);
                     return new Expr.Assign(name, bin_expr);
                 }
-
                 return new Expr.Assign(name, value);
             } else if (expr instanceof Expr.Get) {
                 Expr.Get get = (Expr.Get) expr;
