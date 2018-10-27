@@ -14,7 +14,6 @@ public final class maps implements Module {
         interpreter.addSTD("mapUpdateItem", new maps_mapUpdateItem());
         interpreter.addSTD("mapGetKeys", new maps_mapGetKeys());
         interpreter.addSTD("arraysToMap", new maps_arraysToMap());
-        interpreter.addSTD("mapLength", new maps_mapLength());
         interpreter.addSTD("mapKeyExists", new maps_mapKeyExists());
 	}
 
