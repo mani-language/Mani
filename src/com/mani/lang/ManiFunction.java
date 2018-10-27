@@ -14,6 +14,7 @@ public class ManiFunction implements ManiCallable {
     }
 
     ManiFunction bind(ManiInstance instance) {
+        System.err.println(instance);
         Environment environment = new Environment(closure);
         environment.define("this", instance);
         return new ManiFunction(declaration, environment, isInitializer);

@@ -12,6 +12,7 @@ class Lexer {
     static{
         keywords = new HashMap<>();
         keywords.put("and", AND);
+        keywords.put("internal", INTERNAL);
         keywords.put("class", CLASS);
         keywords.put("for", FOR);
         keywords.put("else", ELSE);
