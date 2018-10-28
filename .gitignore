@@ -9,6 +9,9 @@
 *.iml
 out/
 
+## VSCODE
+.vscode/
+
 # This prop file contains a sdk.dir meant to point to your local Android SDK
 local.properties
 
