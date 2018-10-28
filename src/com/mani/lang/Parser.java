@@ -385,6 +385,35 @@ class Parser {
         }
         if(match(TokenType.THIS)) return new Expr.This(previous());
         if(match(TokenType.IDENTIFIER)) return new Expr.Variable(previous());
+        //** Adding the ++a and the --a feature (does it by 2) */
+        if (match(TokenType.PLUS_PLUS)){
+            Token increment = new Token(TokenType.PLUS, "+", null, previous().line);
+            Expr found = null;
+            if (peek().type == TokenType.IDENTIFIER) {
+                found = new Expr.Variable(peek());
+                advance();
+                Token name = ((Expr.Variable) found).name;
+                Expr.Variable lhs_var = new Expr.Variable(name);
+                Expr.Binary bin_expr = new Expr.Binary(lhs_var, increment, new Expr.Literal(new Double(2)));
+                return new Expr.Assign(name, bin_expr);
+            } else {
+                error(previous(), "Invalid assignment target");
+            }
+        } 
+        if (match(TokenType.MINUS_MINUS)) {
+            Token decrement = new Token(TokenType.MINUS, "-", null, previous().line);
+            Expr found = null;
+            if (peek().type == TokenType.IDENTIFIER) {
+                found = new Expr.Variable(peek());
+                advance();
+                Token name = ((Expr.Variable) found).name;
+                Expr.Variable lhs_var = new Expr.Variable(name);
+                Expr.Binary bin_expr = new Expr.Binary(lhs_var, decrement, new Expr.Literal(new Double(2)));
+                return new Expr.Assign(name, bin_expr);
+            } else {
+                error(previous(), "Invalid assignment target");
+            }
+        }
         if(match(TokenType.NUMBER, TokenType.STRING)) {
             return new Expr.Literal(previous().literal);
         }
