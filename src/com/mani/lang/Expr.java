@@ -89,9 +89,10 @@ abstract class Expr {
     final List<Expr> arguments;
   }
   static class Get extends Expr {
-    Get(Expr object, Token name) {
+    Get(Expr object, Token name, Boolean fromThis) {
       this.object = object;
       this.name = name;
+      this.fromThis = fromThis;
     }
 
     <R> R accept(Visitor<R> visitor) {
@@ -100,6 +101,7 @@ abstract class Expr {
 
     final Expr object;
     final Token name;
+    final Boolean fromThis;
   }
   static class Super extends Expr {
     Super(Token keyword, Token method) {

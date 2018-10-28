@@ -68,10 +68,11 @@ abstract class Stmt {
     final Stmt elseBranch;
   }
   static class Function extends Stmt {
-    Function(Token name, List<Token> parameters, List<Stmt> body) {
+    Function(Token name, List<Token> parameters, List<Stmt> body, Boolean isprivate) {
       this.name = name;
       this.parameters = parameters;
       this.body = body;
+      this.isprivate = isprivate;
     }
 
     <R> R accept(Visitor<R> visitor) {
@@ -81,6 +82,7 @@ abstract class Stmt {
     final Token name;
     final List<Token> parameters;
     final List<Stmt> body;
+    final Boolean isprivate;
   }
   static class Print extends Stmt {
     Print(Expr expression) {

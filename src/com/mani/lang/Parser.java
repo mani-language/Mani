@@ -106,6 +106,7 @@ class Parser {
     
     private Stmt declarations() {
         try{
+            if(match(TokenType.INTERNAL)) return function("function");
             if(match(TokenType.CLASS)) return classDeclaration();
             if(match(TokenType.FN)) return function("function");
             if(match(TokenType.LET)) return varDeclaration();
@@ -125,7 +126,11 @@ class Parser {
         consume(TokenType.LEFT_BRACE, "Expect '{' after class name.");
         List<Stmt.Function> methods = new ArrayList<>();
         while(!check(TokenType.RIGHT_BRACE) && !isAtEnd()) {
-            methods.add(function("method"));
+            if (check(TokenType.INTERNAL)) {
+                methods.add(function("private method"));
+            } else {
+                methods.add(function("method"));
+            }
         }
         consume(TokenType.RIGHT_BRACE, "Expect '}' after class body.");
         return new Stmt.Class(name, superclass, methods);
@@ -233,6 +238,11 @@ class Parser {
     }
 
     private Stmt.Function function(String kind) {
+        Boolean isPrivate = false;
+        if (previous().type == TokenType.INTERNAL || kind.equals("private method")) {
+            isPrivate = true;
+            advance();
+        }
         Token name = consume(TokenType.IDENTIFIER, "Expect " + kind + " name.");
         consume(TokenType.LEFT_PAREN, "Expect '(' after " + kind + " name.");
         List<Token> parameters = new ArrayList<>();
@@ -247,7 +257,7 @@ class Parser {
         consume(TokenType.RIGHT_PAREN, "Expect ')' after parameters");
         consume(TokenType.LEFT_BRACE, "Expect '{' before " + kind + " body.");
         List<Stmt> body = block();
-        return new Stmt.Function(name, parameters, body);
+        return new Stmt.Function(name, parameters, body, isPrivate);
     } 
 
     private List<Stmt> block() {
@@ -311,8 +321,8 @@ class Parser {
             if(match(TokenType.LEFT_PAREN)) {
                 expr = finishCall(expr);
             } else if (match(TokenType.DOT)) {
-                Token name = consume(TokenType.IDENTIFIER, "Expect property name after '.' .");
-                expr = new Expr.Get(expr, name);
+                    Token name = consume(TokenType.IDENTIFIER, "Expect property name after '.' .");
+                    expr = new Expr.Get(expr, name, (getAt(-3).type == TokenType.IDENTIFIER ? false : true));
             } else if(match(TokenType.PLUS_PLUS)) {
             	Token increment = new Token(TokenType.PLUS, "+", null, previous().line);
 	        	if(expr instanceof Expr.Variable) {
@@ -447,5 +457,8 @@ class Parser {
     }
     private Token next() {
         return tokens.get(current + 1);
+    }
+    private Token getAt(int pos) {
+        return tokens.get(current + pos);
     }
 }

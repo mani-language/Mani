@@ -125,7 +125,7 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
 
         Map<String, ManiFunction> methods = new HashMap<>();
         for(Stmt.Function method : stmt.methods) {
-            ManiFunction function = new ManiFunction(method, environment, ((String)method.name.lexeme).equals((String)stmt.name.lexeme));
+            ManiFunction function = new ManiFunction(method, environment, ((String)method.name.lexeme).equals((String)stmt.name.lexeme), (Boolean) method.isprivate);
             methods.put(method.name.lexeme, function);
         }
 
@@ -151,7 +151,7 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
 
     @Override
     public Void visitFunctionStmt(Stmt.Function stmt) {
-        ManiFunction function = new ManiFunction(stmt, environment, false);
+        ManiFunction function = new ManiFunction(stmt, environment, false, stmt.isprivate);
         environment.define(stmt.name.lexeme, function);
         return null;
     }
@@ -352,6 +352,12 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
     public Object visitGetExpr(Expr.Get expr) {
         Object object = evaluate(expr.object);
         if(object instanceof ManiInstance) {
+            if (((ManiInstance)object).get(expr.name) instanceof ManiFunction) {
+                ManiFunction holder = (ManiFunction) ((ManiInstance)object).get(expr.name);
+                if (holder.isPrivate() && !expr.fromThis) {
+                    throw new RuntimeError(expr.name, "Sorry, this is a private function!");
+                }
+            }
             return ((ManiInstance)object).get(expr.name);
         }
         throw new RuntimeError(expr.name, "Only instances have properties.");

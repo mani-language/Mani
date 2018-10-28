@@ -16,7 +16,7 @@ class ManiInstance {
         if(fields.containsKey(name.lexeme)) {
             return fields.get(name.lexeme);
         }
-
+        
         ManiFunction method = klass.findMethod(this, name.lexeme);
         if(method != null) return method;
         throw new RuntimeError(name, "Undefined Property '" + name.lexeme +"'.");
