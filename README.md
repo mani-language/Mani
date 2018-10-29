@@ -189,6 +189,13 @@ l.direct(map.getKeys()); // Will return a list object to the newly created list.
 let size = map.size(); // returns the size of the map to "size" variable.
 ~~~
 
+### Exists
+~~~ mani
+// Usage : mapItem.exists(key);
+
+let result = map.exists("firstname"); // Returns true or false if the key exists in the map.
+~~~
+
 ### Combine
 ~~~ mani
 // Usage : mapItem.combine(list1, list2);
@@ -243,8 +250,6 @@ say map.get("firstname");  // This will say : Brayden
 
 let res = map.get("firstname"); // This will assign the result "Brayden" to the variable "res"
 ~~~
-
-> Once again, the key will always be a string
 
 ## Files
 ~~~ mani

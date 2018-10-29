@@ -5,7 +5,12 @@ Máni is an interpreted language that is simple to learn, and easy to use.
 The idea behind it is, take some of the good parts of other languages like nodejs, python etc.
 Implement them into this, and try and build an "Alpha" language... if that is even a such thing.
 
-# Importing and Loading
+# Importing, Loading and Using
+## Use
+~~~ mani
+use("std");  // Loads the API end points for the STD Library.
+use("maps"); // Loads the API end points for the Maps Library.
+~~~
 ## Importing
 ~~~ mani
 import("lists"); // Loads the lists library
@@ -17,16 +22,20 @@ load("somefile.mn"); // Loads the local file called "somefile.mn" if it exists.
 ~~~
 
 > Whats the difference? <br>
-The difference is, Importing loads the standard libraries, whereas Loading loads local files
+The difference is, Importing loads the standard libraries, whereas Loading loads local files.
+Usage loads the java API points for the select library. Eg, the Maps or STD. These are the raw
+connections that the Mani STDLib uses.
 
 
 # Standard Library
 ## Lists
 
 ~~~ mani
-let l = List("String");   // Creates a String list
-let obj = List("Object"); // Creates an Object list
+let l = List();   // Creates an Object list.
 ~~~
+> This means that you can add anything to these lists.<br>
+Anything from Functions, Numbers and Strings.
+
 
 ### Displaying the list
 
@@ -105,45 +114,128 @@ norm.direct(d);
 // Any information that was in the "d" list. Will now be in the "norm" list.
 ~~~
 
+### For Each
+~~~ mani
+// This function is used for iterating through a list, and running a function each time.
+
+// This is the function we want to run each time.
+fn someFunction(item) {
+    say item + 1;
+}
+
+// Create a list and populating it.
+let arry = List();
+for (let i = 0; i < 10; i++) {
+    array.add(i); // Adding each number to the array.
+}
+
+// This is the function to iterate through the list and run a function.
+array.forEach(someFunction); // This will run the "someFunction" parsing the data from the position in the list.
+~~~
+
 > * The difference between a normal list, and one made by the API, is the uppercase L... As you may see.
 * I, as the creator of this language... Surgest using the Standard Library list, over the api version. This is due to being able to use the prebuilt functions such as add, replace etc, with ease.
 
 
 ## Maps
 ~~~ mani
-let smap = Map("String"); // Creates a String map
-let omap = Map("Object"); // Creates an Object map
+let map = Map(); // Creates an Object map
 ~~~
 
 ### Adding items
 ~~~ mani
 // Usage : mapItem.add(key, value);
 
-smap.add("firstname", "Brayden"); // This will add a key value pair to the String map
+map.add("firstname", "Brayden"); // This will add a key value pair to the map
 
-// You can do the same with an object, to the object map.
 ~~~
-> The key must always be a string.
+
+### Get item
+~~~ mani
+// Usage : mapItem.get(key);
+
+let item = map.get("firstname"); // returns "Brayden" to the "item" variable
+~~~
+
+### Get Keys
+~~~ mani
+// Usage : mapItem.getKeys();
+// For this, you need to use a List for this feature.
+import("lists");
+
+let l = List();
+l.direct(map.getKeys()); // Will return a list object to the newly created list.
+
+~~~
+
+### Get size
+~~~ mani
+// Usage : mapItem.size();
+
+let size = map.size(); // returns the size of the map to "size" variable.
+~~~
+
+### Exists
+~~~ mani
+// Usage : mapItem.exists(key);
+
+let result = map.exists("firstname"); // Returns true or false if the key exists in the map.
+~~~
+
+### Combine
+~~~ mani
+// Usage : mapItem.combine(list1, list2);
+import("lists");
+
+// Both Lists must be the same length.
+let keys = List(); // The keys of the map.
+let vals = List(); // The values of the map.
+
+// Filling the 2 lists with values...
+for (let i = 0; i < 10; i++) {
+    keys.add(i);
+    vals.add(i*10);
+}
+
+// Using keys List, as the keys.
+// Using the vals List, as the values.
+map.combine(keys, vals); // changes the contents of the map to these keys and values.
+
+~~~
+
+### Delete items
+~~~ mani
+// Usage : mapItem.del(key);
+
+map.del("firstname"); // This will delete the key-value pair of "firstname"
+
+~~~
+
+### Reset
+~~~ mani
+// Usage : mapItem.reset();
+
+// Resets the entire map.
+map.reset();
+~~~
 
 ### Showing the map
 ~~~ mani
 // Usage : mapItem.show();
 
-say smap; // This will only say: Map instance
-smap.show(); // Will show you the contents of the map.
+say map; // This will only say: Map instance
+map.show(); // Will show you the contents of the map.
 ~~~
 
 ### Get map item
 ~~~ mani
 // Usage : mapItem.get(key);
 
-smap.get("firstname");      // This will not display anything, as it returns the information instead.
-say smap.get("firstname");  // This will say : Brayden
+map.get("firstname");      // This will not display anything, as it returns the information instead.
+say map.get("firstname");  // This will say : Brayden
 
-let res = smap.get("firstname"); // This will assign the result "Brayden" to the variable "res"
+let res = map.get("firstname"); // This will assign the result "Brayden" to the variable "res"
 ~~~
-
-> Once again, the key will always be a string
 
 ## Files
 ~~~ mani
