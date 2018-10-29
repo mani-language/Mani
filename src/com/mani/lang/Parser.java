@@ -169,11 +169,7 @@ class Parser {
         if(!check(TokenType.SEMICOLON)) {
             condition = expression();
         } 
-        if (Mani.isStrictMode) {
-            consume(TokenType.SEMICOLON, "Expect ';' after loop condition.");
-        } else {
-            consume(TokenType.COMMA, "Expect ',' after loop condition.");
-        }
+        consume(TokenType.SEMICOLON, "Expect ';' after loop condition.");
         Expr increment = null;
         if(!check(TokenType.RIGHT_PAREN)) {
             increment = expression();

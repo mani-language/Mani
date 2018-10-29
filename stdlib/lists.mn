@@ -17,7 +17,7 @@ class List {
 
     add(object) {
         // This is used when adding an object to the list...
-        listAdd(this.list, object);
+        arrayAddItem(this.list, object);
     }
 
     get(position) {

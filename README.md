@@ -316,6 +316,7 @@ a = true; // assign a to true
 
 ## Operators
 
+### Basics
 ~~~~ mani
 let i = 1;
 
@@ -337,6 +338,55 @@ say 1 + "one";          // 1one
 say "hello" * 5;        // prints hello five times
 say 5 * "hello";        // Runtime Error
 ~~~~
+
+### Copy operator
+> Need an element to copy from, and an element to copy to.
+This means you need to create an element, even if it is blank like below.
+~~~ mani
+let a = 12;
+let b;
+
+say b;      // nil
+
+a -> b;     // The actual copy operation.
+
+say b;      // 12
+~~~
+
+> This is not just a regular copy though.
+This is a full memory copy.
+
+This means that if we have an instance of something, 
+and edit the original. It will also be edited in the
+other variable. As seen below.
+
+~~~ mani
+import("lists");
+
+// Creating an original element.
+let a = List();
+// Creating a blank element to copy to.
+let b;
+
+// Adding some items to the list.
+for (let i = 0; i <= 3; i++) {
+    a.add(i);
+}
+
+a.show();       // [0.0, 1.0, 2.0, 3.0]
+say b;          // nil
+
+a -> b;         // Copying the list instance to b;
+
+b.show();       // [0.0, 1.0, 2.0, 3.0]
+
+a.add(4);       // Adding an item to one of the instances.
+
+a.show();       // [0.0, 1.0, 2.0, 3.0, 4.0]
+b.show();       // [0.0, 1.0, 2.0, 3.0, 4.0]
+~~~
+> It is the same even if we add to b.
+
 
 ## The print Statement
 
