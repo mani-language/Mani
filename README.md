@@ -515,6 +515,7 @@ let result = ask("Who are you?");   // Prints "Who are you?" to console, and wai
 
 ## Classes
 
+### Basics
 ~~~~ mani
 class Greeting {
     Greeting(name) { // The Constructor
@@ -530,7 +531,40 @@ class Greeting {
     }
 }
 ~~~~
-## Class Instance
+
+### Private
+~~~~ mani
+Class Person {
+    Person(first, last) {
+        this.first = first;
+        this.last = last;
+    }
+
+    internal reverse() {
+        say this.last + " " + this.first;
+    }
+
+    normal() {
+        say this.first + ", " + this.last;
+    }
+
+    both() {
+        this.reverse();
+        this.normal();
+    }
+}
+
+let p = Person("John", "Doe");
+
+p.normal();     // John, Doe
+p.reverse();    // Sorry, this is a private function!
+p.both();       // Doe John ... John Doe
+~~~~
+
+> As we can see. The use of `internal` makes a function private. You can only access it from other functions inside of the same class. It also works with inheritance.
+
+
+#### Class Instance
 
 ~~~~ mani
 let greeting = Greeting("John");
@@ -540,7 +574,8 @@ say greeting.sayNight();      // prints Good Night John
 
 > * A value cannot be retured from the constrcutor.
 
-## Inheritance
+
+### Inheritance
 
 ~~~~ mani
 class A {
