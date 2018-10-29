@@ -328,6 +328,7 @@ say 5 * "hello";        // Runtime Error
 ### Copy operator
 > Need an element to copy from, and an element to copy to.
 This means you need to create an element, even if it is blank like below.
+
 ~~~ mani
 let a = 12;
 let b;
