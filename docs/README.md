@@ -550,7 +550,7 @@ p.both();       // Doe John ... John Doe
 > As we can see. The use of `internal` makes a function private. You can only access it from other functions inside of the same class. It also works with inheritance.
 
 
-#### Class Instance
+### Class Instance
 
 ~~~~ mani
 let greeting = Greeting("John");
