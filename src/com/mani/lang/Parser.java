@@ -36,14 +36,15 @@ class Parser {
             }
         }
 
-        if(match(TokenType.EQUAL) || match(TokenType.VAR_ARROW) || match(TokenType.MINUS_ASSIGN) || match(TokenType.PLUS_ASSIGN) || match(TokenType.STAR_ASSIGN) || match(TokenType.SLASH_ASSIGN)) {
+        if(match(TokenType.EQUAL) || match(TokenType.VAR_ARROW) || match(TokenType.PERCENT_ASSIGN) || match(TokenType.MINUS_ASSIGN) || match(TokenType.PLUS_ASSIGN) || match(TokenType.STAR_ASSIGN) || match(TokenType.SLASH_ASSIGN)) {
             Token op = previous();
             TokenType op_type = op.type;
 
             final boolean is_assign_op = op_type == TokenType.MINUS_ASSIGN
                     || op_type == TokenType.PLUS_ASSIGN
                     || op_type == TokenType.STAR_ASSIGN
-                    || op_type == TokenType.SLASH_ASSIGN;
+                    || op_type == TokenType.SLASH_ASSIGN
+                    || op_type == TokenType.PERCENT_ASSIGN;
 
             TokenType bin_op_type = null;
             switch (op_type) {
@@ -51,6 +52,7 @@ class Parser {
                 case MINUS_ASSIGN: bin_op_type = TokenType.MINUS; break;
                 case STAR_ASSIGN: bin_op_type = TokenType.STAR; break;
                 case SLASH_ASSIGN: bin_op_type = TokenType.SLASH; break;
+                case PERCENT_ASSIGN: bin_op_type = TokenType.PERCENT; break;
             }
 
             Expr value = assignment();
@@ -300,7 +302,7 @@ class Parser {
 
     private Expr multiplication() {
         Expr expr = unary();
-        while(match(TokenType.SLASH, TokenType.STAR)) {
+        while(match(TokenType.SLASH, TokenType.STAR, TokenType.PERCENT)) {
             Token operator = previous();
             Expr right = unary();
             expr = new Expr.Binary(expr, operator, right);

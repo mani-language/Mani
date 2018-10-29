@@ -278,6 +278,8 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
         Object left = evaluate(expr.left);
         Object right = evaluate(expr.right);
         switch (expr.operator.type) {
+            case PERCENT:
+                return (double) left % (double) right;
             case MINUS:
                 checkNumberOperands(expr.operator, left, right);
                 return (double) left  - (double) right;

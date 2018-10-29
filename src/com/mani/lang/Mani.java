@@ -20,7 +20,9 @@ public class Mani {
     private static final Interpreter interpreter = new Interpreter();
     public static void main(String[] args) {
 
-            hasInternet = checkInternet();
+            //hasInternet = checkInternet();
+
+            
 
             if(args.length > 1) {
                 System.out.println("Usage mani [Script.mn]");

@@ -63,6 +63,7 @@ class Lexer {
             case '-': addToken(match('=') ? MINUS_ASSIGN : match('-') ? MINUS_MINUS : match('>') ? ASSIGN_ARROW : MINUS); break;
             case '+': addToken(match('=') ? PLUS_ASSIGN : match('+') ? PLUS_PLUS : PLUS); break;
             case '*': addToken(match('=') ? STAR_ASSIGN : STAR); break;
+            case '%': addToken(match('=') ? PERCENT_ASSIGN : PERCENT); break;
             case '!': addToken(match('=') ? BANG_EQUAL : BANG); break;
             case '=': addToken(match('=') ? EQUAL_EQUAL : EQUAL); break;
             case '>': addToken(match('=') ? GREATER_EQUAL : GREATER); break;
