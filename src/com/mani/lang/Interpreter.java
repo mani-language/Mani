@@ -280,6 +280,8 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
         switch (expr.operator.type) {
             case PERCENT:
                 return (double) left % (double) right;
+            case STAR_STAR:
+                return new Double(Math.pow((double) left, (double) right));
             case MINUS:
                 checkNumberOperands(expr.operator, left, right);
                 return (double) left  - (double) right;

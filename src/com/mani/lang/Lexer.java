@@ -11,6 +11,7 @@ class Lexer {
      private static final Map<String, TokenType> keywords;
     static{
         keywords = new HashMap<>();
+        keywords.put("STRICT", STRICT);
         keywords.put("and", AND);
         keywords.put("internal", INTERNAL);
         keywords.put("class", CLASS);
@@ -62,7 +63,7 @@ class Lexer {
             case ';': addToken(SEMICOLON); break;
             case '-': addToken(match('=') ? MINUS_ASSIGN : match('-') ? MINUS_MINUS : match('>') ? ASSIGN_ARROW : MINUS); break;
             case '+': addToken(match('=') ? PLUS_ASSIGN : match('+') ? PLUS_PLUS : PLUS); break;
-            case '*': addToken(match('=') ? STAR_ASSIGN : STAR); break;
+            case '*': addToken(match('=') ? STAR_ASSIGN : match('*') ? STAR_STAR : STAR); break;
             case '%': addToken(match('=') ? PERCENT_ASSIGN : PERCENT); break;
             case '!': addToken(match('=') ? BANG_EQUAL : BANG); break;
             case '=': addToken(match('=') ? EQUAL_EQUAL : EQUAL); break;
@@ -99,7 +100,7 @@ class Lexer {
     private void identifier(){
         while(isAlphaNumeric(peek())) advance();
         String text = source.substring(start,current);
-        TokenType type  = keywords.get(text);
+        TokenType type = keywords.get(text);
         if(type == null) type = IDENTIFIER;
         addToken(type);
     }

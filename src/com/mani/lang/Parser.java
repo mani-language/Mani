@@ -14,7 +14,14 @@ class Parser {
     List<Stmt> parse() {
         List<Stmt> statements = new ArrayList<>();
         while(!isAtEnd()) {
-            statements.add(declarations());
+            if (peek().type == TokenType.STRICT) {
+                advance();
+                consume(TokenType.SEMICOLON, "Need ';' after STRICT", true);
+                advance();
+                Mani.isStrictMode = true;
+            } else {
+                statements.add(declarations());
+            }
         }
         return statements;
     }
@@ -162,7 +169,11 @@ class Parser {
         if(!check(TokenType.SEMICOLON)) {
             condition = expression();
         } 
-        consume(TokenType.SEMICOLON, "Expect ';' after loop condition.");
+        if (Mani.isStrictMode) {
+            consume(TokenType.SEMICOLON, "Expect ';' after loop condition.");
+        } else {
+            consume(TokenType.COMMA, "Expect ',' after loop condition.");
+        }
         Expr increment = null;
         if(!check(TokenType.RIGHT_PAREN)) {
             increment = expression();
@@ -197,7 +208,7 @@ class Parser {
 
     private Stmt printStatement() {
         Expr value =  expression();
-        consume(TokenType.SEMICOLON, "Expect ';' after value");
+        consume(TokenType.SEMICOLON, "Expect ';' after value", Mani.isStrictMode);
         return new Stmt.Print(value);
     }
 
@@ -207,12 +218,12 @@ class Parser {
         if(!check(TokenType.SEMICOLON)) {
             value = expression();
         }
-        consume(TokenType.SEMICOLON, "Expect ';' after return.");
+        consume(TokenType.SEMICOLON, "Expect ';' after return.", Mani.isStrictMode);
         return new Stmt.Return(keyword, value);
     }
     private Stmt breakStatement() {
    	Token keyword = previous();
-        consume(TokenType.SEMICOLON, "Expect ';' after break.");
+        consume(TokenType.SEMICOLON, "Expect ';' after break.", Mani.isStrictMode);
         return new Stmt.Break(keyword);
     } 
     private Stmt varDeclaration() {
@@ -221,7 +232,7 @@ class Parser {
         if(match(TokenType.EQUAL) || match(TokenType.VAR_ARROW)) {
             initializer = expression();
         }
-        consume(TokenType.SEMICOLON, "Expect ';' after variable declaration.");
+        consume(TokenType.SEMICOLON, "Expect ';' after variable declaration.", Mani.isStrictMode);
         return new Stmt.Var(name, initializer);
     }
 
@@ -235,7 +246,7 @@ class Parser {
 
     private Stmt expressionStatement() {
         Expr expr = expression();
-        consume(TokenType.SEMICOLON, "Expect ';' after expression.");
+        consume(TokenType.SEMICOLON, "Expect ';' after expression.", Mani.isStrictMode);
         return new Stmt.Expression(expr);
     }
 
@@ -302,7 +313,7 @@ class Parser {
 
     private Expr multiplication() {
         Expr expr = unary();
-        while(match(TokenType.SLASH, TokenType.STAR, TokenType.PERCENT)) {
+        while(match(TokenType.SLASH, TokenType.STAR, TokenType.PERCENT, TokenType.STAR_STAR)) {
             Token operator = previous();
             Expr right = unary();
             expr = new Expr.Binary(expr, operator, right);
@@ -431,6 +442,14 @@ class Parser {
         if(check(type)) return advance();
         throw error(peek(), message);
     }
+
+    private Token consume(TokenType type, String message, Boolean useStrict) {
+        if (useStrict) {
+            return consume(type, message);
+        } else {
+            return advance();
+        }
+    } 
 
     private ParserError error(Token token, String message) {
         Mani.error(token, message);

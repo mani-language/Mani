@@ -16,13 +16,14 @@ public class Mani {
     public static boolean hadError = false;
     public static boolean hadRuntimeError = false;
     public static boolean hasInternet = false;
+    public static boolean isStrictMode = false;
 
     private static final Interpreter interpreter = new Interpreter();
     public static void main(String[] args) {
 
             //hasInternet = checkInternet();
 
-            
+
 
             if(args.length > 1) {
                 System.out.println("Usage mani [Script.mn]");
