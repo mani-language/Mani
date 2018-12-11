@@ -56,7 +56,7 @@ public class Inbuilt {
                     module.init(interpreter);
                     return null;
                 } catch (Exception e) {
-                    return "Couldnt load for some reason!";
+                    return "Couldn't load for some reason!";
                 }
             }
         });
