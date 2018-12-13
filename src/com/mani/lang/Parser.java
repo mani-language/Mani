@@ -260,7 +260,7 @@ class Parser {
                 if(parameters.size() >= 32) {
                     error(peek(), "Cannot have more than 32 parameters.");
                 }
-                parameters.add(consume(TokenType.IDENTIFIER, "Expect parameter name."));
+                parameters.add(consume(TokenType.IDENTIFIER, TokenType.MINUS_MINUS, "Expect parameter name or ArrayToken."));
             } while(match(TokenType.COMMA));
         }
         consume(TokenType.RIGHT_PAREN, "Expect ')' after parameters");
@@ -436,6 +436,11 @@ class Parser {
     //UTILS
     private Token consume(TokenType type, String message) {
         if(check(type)) return advance();
+        throw error(peek(), message);
+    }
+
+    private Token consume(TokenType type1, TokenType type2, String message) {
+        if (check(type1) || check(type2)) return advance();
         throw error(peek(), message);
     }
 

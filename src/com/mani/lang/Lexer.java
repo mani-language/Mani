@@ -31,6 +31,7 @@ class Lexer {
         keywords.put("let", LET);
         keywords.put("break", BREAK);
         keywords.put("loop", LOOP);
+        keywords.put("---", ARRAYPARAM);
     }
     private final String source;
     private final List<Token> tokens = new ArrayList<>();
@@ -135,6 +136,14 @@ class Lexer {
         current++;
         return true;
     }
+
+    private boolean match(char expected, int place) {
+        if (isAtEnd() || isAtEnd(place)) return false;
+        if(source.charAt(current + place) != expected) return false;
+        current += 1 + place;
+        return true;
+    }
+
     private char peek(){
         if(isAtEnd()) return '\0';
         return source.charAt(current);
@@ -156,6 +165,9 @@ class Lexer {
     }
     private boolean isAtEnd(){
         return current >= source.length();
+    }
+    private boolean isAtEnd(int location) {
+        return (current + location) >= source.length();
     }
     private char advance(){
         current++;

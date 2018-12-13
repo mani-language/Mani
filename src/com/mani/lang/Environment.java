@@ -3,6 +3,8 @@ package com.mani.lang;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.management.ValueExp;
+
 class Environment {
     final Environment enclosing;
     private final Map<String, Object> values = new HashMap<>();
@@ -20,6 +22,12 @@ class Environment {
      * @param name
      * @param value
      */
+
+    void show() {
+        for (Map.Entry<String, Object> entry : values.entrySet()) {
+            System.out.println(entry.getKey() + "/" + entry.getValue());
+        }
+    }
 
     void define(String name, Object value) {
         values.put(name, value);
@@ -50,6 +58,7 @@ class Environment {
      */
 
     Object get(Token name) {
+        //System.err.println("RUNNING NOW! " + name);
         if(values.containsKey(name.lexeme)) {
             return values.get(name.lexeme);
         }
@@ -58,6 +67,7 @@ class Environment {
     }
 
     Object get(String name) {
+        
         if (values.containsKey(name)) {
             return values.get(name);
         }

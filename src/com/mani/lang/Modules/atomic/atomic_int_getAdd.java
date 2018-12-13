@@ -23,7 +23,7 @@ public final class atomic_int_getAdd implements ManiCallable {
          */
 
         AtomicInteger val = (AtomicInteger) arguments.get(0);
-        Integer toAdd = (Integer) arguments.get(1);
+        Integer toAdd = new Double((Double) arguments.get(1)).intValue();
         boolean returnPrev = (boolean) arguments.get(2);
 
         val.addAndGet(toAdd);

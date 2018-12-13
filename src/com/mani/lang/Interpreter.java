@@ -27,6 +27,10 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
         globals.define(key, mani);
     }
 
+    public void define(String key, Object val) {
+        globals.define(key, val);
+    }
+
     public ManiFunction getFunction(String key) {
         return (ManiFunction) globals.get(key);
     }

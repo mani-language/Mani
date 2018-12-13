@@ -20,6 +20,10 @@ class List {
         arrayAddItem(this.list, object);
     }
 
+    addLots(---) {
+        say "lol";
+    }
+
     get(position) {
         // This is used to grab an object from the list...
         return getItem(this.list, position);

@@ -19,9 +19,9 @@ public final class atomic implements Module {
 
         // Everything for the atomic integers
         interpreter.addSTD("AtomicInt", new atomic_int());
-        //interpreter.addSTD("AISet", new atomic_int_set());
-        //interpreter.addSTD("AICompareSet", new atomic_int_compareSet());
-        //interpreter.addSTD("AIGet", new atomic_int_get());
+        interpreter.addSTD("AISet", new atomic_int_set());
+        interpreter.addSTD("AICompareSet", new atomic_int_compareSet());
+        interpreter.addSTD("AIGet", new atomic_int_get());
         interpreter.addSTD("AIGetAdd", new atomic_int_getAdd());
     }
 
