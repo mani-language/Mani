@@ -520,7 +520,7 @@ class Greeting {
 
 ### Private
 ~~~~ mani
-Class Person {
+class Person {
     Person(first, last) {
         this.first = first;
         this.last = last;
