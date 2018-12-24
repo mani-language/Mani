@@ -11,7 +11,11 @@
 * No external dependencies
 * Straight recursive descent paser
 
-[![CircleCI](https://circleci.com/gh/crazywolf132/MoonLang.svg?style=svg)](https://circleci.com/gh/crazywolf132/MoonLang)
+[![](https://forthebadge.com/images/badges/built-by-codebabes.svg)](#)
+[![](https://forthebadge.com/images/badges/made-with-crayons.svg)](#)
+[![](https://forthebadge.com/images/badges/contains-technical-debt.svg)](#)
+[![](https://forthebadge.com/images/badges/check-it-out.svg)](#)
+
 
 ## What is it?
 Máni is an interpreted language that is simple to learn, and easy to use.
@@ -534,7 +538,7 @@ class Greeting {
 
 ### Private
 ~~~~ mani
-Class Person {
+class Person {
     Person(first, last) {
         this.first = first;
         this.last = last;
