@@ -1,0 +1,41 @@
+class Person {
+    Person(first, last) {
+        this.first = first;
+        this.last = last;
+    }
+
+    normal() {
+        say this.first + ", " + this.last;
+    }
+
+    internal reverse() {
+        say this.last + " " + this.first;
+    }
+
+    both() {
+        this.reverse();
+        this.normal();
+    }
+}
+
+class Man < Person {
+    Man(first, last, age) {
+        //super.Person(first, last);
+        super(first, last);
+        this.age = age;
+    }
+
+    normal() {
+        say this.first + ", " + this.last + ", " + this.age;
+    }
+
+    both() {
+        this.reverse();
+        this.normal();
+    }
+}
+
+let m = Man("John", "Doe", 20);
+
+m.normal();     // John, Doe, 20
+m.both();       // Doe John ... John, Doe, 20

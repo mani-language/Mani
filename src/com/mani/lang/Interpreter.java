@@ -393,7 +393,7 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
         int distance = locals.get(expr);
         ManiClass superclass = (ManiClass) environment.getAt(distance, "super");
         ManiInstance object = (ManiInstance) environment.getAt(distance - 1, "this");
-        ManiFunction method = superclass.findMethod(object, expr.method.lexeme);
+        ManiFunction method = superclass.findMethod(object, expr.method == null ? superclass.getName() : expr.method.lexeme);
         if(method == null) {
             throw new RuntimeError(expr.method, "Undefined property '" + expr.method.lexeme +"'.");
         }
