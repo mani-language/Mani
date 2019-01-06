@@ -23,8 +23,6 @@ public class Mani {
 
             //hasInternet = checkInternet();
 
-
-
             if(args.length > 1) {
                 System.out.println("Usage mani [Script.mn]");
             } else if (args.length == 1) {
@@ -37,7 +35,7 @@ public class Mani {
 
     private static boolean checkInternet() {
         try {
-            final URL url = new URL("http://www.google.com");
+            final URL url = new URL("http://www.github.com");
             final URLConnection conn = url.openConnection();
             conn.connect();
             conn.getInputStream().close();
