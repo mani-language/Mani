@@ -62,18 +62,6 @@ public class Inbuilt {
             }
         });
 
-        inBuilts.put("str", new ManiCallable() {
-            @Override
-            public int arity() {
-                return 1;
-            }
-
-            @Override
-            public Object call(Interpreter interpreter, List<Object> arguments) {
-                return arguments.get(0).toString();
-            }
-        });
-
         inBuilts.put("readInt", new ManiCallable(){
             @Override
             public int arity() {
