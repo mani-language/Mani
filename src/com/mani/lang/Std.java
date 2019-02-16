@@ -50,7 +50,7 @@ public class Std {
         return new Double(item).intValue();
     }
 
-    public static Double intToDouble(int item) {
+    public static Double makeDouble(int item) {
         return new Double(item);
     }
 
