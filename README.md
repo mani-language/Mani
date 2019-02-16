@@ -40,8 +40,8 @@ load("somefile.mn"); // Loads the local file called "somefile.mn" if it exists.
 ~~~
 
 > Whats the difference? <br>
-The difference is, Importing loads the standard libraries, whereas Loading loads local files.
-Usage loads the java API points for the select library. Eg, the Maps or STD. These are the raw
+The difference is, `import` loads the standard libraries, whereas `load` loads local files.
+`use` loads the java API points for the select library. Eg, the Maps or STD. These are the raw
 connections that the Mani STDLib uses.
 
 
