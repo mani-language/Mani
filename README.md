@@ -25,17 +25,17 @@ Implement them into this, and try and build an "Alpha" language... if that is ev
 
 # Importing, Loading and Using
 ## Use
-~~~ mani
+~~~ JS
 use("std");  // Loads the API end points for the STD Library.
 use("maps"); // Loads the API end points for the Maps Library.
 ~~~
 ## Importing
-~~~ mani
+~~~ JS
 import("lists"); // Loads the lists library
 import("files"); // Loads the files library
 ~~~
 ## Loading
-~~~ mani
+~~~ JS
 load("somefile.mn"); // Loads the local file called "somefile.mn" if it exists.
 ~~~
 
@@ -48,7 +48,7 @@ connections that the Mani STDLib uses.
 # Standard Library
 ## Lists
 
-~~~ mani
+~~~ JS
 let l = List();   // Creates an Object list.
 ~~~
 > This means that you can add anything to these lists.<br>
@@ -57,14 +57,14 @@ Anything from Functions, Numbers and Strings.
 
 ### Displaying the list
 
-~~~ mani
+~~~ JS
 say l;      // Will show: List instance
 l.show();   // Will show: []
 ~~~
 
 ### Adding items to the list
 
-~~~ mani
+~~~ JS
 l.add("some string");  // This will add "some string" to the String list
 
 say l; // Will now show [some string]
@@ -76,7 +76,7 @@ l.show(); // Will now show [some string, something else]
 
 ### Replacing a string
 
-~~~ mani
+~~~ JS
 // Usage is: list.replace(position, string);
 l.replace(1, "banana");
 
@@ -85,7 +85,7 @@ l.show(); // We will now see... [some string, banana]
 
 ### Deleting a position
 
-~~~ mani
+~~~ JS
 // Usage is: list.delete(position);
 l.delete(1);
 
@@ -93,7 +93,7 @@ l.show(); // Will now show [some string]
 ~~~
 
 ### Reset the list
-~~~ mani
+~~~ JS
 // Usage is: list.reset();
 l.reset();
 
@@ -101,7 +101,7 @@ l.show(); // Will now once again show []
 ~~~
 
 ### Triming items in list
-~~~ mani
+~~~ JS
 // Usage is: list.trimEach();
 
 // first we will add some strings to work with.
@@ -115,7 +115,7 @@ l.show(); // The list will now look like this: [whitespace, after]
 ~~~
 
 ### Direct Listing
-~~~ mani
+~~~ JS
 // THIS FEATURE IS ONLY IF YOU KNOW HOW TO USE THE LANGUAGE API
 
 // Usage list.direct(non_list_object);
@@ -133,7 +133,7 @@ norm.direct(d);
 ~~~
 
 ### For Each
-~~~ mani
+~~~ JS
 // This function is used for iterating through a list, and running a function each time.
 
 // This is the function we want to run each time.
@@ -156,12 +156,12 @@ array.forEach(someFunction); // This will run the "someFunction" parsing the dat
 
 
 ## Maps
-~~~ mani
+~~~ JS
 let map = Map(); // Creates an Object map
 ~~~
 
 ### Adding items
-~~~ mani
+~~~ JS
 // Usage : mapItem.add(key, value);
 
 map.add("firstname", "Brayden"); // This will add a key value pair to the map
@@ -169,14 +169,14 @@ map.add("firstname", "Brayden"); // This will add a key value pair to the map
 ~~~
 
 ### Get item
-~~~ mani
+~~~ JS
 // Usage : mapItem.get(key);
 
 let item = map.get("firstname"); // returns "Brayden" to the "item" variable
 ~~~
 
 ### Get Keys
-~~~ mani
+~~~ JS
 // Usage : mapItem.getKeys();
 // For this, you need to use a List for this feature.
 import("lists");
@@ -187,21 +187,21 @@ l.direct(map.getKeys()); // Will return a list object to the newly created list.
 ~~~
 
 ### Get size
-~~~ mani
+~~~ JS
 // Usage : mapItem.size();
 
 let size = map.size(); // returns the size of the map to "size" variable.
 ~~~
 
 ### Exists
-~~~ mani
+~~~ JS
 // Usage : mapItem.exists(key);
 
 let result = map.exists("firstname"); // Returns true or false if the key exists in the map.
 ~~~
 
 ### Combine
-~~~ mani
+~~~ JS
 // Usage : mapItem.combine(list1, list2);
 import("lists");
 
@@ -222,7 +222,7 @@ map.combine(keys, vals); // changes the contents of the map to these keys and va
 ~~~
 
 ### Delete items
-~~~ mani
+~~~ JS
 // Usage : mapItem.del(key);
 
 map.del("firstname"); // This will delete the key-value pair of "firstname"
@@ -230,7 +230,7 @@ map.del("firstname"); // This will delete the key-value pair of "firstname"
 ~~~
 
 ### Reset
-~~~ mani
+~~~ JS
 // Usage : mapItem.reset();
 
 // Resets the entire map.
@@ -238,7 +238,7 @@ map.reset();
 ~~~
 
 ### Showing the map
-~~~ mani
+~~~ JS
 // Usage : mapItem.show();
 
 say map; // This will only say: Map instance
@@ -246,7 +246,7 @@ map.show(); // Will show you the contents of the map.
 ~~~
 
 ### Get map item
-~~~ mani
+~~~ JS
 // Usage : mapItem.get(key);
 
 map.get("firstname");      // This will not display anything, as it returns the information instead.
@@ -256,27 +256,27 @@ let res = map.get("firstname"); // This will assign the result "Brayden" to the 
 ~~~
 
 ## Files
-~~~ mani
+~~~ JS
 // Usage File(filename);
 
 let f = File("file.txt"); // This will create a file instance.
 ~~~
 
 ### Loading the file
-~~~ mani
+~~~ JS
 f.load(); // Reads the file that we designated earlier.
 ~~~
 > This does not return the contents of the file or anything.
 
 ### Seeing file contents
-~~~ mani
+~~~ JS
 // After running f.load();
 
 say f.contents; // This will return exactly what was in the file.
 ~~~
 
 ### Splitting to list
-~~~ mani
+~~~ JS
 // Make sure file is loaded first.
 
 // Usage file.toList(listObj);
@@ -292,17 +292,17 @@ list.show(); // Will display an array with the file contents, split by each line
 
 # Basics
 ## Comments, Variables, Value Types and Assignment
-~~~~ mani
+~~~~ JS
 // This is a comment
 ~~~~
 
-~~~ mani
+~~~ JS
 let a;      // declare and assign nil to a
 let b = 50; // declare and assign 50 to b
 
 ~~~
 
-~~~~ mani
+~~~~ JS
 let a = nil;    // value nil
 let a = true;   // boolean true
 let a = false;  // boolean false
@@ -311,7 +311,7 @@ let a = 123.32; // number
 let a = "hello"; // string
 ~~~~
 
-~~~~ mani
+~~~~ JS
 a = 32;   // assign to 32
 a = true; // assign a to true
 ~~~~
@@ -321,7 +321,7 @@ a = true; // assign a to true
 ## Operators
 
 ### Basics
-~~~~ mani
+~~~~ JS
 let i = 1;
 
 say i++;                // 2
@@ -345,7 +345,7 @@ say 5 * "hello";        // Runtime Error
 
 ### Copy operator
 
-~~~ mani
+~~~ JS
 let a = 12;
 let b;
 
@@ -365,7 +365,7 @@ This means that if we have an instance of something,
 and edit the original. It will also be edited in the
 other variable. As seen below.
 
-~~~ mani
+~~~ JS
 import("lists");
 
 // Creating an original element.
@@ -395,14 +395,14 @@ b.show();       // [0.0, 1.0, 2.0, 3.0, 4.0]
 
 ## The print Statement
 
-~~~~ mani
+~~~~ JS
 say "hello"; // prints hello
 say 1+2+3;   //prints 6
 ~~~~
 
 ## Block Statement 
 
-~~~~ mani
+~~~~ JS
 let x = 0;
 {
     x = x + 1;
@@ -416,7 +416,7 @@ say y;         // Undefined variable;
 
 ## Conditonal statements
 
-~~~~ mani
+~~~~ JS
 // if
 
 if(a == 42) {
@@ -445,7 +445,7 @@ if(a == 42) {
 
 ## Loops
  
-~~~~ mani
+~~~~ JS
 // While Loop
 
 while(a < 42) {
@@ -463,7 +463,7 @@ for( let i = 0 ; i < 50 ; i = i + 1 ) {
 for(;;) say "infinite loop";
 ~~~~ 
 ## Break Keyword
-~~~~ mani
+~~~~ JS
 let x = 0;
 while(true) {
     say x;
@@ -475,7 +475,7 @@ while(true) {
 ~~~~
 ## Functions
 
-~~~~ mani
+~~~~ JS
 fn hello() {
     say "hello";
 }
@@ -489,7 +489,7 @@ fn greet(name) {
 
 ## Closures
 
-~~~~ mani
+~~~~ JS
 // A function that returns updated `count` on every call
 fn makeCounter() {
     let count = 0;
@@ -503,13 +503,13 @@ fn makeCounter() {
 
 ## Function calls
 
-~~~~ mani
+~~~~ JS
 hello();      // without argument(s)
 greet("Mir")  // with argument(s)
 ~~~~
 ## Inbuilt Functions
 
-~~~~ mani
+~~~~ JS
 let rand   = random(10);            // Takes a number, n, and returns a random number between 0 and n
 let name   = readString();          // reads a string from user
 let number = readInt();             // reads a number from user otherwise `nil`
@@ -520,7 +520,7 @@ let result = ask("Who are you?");   // Prints "Who are you?" to console, and wai
 ## Classes
 
 ### Basics
-~~~~ mani
+~~~~ JS
 class Greeting {
     Greeting(name) { // The Constructor
         this.name = name; // Instance field
@@ -537,7 +537,7 @@ class Greeting {
 ~~~~
 
 ### Private
-~~~~ mani
+~~~~ JS
 class Person {
     Person(first, last) {
         this.first = first;
@@ -570,7 +570,7 @@ p.both();       // Doe John ... John Doe
 
 #### Class Instance
 
-~~~~ mani
+~~~~ JS
 let greeting = Greeting("John");
 say greeeting.sayHello();     // prints Hello John
 say greeting.sayNight();      // prints Good Night John
@@ -581,7 +581,7 @@ say greeting.sayNight();      // prints Good Night John
 
 ### Inheritance
 
-~~~~ mani
+~~~~ JS
 class A {
     methodA1() {
         say "methodA1";

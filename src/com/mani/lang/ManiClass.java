@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 class ManiClass implements ManiCallable {
-    final String name;
+    public final String name;
     private final Map<String, ManiFunction> methods;
     final ManiClass superclass;
 
@@ -20,6 +20,10 @@ class ManiClass implements ManiCallable {
         if(superclass != null) return superclass.findMethod(instance, name);
 
         return null;
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     @Override

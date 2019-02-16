@@ -174,8 +174,9 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
     public Void visitPrintStmt(Stmt.Print stmt) {
         Object value = evaluate(stmt.expression);
         if (value instanceof ManiInstance) {
-            if (((ManiInstance) value).hasShowFn()) {
-                System.out.println("lol");
+            if (( (ManiInstance) value).hasShowFn()) {
+                ((ManiInstance) value).runShowFn(this);
+                return null;
             }
         }
         System.out.println(stringfy(value));
@@ -392,9 +393,9 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
         int distance = locals.get(expr);
         ManiClass superclass = (ManiClass) environment.getAt(distance, "super");
         ManiInstance object = (ManiInstance) environment.getAt(distance - 1, "this");
-        ManiFunction method = superclass.findMethod(object, expr.method.lexeme);
+        ManiFunction method = superclass.findMethod(object, expr.method == null ? superclass.getName() : expr.method.lexeme);
         if(method == null) {
-            throw new RuntimeError(expr.method, "Undefined property '" + expr.method.lexeme +"'.");
+            throw new RuntimeError(expr.method == null ? new Token(TokenType.IDENTIFIER, superclass.getName(), 0, 0) : expr.method, "Undefined property '" + (expr.method == null ? superclass.getName() : expr.method.lexeme) +"'.");
         }
         return method;
     }

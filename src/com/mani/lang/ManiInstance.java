@@ -22,8 +22,12 @@ class ManiInstance {
         throw new RuntimeError(name, "Undefined Property '" + name.lexeme +"'.");
     }
 
+    void runShowFn(Interpreter inter) {
+        this.klass.findMethod(this, "show").call(inter, null);
+    }
+
     boolean hasShowFn() {
-        return fields.containsKey("show");
+        return this.klass.findMethod(this, "show") != null;
     }
 
     void set(Token name, Object value) {
