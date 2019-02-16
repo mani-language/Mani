@@ -122,40 +122,6 @@ public class Inbuilt {
                 return new Date();
             }
         });
-        
-        inBuilts.put("random", new ManiCallable(){
-            @Override
-            public int arity() {
-                return 1;
-            }
-
-            @Override
-            public Object call(Interpreter interpreter, List<Object> arguments) {
-                Random rand = new Random();
-                int number;
-                if(arguments.get(0) instanceof Double) {
-                    number = rand.nextInt(((Double)arguments.get(0)).intValue());
-                } else {
-                    return "random : argument must be a number.";
-                }
-                return number;
-            }
-        });
-
-        inBuilts.put("randRange", new ManiCallable() {
-            @Override
-            public int arity() {
-                return 2;
-            }
-
-            @Override
-            public Object call(Interpreter interpreter, List<Object> arguments) {
-                Random rand = new Random();
-                int max = new Double((Double) arguments.get(1)).intValue();
-                int min = new Double((Double) arguments.get(0)).intValue();
-                return new Double(rand.nextInt(max - min + 1) + min);
-            }
-        });
 
         inBuilts.put("ask", new ManiCallable() {
             @Override

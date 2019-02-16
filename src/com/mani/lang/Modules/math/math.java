@@ -14,5 +14,6 @@ public class math implements Module {
         // Defining the functions.
         interpreter.addSTD("floor", new math_floor());
         interpreter.addSTD("ceil", new math_ceil());
+        interpreter.addSTD("rand", new math_rand());
     }
 }
