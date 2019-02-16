@@ -2,6 +2,7 @@ package com.mani.lang;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -49,6 +50,17 @@ public class Std {
 
     public static Double intToDouble(int item) {
         return new Double(item);
+    }
+
+    public static String loadFromUrl(Interpreter interpreter, String f) {
+        Lexer lexer = new Lexer(f.toString());
+        List<Token> tokens = lexer.scanTokens();
+        Parser parser = new Parser(tokens);
+        List<Stmt> statements = parser.parse();
+        Resolver resolver = new Resolver(interpreter);
+        resolver.resolve(statements);
+        interpreter.interpret(statements);
+        return "Should have worked!";
     }
 
     public static String loadFile(Interpreter interpreter, String f) {

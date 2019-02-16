@@ -4,6 +4,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -301,9 +302,9 @@ public class Inbuilt {
             @Override
             public Object call(Interpreter interpreter, List<Object> arguments) {
                 //TODO: Check for a ".mods" file in the current path. If it exists,
-                //check to see what modules are in it... and be able to load them by name.
+                // check to see what modules are in it... and be able to load them by name.
                 /**
-                 * EG. Lets say there is a module called "Frank" installed in the moon_mods directory...
+                 * EG. Lets say there is a module called "Frank" installed in the mani_mods directory...
                  * The user can use `import("Frank");` in their code... and it will auto take that file...
                  * And run it, (It will run a `Frank();` as it is the file name...
                  *
@@ -314,23 +315,51 @@ public class Inbuilt {
                  */
 
                 /**
-                 * Another idea is... if there is an internet connection, could always check an online API if there is a
-                 * "web_std" of what they are looking for. If there is, this will allow usage of std's that
+                 * Section that checks to see if there is internet avaliable. If there is... it
+                 * will use that online version over the local version. Just so
+                 * it is more up-to-date.
                  */
-
-                //TODO: Check to see if it is already imported... if so, dont import it again...
-
-                if (arguments.get(0) instanceof String) {
-                    if (!Std.hasRun) {
-                        Std.Load();
-                    }
-                    String res = Std.find(arguments.get(0).toString());
-                    if (res.equalsIgnoreCase("-1")) {
-                        System.err.println("No such library!");
-                    } else if (res.equalsIgnoreCase("-2")) {
+                if (Mani.hasInternet) {
+                    // If there is internet, we will choose to use that STDLIB over the local...
+                    // simply due to the fact that it will be more up-to-date.
+                    if (Std.find(arguments.get(0).toString()).equalsIgnoreCase("-2")){
+                        // This means it has already been loaded.
                         return "Already loaded!";
                     } else {
-                        return Std.loadFile(interpreter, res);
+                        try {
+                            URL url = new URL("https://raw.githubusercontent.com/crazywolf132/Mani/master/stdlib/" + arguments.get(0) + ".mn");
+                            Scanner s = new Scanner(url.openStream());
+                            String final_file = "";
+                            while(s.hasNextLine()){
+                                final_file += s.nextLine() + "\n";
+                            }
+                            Std.loadFromUrl(interpreter, final_file);
+                            return final_file;
+                        }
+                        catch(IOException ex) {
+                            String res = Std.find(arguments.get(0).toString());
+                            if (res.equalsIgnoreCase("-1")) {
+                                System.err.println("No such library!");
+                            } else {
+                                return Std.loadFile(interpreter, res);
+                            }
+                        }
+                    }
+                } else {
+                    // As there is no internet. We are going to have to try and use the local version
+                    // That is if the user actually has them installed...
+                    if (arguments.get(0) instanceof String) {
+                        if (!Std.hasRun) {
+                            Std.Load();
+                        }
+                        String res = Std.find(arguments.get(0).toString());
+                        if (res.equalsIgnoreCase("-1")) {
+                            System.err.println("No such library!");
+                        } else if (res.equalsIgnoreCase("-2")) {
+                            return "Already loaded!";
+                        } else {
+                            return Std.loadFile(interpreter, res);
+                        }
                     }
                 }
 
@@ -338,146 +367,5 @@ public class Inbuilt {
             }
         });
 
-        /*
-        Everything todo with the screens STD:
-        */
-
-        inBuilts.put("Frame", new ManiCallable() {
-            @Override
-            public int arity() {
-                return 3;
-            }
-
-            @Override
-            public Object call(Interpreter interpreter, List<Object> arguments) {
-                //creating instance of JFrame
-                JFrame f = (arguments.get(2) != null) ? new JFrame(arguments.get(2).toString()): new JFrame();
-                f.setSize(new Double((Double) arguments.get(0)).intValue(),new Double((Double) arguments.get(1)).intValue());
-                f.setLayout(null);
-                return f;
-            }
-        });
-
-        inBuilts.put("FVis", new ManiCallable() {
-            @Override
-            public int arity() {
-                return 2;
-            }
-
-            @Override
-            public Object call(Interpreter interpreter, List<Object> arguments) {
-                if (arguments.get(1) instanceof Boolean) {
-                    JFrame f = (JFrame) arguments.get(0);
-                    f.setVisible((Boolean) arguments.get(1));
-                    return null;
-                }
-                return "FVis : requires boolean";
-            }
-        });
-
-        inBuilts.put("addButton", new ManiCallable() {
-            @Override
-            public int arity() {
-                return 6;
-            }
-
-            @Override
-            public Object call(Interpreter interpreter, List<Object> arguments) {
-                if (arguments.get(0) instanceof JPanel) {
-                    JButton b = new JButton(arguments.get(5).toString());
-                    int x = Std.DoubleToInt((double) arguments.get(1));
-                    int y = Std.DoubleToInt((double) arguments.get(2));
-                    int width = Std.DoubleToInt((double) arguments.get(3));
-                    int height = Std.DoubleToInt((double) arguments.get(4));
-                    b.setBounds(x, y, width, height);
-
-                    JPanel p = (JPanel) arguments.get(0);
-                    p.add(b);
-                    return b;
-                }
-                return "addButton : requires - frame, x, y, width, height, title";
-            }
-        });
-
-        inBuilts.put("makePanel", new ManiCallable() {
-            @Override
-            public int arity() {
-                return 0;
-            }
-
-            @Override
-            public Object call(Interpreter interpreter, List<Object> arguments) {
-                return new JPanel(new BorderLayout());
-            }
-        });
-
-        inBuilts.put("frameAdd", new ManiCallable() {
-            @Override
-            public int arity() {
-                return 2;
-            }
-
-            @Override
-            public Object call(Interpreter interpreter, List<Object> arguments) {
-                if (arguments.get(0) instanceof JFrame && arguments.get(1) instanceof JPanel) {
-                    JFrame f = (JFrame) arguments.get(0);
-                    JPanel p = (JPanel) arguments.get(1);
-                    f.add(p);
-                    return null;
-                }
-                return "frameAdd : Must be a frame and a panel";
-            }
-        });
-
-        inBuilts.put("panelAdd", new ManiCallable() {
-            @Override
-            public int arity() {
-                return 3;
-            }
-
-            @Override
-            public Object call(Interpreter interpreter, List<Object> arguments) {
-                JPanel p = (JPanel) arguments.get(0);
-
-                Boolean isPos = (arguments.get(2).toString() == null) ? false : true;
-                String pos = "";
-                switch(arguments.get(2).toString().toLowerCase()) {
-                    case "west":
-                        pos = BorderLayout.WEST;
-                        break;
-                    case "east":
-                        pos = BorderLayout.EAST;
-                        break;
-                    case "north":
-                        pos = BorderLayout.NORTH;
-                        break;
-                    case "south":
-                        pos = BorderLayout.SOUTH;
-                        break;
-                }
-
-                String res = arguments.get(1).getClass().getSimpleName();
-                switch(res) {
-                    case "JButton":
-                        JButton b = (JButton) arguments.get(1);
-                        if (isPos) {
-                            p.add(b, pos);
-                        } else {
-                            p.add(b);
-                        }
-                        p.add(b);
-                        break;
-                    case "JPanel":
-                        JPanel pan = (JPanel) arguments.get(1);
-                        if (isPos) {
-                            p.add(pan, pos);
-                        } else {
-                            p.add(pan);
-                        }
-                }
-
-                return null;
-            }
-        });
     }
 }
