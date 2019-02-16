@@ -316,7 +316,7 @@ a = 32;   // assign to 32
 a = true; // assign a to true
 ~~~~
 > * Variables are always mutable.
-* Global variables can be re-declared but local variables can't be.
+> * Global variables can be re-declared but local variables can't be.
 
 ## Operators
 
@@ -356,12 +356,12 @@ a -> b;     // The actual copy operation.
 say b;      // 12
 ~~~
 > Need an element to copy from, and an element to copy to.
-This means you need to create an element, even if it is blank like below.
+> This means you need to create an element, even if it is blank like below.
 
 > This is not just a regular copy though.
 This is a full memory copy.
 
-This means that if we have an instance of something, 
+> This means that if we have an instance of something, 
 and edit the original. It will also be edited in the
 other variable. As seen below.
 
