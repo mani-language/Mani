@@ -13,9 +13,11 @@ import java.util.Map;
 
 public class Std {
 
-    public static boolean hasRun = false;
-    public static Map<String, String> std = new HashMap<>();
-    public static List<String> loaded = new ArrayList<>();
+    public static boolean hasRun = false; // This if for checking to see if we have search for STDLIBS
+    public static Map<String, String> std = new HashMap<>(); // This is the STDLIB paths
+    public static List<String> loaded = new ArrayList<>(); // This is the files used by STDLib
+    public static List<String> loadedFiles = new ArrayList<>(); // This is the files used in "load("blah");"
+
 
     public static void Load() {
         File folder = new File(System.getProperty( "user.home" ) + "/mani");
