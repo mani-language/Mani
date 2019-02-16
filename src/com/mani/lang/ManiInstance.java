@@ -22,6 +22,10 @@ class ManiInstance {
         throw new RuntimeError(name, "Undefined Property '" + name.lexeme +"'.");
     }
 
+    boolean hasShowFn() {
+        return fields.containsKey("show");
+    }
+
     void set(Token name, Object value) {
         fields.put(name.lexeme, value);
     }
