@@ -1,10 +1,18 @@
 package com.mani.lang.Modules.json;
 
+import com.google.gson.GsonBuilder;
 import com.mani.lang.Interpreter;
 import com.mani.lang.ManiCallable;
 
 import org.json.JSONException;
 import org.json.JSONTokener;
+
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.Gson;
+import java.lang.reflect.Type;
+
+import java.util.List;
+import java.util.Map;
 
 public final class json_parse implements ManiCallable {
 
@@ -14,9 +22,13 @@ public final class json_parse implements ManiCallable {
     }
 
     @Override
-    public Object class(Interpreter interpreter, List<Object> arguments) {
-        String jsonRaw = arguments.get(0).toString();
-        Object res = new JSONTokener(jasonRaw).nextValue();
-        return res;
+    public Object call(Interpreter interpreter, List<Object> arguments) {
+//        String jsonRaw = arguments.get(0).toString();
+//        Object res = new JSONTokener(jsonRaw).nextValue();
+//        return res;
+        Gson gson = new GsonBuilder().create();
+        Type type = new TypeToken<Map<Object, Object>>(){}.getType();
+        Map<Object, Object> theMap = gson.fromJson((String) arguments.get(0), type);
+        return theMap;
     }
 }

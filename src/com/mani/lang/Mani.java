@@ -33,6 +33,11 @@ public class Mani {
 
     }
 
+    /**
+     * Used to figure out if we are connected to the internet or not.
+     *
+     * @return internetStatus (boolean)
+     */
     private static boolean checkInternet() {
         try {
             final URL url = new URL("http://www.github.com");
