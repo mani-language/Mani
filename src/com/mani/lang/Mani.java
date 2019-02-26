@@ -26,7 +26,7 @@ public class Mani {
      * Looks for internet, this will setup the STDLIB to either use
      * online version, or local if setup.
      *
-     * Then checks args to see if we are running the REPL or processing a file.
+     * Then checks args to see if we are running the REPL or processing a file.g
      * @param args
      */
     public static void main(String[] args) {

@@ -17,17 +17,6 @@ class Environment {
         this.enclosing = enclosing;
     }
 
-    /**
-     * Adding the variables to the enviroment. Both what the user defines, but also what the API's define.
-     * @param name
-     * @param value
-     */
-
-    void show() {
-        for (Map.Entry<String, Object> entry : values.entrySet()) {
-            System.out.println(entry.getKey() + "/" + entry.getValue());
-        }
-    }
 
     void define(String name, Object value) {
         values.put(name, value);
@@ -76,7 +65,7 @@ class Environment {
     }
 
     /**
-     * This function is used to re-assign the values of already created variables in the enviroment.
+     * Used to re-assign the values of already created variables in the enviroment.
      * @param name
      * @param value
      */
