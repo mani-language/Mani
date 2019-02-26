@@ -19,6 +19,16 @@ public class Mani {
     public static boolean isStrictMode = false;
 
     private static final Interpreter interpreter = new Interpreter();
+
+    /**
+     * The core of all cores. This is where the magic begins.
+     *
+     * Looks for internet, this will setup the STDLIB to either use
+     * online version, or local if setup.
+     *
+     * Then checks args to see if we are running the REPL or processing a file.
+     * @param args
+     */
     public static void main(String[] args) {
 
             hasInternet = checkInternet();
@@ -52,6 +62,10 @@ public class Mani {
         }
     }
 
+    /**
+     * Used to load a file into its bytes, before processing.
+     * @param path
+     */
     private static void runFile(String path) {
         if(path.endsWith(".mn")) {
             try {
@@ -68,6 +82,9 @@ public class Mani {
         }
     }
 
+    /**
+     * This is our REPL. It is basic, so please be nice.
+     */
     private static void runPrompt() {
         System.out.println("The \u001B[36mMani\033[0m Programming Language");
         try{
@@ -84,6 +101,18 @@ public class Mani {
         }
     }
 
+    /**
+     * Used for processing files.
+     * Takes the file and runs it through the following steps.
+     * - Lexer
+     * - Lexer verify
+     * - Parser
+     * - Run statements.
+     * - Resolver
+     * - Run statements.
+     * - Interpreter
+     * @param source
+     */
     private static void run(String source) {
         Lexer lexer = new Lexer(source);
         List<Token> tokens = lexer.scanTokens();
@@ -97,10 +126,20 @@ public class Mani {
 
     }
 
+    /**
+     * Used for reporting an error, with the line and message.
+     * @param line
+     * @param message
+     */
     static void error(int line, String message) {
         report(line, "", message);
     }
 
+    /**
+     * Used for reporting an error, with token and message.
+     * @param token
+     * @param message
+     */
     static void error(Token token, String message) {
         if(token.type == TokenType.EOF) {
             report(token.line, "at end", message);
@@ -109,11 +148,22 @@ public class Mani {
         }
     }
 
+    /**
+     * Used by `error` to print the message to the console.
+     * @param line
+     * @param where
+     * @param message
+     */
     static void report(int line, String where, String message) {
         System.err.println("[line " + line + "] Error " + where +" : " + message );
         hadError = true;
     }
 
+    /**
+     * Used for handling runtime errors, and printing them
+     * in the console.
+     * @param error
+     */
     static void runtimeError(RuntimeError error) {
         System.err.println(error.getMessage() + "\n[line " + error.token.line + "]");
         hadRuntimeError = true;
