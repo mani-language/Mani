@@ -15,9 +15,10 @@ class Parser {
         List<Stmt> statements = new ArrayList<>();
         while(!isAtEnd()) {
             if (peek().type == TokenType.STRICT) {
+                //TODO: Need to fix this. Turns out, the entire strict mode is rooted.
                 advance();
                 consume(TokenType.SEMICOLON, "Need ';' after STRICT", true);
-                advance();
+                //advance();
                 Mani.isStrictMode = true;
             } else {
                 statements.add(declarations());
