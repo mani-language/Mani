@@ -47,7 +47,6 @@ class Environment {
      */
 
     Object get(Token name) {
-        //System.err.println("RUNNING NOW! " + name);
         if(values.containsKey(name.lexeme)) {
             return values.get(name.lexeme);
         }
