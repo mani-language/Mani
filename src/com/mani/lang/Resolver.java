@@ -125,7 +125,7 @@ class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
 
     @Override
     public Void visitExpressionStmt(Stmt.Expression stmt) {
-        resolve(stmt.expression);;
+        resolve(stmt.expression);
         return null;
     }
 
