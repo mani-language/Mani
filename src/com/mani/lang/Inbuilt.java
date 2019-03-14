@@ -23,7 +23,6 @@ public class Inbuilt {
 
 
     public static Map<String, ManiCallable> inBuilts = new HashMap<>();
-    
     static{
         inBuilts.put("find", new ManiCallable() {
 
@@ -218,6 +217,32 @@ public class Inbuilt {
         });
 
 
+        inBuilts.put("at", new ManiCallableInternal() {
+
+            @Override
+            public int arity() {
+                return 1;
+            }
+
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                if (this.workWith instanceof ArrayList) {
+                    if (((Double) arguments.get(0)).intValue() > ((ArrayList) this.workWith).size() - 1|| ((Double) arguments.get(0)).intValue() < 0) {
+                        System.err.println("Range must be between 0 and " + (((ArrayList) this.workWith).size() - 1));
+                        return null;
+                    }
+                    return ((ArrayList) this.workWith).get(((Double)arguments.get(0)).intValue());
+                } else if (this.workWith instanceof HashMap) {
+                    if (((Double) arguments.get(0)).intValue() > ((HashMap) this.workWith).keySet().size() - 1 || ((Double) arguments.get(0)).intValue() < 0) {
+                        System.err.println("Range must be between 0 and " + (((HashMap) this.workWith).keySet().size() - 1));
+                        return null;
+                    }
+                    return null;
+                }
+                return null;
+            }
+        });
+
         inBuilts.put("load", new ManiCallable() {
             @Override
             public int arity() {
@@ -273,6 +298,10 @@ public class Inbuilt {
                  * will use that online version over the local version. Just so
                  * it is more up-to-date.
                  */
+
+                // Before we start, we are going to convert to lowercase to prevent errors.
+                arguments.set(0, ((String) arguments.get(0)).toLowerCase());
+
                 if (Mani.hasInternet) {
                     // If there is internet, we will choose to use that STDLIB over the local...
                     // simply due to the fact that it will be more up-to-date.
