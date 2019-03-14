@@ -1,5 +1,6 @@
 package com.mani.lang;
 
+import java.util.HashMap;
 import java.util.List;
 
 abstract class Expr {
@@ -18,6 +19,7 @@ abstract class Expr {
     R visitVariableExpr(Variable expr);
     R visitCopyExpr(Copy expr);
     R visitArrayExpr(Array expr);
+    R visitMapExpr(Map expr);
   }
   static class Assign extends Expr {
     Assign(Token name, Expr value) {
@@ -204,6 +206,16 @@ abstract class Expr {
     <R> R accept(Visitor<R> visitor) { return visitor.visitArrayExpr(this); }
 
     final List<Expr> elements;
+  }
+
+  static class Map extends Expr {
+    Map(HashMap<Expr, Expr> els) {
+      this.elements = els;
+    }
+
+    <R> R accept(Visitor<R> visitor) { return visitor.visitMapExpr(this); }
+
+    final HashMap<Expr, Expr> elements;
   }
 
   abstract <R> R accept(Visitor<R> visitor);
