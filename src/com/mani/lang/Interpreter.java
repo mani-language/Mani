@@ -250,6 +250,15 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
     }
 
     @Override
+    public Object visitMapExpr(Expr.Map expr) {
+        HashMap<Object, Object> db = new HashMap<>();
+        for (Expr e : expr.elements.keySet()) {
+            db.put(evaluate(e), evaluate(expr.elements.get(e)));
+        }
+        return db;
+    }
+
+    @Override
     public Object visitUnaryExpr(Expr.Unary expr) {
         Object right = evaluate(expr.right);
         switch(expr.operator.type) {

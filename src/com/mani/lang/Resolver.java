@@ -295,4 +295,15 @@ class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
         return null;
     }
 
+    @Override
+    public Void visitMapExpr(Expr.Map expr) {
+        for (Expr e : expr.elements.keySet()) {
+            resolve(e);
+        }
+        for (Expr e : expr.elements.values()) {
+            resolve(e);
+        }
+        return null;
+    }
+
 }
