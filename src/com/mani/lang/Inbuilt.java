@@ -233,11 +233,7 @@ public class Inbuilt {
                     }
                     return ((ArrayList) this.workWith).get(((Double)arguments.get(0)).intValue());
                 } else if (this.workWith instanceof HashMap) {
-                    if (((Double) arguments.get(0)).intValue() > ((HashMap) this.workWith).keySet().size() - 1 || ((Double) arguments.get(0)).intValue() < 0) {
-                        System.err.println("Range must be between 0 and " + (((HashMap) this.workWith).keySet().size() - 1));
-                        return null;
-                    }
-                    return null;
+                    return ((HashMap) this.workWith).get(arguments.get(0));
                 }
                 return null;
             }
