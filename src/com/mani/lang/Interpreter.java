@@ -12,7 +12,7 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
     private Environment environment = globals;
 
     Interpreter() {
-        /*
+        /**
          * Loading the inBuilts hashMap, which is the built in functions / apis for the language.
          * We are just defining them in the enviroment
          */
@@ -382,8 +382,13 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
                 }
             }
             return ((ManiInstance)object).get(expr.name);
+        } else if (object instanceof ArrayList && expr.name.lexeme.equalsIgnoreCase("at")) {
+            ManiCallable mc = Inbuilt.inBuilts.get(expr.name.lexeme);
+            ManiCallableInternal mci = (ManiCallableInternal) mc;
+            mci.setItem(object);
+            return (ManiCallable) mci;
         }
-        //TODO: This is where we can reference objects from the list.
+
         throw new RuntimeError(expr.name, "Only instances have properties.");
     }
     @Override
