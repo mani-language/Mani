@@ -451,6 +451,24 @@ class Parser {
             return new Expr.Array(elements);
         }
 
+        /**
+         * This is where we try to make a map handler.
+         */
+
+        if (match(TokenType.LEFT_BRACE)) {
+            final HashMap<Expr, Expr> elements = new HashMap<>();
+            while(!match(TokenType.RIGHT_BRACE)) {
+                final Expr key = expression();
+                consume(TokenType.COLON, "Expected ':' between key and value");
+                final Expr val = expression();
+                elements.put(key, val);
+                match(TokenType.COMMA);
+            }
+
+
+            return new Expr.Map(elements);
+        }
+
         throw error(peek(), "Expect expression.");
     }
 
