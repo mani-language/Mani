@@ -1,4 +1,5 @@
 use("arrays");
+use("functional");
 
 class List {
     List() {
@@ -20,8 +21,8 @@ class List {
         arrayAddItem(this.list, object);
     }
 
-    addLots(---) {
-        say "lol";
+    addLots(arr) {
+        arrayForEach(arr, this.add);
     }
 
     get(position) {
