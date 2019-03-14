@@ -204,7 +204,7 @@ class Parser {
     }
 
     private Stmt printStatement() {
-        Expr value =  expression();
+        Expr value = expression();
         consume(TokenType.SEMICOLON, "Expect ';' after value", Mani.isStrictMode);
         return new Stmt.Print(value);
     }
@@ -426,6 +426,7 @@ class Parser {
                 error(previous(), "Invalid assignment target");
             }
         }
+
         if(match(TokenType.NUMBER, TokenType.STRING)) {
             return new Expr.Literal(previous().literal);
         }
@@ -434,8 +435,26 @@ class Parser {
             consume(TokenType.RIGHT_PAREN, "Expect ')' after expression.");
             return new Expr.Grouping(expr);
         }
+
+        /**
+         * This is where we try to make an array handler.
+         */
+
+        if(match(TokenType.LEFT_SQUARE)) {
+            final List<Expr> elements = new ArrayList<>();
+            while(!match(TokenType.RIGHT_SQUARE)) {
+                Expr value = expression();
+                elements.add(value);
+                match(TokenType.COMMA);
+            }
+
+            return new Expr.Array(elements);
+        }
+
         throw error(peek(), "Expect expression.");
     }
+
+
     //UTILS
     private Token consume(TokenType type, String message) {
         if(check(type)) return advance();
@@ -448,7 +467,7 @@ class Parser {
     }
 
     private Token consume(TokenType type, String message, Boolean useStrict) {
-        if (useStrict) {
+        if (check(TokenType.SEMICOLON) || useStrict) {
             return consume(type, message);
         } else {
             return advance();
@@ -463,7 +482,7 @@ class Parser {
     private void synchnorize() {
         advance();
         while(!isAtEnd()) {
-            if(previous().type == TokenType.SEMICOLON) return;
+            if(previous().type == TokenType.SEMICOLON) return; // TODO: It might be here that is breaking the whole STRICT mode.
             switch( peek().type ) {
                 case CLASS:
                 case FN:

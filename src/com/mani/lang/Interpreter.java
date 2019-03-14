@@ -10,7 +10,7 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
     final Environment globals = new Environment();
     private final Map<Expr, Integer> locals = new HashMap<>();
     private Environment environment = globals;
-    
+
     Interpreter() {
         /*
          * Loading the inBuilts hashMap, which is the built in functions / apis for the language.
@@ -241,6 +241,15 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
     }
 
     @Override
+    public Object visitArrayExpr(Expr.Array expr) {
+        List<Object> db = new ArrayList<>();
+        for (Expr e : expr.elements) {
+            db.add(evaluate(e));
+        }
+        return db;
+    }
+
+    @Override
     public Object visitUnaryExpr(Expr.Unary expr) {
         Object right = evaluate(expr.right);
         switch(expr.operator.type) {
@@ -374,6 +383,7 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
             }
             return ((ManiInstance)object).get(expr.name);
         }
+        //TODO: This is where we can reference objects from the list.
         throw new RuntimeError(expr.name, "Only instances have properties.");
     }
     @Override

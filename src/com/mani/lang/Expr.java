@@ -17,6 +17,7 @@ abstract class Expr {
     R visitUnaryExpr(Unary expr);
     R visitVariableExpr(Variable expr);
     R visitCopyExpr(Copy expr);
+    R visitArrayExpr(Array expr);
   }
   static class Assign extends Expr {
     Assign(Token name, Expr value) {
@@ -193,6 +194,16 @@ abstract class Expr {
     }
 
     final Token name;
+  }
+
+  static class Array extends Expr {
+    Array(List<Expr> els) {
+      this.elements = els;
+    }
+
+    <R> R accept(Visitor<R> visitor) { return visitor.visitArrayExpr(this); }
+
+    final List<Expr> elements;
   }
 
   abstract <R> R accept(Visitor<R> visitor);
