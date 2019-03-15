@@ -70,10 +70,15 @@ class Lexer {
             case '=': addToken(match('=') ? EQUAL_EQUAL : EQUAL); break;
             case '>': addToken(match('=') ? GREATER_EQUAL : GREATER); break;
             case '<': addToken(match('=') ? LESS_EQUAL : match('-') ? VAR_ARROW : LESS); break;
+            case ':': addToken(COLON); break;
             case '/':
-                if(match('/')){
-                    while(peek() != '\n' && !isAtEnd()) advance();
-                 }  else {
+                if(match('/')) {
+                    while (peek() != '\n' && !isAtEnd()) advance();
+                } else if (match('*')) {
+                    do {
+                        advance();
+                    } while(!(match('*') && match('/')) && !isAtEnd());
+                } else {
                     addToken(match('=') ? SLASH_ASSIGN : SLASH);
                 }
                 break;
