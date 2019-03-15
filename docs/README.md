@@ -276,6 +276,12 @@ list.show(); // Will display an array with the file contents, split by each line
 ## Comments, Variables, Value Types and Assignment
 ~~~~ mani
 // This is a comment
+
+/*
+This is
+a multi-line
+comment
+*/
 ~~~~
 
 ~~~ mani
