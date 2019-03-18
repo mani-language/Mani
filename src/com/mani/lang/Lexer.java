@@ -71,6 +71,7 @@ class Lexer {
             case '>': addToken(match('=') ? GREATER_EQUAL : GREATER); break;
             case '<': addToken(match('=') ? LESS_EQUAL : match('-') ? VAR_ARROW : match('<') ? VAR_ARROW : LESS); break;
             case ':': addToken(COLON); break;
+            case '#': addToken(IMPORT); break;
             case '/':
                 if(match('/')) {
                     while (peek() != '\n' && !isAtEnd()) advance();
