@@ -1,0 +1,8 @@
+# "maps";
+
+Load "man.mn";
+
+let m = Man("John", "Doe", 20);
+
+m.normal();     // John, Doe, 20
+m.both();       // Doe John ... John, Doe, 20
