@@ -467,6 +467,23 @@ class Parser {
             return new Expr.Map(elements);
         }
 
+        /**
+         * This is where we are using our new Load and Import (#) tags.
+         */
+
+        if (match(TokenType.LOAD)) {
+            final Expr toLoad = expression();
+            consume(TokenType.SEMICOLON, "Expected ';' after Load tag", Mani.isStrictMode);
+            return new Expr.Load(toLoad);
+        }
+
+        if (match(TokenType.IMPORT)) {
+            final Expr toImport = expression();
+            consume(TokenType.SEMICOLON, "Expected ';' after Import tag", Mani.isStrictMode);
+            return new Expr.Import(toImport);
+        }
+
+
         throw error(peek(), "Expect expression.");
     }
 

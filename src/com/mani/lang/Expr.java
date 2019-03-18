@@ -20,6 +20,8 @@ abstract class Expr {
     R visitCopyExpr(Copy expr);
     R visitArrayExpr(Array expr);
     R visitMapExpr(Map expr);
+    R visitLoadExpr(Load expr);
+    R visitImportExpr(Import expr);
   }
   static class Assign extends Expr {
     Assign(Token name, Expr value) {
@@ -216,6 +218,22 @@ abstract class Expr {
     <R> R accept(Visitor<R> visitor) { return visitor.visitMapExpr(this); }
 
     final HashMap<Expr, Expr> elements;
+  }
+
+  static class Load extends Expr {
+    Load(Expr toLoad) { this.toLoad = toLoad; }
+
+    <R> R accept(Visitor<R> visitor) { return visitor.visitLoadExpr(this); }
+
+    final Expr toLoad;
+  }
+
+  static class Import extends Expr {
+    Import(Expr toImport) { this.toImport = toImport; }
+
+    <R> R accept(Visitor<R> visitor) { return visitor.visitImportExpr(this); }
+
+    final Expr toImport;
   }
 
   abstract <R> R accept(Visitor<R> visitor);

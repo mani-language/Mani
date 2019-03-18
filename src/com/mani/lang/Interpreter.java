@@ -259,6 +259,18 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
     }
 
     @Override
+    public Object visitLoadExpr(Expr.Load expr) {
+        // This is where we need to actually load the file now, or API... depends if the file exists.
+        return null;
+    }
+
+    @Override
+    public Object visitImportExpr(Expr.Import expr) {
+        // This is where we need to import the library from the internet, or local. Depends if there is internet.
+        return null;
+    }
+
+    @Override
     public Object visitUnaryExpr(Expr.Unary expr) {
         Object right = evaluate(expr.right);
         switch(expr.operator.type) {

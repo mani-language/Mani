@@ -306,4 +306,14 @@ class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
         return null;
     }
 
+    @Override
+    public Void visitLoadExpr(Expr.Load expr) {
+        return null;
+    }
+
+    @Override
+    public Void visitImportExpr(Expr.Import expr) {
+        return null;
+    }
+
 }
