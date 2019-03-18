@@ -464,8 +464,6 @@ class Parser {
                 elements.put(key, val);
                 match(TokenType.COMMA);
             }
-
-
             return new Expr.Map(elements);
         }
 
