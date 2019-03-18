@@ -4,13 +4,11 @@ import com.mani.lang.Modules.Module;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
     
@@ -304,6 +302,54 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
     @Override
     public Object visitImportExpr(Expr.Import expr) {
         // This is where we need to import the library from the internet, or local. Depends if there is internet.
+        Object result = evaluate(expr.toImport);
+        if (!(result instanceof String)) {
+            System.err.println(result.getClass().getSimpleName());
+            System.err.println("Must be presented as a string");
+            return null;
+        }
+
+        if (Mani.hasInternet) {
+            // If there is internet, we will choose to use that STDLIB over the local...
+            // simply due to the fact that it will be more up-to-date.
+            if (Std.find((String) result).equalsIgnoreCase("-2")){
+                // This means it has already been loaded.
+                return "Already loaded!";
+            } else {
+                try {
+                    URL url = new URL("https://raw.githubusercontent.com/crazywolf132/Mani/master/stdlib/" + (String) result + ".mn");
+                    Scanner s = new Scanner(url.openStream());
+                    String final_file = "";
+                    while(s.hasNextLine()){
+                        final_file += s.nextLine() + "\n";
+                    }
+                    Std.loadFromUrl(this, final_file);
+                    return final_file;
+                }
+                catch(IOException ex) {
+                    String res = Std.find((String) result);
+                    if (res.equalsIgnoreCase("-1")) {
+                        System.err.println("No such library!");
+                    } else {
+                        return Std.loadFile(this, res);
+                    }
+                }
+            }
+        } else {
+            // As there is no internet. We are going to have to try and use the local version
+            // That is if the user actually has them installed...
+            if (!Std.hasRun) {
+                Std.Load();
+            }
+            String res = Std.find((String) result);
+            if (res.equalsIgnoreCase("-1")) {
+                System.err.println("No such library!");
+            } else if (res.equalsIgnoreCase("-2")) {
+                return "Already loaded!";
+            } else {
+                return Std.loadFile(this, res);
+            }
+        }
         return null;
     }
 
