@@ -1,5 +1,12 @@
 package com.mani.lang;
 
+import com.mani.lang.Modules.Module;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -261,6 +268,36 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
     @Override
     public Object visitLoadExpr(Expr.Load expr) {
         // This is where we need to actually load the file now, or API... depends if the file exists.
+        Object res = evaluate(expr.toLoad);
+        if (!(res instanceof String)) {
+            System.err.println("Must be presented as a string");
+            return null;
+        }
+        // If we have gotten this far, we should check for a file.
+        File f = new File((String)res);
+        if (f.exists()) {
+            // This means we load this over the API.
+            try {
+                byte[] bytes = Files.readAllBytes(Paths.get((String) res));
+                Lexer lexer = new Lexer(new String(bytes, Charset.defaultCharset()));
+                List<Token> tokens = lexer.scanTokens();
+                Parser parser = new Parser(tokens);
+                List<Stmt> statements = parser.parse();
+                Resolver resolver = new Resolver(this);
+                resolver.resolve(statements);
+                this.interpret(statements);
+            } catch (IOException e) {
+                return e;
+            }
+        } else {
+            try {
+                final String moduleName = (String) res;
+                final Module module = (Module) Class.forName("com.mani.lang.Modules." + moduleName + "." + moduleName).newInstance();
+                module.init(this);
+            } catch (Exception e) {
+                return e;
+            }
+        }
         return null;
     }
 
