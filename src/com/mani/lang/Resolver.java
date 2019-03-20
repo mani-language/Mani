@@ -308,11 +308,13 @@ class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
 
     @Override
     public Void visitLoadExpr(Expr.Load expr) {
+        resolve(expr.toLoad);
         return null;
     }
 
     @Override
     public Void visitImportExpr(Expr.Import expr) {
+        resolve(expr.toImport);
         return null;
     }
 
