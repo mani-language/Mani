@@ -3,7 +3,7 @@
 <img src="assets/images/logo.png" height="200px" alt="Moon Lang" title="Mani Lang">
 </p>
 
-<b>Version</b> <small>1.0.0</small>
+<b>Version</b> <small>1.2.7</small>
 
 > An awesome, super simple language!
 
