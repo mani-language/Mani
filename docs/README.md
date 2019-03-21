@@ -439,6 +439,22 @@ if(a == 42) {
     say "failed";
 }
 
+let b <- true;
+// if and
+if (a == 42 and b) {
+  say "solved";
+} else {
+  say "failed";
+}
+
+// if or
+
+if (a == 42 or a == 33) {
+  say "solved";
+} else {
+  say "failed";
+}
+
 ~~~~
 
 ## Loops
