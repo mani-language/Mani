@@ -15,7 +15,7 @@ Implement them into this, and try and build an "Alpha" language... if that is ev
 The name of the library needs to be presented as a string (wrapped in "")
 
 ## Loading
-~~~ Mani
+~~~ mani
 load "std";     // Loads the std API
 load "atomic";  // Loads the atomic API
 
