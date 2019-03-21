@@ -3,7 +3,7 @@
 <img src="docs/assets/images/logo_outlined.png" height="200px" alt="Máni" title="Máni">
 </p>
 
-<b>Version</b> <small>1.0.0</small>
+<b>Version</b> <small>1.2.7</small>
 
 > An awesome, super simple language!
 
@@ -20,7 +20,7 @@
 ## What is it?
 Máni is an interpreted language that is simple to learn, and easy to use.
 
-The idea behind it is, take some of the good parts of other languages like nodejs, python etc.
+The idea behind it is, take some of the good parts of other languages like nodejs, c++, python etc.
 Implement them into this, and try and build an "Alpha" language... if that is even a such thing.
 
 # Importing, and Loading
