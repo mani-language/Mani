@@ -1,6 +1,6 @@
 
 <p align="center">
-<img src="assets/images/logo.png" height="200px" alt="Moon Lang" title="Moon Lang">
+<img src="assets/images/logo.png" height="200px" alt="Moon Lang" title="Mani Lang">
 </p>
 
 <b>Version</b> <small>1.0.0</small>
@@ -9,7 +9,7 @@
 
 * Simple and lightweight
 * No external dependencies
-* Straight recursive descent paser
+* Straight recursive descent parser
 
 
 [![](https://forthebadge.com/images/badges/built-by-codebabes.svg)](#)
@@ -17,6 +17,5 @@
 [![](https://forthebadge.com/images/badges/contains-technical-debt.svg)](#)
 [![](https://forthebadge.com/images/badges/check-it-out.svg)](#)
 
-[GitHub](https://github.com/crazywolf132/moonlang)
-[Lets go!](#Moon-Lang)
-
+[GitHub](https://github.com/crazywolf132/Mani)
+[Lets go!](#Mani)
