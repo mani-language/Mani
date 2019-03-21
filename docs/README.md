@@ -5,29 +5,39 @@ Máni is an interpreted language that is simple to learn, and easy to use.
 The idea behind it is, take some of the good parts of other languages like nodejs, python etc.
 Implement them into this, and try and build an "Alpha" language... if that is even a such thing.
 
-# Importing, Loading and Using
-## Use
-~~~ mani
-use("std");  // Loads the API end points for the STD Library.
-use("maps"); // Loads the API end points for the Maps Library.
-~~~
+# Importing, and Loading
 ## Importing
 ~~~ mani
-import("lists"); // Loads the lists library
-import("files"); // Loads the files library
+# "lists";  // Imports the lists library
+# "maps";   // Imports the maps library
 ~~~
-## Loading
-~~~ mani
-load("somefile.mn"); // Loads the local file called "somefile.mn" if it exists.
-~~~
+> The `#` is used to import something from the STDLIB.
+The name of the library needs to be presented as a string (wrapped in "")
 
-> Whats the difference? <br>
-The difference is, Importing loads the standard libraries, whereas Loading loads local files.
-Usage loads the java API points for the select library. Eg, the Maps or STD. These are the raw
-connections that the Mani STDLib uses.
+## Loading
+~~~ Mani
+load "std";     // Loads the std API
+load "atomic";  // Loads the atomic API
+
+load "./somefile.mn"  // Loads a local file.
+~~~
+> The load function will load a file before an API. This means, that if there
+is a local file with the same name as an API. It will load that instead of the API
+this can be useful for overloading how STDLIB's work. It can also be dangerous
+for certain file names.
+
 
 
 # Standard Library
+
+## Important notes.
+The standard library works in a way, that it doesn't require the library to be
+on the machine running it. This can be helpful to minimise the footprint left
+by the language.
+
+The way it works, is. If you have an active internet connection. It will load
+the latest version of the library from the web and use that. If you do not have
+an active connection. It will look for the file (library) locally on the machine.
 ## Lists
 
 ~~~ mani
@@ -134,7 +144,7 @@ array.forEach(someFunction); // This will run the "someFunction" parsing the dat
 ~~~
 
 > * The difference between a normal list, and one made by the API, is the uppercase L... As you may see.
-* I, as the creator of this language... Surgest using the Standard Library list, over the api version. This is due to being able to use the prebuilt functions such as add, replace etc, with ease.
+* I, as the creator of this language... Suggest using the Standard Library list, over the api version. This is due to being able to use the prebuilt functions such as add, replace etc, with ease.
 
 
 ## Maps
@@ -349,7 +359,7 @@ This means you need to create an element, even if it is blank like below.
 > This is not just a regular copy though.
 This is a full memory copy.
 
-This means that if we have an instance of something, 
+This means that if we have an instance of something,
 and edit the original. It will also be edited in the
 other variable. As seen below.
 
@@ -388,7 +398,7 @@ say "hello"; // prints hello
 say 1+2+3;   //prints 6
 ~~~~
 
-## Block Statement 
+## Block Statement
 
 ~~~~ mani
 let x = 0;
@@ -432,7 +442,7 @@ if(a == 42) {
 ~~~~
 
 ## Loops
- 
+
 ~~~~ mani
 // While Loop
 
@@ -449,7 +459,7 @@ for( let i = 0 ; i < 50 ; i = i + 1 ) {
 }
 
 for(;;) say "infinite loop";
-~~~~ 
+~~~~
 ## Break Keyword
 ~~~~ mani
 let x = 0;
@@ -457,7 +467,7 @@ while(true) {
     say x;
     x = x + 1;
     if (x == 10) {
-        break; 
+        break;
     }
 } // should print 1 .. 10
 ~~~~
@@ -564,7 +574,7 @@ say greeeting.sayHello();     // prints Hello John
 say greeting.sayNight();      // prints Good Night John
 ~~~~
 
-> * A value cannot be retured from the constrcutor.
+> * A value cannot be returned from the constructor.
 
 
 ### Inheritance
