@@ -32,7 +32,7 @@ class List {
 
     reset() {
         // This is used for those times when you cant be bothered deleting each item of the list...
-        this.list = list(this.type);
+        this.list = newArray();
     }
 
     show() {
