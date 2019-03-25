@@ -1,5 +1,7 @@
 package com.mani.lang;
 
+import com.mani.lang.language.Lang;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,10 +10,16 @@ import java.util.Map;
 import static com.mani.lang.TokenType.*;
 
 class Lexer {
-     private static final Map<String, TokenType> keywords;
+    private static Map<String, TokenType> keywords;
+
+    private boolean awaitingLangName = false;
+    private String customLangName = "";
+    private String lastLangName = "english";
+
     static{
         keywords = new HashMap<>();
         keywords.put("STRICT", STRICT);
+        keywords.put("CHANGE_LANG", CHANGELANG);
         keywords.put("and", AND);
         keywords.put("internal", INTERNAL);
         keywords.put("class", CLASS);
@@ -51,6 +59,11 @@ class Lexer {
 
     }
     private void scanToken(){
+        // Just going to check for a new language to load.
+        if (customLangName != "" && !(customLangName.equalsIgnoreCase(lastLangName))) {
+            loadLanguage();
+        }
+
         char c = advance();
         switch(c){
             case '(': addToken(LEFT_PAREN); break;
@@ -104,10 +117,31 @@ class Lexer {
                 break;
         }
     }
+    private void loadLanguage() {
+        try {
+            Map<String, TokenType> newLang = new HashMap<>();
+            Map<String, String> trans = new HashMap<>();
+            final Lang module = (Lang) Class.forName("com.mani.lang.language." + customLangName).newInstance();
+            trans = (Map<String, String>) module.init(trans);
+            for (String key : keywords.keySet()) {
+                if (trans.containsKey(key)) {
+                    newLang.put(trans.get(key), keywords.get(key));
+                } else {
+                    newLang.put(key, keywords.get(key));
+                }
+            }
+            keywords = newLang;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     private void identifier(){
         while(isAlphaNumeric(peek())) advance();
         String text = source.substring(start,current);
         TokenType type = keywords.get(text);
+        // This is where we are going to check what the token is.
+        // If the token is the CHANGELANG token. We are going to assume that
+        // the code after it is in the language definied.
         if(type == null) type = IDENTIFIER;
         addToken(type);
     }
@@ -184,6 +218,18 @@ class Lexer {
     }
     //we use overloading for tokens with literals
     private void addToken(TokenType type, Object literal){
+        // We are going to check through each added token, for the CHANGELANG
+        // token. If that is found, then the next token will be the language
+        // to change it to.
+        if (type == TokenType.CHANGELANG) {
+            awaitingLangName = true;
+            return;
+        } else if (type == TokenType.STRING && awaitingLangName) {
+            customLangName = (String) literal;
+            awaitingLangName = false;
+            advance(); // Remove the ";"
+            return;
+        }
         String text = source.substring(start, current);
         tokens.add(new Token(type, text, literal, line));
     }
