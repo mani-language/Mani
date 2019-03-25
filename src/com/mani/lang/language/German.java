@@ -11,6 +11,14 @@ public class German implements Lang {
         keywords.put("say", "sagen");
         keywords.put("break", "brechen");
         keywords.put("return", "rückkehr");
+        keywords.put("class", "klasse");
+        keywords.put("and", "und");
+        keywords.put("or", "oder");
+        keywords.put("false", "falsch");
+        keywords.put("true", "wahr");
+        keywords.put("this", "diese");
+        keywords.put("loop", "schleife");
+        keywords.put("while", "während");
         return keywords;
     }
 }
