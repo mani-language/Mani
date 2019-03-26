@@ -10,6 +10,7 @@
 * Simple and lightweight
 * No external dependencies
 * Straight recursive descent paser
+* Multi-language support
 
 [![](https://forthebadge.com/images/badges/built-by-codebabes.svg)](#)
 [![](https://forthebadge.com/images/badges/made-with-crayons.svg)](#)
