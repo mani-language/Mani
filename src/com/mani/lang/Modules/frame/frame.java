@@ -42,6 +42,66 @@ public final class frame implements Module {
         interpreter.addSTD("keyPressed", new keyPressed());
         interpreter.addSTD("windowRepaint", new windowRepaint());
         interpreter.addSTD("windowPrompt", new windowPrompt());
+        interpreter.addSTD("draw_shape", new draw_shape());
+        interpreter.addSTD("color", new setColor());
+    }
+
+    private static class setColor implements ManiCallable {
+
+        @Override
+        public int arity() {
+            return -1;
+        }
+
+        @Override
+        public Object call(Interpreter interpreter, List<Object> arguments) {
+            if (arguments.size() > 1) {
+                int r = Std.DoubleToInt((double) arguments.get(0));
+                int g = Std.DoubleToInt((double) arguments.get(1));
+                int b = Std.DoubleToInt((double) arguments.get(2));
+                graphics.setColor(new Color(r, g, b));
+                return null;
+            }
+            graphics.setColor(new Color(Std.DoubleToInt((double) arguments.get(0))));
+            return null;
+        }
+    }
+
+    private static class draw_shape implements ManiCallable {
+
+        @Override
+        public int arity() {
+            return 5;
+        }
+
+        @Override
+        public Object call(Interpreter interpreter, List<Object> arguments) {
+            int x = Std.DoubleToInt((double) arguments.get(1));
+            int y = Std.DoubleToInt((double) arguments.get(2));
+            int w = Std.DoubleToInt((double) arguments.get(3));
+            int h = Std.DoubleToInt((double) arguments.get(4));
+            switch((String) arguments.get(0)) {
+                case "line":
+                    graphics.drawLine(x, y, w, h);
+                    break;
+                case "oval":
+                    graphics.drawOval(x, y, w, h);
+                    break;
+                case "foval":
+                    graphics.fillOval(x, y, w, h);
+                    break;
+                case "rect":
+                    graphics.drawRect(x, y, w, h);
+                    break;
+                case "frect":
+                    graphics.fillRect(x, y, w, h);
+                    break;
+                case "clip":
+                    graphics.setClip(x, y, w, h);
+                    break;
+            }
+            return null;
+        }
     }
 
     private static class CreateWindow implements ManiCallable {
@@ -54,8 +114,8 @@ public final class frame implements Module {
         @Override
         public Object call(Interpreter interpreter, List<Object> arguments) {
 			String title = "";
-            double width = 640;
-            double height = 480;
+            double width = 1000;
+            double height = 700;
             switch (arguments.size()) {
                 case 1:
                     if (!(arguments.get(0) instanceof String)) { return "Please make sure argument is a string"; }
@@ -78,7 +138,6 @@ public final class frame implements Module {
                     break;
             }
             panel = new CanvasPanel(new Double(width).intValue(), new Double(height).intValue());
-
             frame = new JFrame(title);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.add(panel);
@@ -168,7 +227,7 @@ public final class frame implements Module {
 
         @Override
         public Object call(Interpreter interpreter, List<Object> arguments) {
-            final String v = JOptionPane.showInputDialog(arguments.get(0).asString());
+            final String v = JOptionPane.showInputDialog(arguments.get(0).toString());
             return (v == null ? null : v);
         }
     }
