@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
+  <title>Máni Language Docs</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="description" content="Description">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -15,7 +15,42 @@
     window.$docsify = {
       name: '',
       repo: '',
-      coverpage: true
+      coverpage: true,
+      search: 'auto', // default
+
+      search : [
+        '/'            // => /README.md
+      ],
+      
+      // complete configuration parameters
+      search: {
+        maxAge: 86400000, // Expiration time, the default one day
+        paths: [], // or 'auto'
+        placeholder: 'Type to search',
+
+        // Localization
+        placeholder: {
+          '/zh-cn/': '搜索',
+          '/': 'Type to search'
+        },
+
+        noData: 'No Results!',
+
+        // Localization
+        noData: {
+          '/zh-cn/': '找不到结果',
+          '/': 'No Results'
+        },
+
+        // Headline depth, 1 - 6
+        depth: 2,
+
+        hideOtherSidebarContent: false, // whether or not to hide other sidebar content
+
+        // To avoid search index collision
+        // between multiple websites under the same domain
+        namespace: 'website-1',
+      }
     }
   </script>
   <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
@@ -25,7 +60,7 @@
   <script src="//unpkg.com/prismjs/components/prism-java.min.js"></script>
   <script type="application/javascript">
     Prism.languages.mani = Prism.languages.extend('clike', {
-      'keyword': /\b(?:for|if|private|internal|this|else|return|class|super|while|let|say|fn|true|false|nil)\b/,
+      'keyword': /\b(?:for|if|private|internal|this|else|return|class|super|while|let|load|#|say|fn|true|false|nil)\b/,
       'number': /\b0b[01]+\b|\b0x[\da-f]*\.?[\da-fp-]+\b|(?:\b\d+\.?\d*|\B\.\d+)(?:e[+-]?\d+)?[df]?/i,
       'operator': {
         pattern: /(^|[^.])(?:\+[+=]?|-[-=]?|!=?|<<?=?|>>?>?=?|==?|&[&=]?|\|[|=]?|\*=?|\/=?|%=?|\^=?|[?:~])/m,

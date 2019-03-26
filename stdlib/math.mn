@@ -1,0 +1,15 @@
+class _Math {
+    _Math() {
+
+    }
+
+    pow(num, pow) {
+        let holder = num;
+        for (let i = 1; i <= pow; i++) {
+            holder *=
+        }
+        return num;
+    }
+}
+
+let Math = _Math();
