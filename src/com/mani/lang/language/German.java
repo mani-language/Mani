@@ -1,7 +1,5 @@
 package com.mani.lang.language;
 
-import com.mani.lang.TokenType;
-
 import java.util.Map;
 
 public class German implements Lang {
