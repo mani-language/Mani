@@ -272,11 +272,13 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
             return null;
         }
         // If we have gotten this far, we should check for a file.
-        File f = new File((String)res);
-        if (f.exists()) {
+
+        if (Mani.fileExists((String) res)) {
             // This means we load this over the API.
+            File f = Mani.internalFile((String) res);
             try {
-                byte[] bytes = Files.readAllBytes(Paths.get((String) res));
+                //byte[] bytes = Files.readAllBytes(Paths.get((String) res));
+                byte[] bytes = Files.readAllBytes(f.toPath());
                 Lexer lexer = new Lexer(new String(bytes, Charset.defaultCharset()));
                 List<Token> tokens = lexer.scanTokens();
                 Parser parser = new Parser(tokens);

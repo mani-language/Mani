@@ -1,8 +1,6 @@
 package com.mani.lang;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -17,6 +15,7 @@ public class Mani {
     public static boolean hadRuntimeError = false;
     public static boolean hasInternet = false;
     public static boolean isStrictMode = false;
+    public static boolean compiledMode = false;
 
     private static final Interpreter interpreter = new Interpreter();
 
@@ -113,7 +112,7 @@ public class Mani {
      * - Interpreter
      * @param source
      */
-    private static void run(String source) {
+    public static void run(String source) {
         Lexer lexer = new Lexer(source);
         List<Token> tokens = lexer.scanTokens();
         Parser parser = new Parser(tokens);
@@ -125,6 +124,33 @@ public class Mani {
         interpreter.interpret(statements);
 
     }
+
+    public static boolean fileExists(String fName) {
+        File f;
+        if (compiledMode) {
+            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+            f = new File(classLoader.getResource(fName).getFile());
+        } else {
+            f = new File(fName);
+        }
+
+        return f.exists();
+    }
+
+    public static File internalFile(String fName) {
+        //File f = new File((String)res);
+        File f;
+        if (compiledMode) {
+            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+            //InputStream inputStream = classLoader.getResourceAsStream(fName);
+            f = new File(classLoader.getResource(fName).getFile());
+        } else {
+            f = new File(fName);
+        }
+
+        return f;
+    }
+
 
     /**
      * Used for reporting an error, with the line and message.

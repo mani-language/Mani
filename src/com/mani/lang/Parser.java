@@ -474,12 +474,14 @@ class Parser {
         if (match(TokenType.LOAD)) {
             final Expr toLoad = expression();
             //consume(TokenType.SEMICOLON, "Expected ';' after Load tag", Mani.isStrictMode);
+
             return new Expr.Load(toLoad);
         }
 
         if (match(TokenType.IMPORT)) {
             final Expr toImport = expression();
             //consume(TokenType.SEMICOLON, "Expected ';' after Import tag", Mani.isStrictMode);
+
             return new Expr.Import(toImport);
         }
 
@@ -500,6 +502,7 @@ class Parser {
     }
 
     private Token consume(TokenType type, String message, Boolean useStrict) {
+        //TODO: THERE SEEMS TO BE A PROBLEM WITH THIS METHOD AND THE STRICT MODE.
         if (check(TokenType.SEMICOLON) || useStrict) {
             return consume(type, message);
         } else {
