@@ -2,6 +2,8 @@ package com.mani.lang.Modules.std;
 
 import com.mani.lang.Modules.Module;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.mani.lang.*;
@@ -33,11 +35,21 @@ public final class std implements Module{
                 return 1;
             }
         });
-        /*
-         * interpreter.addSTD("split", new std_split()); 
-         * interpreter.addSTD("subString", new std_subString()); 
-         */
-        
+        interpreter.addSTD("split", new ManiCallable() {
+            @Override
+            public int arity() {
+                return 2;
+            }
+
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                String workWith = (String) arguments.get(0);
+                String splitBy = (String) arguments.get(1);
+                List<String> list = new ArrayList<String>(Arrays.asList(workWith.split(splitBy)));
+                return list;
+            }
+        });
+
     }
 
 }
