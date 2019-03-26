@@ -3,7 +3,7 @@
 <img src="docs/assets/images/logo_outlined.png" height="200px" alt="Máni" title="Máni">
 </p>
 
-<b>Version</b> <small>1.2.7</small>
+<b>Version</b> <small>1.3.0</small>
 
 > An awesome, super simple language!
 

@@ -108,20 +108,20 @@ l.show(); // The list will now look like this: [whitespace, after]
 
 ### Direct Listing
 ~~~ mani
-// THIS FEATURE IS ONLY IF YOU KNOW HOW TO USE THE LANGUAGE API
 
 // Usage list.direct(non_list_object);
 
-// First we need to create a direct list from the api.
-let d = list("String");
+let d = [1, 2, 3, 4];
 let norm = List("String");
 
-say d;      // This will show: []
-say norm;   // This will show: List instance
+say d;      // This will show: [1, 2, 3, 4]
+say norm;   // This will show: []
 
 norm.direct(d);
 
 // Any information that was in the "d" list. Will now be in the "norm" list.
+
+say norm;   // This will show: [1, 2, 3, 4]
 ~~~
 
 ### For Each
@@ -171,7 +171,7 @@ let item = map.get("firstname"); // returns "Brayden" to the "item" variable
 ~~~ mani
 // Usage : mapItem.getKeys();
 // For this, you need to use a List for this feature.
-import("lists");
+# "lists";
 
 let l = List();
 l.direct(map.getKeys()); // Will return a list object to the newly created list.
@@ -195,7 +195,7 @@ let result = map.exists("firstname"); // Returns true or false if the key exists
 ### Combine
 ~~~ mani
 // Usage : mapItem.combine(list1, list2);
-import("lists");
+# "lists";
 
 // Both Lists must be the same length.
 let keys = List(); // The keys of the map.
@@ -364,7 +364,7 @@ and edit the original. It will also be edited in the
 other variable. As seen below.
 
 ~~~ mani
-import("lists");
+# "lists";
 
 // Creating an original element.
 let a = List();
