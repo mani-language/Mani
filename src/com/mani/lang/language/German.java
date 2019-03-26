@@ -19,6 +19,16 @@ public class German implements Lang {
         keywords.put("this", "diese");
         keywords.put("loop", "schleife");
         keywords.put("while", "während");
+        keywords.put("STRICT", "STRENG");
+        keywords.put("internal", "privatgelände");
+        keywords.put("for", "zum");
+        keywords.put("else", "sonst");
+        keywords.put("if", "ob");
+        keywords.put("nil", "null");
+        keywords.put("let", "lassen");
+        keywords.put("load", "belastung");
+
+
         return keywords;
     }
 }
