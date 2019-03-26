@@ -21,18 +21,30 @@ public final class std implements Module{
         interpreter.addSTD("trim", new std_trim());
         interpreter.addSTD("toChar", new std_toChar());
         interpreter.addSTD("size", new std_size());
-        interpreter.addSTD("find", new ManiCallable(){
-        
+        interpreter.addSTD("time", new ManiCallable() {
+
+            @Override
+            public int arity() {
+                return 0;
+            }
+
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                return Std.makeDouble(System.currentTimeMillis());
+            }
+        });
+        interpreter.addSTD("find", new ManiCallable() {
+
+            @Override
+            public int arity() {
+                return 1;
+            }
+
             @Override
             public Object call(Interpreter interpreter, List<Object> arguments) {
                 ManiFunction returned = interpreter.getFunction(arguments.get(0).toString());
                 returned.call(interpreter, arguments);
                 return returned;
-            }
-        
-            @Override
-            public int arity() {
-                return 1;
             }
         });
         interpreter.addSTD("split", new ManiCallable() {
