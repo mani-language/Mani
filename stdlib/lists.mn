@@ -1,5 +1,5 @@
-use("arrays");
-use("functional");
+load "arrays";
+load "functional";
 
 class List {
     List() {

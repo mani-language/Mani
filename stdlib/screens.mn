@@ -1,7 +1,5 @@
-use("frame");
-import("maps");
-
-
+load "frame";
+# "maps";
 
 class Screen {
     Screen(title) {
