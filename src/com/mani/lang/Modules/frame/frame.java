@@ -30,7 +30,7 @@ public final class frame implements Module {
     private static CanvasPanel panel;
     private static Graphics2D graphics;
     private static BufferedImage img;
-    
+
     private static double lastKey;
 
     @Override
@@ -40,6 +40,8 @@ public final class frame implements Module {
         interpreter.addSTD("windowButton", new windowButton());
         interpreter.addSTD("buttonVis", new setButtonVis());
         interpreter.addSTD("keyPressed", new keyPressed());
+        interpreter.addSTD("windowRepaint", new windowRepaint());
+        interpreter.addSTD("windowPrompt", new windowPrompt());
     }
 
     private static class CreateWindow implements ManiCallable {
@@ -83,7 +85,7 @@ public final class frame implements Module {
             frame.pack();
             frame.setVisible(true);
             return null;
-		}   
+		}
     }
 
     private static class setButtonVis implements ManiCallable {
@@ -158,6 +160,34 @@ public final class frame implements Module {
 
     }
 
+    private static class windowPrompt implements ManiCallable {
+        @Override
+        public int arity() {
+            return 1;
+        }
+
+        @Override
+        public Object call(Interpreter interpreter, List<Object> arguments) {
+            final String v = JOptionPane.showInputDialog(arguments.get(0).asString());
+            return (v == null ? null : v);
+        }
+    }
+
+    private static class windowRepaint implements ManiCallable {
+
+        @Override
+        public int arity() {
+            return 0;
+        }
+
+        @Override
+        public Object call(Interpreter interpreter, List<Object> arguments) {
+            panel.invalidate();
+            panel.repaint();
+            return null;
+        }
+    }
+
     private static class CanvasPanel extends JPanel {
         public CanvasPanel(int width, int height) {
             setPreferredSize(new Dimension(width, height));
@@ -185,4 +215,3 @@ public final class frame implements Module {
         }
     }
 }
-
