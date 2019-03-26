@@ -1,4 +1,4 @@
-use("maps");
+load "maps";
 
 class Map {
     Map() {

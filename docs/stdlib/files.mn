@@ -1,5 +1,6 @@
-use("files");
-import("lists");
+load "files";
+# "lists";
+
 class File {
     File(name) {
         this.name = name;
