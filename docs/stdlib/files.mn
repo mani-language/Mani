@@ -1,22 +1,87 @@
+use("files");
 import("lists");
 class File {
     File(name) {
         this.name = name;
         this.loaded = false;
         this.contents = "";
+        this.rawFile;
     }
 
-    load() {
-        this.contents = getFile(this.name);
+    internal check() {
+        if (this.loaded == false) {
+            say "Please load the file first using '.open();'";
+            return false;
+        }
+        return true;
+    }
+
+    open() {
         this.loaded = true;
+        this.rawFile = fopen(this.name);
+        this.contents = fread(this.rawFile);
+    }
+
+    write(toWrite) {
+        this.writeMode(toWrite, "");
+    }
+
+    writeMode(toWrite, mode) {
+        if (this.check()) {
+            this.rawFile = fwrite(this.rawFile, toWrite, mode);
+        }
+    }
+
+    canRead() {
+        return fcanRead(this.rawFile);
+    }
+
+    canWrite() {
+        return fcanWrite(this.rawFile);
+    }
+
+    canExecute() {
+        return fcanExecute(this.rawFile);
+    }
+
+    isFile() {
+        if (fisFileOrDir(this.rawFile) == "file") {
+            return true;
+        }
+        return false;
+    }
+
+    isDir() {
+        if (fisFileOrDir(this.rawFile) == "dir") {
+            return true;
+        }
+        return false;
     }
 
     toList(list) {
-        if (this.loaded == false) {
-            say "Please load the file first using '.load();'";
-        } else {
+        if (this.check()) {
             let holder = split(this.contents, "\n");
             list.direct(holder);
+        }
+    }
+
+    getPath() {
+        return fgetPath(this.rawFile);
+    }
+
+    parseJson() {
+        if (this.check()) {
+            use("json");
+            import("maps");
+            let m = Map();
+            m.copy(json_parse(this.contents));
+            return m;
+        }
+    }
+
+    show() {
+        if (this.check()) {
+            say this.contents;
         }
     }
 }
