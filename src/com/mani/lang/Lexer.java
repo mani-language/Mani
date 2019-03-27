@@ -40,6 +40,7 @@ class Lexer {
         keywords.put("break", BREAK);
         keywords.put("loop", LOOP);
         keywords.put("load", LOAD);
+        keywords.put("is", IS);
     }
     private final String source;
     private final List<Token> tokens = new ArrayList<>();
@@ -131,6 +132,9 @@ class Lexer {
                 }
             }
             keywords = newLang;
+            // Resetting so we don't keep loading th the language.
+            lastLangName = customLangName;
+            customLangName = "";
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -139,9 +143,6 @@ class Lexer {
         while(isAlphaNumeric(peek())) advance();
         String text = source.substring(start,current);
         TokenType type = keywords.get(text);
-        // This is where we are going to check what the token is.
-        // If the token is the CHANGELANG token. We are going to assume that
-        // the code after it is in the language definied.
         if(type == null) type = IDENTIFIER;
         addToken(type);
     }
