@@ -27,7 +27,7 @@ class List {
 
     get(position) {
         // This is used to grab an object from the list...
-        return getItem(this.list, position);
+        return this.list.at(position);
     }
 
     reset() {
