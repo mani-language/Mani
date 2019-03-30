@@ -538,7 +538,7 @@ fn makeCounter() {
 
 ~~~~ JS
 hello();      // without argument(s)
-greet("Mir")  // with argument(s)
+greet("Mir");  // with argument(s)
 ~~~~
 ## Inbuilt Functions
 
