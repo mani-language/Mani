@@ -38,6 +38,28 @@ public final class types implements Module {
                 }
             }
         });
+        interpreter.addSTD("toString", new ManiCallable() {
+            @Override
+            public int arity() {
+                return 1;
+            }
+
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                return arguments.get(0).toString();
+            }
+        });
+        interpreter.addSTD("toChar", new ManiCallable() {
+            @Override
+            public int arity() {
+                return 1;
+            }
+
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                return (char) arguments.get(0);
+            }
+        });
         interpreter.addSTD("isDigit", new ManiCallable(){
             @Override
             public int arity() {
@@ -46,6 +68,10 @@ public final class types implements Module {
 
             @Override
             public Object call(Interpreter interpreter, List<Object> arguments) {
+                if (arguments.get(0).getClass().getSimpleName() == "Char") {
+                    char c = (char) arguments.get(0);
+                    return c >= '0' && c <= '9';
+                }
                 return arguments.get(0).getClass().getSimpleName() == "Double";
             }
         });
