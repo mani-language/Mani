@@ -74,3 +74,13 @@ say y; // prints: "some string"
 As we can see. The API creates an actual function to use, rather than a property of the original object.
 
 Its simply just not intuitive enough for any user.
+
+## Possible solution to this mess.
+One possible solution i have been thinking about is.
+What if we edited the API's (modules) so that instead of creating another function like they do.
+Instead add the extensions.
+
+This could solve the problem of the loading them all, it could also solve the problem of the API's being too hard to learn.
+
+### Why not just do this?
+In my opinion, there is a problem with this. If we do this, what is even the point in having an STDLIB built in mani?
