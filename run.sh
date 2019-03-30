@@ -4,5 +4,4 @@ gradle build
 cp -r ./test/* ./build/libs
 cd ./build/libs
 clear
-java -jar Mani-Stable.jar testImport.mn
-
+java -jar Mani-Stable.jar
