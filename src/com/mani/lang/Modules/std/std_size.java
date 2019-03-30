@@ -21,6 +21,7 @@ public final class std_size implements ManiCallable {
             case "string":
                 return Std.makeDouble(arguments.get(0).toString().length());
             case "arraylist":
+            case "list":
                 ArrayList<Object> arrayGiven = (ArrayList<Object>) arguments.get(0);
                 return Std.makeDouble(arrayGiven.size());
             case "hashmap":
