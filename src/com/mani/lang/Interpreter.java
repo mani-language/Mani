@@ -1,17 +1,17 @@
 package com.mani.lang;
 
 import com.mani.lang.Modules.Module;
+import com.mani.lang.local.Locals;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 
 public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
-    
+
     final Environment globals = new Environment();
     private final Map<Expr, Integer> locals = new HashMap<>();
     private Environment environment = globals;
@@ -91,10 +91,10 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
     public Object visitGroupingExpr(Expr.Grouping expr) {
         return evaluate(expr.expression);
     }
-    
+
     public Object evaluate(Expr expr) {
         return expr.accept(this);
-    } 
+    }
 
     public void execute(Stmt stmt) {
          stmt.accept(this);
@@ -145,7 +145,7 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
         environment.assign(stmt.name, klass);
         return null;
     }
-    
+
     @Override
     public Void visitBlockStmt(Stmt.Block stmt) {
         executeBlock(stmt.statements, new Environment(environment));
@@ -164,7 +164,7 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
         environment.define(stmt.name.lexeme, function);
         return null;
     }
-    
+
     @Override
     public Void visitIfStmt(Stmt.If stmt) {
         if(isTruthy(evaluate(stmt.condition))) {
@@ -214,7 +214,7 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
     public Void visitWhileStmt(Stmt.While stmt) {
         while(isTruthy(evaluate(stmt.condition))) {
             try {
-                execute(stmt.body);            
+                execute(stmt.body);
             } catch (Return stop) {
                 break;
             }
@@ -291,6 +291,7 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
             }
         } else {
             try {
+                // TODO: This is where we need work on issue #22
                 final String moduleName = (String) res;
                 final Module module = (Module) Class.forName("com.mani.lang.Modules." + moduleName + "." + moduleName).newInstance();
                 module.init(this);
@@ -488,12 +489,14 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
                 }
             }
             return ((ManiInstance)object).get(expr.name);
-        } else if ((object instanceof ArrayList || object instanceof HashMap) && expr.name.lexeme.equalsIgnoreCase("at")) {
-            ManiCallable mc = Inbuilt.inBuilts.get(expr.name.lexeme);
+        } else if (Locals.canWorkWith(object, expr.name.lexeme)) {
+            ManiCallable mc = Locals.getFunction(object, expr.name.lexeme);
             ManiCallableInternal mci = (ManiCallableInternal) mc;
             mci.setItem(object);
             return (ManiCallable) mci;
         }
+        //TODO: Create a whole method, that checks for methods built into the system. So then
+        // we dont have to keep creating STANDARD LIBRARIES for no reason.
 
         throw new RuntimeError(expr.name, "Only instances have properties.");
     }
