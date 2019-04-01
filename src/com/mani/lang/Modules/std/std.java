@@ -30,7 +30,7 @@ public final class std implements Module{
 
             @Override
             public Object call(Interpreter interpreter, List<Object> arguments) {
-                return Std.makeDouble(System.currentTimeMillis());
+                return Std.makeDouble((int) System.currentTimeMillis());
             }
         });
         interpreter.addSTD("find", new ManiCallable() {
