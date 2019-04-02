@@ -60,4 +60,9 @@ class List {
         // This is used to remove a selected item from the list...
         this.list = listDel(this.list, position);
     }
+    
+    forEach(f) {
+        // This function is used to iterate through the array, and execute a function everytime.
+        arrayForEach(this.list, f):
+    }
 }
