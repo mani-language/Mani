@@ -601,6 +601,31 @@ p.both();       // Doe John ... John Doe
 > As we can see. The use of `internal` makes a function private. You can only access it from other functions inside of the same class. It also works with inheritance.
 
 
+### To String
+~~~ JS
+class Dog {
+    Dog(type, name, age) {
+        this.type = type;
+        this.name = name;
+        this.age = age;
+    }
+
+    getType() { return this.type; }
+    getName() { return this.name; }
+    getAge() { return this.age; }
+
+    show() {
+        say "[DOG]: type:" + this.type + ", name: " + this.name + ", age: " + this.age;
+    }
+}
+
+let d <- Dog("Bulldog", "rex", 4);
+
+say d; // Will print "[DOG]: type: Bulldog, name: rex, age: 4"
+~~~
+
+> Aslong as the class has the `show` function is inside the class, it will print whatever is in that function. Otherwise, it will print `Dog instance`.
+
 #### Class Instance
 
 ~~~~ JS

@@ -51,7 +51,7 @@ Anything from Functions, Numbers and Strings.
 
 ~~~ mani
 say l;      // Will show: List instance
-l.show();   // Will show: []
+say l;   // Will show: []
 ~~~
 
 ### Adding items to the list
@@ -63,7 +63,7 @@ say l; // Will now show [some string]
 
 l.add("something else"); // This will add "something else" to the list
 
-l.show(); // Will now show [some string, something else]
+say l; // Will now show [some string, something else]
 ~~~
 
 ### Replacing a string
@@ -72,7 +72,7 @@ l.show(); // Will now show [some string, something else]
 // Usage is: list.replace(position, string);
 l.replace(1, "banana");
 
-l.show(); // We will now see... [some string, banana]
+say l; // We will now see... [some string, banana]
 ~~~
 
 ### Deleting a position
@@ -81,7 +81,7 @@ l.show(); // We will now see... [some string, banana]
 // Usage is: list.delete(position);
 l.delete(1);
 
-l.show(); // Will now show [some string]
+say l; // Will now show [some string]
 ~~~
 
 ### Reset the list
@@ -89,7 +89,7 @@ l.show(); // Will now show [some string]
 // Usage is: list.reset();
 l.reset();
 
-l.show(); // Will now once again show []
+say l; // Will now once again show []
 ~~~
 
 ### Triming items in list
@@ -99,11 +99,11 @@ l.show(); // Will now once again show []
 // first we will add some strings to work with.
 l.add("        whitespace");
 l.add("after     ");
-l.show(); // List will show [        whitespace, after     ]
+say l; // List will show [        whitespace, after     ]
 
 // now to trim the strings.
 l.trimEach();
-l.show(); // The list will now look like this: [whitespace, after]
+say l; // The list will now look like this: [whitespace, after]
 ~~~
 
 ### Direct Listing
@@ -233,8 +233,8 @@ map.reset();
 ~~~ mani
 // Usage : mapItem.show();
 
-say map; // This will only say: Map instance
-map.show(); // Will show you the contents of the map.
+say map; // This will show you the contents of the map.
+map.show(); // This will also do the same thing.
 ~~~
 
 ### Get map item
@@ -277,7 +277,7 @@ let l = List(); // Used to store the file contents
 
 f.toList(l); // Will split by each line, to the list object.
 
-list.show(); // Will display an array with the file contents, split by each line.
+say l; // Will display an array with the file contents, split by each line.
 ~~~
 
 > The file will only be split by the line.
@@ -376,17 +376,17 @@ for (let i = 0; i <= 3; i++) {
     a.add(i);
 }
 
-a.show();       // [0.0, 1.0, 2.0, 3.0]
+say a;       // [0.0, 1.0, 2.0, 3.0]
 say b;          // nil
 
 a -> b;         // Copying the list instance to b;
 
-b.show();       // [0.0, 1.0, 2.0, 3.0]
+say b;       // [0.0, 1.0, 2.0, 3.0]
 
 a.add(4);       // Adding an item to one of the instances.
 
-a.show();       // [0.0, 1.0, 2.0, 3.0, 4.0]
-b.show();       // [0.0, 1.0, 2.0, 3.0, 4.0]
+say a;       // [0.0, 1.0, 2.0, 3.0, 4.0]
+say b;       // [0.0, 1.0, 2.0, 3.0, 4.0]
 ~~~
 > It is the same even if we add to b.
 
@@ -549,6 +549,31 @@ class Greeting {
     }
 }
 ~~~~
+
+### To String
+~~~ mani
+class Dog {
+    Dog(type, name, age) {
+        this.type = type;
+        this.name = name;
+        this.age = age;
+    }
+
+    getType() { return this.type; }
+    getName() { return this.name; }
+    getAge() { return this.age; }
+
+    show() {
+        say "[DOG]: type:" + this.type + ", name: " + this.name + ", age: " + this.age;
+    }
+}
+
+let d <- Dog("Bulldog", "rex", 4);
+
+say d; // Will print "[DOG]: type: Bulldog, name: rex, age: 4"
+~~~
+
+> Aslong as the class has the `show` function is inside the class, it will print whatever is in that function. Otherwise, it will print `Dog instance`.
 
 ### Private
 ~~~~ mani
