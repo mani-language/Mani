@@ -112,7 +112,7 @@ l.show(); // The list will now look like this: [whitespace, after]
 // Usage list.direct(non_list_object);
 
 let d = [1, 2, 3, 4];
-let norm = List("String");
+let norm = List();
 
 say d;      // This will show: [1, 2, 3, 4]
 say norm;   // This will show: []
@@ -273,7 +273,7 @@ say f.contents; // This will return exactly what was in the file.
 
 // Usage file.toList(listObj);
 
-let l = List("String"); // Used to store the file contents
+let l = List(); // Used to store the file contents
 
 f.toList(l); // Will split by each line, to the list object.
 
