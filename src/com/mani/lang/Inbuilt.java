@@ -1,6 +1,5 @@
 package com.mani.lang;
 
-import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -10,8 +9,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.List;
-import javax.swing.*;
 
+import com.mani.lang.Stmt;
 import com.mani.lang.Modules.Module;
 
 public class Inbuilt {

@@ -1,4 +1,4 @@
-package com.mani.lang.modules.http;
+package com.mani.lang.Modules.http;
 
 import com.mani.lang.Interpreter;
 import com.mani.lang.ManiCallable;
