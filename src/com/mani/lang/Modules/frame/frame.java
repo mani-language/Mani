@@ -273,4 +273,14 @@ public final class frame implements Module {
             g.drawImage(img, 0, 0, null);
         }
     }
+
+    @Override
+    public boolean hasExtensions() {
+        return false;
+    }
+
+    @Override
+    public Object extensions() {
+        return null;
+    }
 }

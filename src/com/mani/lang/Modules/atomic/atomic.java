@@ -25,4 +25,14 @@ public final class atomic implements Module {
         interpreter.addSTD("AIGetAdd", new atomic_int_getAdd());
     }
 
+    @Override
+    public boolean hasExtensions() {
+        return false;
+    }
+
+    @Override
+    public Object extensions() {
+        return null;
+    }
+
 }

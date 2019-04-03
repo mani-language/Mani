@@ -64,4 +64,14 @@ public final class std implements Module{
 
     }
 
+    @Override
+    public boolean hasExtensions() {
+        return false;
+    }
+
+    @Override
+    public Object extensions() {
+        return null;
+    }
+
 }

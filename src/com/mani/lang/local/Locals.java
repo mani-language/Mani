@@ -30,7 +30,6 @@ public class Locals {
         return funcs.containsKey(lookingFor);
     }
 
-
     private static String getType(Object workWith) {
         if (workWith instanceof List) {
             return "list";
@@ -47,5 +46,18 @@ public class Locals {
     public static ManiCallable getFunction(Object workWith, String lookingFor) {
         HashMap<String, ManiCallableInternal> funcs = db.get(getType(workWith));
         return funcs.get(lookingFor);
+    }
+
+    public static void add(Object list) {
+        HashMap<String, HashMap<String, ManiCallableInternal>> latest = (HashMap<String, HashMap<String, ManiCallableInternal>>) list;
+        HashMap<String, ManiCallableInternal> inner = new HashMap<>();
+        for (String item : latest.keySet()) {
+            for (String key : latest.get(item).keySet()) {
+                inner.put(key, latest.get(item).get(key));
+            }
+            latest.put(item, inner);
+        }
+
+        db.putAll(latest);
     }
 }

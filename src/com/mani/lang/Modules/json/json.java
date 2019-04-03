@@ -10,4 +10,14 @@ public final class json implements Module {
         interpreter.addSTD("json_parse", new json_parse());
         interpreter.addSTD("json_encode", new json_encode());
     }
+
+    @Override
+    public boolean hasExtensions() {
+        return false;
+    }
+
+    @Override
+    public Object extensions() {
+        return null;
+    }
 }

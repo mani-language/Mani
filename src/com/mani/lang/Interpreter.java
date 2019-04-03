@@ -295,6 +295,9 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
                 final String moduleName = (String) res;
                 final Module module = (Module) Class.forName("com.mani.lang.Modules." + moduleName + "." + moduleName).newInstance();
                 module.init(this);
+                if (module.hasExtensions()) {
+                    Locals.add(module.extensions());
+                }
             } catch (Exception e) {
                 return e;
             }

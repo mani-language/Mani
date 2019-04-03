@@ -44,4 +44,14 @@ public final class datetime implements Module {
         });
 	}
 
+    @Override
+    public boolean hasExtensions() {
+        return false;
+    }
+
+    @Override
+    public Object extensions() {
+        return null;
+    }
+
 }

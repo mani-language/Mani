@@ -16,4 +16,14 @@ public class math implements Module {
         interpreter.addSTD("ceil", new math_ceil());
         interpreter.addSTD("rand", new math_rand());
     }
+
+    @Override
+    public boolean hasExtensions() {
+        return false;
+    }
+
+    @Override
+    public Object extensions() {
+        return null;
+    }
 }

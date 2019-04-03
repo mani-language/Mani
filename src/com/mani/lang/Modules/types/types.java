@@ -135,4 +135,14 @@ public final class types implements Module {
         });
 	}
 
+    @Override
+    public boolean hasExtensions() {
+        return false;
+    }
+
+    @Override
+    public Object extensions() {
+        return null;
+    }
+
 }

@@ -4,4 +4,8 @@ import com.mani.lang.Interpreter;
 
 public interface Module {
     void init(Interpreter interpreter);
+
+    boolean hasExtensions();
+
+    Object extensions();
 }

@@ -15,4 +15,14 @@ public final class arrays implements Module {
         //interpreter.addSTD("arrayDelItem", new arrays_arrayDelItem());
 	}
 
+    @Override
+    public Object extensions() {
+        return null;
+    }
+
+    @Override
+    public boolean hasExtensions() {
+        return true;
+    }
+
 }

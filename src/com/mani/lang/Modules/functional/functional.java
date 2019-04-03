@@ -10,4 +10,14 @@ public final class functional implements Module {
         interpreter.addSTD("arrayForEach", new f_arrayForEach());
 	}
 
+    @Override
+    public boolean hasExtensions() {
+        return false;
+    }
+
+    @Override
+    public Object extensions() {
+        return null;
+    }
+
 }

@@ -17,4 +17,14 @@ public final class maps implements Module {
         interpreter.addSTD("mapKeyExists", new maps_mapKeyExists());
 	}
 
+    @Override
+    public boolean hasExtensions() {
+        return false;
+    }
+
+    @Override
+    public Object extensions() {
+        return null;
+    }
+
 }
