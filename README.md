@@ -131,7 +131,7 @@ l.show(); // The list will now look like this: [whitespace, after]
 // Usage list.direct(non_list_object);
 
 let d = [1, 2, 3, 4];
-let norm = List("String");
+let norm = List();
 
 say d;      // This will show: [1, 2, 3, 4]
 say norm;   // This will show: []
