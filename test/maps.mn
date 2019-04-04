@@ -1,0 +1,63 @@
+# "tester";
+/*
+Test program to demonstrate all
+functionality using maps
+*/
+# "maps";
+# "lists";
+
+let t <- Tester();
+
+t.msg("TESTING MAPS");
+say NL;
+
+t.msg("Creating map");
+let myMap = Map();
+t.match(myMap.map, {});
+
+t.msg("Adding keys");
+myMap.add("keyName1","valueName1");
+myMap.add("keyName2","valueName2");
+t.match(myMap.map, {"keyName1" : "valueName1", "keyName2" : "valueName2"});
+
+t.msg("Get key");
+let item = myMap.get("keyName2");
+t.match(item, "valueName2");
+
+t.msg("List of keys");
+let listOfKeys = List();
+listOfKeys.direct(myMap.getKeys());
+say listOfKeys;
+t.match(listOfKeys.list, ["keyName1", "keyName2"]);
+
+t.msg("Size of map");
+t.match(myMap.size(), 2);
+
+t.msg("Check for existing key");
+let mapExists = myMap.exists("keyName1");
+t.match(mapExists, true);
+
+t.msg("Check for non-existing key");
+mapExists = myMap.exists("nonExistentKey");
+t.match(mapExists, false);
+
+
+t.msg("Checking combine function of 2 lists");
+// Combine two lists into a map
+// Both Lists must be the same length.
+let keys = List(); // The keys of the map.
+let vals = List(); // The values of the map.
+
+// Filling the 2 lists with values...
+keys.addLots([1, 3, 5, 7, 9]);
+vals.addLots([2, 4, 6, 8, 10]);
+
+// Using keys List, as the keys.
+// Using the vals List, as the values.
+let newMap = Map();
+newMap.combine(keys, vals); // changes the contents of the map to these keys and values.
+t.match(newMap.map, {1 : 2, 3 : 4, 5 : 6, 7 : 8, 9 : 10});
+
+t.msg("Deleting item");
+newMap.del(1);
+t.match(newMap.map, {3 : 4, 5 : 6, 7 : 8, 9 : 10});
