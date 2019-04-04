@@ -28,7 +28,7 @@ t.match(myList.list, ["stringOne", "stringTwo", "stringThree"]);
 //Add a different type to the list and show
 t.msg("Adding a number");
 myList.add(2);
-t.match(myList.list, ["stringOne", "stringTwo", "stringThree", 2])
+t.match(myList.list, ["stringOne", "stringTwo", "stringThree", 2]);
 
 //Replace an item in the list
 t.msg("Replace item in list");
@@ -38,7 +38,7 @@ t.match(myList.list, ["stringOne", "replacementString", "stringThree", 2]);
 
 //Delete an item
 t.msg("Delete item");
-myList.delete(1);
+myList.del(1);
 t.match(myList.list, ["stringOne", "stringThree", 2]);
 
 t.msg("Reseting list");
