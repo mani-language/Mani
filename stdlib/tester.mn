@@ -1,0 +1,31 @@
+load "std";
+
+class Tester {
+    Tester() {
+        this.passed = 0;
+        this.run = 0;
+    }
+
+    msg(message) {
+        say "TASK: " + message;
+    }
+
+    match(item, shouldBe) {
+        this.run++;
+        if (item == shouldBe) {
+            this.passed++;
+            say ANSI_GREEN + "    PASSED" + ANSI_RESET;
+        } else {
+            say ANSI_RED + "    FAILED" + ANSI_RESET;
+            exit(1);
+        }
+    }
+
+    results() {
+        if (this.passed == this.run) {
+            say ANSI_GREEN + "ALL " + this.run + " PASSED" + ANSI_RESET;
+        } else {
+            say ANSI_RED + (this.run - this.passed) + " failed..." + ANSI_RED;
+        }
+    }
+}
