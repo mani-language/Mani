@@ -1,0 +1,85 @@
+/*
+Testing all the basics of the language
+*/
+# "tester";
+
+let t <- Tester();
+
+let x = 0;
+
+t.msg("Test <- assign operator");
+x <- 1;
+t.match(x, 1);
+
+t.msg("Test << assign operator");
+x << 0;
+t.match(x, 0);
+
+t.msg("Test + operator");
+x = x + 1;
+t.match(x, 1);
+
+t.msg("Test ++ after opeator");
+x++;
+t.match(x, 2);
+
+t.msg("Test ++ before operator");
+++x;
+t.match(x, 4);
+
+t.msg("Test - operator");
+x = x - 1;
+t.match(x, 3);
+
+t.msg("Test -- after operator");
+x--;
+t.match(x, 2);
+
+t.msg("Test -- before operator");
+--x;
+t.match(x, 0);
+
+t.msg("Test += operator");
+x += 43;
+t.match(x, 43);
+
+t.msg("Test -= operator");
+x -= 3;
+t.match(x, 40);
+
+t.msg("Test % operator");
+x = x % 3;
+t.match(x, 1);
+
+t.msg("Test ** power operator");
+x++;
+x = x ** 2;
+t.match(x, 4);
+
+t.msg("Test * operator");
+x = x * 2;
+t.match(x, 8);
+
+t.msg("Test / operator");
+x = x / 4;
+t.match(x, 2);
+
+t.msg("Test -> copy operator");
+let y = nil;
+x -> y;
+t.match(y, 2);
+/*
+t.msg("Test -> copy operator changing");
+x = "String";
+x -> y;
+x = "String1";
+t.match(y, x);*/
+
+t.msg("Test block statement");
+{
+    x = 10;
+    let z = "test";
+}
+t.match(x, 10);
+
+t.results();
