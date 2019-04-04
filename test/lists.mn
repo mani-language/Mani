@@ -2,61 +2,70 @@
 Test program to demonstrate all
 functionality using lists
 */
-
+# "tester";
 //Import lists library
 # "lists";
 
-//Create a new list
-let myList = List();
+let t <- Tester();
+t.msg("TESTING LISTS");
+say NL;
 
-//Say list and show list
-say myList;
+//Create a new list
+t.msg("Create new list");
+let myList = List();
+t.match(myList.list, []);
+
 
 //Add a string to the list
+t.msg("Add item to list");
 myList.add("stringOne");
-say myList;
+t.match(myList.list, ["stringOne"]);
 
-//Add a second item to the list and show
-myList.add("stringTwo");
-say myList;
+t.msg("Testing add lots function");
+myList.addLots(["stringTwo", "stringThree"]);
+t.match(myList.list, ["stringOne", "stringTwo", "stringThree"]);
 
 //Add a different type to the list and show
+t.msg("Adding a number");
 myList.add(2);
-say myList;
+t.match(myList.list, ["stringOne", "stringTwo", "stringThree", 2])
 
 //Replace an item in the list
-//myList.replace(1, "replacementString");
-say myList;
+t.msg("Replace item in list");
+myList.replace(1, "replacementString");
+t.match(myList.list, ["stringOne", "replacementString", "stringThree", 2]);
+
 
 //Delete an item
-//myList.delete(1);
-say myList;
+t.msg("Delete item");
+myList.delete(1);
+t.match(myList.list, ["stringOne", "stringThree", 2]);
 
+t.msg("Reseting list");
 myList.reset();
-say myList;
+t.match(myList.list, []);
 
+t.msg("String trimming");
 myList.add("      spaceThenString");
 myList.add("stringThenSpace     ");
-say myList;
+myList.trimEach();
+t.match(myList.list, ["spaceThenString", "stringThenSpace"]);
 
-//myList.trimEach();
-say myList;
-
+t.msg("Direct listing");
 let directList = [1,2,3,4];
 let norm = List();
-say norm;
 
 norm.direct(directList);
-norm.show();
+t.match(norm.list, directList);
 
 // This is the function we want to run each time.
+t.msg("Testing forEach function");
+let r <- List();
+r.addLots([1, 2, 3, 4]);
 fn someFunction(item) {
-    say item + 1;
+    result.add(item);
 }
 
-// Create a list and populating it.
-let array = List();
-for (let i = 0; i < 10; i++) {
-    array.add(i); // Adding each number to the array.
-}
-array.forEach(someFunction); // This will run the "someFunction" parsing the data from the position in the list.
+let result <- [];
+r.forEach(someFunction); // This will run the "someFunction" parsing the data from the position in the list.
+t.match(r.list, result);
