@@ -6,5 +6,5 @@ cp -r ./test/* ./build/libs
 cd ./build/libs
 for f in *.mn
 do
-	java -jar Mani-Stable.jar main.mn $f
+	java -jar Mani-Stable.jar $f
 done
