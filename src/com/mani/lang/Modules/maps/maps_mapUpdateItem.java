@@ -19,7 +19,7 @@ public final class maps_mapUpdateItem implements ManiCallable {
             return "Please make sure your first argument is a map.";
         }
         HashMap<Object, Object> map = (HashMap<Object, Object>) arguments.get(0);
-        if (map.containsKey(arguments.get(0))) {
+        if (map.containsKey(arguments.get(1))) {
             map.put(arguments.get(1), arguments.get(2));
             return map;
         }
