@@ -31,7 +31,7 @@ class Map {
     }
 
     size() {
-        return mapLength(this.map);
+        return size(this.map);
     }
 
     exists(key) {
