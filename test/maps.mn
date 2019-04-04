@@ -27,7 +27,6 @@ t.match(item, "valueName2");
 t.msg("List of keys");
 let listOfKeys = List();
 listOfKeys.direct(myMap.getKeys());
-say listOfKeys;
 t.match(listOfKeys.list, ["keyName1", "keyName2"]);
 
 t.msg("Size of map");
@@ -61,5 +60,22 @@ t.match(newMap.map, {1 : 2, 3 : 4, 5 : 6, 7 : 8, 9 : 10});
 t.msg("Deleting item");
 newMap.del(1);
 t.match(newMap.map, {3 : 4, 5 : 6, 7 : 8, 9 : 10});
+
+t.msg("Updating an item");
+newMap.update(3,"update");
+t.match(newMap.map, {9.0 : 10.0, 5.0 : 6.0, 3.0 : "update", 7.0 : 8.0});
+
+t.msg("Copying a map");
+myMap.copy(newMap);
+t.match(myMap.map, {9.0 : 10.0, 5.0 : 6.0, 3.0 : "update", 7.0 : 8.0});
+
+t.msg("Show a map");
+newMap.show();
+//Not sure how to test this so making test fail for now;
+t.match(1, 2);
+
+t.msg("Reset a map");
+newMap.reset();
+t.match(newMap.map, {});
 
 t.results();
