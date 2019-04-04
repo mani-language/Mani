@@ -4,6 +4,7 @@ class Tester {
     Tester() {
         this.passed = 0;
         this.run = 0;
+        this.quitOnFail = true;
     }
 
     msg(message) {
@@ -17,7 +18,9 @@ class Tester {
             say ANSI_GREEN + "    PASSED" + ANSI_RESET;
         } else {
             say ANSI_RED + "    FAILED" + ANSI_RESET;
-            exit(1);
+            if (this.quitOnFail) {
+                exit(1);
+            }
         }
     }
 
