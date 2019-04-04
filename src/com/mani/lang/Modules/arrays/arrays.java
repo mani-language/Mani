@@ -3,6 +3,7 @@ package com.mani.lang.Modules.arrays;
 import java.util.HashMap;
 
 import com.mani.lang.Interpreter;
+import com.mani.lang.ManiCallable;
 import com.mani.lang.ManiCallableInternal;
 import com.mani.lang.Modules.Module;
 import com.mani.lang.Std;
@@ -13,12 +14,24 @@ public final class arrays implements Module {
 
     @Override
     public void init(Interpreter interpreter) {
-        interpreter.addSTD("newArray", new arrays_newArray());
-        interpreter.addSTD("arrayAddItem", new arrays_arrayAddItem());
-        interpreter.addSTD("arrayPos", new arrays_arrayPos());
         //interpreter.addSTD("arrayRemoveItem", new arrays_arrayRemoveItem());
         //interpreter.addSTD("arrayUpdateItem", new arrays_arrayUpdateItem());
         //interpreter.addSTD("arrayDelItem", new arrays_arrayDelItem());
+        interpreter.addSTD("array_replace", new ManiCallable() {
+
+            @Override
+            public int arity() {
+                return 3;
+            }
+
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                List<Object> db = (List<Object>) arguments.get(0);
+                db.set(Std.DoubleToInt((double) arguments.get(1)), arguments.get(2));
+                return db;
+            }
+
+        });
 	}
 
     @Override

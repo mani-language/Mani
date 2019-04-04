@@ -3,7 +3,7 @@ load "functional";
 
 class List {
     List() {
-        this.list = newArray();
+        this.list = [];
     }
 
     raw() {
@@ -16,13 +16,27 @@ class List {
         this.list = object;
     }
 
+    count() {
+        return this.list.count();
+    }
+
     add(object) {
         // This is used when adding an object to the list...
-        arrayAddItem(this.list, object);
+        this.list.add(object);
     }
 
     addLots(arr) {
         arrayForEach(arr, this.add);
+    }
+
+    replace(position, value) {
+        // Replaces the given item with the new value...
+        this.list = array_replace(this.list, position, value);
+    }
+
+    del(position) {
+        // This is used to remove a selected item from the list...
+        this.list.del(position);
     }
 
     get(position) {
@@ -30,14 +44,17 @@ class List {
         return this.list.at(position);
     }
 
-    reset() {
-        // This is used for those times when you cant be bothered deleting each item of the list...
-        this.list = newArray();
+    posOf(item) {
+        return this.list.posOf(item);
     }
 
-    show() {
-        // For when you want to show your list...
-        say this.list;
+    snip(toPos) {
+        this.list = this.list.snip(toPos);
+    }
+
+    reset() {
+        // This is used for those times when you cant be bothered deleting each item of the list...
+        this.list = [];
     }
 
     trimEach() {
@@ -50,19 +67,14 @@ class List {
             this.replace(i , str);
         }
     }
-
-    replace(position, value) {
-        // Replaces the given item with the new value...
-        this.list = listReplace(this.list, position, value);
-    }
-
-    delete(position) {
-        // This is used to remove a selected item from the list...
-        this.list = listDel(this.list, position);
-    }
     
     forEach(f) {
         // This function is used to iterate through the array, and execute a function everytime.
         arrayForEach(this.list, f):
+    }
+
+    show() {
+        // For when you want to show your list...
+        say this.list;
     }
 }
