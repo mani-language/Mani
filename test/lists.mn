@@ -69,3 +69,5 @@ fn someFunction(item) {
 let result <- [];
 r.forEach(someFunction); // This will run the "someFunction" parsing the data from the position in the list.
 t.match(r.list, result);
+
+t.results();
