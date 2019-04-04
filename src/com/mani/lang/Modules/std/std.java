@@ -62,6 +62,20 @@ public final class std implements Module{
             }
         });
 
+        interpreter.addSTD("exit", new ManiCallable(){
+        
+            @Override
+            public int arity() {
+                return 1;
+            }
+
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                System.exit(Std.DoubleToInt((double) arguments.get(0)));
+                return null;
+            }
+        });
+
     }
 
     @Override
