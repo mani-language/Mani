@@ -11,14 +11,6 @@ public class Locals {
 
     private static HashMap<String, HashMap<String, ManiCallableInternal>> db = new HashMap<>();
 
-    static {
-        HashMap<String, ManiCallableInternal> inner = new HashMap<>();
-        for (String item : Lists.locals.keySet()) {
-            inner.put(item, Lists.locals.get(item));
-        }
-        db.put("list", inner);
-    }
-
     public static boolean canWorkWith(Object workWith, String lookingFor) {
         String type = getType(workWith);
 

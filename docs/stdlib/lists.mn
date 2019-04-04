@@ -27,12 +27,12 @@ class List {
 
     get(position) {
         // This is used to grab an object from the list...
-        return getItem(this.list, position);
+        return this.list.at(position);
     }
 
     reset() {
         // This is used for those times when you cant be bothered deleting each item of the list...
-        this.list = list(this.type);
+        this.list = newArray();
     }
 
     show() {
@@ -59,5 +59,10 @@ class List {
     delete(position) {
         // This is used to remove a selected item from the list...
         this.list = listDel(this.list, position);
+    }
+    
+    forEach(f) {
+        // This function is used to iterate through the array, and execute a function everytime.
+        arrayForEach(this.list, f):
     }
 }

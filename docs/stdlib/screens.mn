@@ -1,4 +1,5 @@
 load "frame";
+load "std";
 # "maps";
 
 class Screen {
@@ -34,6 +35,7 @@ class Screen {
     }
 
     addBasicBtn(title) {
+        let pos <- size(this.components.get("btn"));
         let btn = this.addBtn(title, 0, 0, 100, 100);
         return btn;
     }
@@ -47,7 +49,6 @@ class Screen {
     showMap() {
         return this.components;
     }
-
 }
 
 class Button {
@@ -59,7 +60,6 @@ class Button {
         this.h = h;
         this.button = windowButton(title, x, y, w, h);
         this.showing = false;
-        //this.show();
     }
 
     show() {
