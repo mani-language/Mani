@@ -28,7 +28,7 @@ class Tester {
         if (this.passed == this.run) {
             say ANSI_GREEN + "ALL " + this.run + " PASSED" + ANSI_RESET;
         } else {
-            say ANSI_RED + (this.run - this.passed) + " failed..." + ANSI_RED;
+            say ANSI_RED + (this.run - this.passed) + " failed..." + ANSI_RESET;
         }
         say "=============================";
         say NL + NL;
