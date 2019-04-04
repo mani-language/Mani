@@ -12,6 +12,19 @@ public final class std implements Module{
 
     @Override
     public void init(Interpreter interpreter) {
+
+        interpreter.define("ANSI_RESET", "\u001B[0m");
+        interpreter.define("ANSI_BLACK", "\u001B[30m");
+        interpreter.define("ANSI_RED", "\u001B[31m");
+        interpreter.define("ANSI_GREEN", "\u001B[32m");
+        interpreter.define("ANSI_YELLOW", "\u001B[33m");
+        interpreter.define("ANSI_BLUE", "\u001B[34m");
+        interpreter.define("ANSI_PURPLE", "\u001B[35m");
+        interpreter.define("ANSI_CYAN", "\u001B[36m");
+        interpreter.define("ANSI_WHITE", "\u001B[37m");
+        interpreter.define("NL", "\n");
+        interpreter.define("TAB", "\t");
+
         interpreter.addSTD("toString", new std_toString());
         interpreter.addSTD("toLowerCase", new std_toLowerCase());
         interpreter.addSTD("toUpperCase", new std_toUpperCase());
