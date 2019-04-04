@@ -30,6 +30,12 @@ class Tester {
         } else {
             say ANSI_RED + (this.run - this.passed) + " failed..." + ANSI_RESET;
         }
+
+        if ((this.failed / this.run) * 100 >= 75) {
+            say ANSI_RED + "Test failed with fail rate of: " + ((this.failed / this.run) * 100) + "%";
+            exit(1);
+        }
+
         say "=============================";
         say NL + NL;
     }
