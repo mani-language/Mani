@@ -26,7 +26,7 @@ public final class maps_arraysToMap implements ManiCallable {
             System.err.println("Please make sure both arrays are the same size.");
             return "Please make sure both arrays are the same size.";
         }
-        for (int i = 0; i <= first.size(); i++) {
+        for (int i = 0; i < first.size(); i++) {
             joined.put(first.get(i), second.get(i));
         }
         return joined;
