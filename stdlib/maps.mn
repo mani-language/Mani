@@ -1,4 +1,5 @@
 load "maps";
+load "std";
 
 class Map {
     Map() {
