@@ -20,7 +20,7 @@ public final class maps_mapKeyExists implements ManiCallable {
         }
         HashMap<Object, Object> given = (HashMap<Object, Object>) arguments.get(0);
         for (Object obj : given.keySet()) {
-            if (obj == arguments.get(1)) {
+            if (obj.equals(arguments.get(1))) {
                 return true;
             }
         }
