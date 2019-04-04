@@ -27,5 +27,7 @@ class Tester {
         } else {
             say ANSI_RED + (this.run - this.passed) + " failed..." + ANSI_RED;
         }
+        say "=============================";
+        say NL + NL;
     }
 }
