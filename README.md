@@ -301,6 +301,58 @@ list.show(); // Will display an array with the file contents, split by each line
 
 > The file will only be split by the line.
 
+## Screens
+
+### The basics
+~~~ JS
+// Usage: Screen("screen title here");
+# "screens";
+
+let view = Screen("My Screen");
+~~~
+> Naturally a screen will display.
+
+### Displaying the screen
+~~~ JS
+// Usage view.toggle();
+
+view.show(); // This will show the screen if it isn't already.
+
+view.hide(); // This will hide the screen if it isnt already.
+~~~
+
+### Add Buttons
+
+#### Basic Buttons
+~~~ JS
+// Usage view.addBasicBtn("Title");
+
+view.addBasicBtn("My Button");
+// This will add a button the top left of the screen, and each time you add one, it will apear next to it.
+~~~
+
+#### Normal Buttons
+~~~ JS
+// Usage view.addBtn("title", x, y, width, height);
+view.addBtn("My button 2", 100, 100, 100, 100);
+// This will add a second button to the screen.
+~~~
+
+### Handling components.
+
+The screens library will hold a map full of all the components so you can access them and edit them the way you want.
+
+To recieve the list simply do the following.
+~~~ JS
+let list = view.showMap();
+
+// This will give you a Map class.
+
+// You can then go on to perform regular MAP library functions.
+~~~
+
+> The Map library is imported by Screens automatically. This means you can access it without importing it again.
+
 # Basics
 ## Comments, Variables, Value Types and Assignment
 ~~~~ JS

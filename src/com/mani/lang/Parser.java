@@ -71,7 +71,6 @@ class Parser {
                     Token bin_op = new Token(bin_op_type, op.lexeme, op.literal, op.line);
 
                     Expr.Variable lhs_var = new Expr.Variable(name);
-                    System.err.println(lhs_var.name + " " + bin_op.type + " " + value);
                     Expr.Binary bin_expr = new Expr.Binary(lhs_var, bin_op, value);
                     return new Expr.Assign(name, bin_expr);
                 }

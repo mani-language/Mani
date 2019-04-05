@@ -1,5 +1,6 @@
 load "arrays";
 load "functional";
+load "std";
 
 class List {
     List() {
@@ -59,9 +60,8 @@ class List {
 
     trimEach() {
         // This is used to remove whitespace from a string...
-        let length = objSize(this.list);
-        say check(length);
-        for(let i = 0; i < length; i = i + 1) {
+        let length = size(this.list);
+        for(let i = 0; i < length; i++) {
             let str = this.get(i);
             str = trim(str);
             this.replace(i , str);
