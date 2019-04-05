@@ -8,6 +8,7 @@ functionality using lists
 
 let t <- Tester();
 t.msg("TESTING LISTS");
+t.quitOnFail = false;
 say NL;
 
 //Create a new list
