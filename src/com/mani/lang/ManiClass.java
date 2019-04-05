@@ -17,7 +17,14 @@ class ManiClass implements ManiCallable {
     ManiFunction findMethod(ManiInstance instance, String name) {
         if(methods.containsKey(name)) return methods.get(name).bind(instance);
 
-        if(superclass != null) return superclass.findMethod(instance, name);
+        if (superclass != null) {
+            ManiFunction result = superclass.findMethod(instance, name);
+            if (result != null && !result.isPrivate()) {
+                return result;
+            } else if (result != null && result.isPrivate()) {
+                throw new RuntimeError(new Token(null, name, result, 0), "Sorry, this is a private function!");
+            }
+        }
 
         return null;
     }
