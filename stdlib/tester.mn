@@ -33,6 +33,8 @@ class Tester {
 
         if (((this.run - this.passed) / this.run) * 100 >= 75) {
             say ANSI_RED + "Test failed with fail rate of: " + (((this.run - this.passed) / this.run) * 100) + "%"  + ANSI_RESET;
+            say "=============================";
+            say NL + NL;
             exit(1);
         }
 
