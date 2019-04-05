@@ -4,6 +4,7 @@ Testing all the basics of the language
 # "tester";
 
 let t <- Tester();
+t.quitOnFail = false;
 
 let x = 0;
 
@@ -68,12 +69,12 @@ t.msg("Test -> copy operator");
 let y = nil;
 x -> y;
 t.match(y, 2);
-/*
+
 t.msg("Test -> copy operator changing");
 x = "String";
 x -> y;
 x = "String1";
-t.match(y, x);*/
+t.match(y, x);
 
 t.msg("Test block statement");
 {
