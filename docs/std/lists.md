@@ -11,7 +11,7 @@ The library itself is a class written in Máni, that uses the [Lists API](api/li
 ### What it includes
 This Library does not require any others to run
 
-### Extra functions provided.
+### Extra functions provided
 ~~~ mani
     list.reset();
     list.addLots();

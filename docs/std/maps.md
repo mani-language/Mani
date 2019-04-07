@@ -11,7 +11,7 @@ The library itself is a class written in Máni, that uses the [Maps API](api/map
 ### What it includes
 This Library does not require any others to run
 
-### Why use this over the API
+### Extra functions provided
 ~~~ mani
     map.update();
     map.getKeys();
