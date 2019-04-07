@@ -26,6 +26,7 @@
   * [Maps](std/maps.md)
   * [Files](std/files.md)
   * [Screens](std/screens.md)
+  * [Tester](std/tester.md)
 
 * ADVANCED
 
