@@ -151,3 +151,23 @@ Unlike Java, you do not return what you want it to say. You must use a say state
     let P = Points();
     say P;                  // Executes the show() method.
 ~~~
+
+### Accessing Class Attributes
+Not only can we access class functions from outside.
+
+We can also access class attributes just as easily.
+~~~ mani
+    class A {
+        A() {
+            this.a = 12;
+            this.b = b + 2;
+            this.c = b + 2;
+        }
+    }
+
+    let a = A();
+
+    say a.a;            // 12.
+    say a.b;            // 14.
+    say a.c;            // 16.
+~~~
