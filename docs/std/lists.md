@@ -11,10 +11,7 @@ The library itself is a class written in Máni, that uses the [Lists API](api/li
 ### What it includes
 This Library does not require any others to run
 
-### Why use this over the API?
-The reason to use this over the API, is due to the functions. The API doesnt give you all the same functions that this gives you. 
-
-Some of the methods are:
+### Extra functions provided.
 ~~~ mani
     list.reset();
     list.addLots();
