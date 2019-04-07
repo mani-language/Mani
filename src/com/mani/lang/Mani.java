@@ -55,7 +55,7 @@ public class Mani {
             conn.getInputStream().close();
             return true;
         } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
+            return false;
         } catch (IOException e) {
             return false;
         }
