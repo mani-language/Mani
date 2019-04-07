@@ -9,9 +9,7 @@ The library itself is a class written in Máni, that uses the [Maps API](api/map
 ~~~
 
 ### What it includes
-~~~ mani
-    lists
-~~~
+This Library does not require any others to run
 
 ### Why use this over the API
 ~~~ mani
@@ -65,9 +63,13 @@ Updating an object can be done one of two ways. Either use the `add()` method ag
 The `getKeys()` function will return a list (regular list object) of all the keys used in the advanced map.
 
 ~~~ mani
-    // We are going to pretend we have a map with the following
-    // key-vals {"key" : 1, 2 : 3, "keeey" : "valll"}, assign to the variable "m"
+    let m = Map();
+    m.add("key", 1);
+    m.add(2, 3);
+    m.add("keeey" : "valll");
+~~~
 
+~~~ mani
     let keys = m.getKeys();
 
     say keys.join(", ");    // "key, 2, keeey"
@@ -78,9 +80,13 @@ Checking if a key exists in the map is as easy as `exists()`.
 This will return a true or false value, not the actual value.
 
 ~~~ mani
-    // We are going to pretend we have a map with the following
-    // key-vals {"key" : 1, 2 : 3, "keeey" : "valll"}, assign to the variable "m"
+    let m = Map();
+    m.add("key", 1);
+    m.add(2, 3);
+    m.add("keeey" : "valll");
+~~~
 
+~~~ mani
     m.exists("key");            // true.
     m.exists("crazywolf");      // false.
 ~~~
@@ -104,9 +110,13 @@ Maps have a built in `count()` method, that will return the size of the map. The
 It is extremely easy to start fresh with the map. Simply call the `reset()` method, and the map will be reset back to an empty map.
 
 ~~~ mani
-    // We are going to pretend we have a map with the following
-    // key-vals {"key" : 1, 2 : 3, "keeey" : "valll"}, assign to the variable "m"
+    let m = Map();
+    m.add("key", 1);
+    m.add(2, 3);
+    m.add("keeey" : "valll");
+~~~
 
+~~~ mani
     m.reset();
 ~~~
 
