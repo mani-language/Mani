@@ -109,3 +109,14 @@ It is extremely easy to start fresh with the map. Simply call the `reset()` meth
 
     m.reset();
 ~~~
+
+### Direct Map
+The direct map method `copy()` allows you to go straight from a regular map to an advanced map, without all the hastle.
+
+~~~ mani
+    let orig = {"key" : 1, 2 : 3, "keeey" : "valll};
+
+    let new = Map();
+
+    new.copy(orig);
+~~~
