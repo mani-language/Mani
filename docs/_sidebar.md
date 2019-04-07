@@ -16,12 +16,12 @@
   * [Loops](loop.md)
 
 * API
+  * [STD](std/std.md)
   * [Types](api/types.md)
   * [Maps](api/maps.md)
   * [Lists](api/lists.md)
 
 * LIBRARIES
-  * [STD](std/std.md)
   * [Lists](std/lists.md)
   * [Maps](std/maps.md)
   * [Files](std/files.md)
