@@ -16,7 +16,7 @@
   * [Loops](loop.md)
 
 * API
-  * [STD](std/std.md)
+  * [STD](api/std.md)
   * [Types](api/types.md)
   * [Maps](api/maps.md)
   * [Lists](api/lists.md)
