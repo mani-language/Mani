@@ -16,41 +16,26 @@
       name: '',
       repo: 'https://github.com/crazywolf132/Mani',
       coverpage: true,
+      loadNavbar: true,
+      loadSidebar: true,
       search: 'auto', // default
-
-      search : [
-        '/'            // => /README.md
-      ],
       
-      // complete configuration parameters
-      search: {
-        maxAge: 86400000, // Expiration time, the default one day
-        paths: [], // or 'auto'
-        placeholder: 'Type to search',
-
-        // Localization
-        placeholder: {
-          '/zh-cn/': '搜索',
-          '/': 'Type to search'
-        },
-
-        noData: 'No Results!',
-
-        // Localization
-        noData: {
-          '/zh-cn/': '找不到结果',
-          '/': 'No Results'
-        },
-
-        // Headline depth, 1 - 6
-        depth: 2,
-
-        hideOtherSidebarContent: false, // whether or not to hide other sidebar content
-
-        // To avoid search index collision
-        // between multiple websites under the same domain
-        namespace: 'website-1',
-      }
+      plugins: [
+        function (hook, vm) {
+          hook.beforeEach(function (html) {
+            let url = 'https://github.com/crazywolf132/mani/edit/master/docs/' + vm.route.file
+            let rev = 'rev1'
+            let version = '0.2.0'
+            let edit = '<a href="' + url + '">Edit on GitHub</a>\n'
+            return html
+              + '\n----\n'
+              + '<footer style="color:#999999; font-size:0.9em;">'
+              + '<span>Version ' + version + ' (' + rev + ') - </span>'
+              + edit
+              + '</footer>'
+          })
+        }
+      ]
     }
   </script>
   <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
