@@ -3,6 +3,8 @@ package com.mani.lang.local;
 import com.mani.lang.ManiCallable;
 import com.mani.lang.ManiCallableInternal;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,8 +24,8 @@ public class Locals {
         return funcs.containsKey(lookingFor);
     }
 
-    private static String getType(Object workWith) {
-        if (workWith instanceof List) {
+    public static String getType(Object workWith) {
+        if (workWith instanceof List || workWith instanceof ArrayList) {
             return "list";
         } else if (workWith instanceof Double) {
             return "number";
@@ -31,6 +33,8 @@ public class Locals {
             return "map";
         } else if (workWith instanceof String) {
             return "string";
+        } else if (workWith instanceof File) {
+            return "file";
         }
         return null;
     }
