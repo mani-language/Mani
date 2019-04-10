@@ -460,6 +460,8 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
                 return !isEqual(left, right);
             case EQUAL_EQUAL:
                 return isEqual(left, right);
+            case IS:
+                return Locals.getType(left).equalsIgnoreCase(right.toString());
         }
         return null;
     }

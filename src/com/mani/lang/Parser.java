@@ -289,8 +289,8 @@ class Parser {
     }
     
     private Expr comparision() {
-        Expr expr  = addition();
-        while(match(TokenType.GREATER, TokenType.LESS, TokenType.GREATER_EQUAL, TokenType.LESS_EQUAL)) {
+        Expr expr = addition();
+        while(match(TokenType.GREATER, TokenType.LESS, TokenType.GREATER_EQUAL, TokenType.LESS_EQUAL, TokenType.IS)) {
             Token operator = previous();
             Expr right = addition();
             expr = new Expr.Binary(expr, operator, right);
