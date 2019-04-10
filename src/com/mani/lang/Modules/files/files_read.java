@@ -21,10 +21,8 @@ public class files_read implements ManiCallable {
         try {
             String data = "";
             File f = (File) arguments.get(0);
-            Scanner fscan = null;
 
-
-            fscan = new Scanner(f);
+            Scanner fscan = new Scanner(f);
 
             if (f.exists()) {
                 while (fscan.hasNextLine()) {
