@@ -11,7 +11,7 @@ class Screen {
         this.setup();
     }
 
-    setup() {
+    internal setup() {
         let btnMap = Map();
         this.components.add("btn", btnMap);
     }
