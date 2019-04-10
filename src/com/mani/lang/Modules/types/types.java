@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.mani.lang.Interpreter;
 import com.mani.lang.ManiCallable;
+import com.mani.lang.Std;
 import com.mani.lang.Modules.Module;
 
 public final class types implements Module {
@@ -46,6 +47,13 @@ public final class types implements Module {
 
             @Override
             public Object call(Interpreter interpreter, List<Object> arguments) {
+                if (arguments.get(0).getClass().getSimpleName() == "Double") {
+                    if (Math.round((double) arguments.get(0)) == Std.DoubleToInt((double) arguments.get(0))) {
+                        // This means that its a whole number.
+                        System.out.println("running");
+                        arguments.set(0, Std.DoubleToInt(Math.round((double) arguments.get(0))));
+                    }
+                }
                 return arguments.get(0).toString();
             }
         });

@@ -4,4 +4,4 @@ gradle build
 cp -r ./test/* ./build/libs
 cd ./build/libs
 clear
-java -jar Mani-Stable.jar
+java -jar Mani-Stable.jar ./Hospital/main.mn
