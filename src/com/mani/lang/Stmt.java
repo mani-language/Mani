@@ -14,6 +14,7 @@ abstract class Stmt {
     R visitVarStmt(Var stmt);
     R visitWhileStmt(While stmt);
     R visitBreakStmt(Break stmt);
+    R visitForEachStmt(ForEach stmt);
   }
   static class Block extends Stmt {
     Block(List<Stmt> statements) {
@@ -142,6 +143,20 @@ abstract class Stmt {
 
     final Expr condition;
     final Stmt body;
+  }
+
+  static class ForEach extends Stmt {
+    ForEach(Token id, Stmt block, Expr container) {
+      this.id = id;
+      this.body = block;
+      this.container = container;
+    }
+
+    <R> R accept(Visitor<R> visitor) { return visitor.visitForEachStmt(this); }
+
+    final Token id;
+    final Stmt body;
+    final Expr container;
   }
 
   abstract <R> R accept(Visitor<R> visitor);
