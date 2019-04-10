@@ -1,7 +1,8 @@
 
 <p align="center">
-<img src="docs/assets/images/logo_outlined.png" height="200px" alt="Máni" title="Máni">
+<img src="docs/assets/images/header.png" alt="Máni" title="Máni" align="center">
 </p>
+<h1 align="center" size="1">Máni</h1>
 
 <b>Version</b> <small>1.3.0</small>
 

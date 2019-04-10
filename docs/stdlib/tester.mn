@@ -4,6 +4,7 @@ class Tester {
     Tester() {
         this.passed = 0;
         this.run = 0;
+        this.quitOnFail = true;
     }
 
     msg(message) {
@@ -17,7 +18,9 @@ class Tester {
             say ANSI_GREEN + "    PASSED" + ANSI_RESET;
         } else {
             say ANSI_RED + "    FAILED" + ANSI_RESET;
-            exit(1);
+            if (this.quitOnFail) {
+                exit(1);
+            }
         }
     }
 
@@ -25,7 +28,17 @@ class Tester {
         if (this.passed == this.run) {
             say ANSI_GREEN + "ALL " + this.run + " PASSED" + ANSI_RESET;
         } else {
-            say ANSI_RED + (this.run - this.passed) + " failed..." + ANSI_RED;
+            say ANSI_RED + (this.run - this.passed) + " failed..." + ANSI_RESET;
         }
+
+        if (((this.run - this.passed) / this.run) * 100 >= 75) {
+            say ANSI_RED + "Test failed with fail rate of: " + (((this.run - this.passed) / this.run) * 100) + "%"  + ANSI_RESET;
+            say "=============================";
+            say NL + NL;
+            exit(1);
+        }
+
+        say "=============================";
+        say NL + NL;
     }
 }
