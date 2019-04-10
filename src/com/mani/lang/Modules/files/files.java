@@ -2,9 +2,13 @@ package com.mani.lang.Modules.files;
 
 import com.mani.lang.Interpreter;
 import com.mani.lang.ManiCallable;
+import com.mani.lang.ManiCallableInternal;
 import com.mani.lang.Modules.Module;
+import com.mani.lang.Std;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class files implements Module {
@@ -14,68 +18,6 @@ public class files implements Module {
         interpreter.addSTD("fopen", new files_open());
         interpreter.addSTD("fwrite", new files_write());
         interpreter.addSTD("fread", new files_read());
-        interpreter.addSTD("fexists", new ManiCallable() {
-            @Override
-            public int arity() {
-                return 1;
-            }
-
-            @Override
-            public Object call(Interpreter interpreter, List<Object> arguments) {
-                File f = (File) arguments.get(0);
-                return f.exists();
-            }
-        });
-
-        interpreter.addSTD("fisFileOrDir", new ManiCallable() {
-            @Override
-            public int arity() {
-                return 1;
-            }
-
-            @Override
-            public Object call(Interpreter interpreter, List<Object> arguments) {
-                File f = (File) arguments.get(0);
-                return f.isFile() ? "file" : f.isDirectory() ? "dir" : false;
-            }
-        });
-
-        interpreter.addSTD("fcanWrite", new ManiCallable() {
-            @Override
-            public int arity() {
-                return 1;
-            }
-
-            @Override
-            public Object call(Interpreter interpreter, List<Object> arguments) {
-                return ((File) arguments.get(0)).canWrite();
-            }
-        });
-
-        interpreter.addSTD("fcanRead", new ManiCallable() {
-            @Override
-            public int arity() {
-                return 1;
-            }
-
-            @Override
-            public Object call(Interpreter interpreter, List<Object> arguments) {
-                return ((File) arguments.get(0)).canRead();
-            }
-        });
-
-        interpreter.addSTD("fcanExecute", new ManiCallable() {
-            @Override
-            public int arity() {
-                return 1;
-            }
-
-            @Override
-            public Object call(Interpreter interpreter, List<Object> arguments) {
-                return ((File) arguments.get(0)).canExecute();
-            }
-        });
-
         interpreter.addSTD("fgetPath", new ManiCallable() {
             @Override
             public int arity() {
@@ -96,6 +38,38 @@ public class files implements Module {
 
     @Override
     public Object extensions() {
-        return null;
+        HashMap<String, HashMap<String, ManiCallableInternal>> db = new HashMap<>();
+        HashMap<String, ManiCallableInternal> locals = new HashMap<>();
+
+        locals.put("exists", new ManiCallableInternal() {
+           @Override
+           public Object call(Interpreter interpreter, List<Object> arguments) {
+               return ((File) arguments.get(0)).exists();
+           }
+        });
+
+        locals.put("canWrite", new ManiCallableInternal() {
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                return ((File) arguments.get(0)).canWrite();
+            }
+        });
+
+        locals.put("canRead", new ManiCallableInternal() {
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                return ((File) arguments.get(0)).canRead();
+            }
+        });
+
+        locals.put("canExecute", new ManiCallableInternal() {
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                return ((File) arguments.get(0)).canExecute();
+            }
+        });
+
+        db.put("file", locals);
+        return db;
     }
 }
