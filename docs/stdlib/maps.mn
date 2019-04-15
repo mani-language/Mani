@@ -28,7 +28,7 @@ class Map {
     }
 
     copy(newMap) {
-        this.map = newMap;
+        this.map = newMap.map;
     }
 
     size() {
