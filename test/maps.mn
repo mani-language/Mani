@@ -54,29 +54,29 @@ vals.addLots([2, 4, 6, 8, 10]);
 
 // Using keys List, as the keys.
 // Using the vals List, as the values.
-let newMap = Map();
-newMap.combine(keys, vals); // changes the contents of the map to these keys and values.
-t.match(newMap.map, {1 : 2, 3 : 4, 5 : 6, 7 : 8, 9 : 10});
+let mapToTest = Map();
+mapToTest.combine(keys, vals); // changes the contents of the map to these keys and values.
+t.match(mapToTest.map, {1 : 2, 3 : 4, 5 : 6, 7 : 8, 9 : 10});
 
 t.msg("Deleting item");
-newMap.del(1);
-t.match(newMap.map, {3 : 4, 5 : 6, 7 : 8, 9 : 10});
+mapToTest.del(1);
+t.match(mapToTest.map, {3 : 4, 5 : 6, 7 : 8, 9 : 10});
 
 t.msg("Updating an item");
-newMap.update(3,"update");
-t.match(newMap.map, {9.0 : 10.0, 5.0 : 6.0, 3.0 : "update", 7.0 : 8.0});
+mapToTest.update(3,"update");
+t.match(mapToTest.map, {9.0 : 10.0, 5.0 : 6.0, 3.0 : "update", 7.0 : 8.0});
 
 t.msg("Copying a map");
-myMap.copy(newMap);
+myMap.copy(mapToTest);
 t.match(myMap.map, {9.0 : 10.0, 5.0 : 6.0, 3.0 : "update", 7.0 : 8.0});
 
 t.msg("Show a map");
-newMap.show();
+mapToTest.show();
 //Not sure how to test this so making test fail for now;
 t.match(1, 2);
 
 t.msg("Reset a map");
-newMap.reset();
-t.match(newMap.map, {});
+mapToTest.reset();
+t.match(mapToTest.map, {});
 
 t.results();
