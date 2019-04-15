@@ -30,7 +30,7 @@ class Parser {
     private Expr expression() {
         return assignment();
     }
-    
+
     private Expr assignment() {
 
         Expr expr = or();
@@ -102,7 +102,7 @@ class Parser {
         }
         return expr;
     }
-    
+
     private Expr and() {
         Expr expr = equality();
         while(match(TokenType.AND)) {
@@ -112,7 +112,7 @@ class Parser {
         }
         return expr;
     }
-    
+
     private Stmt declarations() {
         try{
             if(match(TokenType.INTERNAL)) return function("function");
@@ -156,7 +156,25 @@ class Parser {
     }
 
     private Stmt forStatement() {
+        //TODO: Maybe we can do an auto for aswell.
         consume(TokenType.LEFT_PAREN, "Expect '(' after  for.");
+
+/*
+        if (check(TokenType.IDENTIFIER)) {
+            // THis is our auto for loop.
+            Token name = consume(TokenType.IDENTIFIER, "Expect a variable name.");
+            consume(TokenType.COLON, "Expected a : after variable.");
+            Expr container = expression();
+            consume(TokenType.RIGHT_PAREN, "Expect ')' after for clauses.");
+
+            Stmt body = statement();
+
+            return new Stmt.ForEach(name, body, container);
+
+        }
+*/
+
+        // The initializer
         Stmt initializer = null;
         if(match(TokenType.SEMICOLON)) {
             initializer = null;
@@ -165,16 +183,19 @@ class Parser {
         } else {
             initializer = expressionStatement();
         }
+        // The middle statement
         Expr condition = null;
         if(!check(TokenType.SEMICOLON)) {
             condition = expression();
-        } 
+        }
         consume(TokenType.SEMICOLON, "Expect ';' after loop condition.");
+        // The incrementer
         Expr increment = null;
         if(!check(TokenType.RIGHT_PAREN)) {
             increment = expression();
         }
         consume(TokenType.RIGHT_PAREN, "Expect ')' after for clauses.");
+        // The inners.
         Stmt body = statement();
         if(increment != null) {
             body = new Stmt.Block(Arrays.asList(
@@ -221,7 +242,7 @@ class Parser {
    	    Token keyword = previous();
         consume(TokenType.SEMICOLON, "Expect ';' after break.", Mani.isStrictMode);
         return new Stmt.Break(keyword);
-    } 
+    }
     private Stmt varDeclaration() {
         Token name = consume(TokenType.IDENTIFIER, "Expect a variable name.");
         Expr initializer = null;
@@ -267,7 +288,7 @@ class Parser {
         consume(TokenType.LEFT_BRACE, "Expect '{' before " + kind + " body.");
         List<Stmt> body = block();
         return new Stmt.Function(name, parameters, body, isPrivate);
-    } 
+    }
 
     private List<Stmt> block() {
         List<Stmt> statements = new ArrayList<>();
@@ -287,7 +308,7 @@ class Parser {
         }
         return expr;
     }
-    
+
     private Expr comparision() {
         Expr expr = addition();
         while(match(TokenType.GREATER, TokenType.LESS, TokenType.GREATER_EQUAL, TokenType.LESS_EQUAL, TokenType.IS)) {
@@ -349,7 +370,7 @@ class Parser {
             } else if (match(TokenType.MINUS_MINUS)) {
             	Token decrement = new Token(TokenType.MINUS, "-", null, previous().line);
             	if(expr instanceof Expr.Variable) {
-            		Token name = ((Expr.Variable)expr).name;	                 
+            		Token name = ((Expr.Variable)expr).name;
             		Expr.Variable lhs_var = new Expr.Variable(name);
 	                Expr.Binary bin_expr = new Expr.Binary(lhs_var, decrement, new Expr.Literal(new Double(1)));
 	                expr = new Expr.Assign(name, bin_expr);
@@ -410,7 +431,7 @@ class Parser {
             } else {
                 error(previous(), "Invalid assignment target");
             }
-        } 
+        }
         if (match(TokenType.MINUS_MINUS)) {
             Token decrement = new Token(TokenType.MINUS, "-", null, previous().line);
             Expr found = null;
@@ -507,7 +528,7 @@ class Parser {
         } else {
             return advance();
         }
-    } 
+    }
 
     private ParserError error(Token token, String message) {
         Mani.error(token, message);
@@ -533,7 +554,7 @@ class Parser {
             advance();
         }
     }
-    
+
     private boolean match(TokenType... types) {
         for(TokenType type : types) {
             if(check(type)) {
@@ -548,6 +569,10 @@ class Parser {
         return peek().type == type;
     }
 
+    private boolean check(int pos, TokenType type) {
+        if ()
+    }
+
     private Token advance() {
         if(! isAtEnd()) current++;
         return previous();
@@ -556,6 +581,7 @@ class Parser {
     private boolean isAtEnd() {
         return peek().type == TokenType.EOF;
     }
+    private boolean isAtEnd(int in) { return next().type == TokenType.EOF}
 
     private Token peek() {
         return tokens.get(current);
