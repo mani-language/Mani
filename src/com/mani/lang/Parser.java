@@ -569,9 +569,9 @@ class Parser {
         return peek().type == type;
     }
 
-    private boolean check(int pos, TokenType type) {
+    /*private boolean check(int pos, TokenType type) {
         if ()
-    }
+    }*/
 
     private Token advance() {
         if(! isAtEnd()) current++;
@@ -581,7 +581,7 @@ class Parser {
     private boolean isAtEnd() {
         return peek().type == TokenType.EOF;
     }
-    private boolean isAtEnd(int in) { return next().type == TokenType.EOF}
+    //private boolean isAtEnd(int in) { return next().type == TokenType.EOF; }
 
     private Token peek() {
         return tokens.get(current);
