@@ -1,88 +1,30 @@
-load "files";
-# "lists";
+load "files"
 
 class File {
-    File(name) {
-        this.name = name;
-        this.loaded = false;
-        this.contents = "";
-        this.rawFile;
-    }
-
-    internal check() {
-        if (this.loaded == false) {
-            say "Please load the file first using '.open();'";
-            return false;
-        }
-        return true;
+    File(filename) {
+        this.filename = filename;
+        this.file;
+        this.contents;
+        this.opened = false;
     }
 
     open() {
-        this.loaded = true;
-        this.rawFile = fopen(this.name);
-        this.contents = fread(this.rawFile);
+        this.file = fopen(this.filename);
     }
 
-    write(toWrite) {
-        this.writeMode(toWrite, "");
+    read() {
+        this.contents = fread(this.filename);
+        return this.contents;
     }
 
-    writeMode(toWrite, mode) {
-        if (this.check()) {
-            this.rawFile = fwrite(this.rawFile, toWrite, mode);
-        }
-    }
-
-    canRead() {
-        return fcanRead(this.rawFile);
-    }
-
-    canWrite() {
-        return fcanWrite(this.rawFile);
-    }
-
-    canExecute() {
-        return fcanExecute(this.rawFile);
-    }
-
-    isFile() {
-        if (fisFileOrDir(this.rawFile) == "file") {
-            return true;
-        }
-        return false;
-    }
-
-    isDir() {
-        if (fisFileOrDir(this.rawFile) == "dir") {
-            return true;
-        }
-        return false;
-    }
-
-    toList(list) {
-        if (this.check()) {
-            let holder = split(this.contents, "\n");
-            list.direct(holder);
-        }
-    }
-
-    getPath() {
-        return fgetPath(this.rawFile);
-    }
-
-    parseJson() {
-        if (this.check()) {
-            use("json");
-            import("maps");
-            let m = Map();
-            m.copy(json_parse(this.contents));
-            return m;
-        }
-    }
-
-    show() {
-        if (this.check()) {
-            say this.contents;
+    write(lines) {
+        if (lines is "list") {
+            for (int )
+        } else if (lines is "string") {
+            this.contents += lines;
+        } else {
+            say "Must be a string or list, please convert and try again!";
+            return;
         }
     }
 }
