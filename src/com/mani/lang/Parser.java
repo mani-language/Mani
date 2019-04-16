@@ -159,7 +159,6 @@ class Parser {
         //TODO: Maybe we can do an auto for aswell.
         consume(TokenType.LEFT_PAREN, "Expect '(' after  for.");
 
-/*
         if (check(TokenType.IDENTIFIER)) {
             // THis is our auto for loop.
             Token name = consume(TokenType.IDENTIFIER, "Expect a variable name.");
@@ -172,7 +171,6 @@ class Parser {
             return new Stmt.ForEach(name, body, container);
 
         }
-*/
 
         // The initializer
         Stmt initializer = null;

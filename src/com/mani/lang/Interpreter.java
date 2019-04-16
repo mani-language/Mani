@@ -201,6 +201,19 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
     }
 
     @Override
+    public Void visitForEachStmt(Stmt.ForEach stmt) {
+        if (evaluate(stmt.container) instanceof ArrayList) {
+            for (Object item : (ArrayList) evaluate(stmt.container)) {
+                globals.assign(stmt.id, item);
+                execute(stmt.body);
+            }
+            return null;
+        }
+        throw new RuntimeException("Must be an array");
+//        return null;
+    }
+
+    @Override
     public Void visitVarStmt(Stmt.Var stmt) {
         Object value = null;
         if(stmt.initializer != null) {

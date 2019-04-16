@@ -269,6 +269,14 @@ class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
         }
         return null;
     }
+
+    @Override
+    public Void visitForEachStmt(Stmt.ForEach stmt) {
+        resolve(stmt.container);
+        resolve(stmt.body);
+        return null;
+    }
+
     @Override
     public Void visitWhileStmt(Stmt.While stmt) {
         Boolean enclosignLoop = isInLoop;
