@@ -3,7 +3,7 @@ package com.mani.lang;
 import java.util.HashMap;
 import java.util.Map;
 
-class ManiInstance {
+public class ManiInstance {
 
     private ManiClass klass;
     final private Map<String, Object> fields = new HashMap<>();
@@ -32,6 +32,10 @@ class ManiInstance {
 
     void set(Token name, Object value) {
         fields.put(name.lexeme, value);
+    }
+
+    public String getClassName() {
+        return klass.getName();
     }
 
     @Override
