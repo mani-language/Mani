@@ -48,7 +48,7 @@ class Map {
     }
 
     reset() {
-        this.map = map(this.type);
+        this.map = newMap();
     }
 
     show() {
