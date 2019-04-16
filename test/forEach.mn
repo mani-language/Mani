@@ -1,0 +1,28 @@
+let l = [1, 2, 3, 4];
+let test;
+for (test : l) {
+    say test;
+}
+
+l = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
+let result = 0;
+let inner;
+for (test : l) {
+    for (inner : test) {
+        result += inner;
+    }
+}
+say result;
+
+let max = 6;
+while (max != 0) {
+    say "a";
+    max--;
+}
+
+let t = {"key": "val", "name" : "mani", "date" : "today"};
+let key;
+let val;
+for (key, val : t) {
+    say "Key: " + key + ", Value: " + val;
+}
