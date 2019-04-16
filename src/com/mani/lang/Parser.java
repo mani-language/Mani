@@ -156,13 +156,12 @@ class Parser {
     }
 
     private Stmt forStatement() {
-        //TODO: Maybe we can do an auto for aswell.
         consume(TokenType.LEFT_PAREN, "Expect '(' after  for.");
 
-        if (check(TokenType.IDENTIFIER)) {
-            // THis is our auto for loop.
+        if (check(TokenType.IDENTIFIER) && !check(1, TokenType.COMMA)) {
+            // This is our auto for loop.
             Token name = consume(TokenType.IDENTIFIER, "Expect a variable name.");
-            consume(TokenType.COLON, "Expected a : after variable.");
+            consume(TokenType.COLON, "Expected a ':' after variable.");
             Expr container = expression();
             consume(TokenType.RIGHT_PAREN, "Expect ')' after for clauses.");
 
@@ -170,6 +169,18 @@ class Parser {
 
             return new Stmt.ForEach(name, body, container);
 
+        } else if (check(TokenType.IDENTIFIER) && check(1, TokenType.COMMA)) {
+            // This means its an auto-for, for a map.
+            Token key = consume(TokenType.IDENTIFIER, "Expected a key name.");
+            consume(TokenType.COMMA, "Expected a ',' after the key");
+            Token val = consume(TokenType.IDENTIFIER, "Expect a value name.");
+            consume(TokenType.COLON, "Expected a ':' after value name.");
+
+            Expr container = expression();
+            consume(TokenType.RIGHT_PAREN, "Expect ')' after for clauses.");
+
+            Stmt body = statement();
+            return new Stmt.ForEachMap(key, val, body, container);
         }
 
         // The initializer
@@ -566,10 +577,10 @@ class Parser {
         if(isAtEnd()) return false;
         return peek().type == type;
     }
-
-    /*private boolean check(int pos, TokenType type) {
-        if ()
-    }*/
+    private boolean check(int pos, TokenType type) {
+        if (isAtEnd(pos)) return false;
+        return peek(pos).type == type;
+    }
 
     private Token advance() {
         if(! isAtEnd()) current++;
@@ -579,16 +590,14 @@ class Parser {
     private boolean isAtEnd() {
         return peek().type == TokenType.EOF;
     }
-    //private boolean isAtEnd(int in) { return next().type == TokenType.EOF; }
+    private boolean isAtEnd(int pos) { return peek(pos).type == TokenType.EOF; }
 
     private Token peek() {
         return tokens.get(current);
     }
+    private Token peek(int pos) { return tokens.get(current + pos); }
     private Token previous() {
         return tokens.get(current - 1);
-    }
-    private Token next() {
-        return tokens.get(current + 1);
     }
     private Token getAt(int pos) {
         return tokens.get(current + pos);

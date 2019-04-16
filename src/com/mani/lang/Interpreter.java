@@ -202,15 +202,44 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
 
     @Override
     public Void visitForEachStmt(Stmt.ForEach stmt) {
-        if (evaluate(stmt.container) instanceof ArrayList) {
-            for (Object item : (ArrayList) evaluate(stmt.container)) {
-                globals.assign(stmt.id, item);
+        String result = Locals.getType(evaluate(stmt.container));
+        assert result != null;
+        switch (result) {
+            case "list":
+                for (Object item : (ArrayList) evaluate(stmt.container)) {
+                    globals.assign(stmt.id, item);
+                    execute(stmt.body);
+                }
+                return null;
+            case "string":
+                for (Object item : ((String) evaluate(stmt.container)).toCharArray()) {
+                    globals.assign(stmt.id, item);
+                    execute(stmt.body);
+                }
+                return null;
+            case "number":
+                for (Object item : ((String) evaluate(stmt.container)).toCharArray()) {
+                    globals.assign(stmt.id, new Double((int) item));
+                    execute(stmt.body);
+                }
+                return null;
+        }
+
+        throw new RuntimeException("Must be a String, Number or List");
+    }
+
+    @Override
+    public Void visitForEachMapStmt(Stmt.ForEachMap stmt) {
+        if (Locals.getType(evaluate(stmt.container)).equalsIgnoreCase("map")) {
+            HashMap<Object, Object> db = (HashMap<Object, Object>) evaluate(stmt.container);
+            for (Object item : db.keySet()) {
+                globals.assign(stmt.key, item);
+                globals.assign(stmt.val, db.get(item));
                 execute(stmt.body);
             }
             return null;
         }
-        throw new RuntimeException("Must be an array");
-//        return null;
+        throw new RuntimeException("Must be a map");
     }
 
     @Override

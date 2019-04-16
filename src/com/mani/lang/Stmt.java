@@ -15,6 +15,7 @@ abstract class Stmt {
     R visitWhileStmt(While stmt);
     R visitBreakStmt(Break stmt);
     R visitForEachStmt(ForEach stmt);
+    R visitForEachMapStmt(ForEachMap stmt);
   }
   static class Block extends Stmt {
     Block(List<Stmt> statements) {
@@ -157,6 +158,22 @@ abstract class Stmt {
       final Token id;
       final Stmt body;
       final Expr container;
+  }
+
+  static class ForEachMap extends Stmt {
+    ForEachMap(Token key, Token val, Stmt block, Expr container) {
+      this.key = key;
+      this.val = val;
+      this.body = block;
+      this.container = container;
+    }
+
+    <R> R accept(Visitor<R> visitor) { return visitor.visitForEachMapStmt(this); }
+
+    final Token key;
+    final Token val;
+    final Stmt body;
+    final Expr container;
   }
 
   abstract <R> R accept(Visitor<R> visitor);
