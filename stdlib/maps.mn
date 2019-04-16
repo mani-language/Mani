@@ -28,7 +28,7 @@ class Map {
     }
 
     copy(newMap) {
-        this.map = newMap;
+        this.map = newMap.map;
     }
 
     size() {
@@ -48,7 +48,7 @@ class Map {
     }
 
     reset() {
-        this.map = map(this.type);
+        this.map = newMap();
     }
 
     show() {
