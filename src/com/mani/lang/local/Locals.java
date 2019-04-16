@@ -2,6 +2,7 @@ package com.mani.lang.local;
 
 import com.mani.lang.ManiCallable;
 import com.mani.lang.ManiCallableInternal;
+import com.mani.lang.ManiInstance;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -35,6 +36,8 @@ public class Locals {
             return "string";
         } else if (workWith instanceof File) {
             return "file";
+        } else if (workWith instanceof ManiInstance) {
+            return ((ManiInstance) workWith).getClassName();
         }
         return null;
     }
