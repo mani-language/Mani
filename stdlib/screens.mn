@@ -16,22 +16,13 @@ class Screen {
         this.components.add("btn", btnMap);
     }
 
-    show() {
-        if (this.showing) {
-            say "Already showing frame";
-            return nil;
-        }
-        windowVis(this.showing);
-        this.showing = true;
-    }
-
-    hide() {
+    toggle() {
         if (!this.showing) {
-            say "Frame already hidden";
-            return nil;
+            this.showing = true;
+        } else {
+            this.showing = false;
         }
         windowVis(this.showing);
-        this.showing = false;
     }
 
     addBasicBtn(title) {
