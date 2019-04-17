@@ -22,7 +22,11 @@ public class Locals {
 
     private static boolean functionFound(String type, String lookingFor) {
         HashMap<String, ManiCallableInternal> funcs = db.get(type);
+        if (funcs == null) {
+            return false;
+        }
         return funcs.containsKey(lookingFor);
+//        return false;
     }
 
     public static String getType(Object workWith) {
