@@ -178,12 +178,6 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
     @Override
     public Void visitPrintStmt(Stmt.Print stmt) {
         Object value = evaluate(stmt.expression);
-        if (value instanceof ManiInstance) {
-            if (( (ManiInstance) value).hasShowFn()) {
-                ((ManiInstance) value).runShowFn(this);
-                return null;
-            }
-        }
         System.out.println(stringfy(value));
         return null;
     }
