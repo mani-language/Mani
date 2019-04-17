@@ -206,21 +206,24 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
         switch (result) {
             case "list":
                 for (Object item : (ArrayList) evaluate(stmt.container)) {
-                    globals.assign(stmt.id, item);
+                    globals.assignForce(stmt.id, item);
                     execute(stmt.body);
                 }
+                globals.cleanupForce(stmt.id);
                 return null;
             case "string":
                 for (Object item : ((String) evaluate(stmt.container)).toCharArray()) {
-                    globals.assign(stmt.id, item);
+                    globals.assignForce(stmt.id, item);
                     execute(stmt.body);
                 }
+                globals.cleanupForce(stmt.id);
                 return null;
             case "number":
                 for (Object item : ((String) evaluate(stmt.container)).toCharArray()) {
-                    globals.assign(stmt.id, new Double((int) item));
+                    globals.assignForce(stmt.id, new Double((int) item));
                     execute(stmt.body);
                 }
+                globals.cleanupForce(stmt.id);
                 return null;
         }
 
