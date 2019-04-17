@@ -1,9 +1,19 @@
+# "tester";
+
+let t <- Tester();
+t.msg("TESTING FOR-EACH-LOOPS");
+say NL;
+
+t.msg("Testing regular for-each");
 let l = [1, 2, 3, 4];
 let test;
+let res = 0;
 for (test : l) {
-    say test;
+    res += test;
 }
+t.match(res, 10);
 
+t.msg("Testing for-each in a for-each");
 l = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
 let result = 0;
 let inner;
@@ -12,17 +22,15 @@ for (test : l) {
         result += inner;
     }
 }
-say result;
+t.match(result, 45);
 
-let max = 6;
-while (max != 0) {
-    say "a";
-    max--;
-}
-
+t.msg("Testing map-for-each");
 let t = {"key": "val", "name" : "mani", "date" : "today"};
 let key;
 let val;
+let resu = [];
 for (key, val : t) {
-    say "Key: " + key + ", Value: " + val;
+    res.add(key);
+    res.add(val);
 }
+t.match(resu, ["key", "val", "name", "mani", "date", "today"]);
