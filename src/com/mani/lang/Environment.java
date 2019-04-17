@@ -82,4 +82,22 @@ class Environment {
 
         throw new RuntimeError(name, "Undefined variable '" + name.lexeme +"'.");
     }
+
+    void assignForce(Token name, Object value) {
+        if (enclosing != null) {
+            enclosing.assignForce(name, value);
+            return;
+        }
+
+        values.put(name.lexeme, value);
+    }
+
+    void cleanupForce(Token name) {
+        if (enclosing != null) {
+            enclosing.cleanupForce(name);
+            return;
+        }
+        values.remove(name);
+
+    }
 }
