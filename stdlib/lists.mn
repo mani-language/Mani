@@ -75,6 +75,6 @@ class List {
 
     show() {
         // For when you want to show your list...
-        say this.list;
+        return this.list;
     }
 }
