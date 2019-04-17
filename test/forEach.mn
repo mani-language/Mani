@@ -6,7 +6,6 @@ say NL;
 
 t.msg("Testing regular for-each");
 let l = [1, 2, 3, 4];
-let test;
 let res = 0;
 for (test : l) {
     res += test;
@@ -16,7 +15,6 @@ t.match(res, 10);
 t.msg("Testing for-each in a for-each");
 l = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
 let result = 0;
-let inner;
 for (test : l) {
     for (inner : test) {
         result += inner;
@@ -26,8 +24,6 @@ t.match(result, 45);
 
 t.msg("Testing map-for-each");
 let t = {"key": "val", "name" : "mani", "date" : "today"};
-let key;
-let val;
 let resu = [];
 for (key, val : t) {
     res.add(key);
