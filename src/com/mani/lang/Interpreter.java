@@ -68,6 +68,11 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
             }
         return text;
         }
+        if (object instanceof ManiInstance) {
+            if (((ManiInstance)object).hasShowFn()) {
+                return (((ManiInstance) object).runShowFn(this));
+            }
+        }
         return object.toString();
     }
 
@@ -465,6 +470,7 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
                 }
                 throw new RuntimeError(expr.operator, "Operands must be number and number or string and number.");
             case PLUS:
+                // TODO: ADD A METHOD TO LOOK FOR A "+" METHOD IN THE CLASS.
                 if(left instanceof Double && right instanceof Double) {
                     return (double) left + (double) right;
                 }
@@ -476,6 +482,14 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
                     return (String) left + (String) right;
                 }
                 if(left instanceof Double && right instanceof String) {
+                    left = stringfy(left);
+                    return (String) left + (String) right;
+                }
+                if(left instanceof String && right instanceof ManiInstance) {
+                    right = stringfy(right);
+                    return (String) left + (String) right;
+                }
+                if (left instanceof ManiInstance && right instanceof String) {
                     left = stringfy(left);
                     return (String) left + (String) right;
                 }
