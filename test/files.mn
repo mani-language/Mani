@@ -12,9 +12,9 @@ t.quitOnFail = false;
 say NL;
 
 t.msg("Open a file");
-let f = File("test/import/file_test_import.txt");
+let f = File("./import/file_test_import.txt");
 f.open();
-t.match(f.filename, "test/import/file_test_import.txt");
+t.match(f.filename, "./import/file_test_import.txt");
 
 t.msg("Read opened file");
 t.match(f.read(),"test contents of a file" + NL + "imported by test/files.mn" + NL)
