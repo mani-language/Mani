@@ -52,6 +52,6 @@ class Map {
     }
 
     show() {
-        say this.map;
+        return this.map;
     }
 }
