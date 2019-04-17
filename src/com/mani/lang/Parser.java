@@ -514,7 +514,6 @@ class Parser {
             return new Expr.Import(toImport);
         }
 
-
         throw error(peek(), "Expect expression.");
     }
 
