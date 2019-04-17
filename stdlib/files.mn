@@ -1,10 +1,10 @@
-load "files"
+load "files";
 
 class File {
     File(filename) {
         this.filename = filename;
-        this.file;
-        this.contents;
+        this.file = nil;
+        this.contents = nil;
         this.opened = false;
     }
 
@@ -19,7 +19,7 @@ class File {
 
     write(lines) {
         if (lines is "list") {
-            for (int )
+            say "not working yet";
         } else if (lines is "string") {
             this.contents += lines;
         } else {
