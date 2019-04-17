@@ -20,7 +20,7 @@ public class files_read implements ManiCallable {
     public Object call(Interpreter interpreter, List<Object> arguments) {
         try {
             String data = "";
-            File f = (File) arguments.get(0);
+            File f = new File((String)arguments.get(0));
 
             Scanner fscan = new Scanner(f);
 
