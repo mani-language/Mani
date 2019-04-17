@@ -1,0 +1,2 @@
+test contents of a file
+imported by test/files.mn
