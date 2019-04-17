@@ -235,10 +235,12 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
         if (Locals.getType(evaluate(stmt.container)).equalsIgnoreCase("map")) {
             HashMap<Object, Object> db = (HashMap<Object, Object>) evaluate(stmt.container);
             for (Object item : db.keySet()) {
-                globals.assign(stmt.key, item);
-                globals.assign(stmt.val, db.get(item));
+                globals.assignForce(stmt.key, item);
+                globals.assignForce(stmt.val, db.get(item));
                 execute(stmt.body);
             }
+            globals.cleanupForce(stmt.key);
+            globals.cleanupForce(stmt.val);
             return null;
         }
         throw new RuntimeException("Must be a map");
