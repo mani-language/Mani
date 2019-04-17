@@ -18,13 +18,19 @@ class File {
     }
 
     write(lines) {
+        let item;
+        let res = "";
         if (lines is "list") {
-            say "not working yet";
+            for (item : lines) {
+                res += item;
+            }
+            this.content = res;
         } else if (lines is "string") {
-            this.contents += lines;
+            this.contents = lines;
         } else {
             say "Must be a string or list, please convert and try again!";
             return;
         }
+        fwrite(this.file, this.contents, "w");
     }
 }
