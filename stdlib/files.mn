@@ -13,7 +13,7 @@ class File {
     }
 
     read() {
-        this.contents = fread(this.filename);
+        this.contents = fread(this.file);
         return this.contents;
     }
 
