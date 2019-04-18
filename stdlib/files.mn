@@ -13,7 +13,7 @@ class File {
     }
 
     read() {
-        this.contents = fread(this.file);
+        this.contents = fread(this.filename);
         return this.contents;
     }
 
@@ -22,7 +22,7 @@ class File {
         let res = "";
         if (lines is "list") {
             for (item : lines) {
-                res += item;
+                res = res + item;
             }
             this.content = res;
         } else if (lines is "string") {
