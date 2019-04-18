@@ -28,7 +28,7 @@ If applicable, please provide the full error.
  - Version [e.g. 22]
 
 **Standard Library:**
-Were you using a standard libary?
+Were you using a standard library?
  - [] Yes
  - [] No
 If yes, what libaries?
