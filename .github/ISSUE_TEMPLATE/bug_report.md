@@ -24,8 +24,8 @@ A clear and concise description of what you expected to happen.
 If applicable, please provide the full error.
 
 **Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Version [e.g. 22]
+ - OS: [e.g. MACOS, WINDOWS, LINUX]
+ - Version [e.g. MOJAVE, 10, ARCH]
 
 **Standard Library:**
 Were you using a standard library?
