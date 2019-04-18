@@ -4,7 +4,7 @@ When contributing to this repository, in most cases an issue should be used. If 
 Once you have created your issue or taken an existing issue, please leave a comment on it so other people know that it is being worked on. Similarly, if you decide to drop the issue, it is appreciated if you comment to let people know that it is avaiable again (also include any findings you may have that may help others to solve the issue)
 
 ### Committing
-When creating a commit, you should follow the standards below - [commit-messages](#Commit messages).
+When creating a commit, you should follow the standards below - [commit messages](#commit-messages).
 
 ### Raising pull requests
 After making the necessary changes, you can raise a pull request. Pull requests should follow the **[pull request templates](.github/PULL_REQUEST_TEMPLATE)** to make it easy to keep track of what is included in it. Pull requests should always succesfully build (unless specifically told otherwise) - this is to ensure the mainline is not broken for others who wish to use Máni or contribute to it.
