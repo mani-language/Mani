@@ -66,7 +66,7 @@ say v1 + " + " + v2 + " = " + v3;
 ~~~
 
 ## Team
-|   [**Brayden Moon**](https://github.com/myxozoa)  |   [**Joe Rickard**](https://github.com/danitacheny)   |
+|   [**Brayden Moon**](https://github.com/crazywolf132)  |   [**Joe Rickard**](https://github.com/Kalekdan)   |
 |:----------------:|:----------------:|
 | [<img src="https://avatars3.githubusercontent.com/u/6337115?s=460&v=4" width="80">](https://github.com/crazywolf132) | [<img src="https://avatars3.githubusercontent.com/u/6087595?s=460&v=4" width="80">](https://github.com/Kalekdan)  |
 | Founder | Contributor |
