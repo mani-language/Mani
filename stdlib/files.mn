@@ -18,16 +18,8 @@ class File {
     }
 
     write(lines) {
-        let item;
         let res = "";
-        if (lines is "list") {
-            for (item : lines) {
-                res = res + item;
-            }
-            this.content = res;
-        } else if (lines is "string") {
-            this.contents = lines;
-        } else {
+        if (!(lines is "list" or lines is "string")) {
             say "Must be a string or list, please convert and try again!";
             return;
         }
