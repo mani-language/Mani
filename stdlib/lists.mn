@@ -58,6 +58,14 @@ class List {
         this.list = [];
     }
 
+    join(operator) {
+        let res = "";
+        for (item : this.list) {
+            res += item + "operator";
+        }
+        return res;
+    }
+
     trimEach() {
         // This is used to remove whitespace from a string...
         let length = size(this.list);
@@ -67,7 +75,7 @@ class List {
             this.replace(i , str);
         }
     }
-    
+
     forEach(f) {
         // This function is used to iterate through the array, and execute a function everytime.
         arrayForEach(this.list, f):
