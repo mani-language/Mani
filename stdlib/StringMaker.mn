@@ -1,0 +1,25 @@
+# "lists";
+
+class StringMaker{
+    StringMaker() {
+        this.strings = List();
+    }
+
+    append(item) {
+        if (item is "list") {
+            for (string : item) {
+                this.strings.add(string);
+            }
+        } else {
+            this.strings.add(item);
+        }
+    }
+
+    join(operator) {
+        return this.strings.join(operator);
+    }
+
+    show() {
+        this.strings.join(" ");
+    }
+}
