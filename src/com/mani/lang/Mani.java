@@ -33,10 +33,10 @@ public class Mani {
             hasInternet = checkInternet();
 
             if(args.length > 1) {
-                System.out.println("Usage mani [Script.mn]");
+                System.out.println("Usage mani [Script.mni]");
             } else if (args.length == 1) {
                 runFile(args[0]);
-            } else {
+            } else if (!compiledMode) {
                 runPrompt();
             }
 
@@ -66,7 +66,7 @@ public class Mani {
      * @param path
      */
     private static void runFile(String path) {
-        if(path.endsWith(".mn")) {
+        if(path.endsWith(".mni")) {
             try {
                 byte[] bytes = Files.readAllBytes(Paths.get(path));
                 run(new String(bytes, Charset.defaultCharset()));
@@ -77,7 +77,7 @@ public class Mani {
                 System.out.println(e.getMessage());
             }
         } else {
-            System.err.println("Mani scripts must end with '.mn'.");
+            System.err.println("Mani scripts must end with '.mni'.");
         }
     }
 

@@ -19,7 +19,7 @@ The name of the library needs to be presented as a string (wrapped in "")
 load "std";     // Loads the std API
 load "atomic";  // Loads the atomic API
 
-load "./somefile.mn"  // Loads a local file.
+load "./somefile.mni"  // Loads a local file.
 ~~~
 > The load function will load a file before an API. This means, that if there
 is a local file with the same name as an API. It will load that instead of the API

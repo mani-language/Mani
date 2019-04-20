@@ -369,7 +369,7 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
                 return "Already loaded!";
             } else {
                 try {
-                    URL url = new URL("https://raw.githubusercontent.com/crazywolf132/Mani/master/stdlib/" + (String) result + ".mn");
+                    URL url = new URL("https://raw.githubusercontent.com/crazywolf132/Mani/master/stdlib/" + (String) result + ".mni");
                     Scanner s = new Scanner(url.openStream());
                     String final_file = "";
                     while(s.hasNextLine()){

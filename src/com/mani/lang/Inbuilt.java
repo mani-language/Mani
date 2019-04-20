@@ -305,7 +305,7 @@ public class Inbuilt {
                         return "Already loaded!";
                     } else {
                         try {
-                            URL url = new URL("https://raw.githubusercontent.com/crazywolf132/Mani/master/stdlib/" + arguments.get(0) + ".mn");
+                            URL url = new URL("https://raw.githubusercontent.com/crazywolf132/Mani/master/stdlib/" + arguments.get(0) + ".mni");
                             Scanner s = new Scanner(url.openStream());
                             String final_file = "";
                             while(s.hasNextLine()){

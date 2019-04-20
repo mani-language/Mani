@@ -1,2 +1,2 @@
 test contents of a file
-imported by test/files.mn
+imported by test/files.mni

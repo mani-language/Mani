@@ -17,9 +17,9 @@ For your enjoyment, we have created syntaxing for some editors.
 * [VSCode](https://github.com/crazywolf132/Mani-vscode)
 
 ### Usage
-To run a `.mn` file run the command below.
+To run a `.mni` file run the command below.
 ```bash
-    java -jar Mani-Stable.jar filename.mn
+    java -jar Mani-Stable.jar filename.mni
 ```
 
 To run the REPL simply perfom the following command:

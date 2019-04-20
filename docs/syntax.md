@@ -20,13 +20,13 @@ The Load function can have 2 purposes. To load a local file, or to load an API p
 > Máni will always load a file over an API if the names are the same.
 
 ~~~ mani
-	// name.mn
+	// name.mni
 	fn myName(name) {
 		say "name is " + name;
 	}
 ~~~
 ~~~ mani
-	// main.mn
+	// main.mni
 	say "my " + myName("steve!");
 ~~~
 
