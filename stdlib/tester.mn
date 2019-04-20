@@ -13,20 +13,16 @@ class Tester {
 
     match(item, shouldBe) {
         this.run++;
-        if (item == shouldBe) {
-            this.passed++;
-            say ANSI_GREEN + "    PASSED" + ANSI_RESET;
-        } else {
-            say ANSI_RED + "    FAILED" + ANSI_RESET;
-            if (this.quitOnFail) {
-                exit(1);
-            }
-        }
+        this.printResult(item == shouldBe);
     }
 
     matchType(item, shouldbe) {
         this.run++;
-        if (item is shouldbe) {
+        this.printResult(item is shouldbe);
+    }
+
+    printResult(passFail) {
+        if (passFail) {
             this.passed++;
             say ANSI_GREEN + "    PASSED" + ANSI_RESET;
         } else {
