@@ -2,9 +2,7 @@ package com.mani.lang.Modules.std;
 
 import com.mani.lang.Modules.Module;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import com.mani.lang.*;
 
@@ -85,6 +83,21 @@ public final class std implements Module{
             @Override
             public Object call(Interpreter interpreter, List<Object> arguments) {
                 System.exit(Std.DoubleToInt((double) arguments.get(0)));
+                return null;
+            }
+        });
+
+        interpreter.addSTD("enviro", new ManiCallable() {
+
+            @Override
+            public int arity() { return 1; }
+
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                Map<String, String> db = System.getenv();
+                if (db.containsKey(arguments.get(0))) {
+                    return db.get(arguments.get(0));
+                }
                 return null;
             }
         });
