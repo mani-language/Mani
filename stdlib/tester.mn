@@ -5,6 +5,14 @@ class Tester {
         this.passed = 0;
         this.run = 0;
         this.quitOnFail = true;
+        this.override = false;
+        this.setup();
+    }
+
+    internal setup() {
+        if (enviro("PRODUCTION") != nil and enviro("PRODUCTION") == "true") {
+            this.override = true;
+        }
     }
 
     msg(message) {
@@ -27,7 +35,8 @@ class Tester {
             say ANSI_GREEN + "    PASSED" + ANSI_RESET;
         } else {
             say ANSI_RED + "    FAILED" + ANSI_RESET;
-            if (this.quitOnFail) {
+            if (this.quitOnFail or this.override) {
+                this.results();
                 exit(1);
             }
         }
