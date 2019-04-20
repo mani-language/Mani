@@ -1,4 +1,5 @@
 load "files";
+# "lists";
 
 class File {
     File(filename) {
@@ -17,12 +18,23 @@ class File {
         return this.contents;
     }
 
+    toList() {
+        return List().direct(split(this.contents, "\n"));
+    }
+
     write(lines) {
-        let res = "";
         if (!(lines is "list" or lines is "string")) {
             say "Must be a string or list, please convert and try again!";
             return;
         }
         fwrite(this.file, this.contents, "w");
+    }
+
+    append(lines) {
+        if (!(lines is "list" or lines is "string")) {
+            say "Must be a string or list, please convert and try again!";
+            return;
+        }
+        fwrite(this.file, this.contents);
     }
 }
