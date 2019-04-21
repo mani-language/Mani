@@ -12,12 +12,8 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
 import java.awt.image.BufferedImage;
 import java.util.List;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -42,8 +38,31 @@ public final class frame implements Module {
         interpreter.addSTD("keyPressed", new keyPressed());
         interpreter.addSTD("windowRepaint", new windowRepaint());
         interpreter.addSTD("windowPrompt", new windowPrompt());
-        interpreter.addSTD("draw_shape", new draw_shape());
+        interpreter.addSTD("line", intConsumer4Convert(com.mani.lang.Modules.frame.frame::line));
+        interpreter.addSTD("oval", intConsumer4Convert(com.mani.lang.Modules.frame.frame::oval));
+        interpreter.addSTD("foval", intConsumer4Convert(com.mani.lang.Modules.frame.frame::foval));
+        interpreter.addSTD("rect", intConsumer4Convert(com.mani.lang.Modules.frame.frame::rect));
+        interpreter.addSTD("frect", intConsumer4Convert(com.mani.lang.Modules.frame.frame::frect));
+        interpreter.addSTD("clip", intConsumer4Convert(com.mani.lang.Modules.frame.frame::clip));
         interpreter.addSTD("color", new setColor());
+    }
+
+    @FunctionalInterface
+    private interface IntConsumer4 {
+        void accept(int i1, int i2, int i3, int i4);
+    }
+    
+    private static ManiCallable intConsumer4Convert(IntConsumer4 consumer) {
+        return new ManiCallable() {
+            @Override
+            public int arity() { return 4; }
+
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                consumer.accept(((Double) arguments.get(0)).intValue() , ((Double) arguments.get(1)).intValue(), ((Double) arguments.get(2)).intValue(), ((Double) arguments.get(3)).intValue());
+                return (double) 0;
+            }
+        };
     }
 
     private static class setColor implements ManiCallable {
@@ -67,42 +86,12 @@ public final class frame implements Module {
         }
     }
 
-    private static class draw_shape implements ManiCallable {
-
-        @Override
-        public int arity() {
-            return 5;
-        }
-
-        @Override
-        public Object call(Interpreter interpreter, List<Object> arguments) {
-            int x = Std.DoubleToInt((double) arguments.get(1));
-            int y = Std.DoubleToInt((double) arguments.get(2));
-            int w = Std.DoubleToInt((double) arguments.get(3));
-            int h = Std.DoubleToInt((double) arguments.get(4));
-            switch((String) arguments.get(0)) {
-                case "line":
-                    graphics.drawLine(x, y, w, h);
-                    break;
-                case "oval":
-                    graphics.drawOval(x, y, w, h);
-                    break;
-                case "foval":
-                    graphics.fillOval(x, y, w, h);
-                    break;
-                case "rect":
-                    graphics.drawRect(x, y, w, h);
-                    break;
-                case "frect":
-                    graphics.fillRect(x, y, w, h);
-                    break;
-                case "clip":
-                    graphics.setClip(x, y, w, h);
-                    break;
-            }
-            return null;
-        }
-    }
+    private static void line(int x1, int y1, int x2, int y2) { graphics.drawLine(x1, y1, x2, y2); }
+    private static void oval(int x, int y, int w, int h) { graphics.fillOval(x, y, w, h); }
+    private static void foval(int x, int y, int w, int h) { graphics.fillOval(x, y, w, h); }
+    private static void rect(int x, int y, int w, int h) { graphics.drawRect(x, y, w, h); }
+    private static void frect(int x, int y, int w, int h) { graphics.fillRect(x, y, w, h); }
+    private static void clip(int x, int y, int w, int h) { graphics.setClip(x, y, w, h); }
 
     private static class CreateWindow implements ManiCallable {
 
