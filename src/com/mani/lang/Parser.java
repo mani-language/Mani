@@ -1,7 +1,10 @@
 //Parser for moonLang - A straight recursive descent paser.
 package com.mani.lang;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 class Parser {
     private static class ParserError extends RuntimeException{}
