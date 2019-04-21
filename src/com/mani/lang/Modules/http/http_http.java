@@ -3,8 +3,6 @@ package com.mani.lang.Modules.http;
 import com.mani.lang.Interpreter;
 import com.mani.lang.ManiCallable;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 /*import java.util.Map;
 import okhttp3.FormBody;
