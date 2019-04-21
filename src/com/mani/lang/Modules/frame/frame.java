@@ -2,23 +2,15 @@ package com.mani.lang.Modules.frame;
 
 import com.mani.lang.Interpreter;
 import com.mani.lang.ManiCallable;
-import com.mani.lang.Std;
 import com.mani.lang.Modules.Module;
+import com.mani.lang.Std;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.List;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 public final class frame implements Module {
 
