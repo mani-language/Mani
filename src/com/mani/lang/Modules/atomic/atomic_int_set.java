@@ -1,10 +1,10 @@
 package com.mani.lang.Modules.atomic;
 
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import com.mani.lang.Interpreter;
 import com.mani.lang.ManiCallable;
+
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public final class atomic_int_set implements ManiCallable {
 
