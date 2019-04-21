@@ -1,10 +1,15 @@
 package com.mani.lang.Modules.std;
 
+import com.mani.lang.Interpreter;
+import com.mani.lang.ManiCallable;
+import com.mani.lang.ManiFunction;
 import com.mani.lang.Modules.Module;
+import com.mani.lang.Std;
 
-import java.util.*;
-
-import com.mani.lang.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 public final class std implements Module{
 
