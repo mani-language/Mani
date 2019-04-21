@@ -1,11 +1,11 @@
 package com.mani.lang.Modules.maps;
 
+import com.mani.lang.Interpreter;
+import com.mani.lang.ManiCallable;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import com.mani.lang.Interpreter;
-import com.mani.lang.ManiCallable;
 
 public final class maps_arraysToMap implements ManiCallable {
 
