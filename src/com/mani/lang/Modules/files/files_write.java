@@ -3,7 +3,10 @@ package com.mani.lang.Modules.files;
 import com.mani.lang.Interpreter;
 import com.mani.lang.ManiCallable;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 public class files_write implements ManiCallable {
