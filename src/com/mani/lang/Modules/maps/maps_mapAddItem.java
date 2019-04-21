@@ -1,10 +1,10 @@
 package com.mani.lang.Modules.maps;
 
-import java.util.HashMap;
-import java.util.List;
-
 import com.mani.lang.Interpreter;
 import com.mani.lang.ManiCallable;
+
+import java.util.HashMap;
+import java.util.List;
 
 public final class maps_mapAddItem implements ManiCallable {
 
