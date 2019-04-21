@@ -1,11 +1,11 @@
 package com.mani.lang.Modules.types;
 
-import java.util.List;
-
 import com.mani.lang.Interpreter;
 import com.mani.lang.ManiCallable;
-import com.mani.lang.Std;
 import com.mani.lang.Modules.Module;
+import com.mani.lang.Std;
+
+import java.util.List;
 
 public final class types implements Module {
 
