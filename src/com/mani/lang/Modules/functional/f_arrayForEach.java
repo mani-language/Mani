@@ -1,11 +1,11 @@
 package com.mani.lang.Modules.functional;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.mani.lang.Interpreter;
 import com.mani.lang.ManiCallable;
 import com.mani.lang.ManiFunction;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public final class f_arrayForEach implements ManiCallable {
 
