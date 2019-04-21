@@ -1,10 +1,10 @@
 package com.mani.lang.Modules.arrays;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.mani.lang.Interpreter;
 import com.mani.lang.ManiCallable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public final class arrays_arrayAddItem implements ManiCallable {
 
