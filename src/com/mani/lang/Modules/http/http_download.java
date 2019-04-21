@@ -1,12 +1,11 @@
 package com.mani.lang.Modules.http;
 
-import java.io.IOException;
+import com.mani.lang.Interpreter;
+import com.mani.lang.ManiCallable;
+
 import java.util.List;
 
 //import okhttp3.*;
-
-import com.mani.lang.Interpreter;
-import com.mani.lang.ManiCallable;
 
 public final class http_download implements ManiCallable {
 
