@@ -1,12 +1,12 @@
 package com.mani.lang.Modules.std;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import com.mani.lang.Interpreter;
 import com.mani.lang.ManiCallable;
 import com.mani.lang.Std;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public final class std_size implements ManiCallable {
 
