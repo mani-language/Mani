@@ -2,9 +2,7 @@ package com.mani.lang.local;
 
 import com.mani.lang.Interpreter;
 import com.mani.lang.ManiCallableInternal;
-import com.mani.lang.Std;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
