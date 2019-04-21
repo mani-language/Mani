@@ -1,13 +1,13 @@
 package com.mani.lang.Modules.arrays;
 
-import java.util.HashMap;
-
 import com.mani.lang.Interpreter;
 import com.mani.lang.ManiCallable;
 import com.mani.lang.ManiCallableInternal;
 import com.mani.lang.Modules.Module;
 import com.mani.lang.Std;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public final class arrays implements Module {
