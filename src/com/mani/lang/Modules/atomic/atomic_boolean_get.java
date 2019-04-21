@@ -1,10 +1,10 @@
 package com.mani.lang.Modules.atomic;
 
-import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
-
 import com.mani.lang.Interpreter;
 import com.mani.lang.ManiCallable;
+
+import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public final class atomic_boolean_get implements ManiCallable {
 
