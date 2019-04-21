@@ -1,13 +1,11 @@
 package com.mani.lang.Modules.json;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.mani.lang.Interpreter;
 import com.mani.lang.ManiCallable;
 
 import java.util.List;
-
-
-import com.google.gson.Gson;
 
 public class json_encode implements ManiCallable {
     @Override
