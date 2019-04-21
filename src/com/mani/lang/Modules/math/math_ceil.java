@@ -2,7 +2,6 @@ package com.mani.lang.Modules.math;
 
 import com.mani.lang.Interpreter;
 import com.mani.lang.ManiCallable;
-import com.mani.lang.Std;
 
 import java.util.List;
 
