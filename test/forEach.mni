@@ -4,7 +4,7 @@ let t <- Tester();
 t.msg("TESTING FOR-EACH-LOOPS");
 say NL;
 
-t.msg("Testing regular for-each");
+/* t.msg("Testing regular for-each");
 let l = [1, 2, 3, 4];
 let res = 0;
 for (test : l) {
@@ -29,4 +29,4 @@ for (key, val : t) {
     res.add(key);
     res.add(val);
 }
-t.match(resu, ["key", "val", "name", "mani", "date", "today"]);
+t.match(resu, ["key", "val", "name", "mani", "date", "today"]); */

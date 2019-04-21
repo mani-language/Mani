@@ -1,0 +1,9 @@
+class Entity {
+    Entity(obj) {
+        this.obj = obj;
+    }
+
+    get(item) {
+        return this.obj.at(item);
+    }
+}

@@ -19,6 +19,8 @@ t.match(f.filename, "./import/file_test_import.txt");
 t.msg("Read opened file");
 t.match(f.read(),"test contents of a file" + NL + "imported by test/files.mni" + NL)
 
-//t.msg("Write string to list");
+t.msg("Write string to list");
 //f.write("add this to file");
-//t.match(f.read(),"test contents of a file" + NL + "imported by test/files.mni" + NL + "add this to file" + NL);
+//t.match(f.read(),"test contents of a file" + NL + "imported by test/files.mn" + NL + "add this to file" + NL);
+
+t.results();
