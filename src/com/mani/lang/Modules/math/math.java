@@ -28,10 +28,21 @@ public class math implements Module {
         interpreter.addSTD("cbrt", functionConvert(Math::cbrt));
         interpreter.addSTD("ceil", functionConvert(Math::ceil));
         interpreter.addSTD("cos", functionConvert(Math::cos));
+        interpreter.addSTD("sin", functionConvert(Math::sin));
+        interpreter.addSTD("tan", functionConvert(Math::tan));
         interpreter.addSTD("cosh", functionConvert(Math::cosh));
         interpreter.addSTD("exp", functionConvert(Math::exp));
         interpreter.addSTD("expm1", functionConvert(Math::expm1));
         interpreter.addSTD("floor", functionConvert(Math::floor));
+        interpreter.addSTD("round", new ManiCallable() {
+            @Override
+            public int arity() { return 1; }
+
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                return Math.round((Double) arguments.get(0));
+            }
+        });
     }
 
     private static ManiCallable functionConvert(DoubleUnaryOperator op) {
