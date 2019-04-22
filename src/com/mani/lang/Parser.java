@@ -287,15 +287,7 @@ class Parser {
         }
         Token name = consume(TokenType.IDENTIFIER, "Expect " + kind + " name.");
         consume(TokenType.LEFT_PAREN, "Expect '(' after " + kind + " name.");
-        List<Token> parameters = new ArrayList<>();
-        if(!check(TokenType.RIGHT_PAREN)) {
-            do {
-                if(parameters.size() >= 32) {
-                    error(peek(), "Cannot have more than 32 parameters.");
-                }
-                parameters.add(consume(TokenType.IDENTIFIER, TokenType.MINUS_MINUS, "Expect parameter name or ArrayToken."));
-            } while(match(TokenType.COMMA));
-        }
+        List<Token> parameters = arguments();
         consume(TokenType.RIGHT_PAREN, "Expect ')' after parameters");
         consume(TokenType.LEFT_BRACE, "Expect '{' before " + kind + " body.");
         List<Stmt> body = block();
@@ -518,6 +510,19 @@ class Parser {
         }
 
         throw error(peek(), "Expect expression.");
+    }
+
+    private ArrayList<Token> arguments() {
+        List<Token> para = new ArrayList<>();
+        if (!check(TokenType.RIGHT_PAREN)) {
+            do {
+                if (para.size() >= 32) {
+                    error(peek(), "Cannot have more than 32 parameters.");
+                }
+                para.add(consume(TokenType.IDENTIFIER, TokenType.MINUS_MINUS, "Expected parameter name or ArrayToken."));
+            } while(match(TokenType.COMMA));
+        }
+        return (ArrayList<Token>) para;
     }
 
 

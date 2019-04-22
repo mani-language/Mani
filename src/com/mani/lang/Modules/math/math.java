@@ -20,8 +20,6 @@ public class math implements Module {
         interpreter.define("E", Math.E);
 
         // Defining the functions.
-        interpreter.addSTD("floor", new math_floor());
-        interpreter.addSTD("ceil", new math_ceil());
         interpreter.addSTD("rand", new math_rand());
         interpreter.addSTD("acos", functionConvert(Math::acos));
         interpreter.addSTD("asin", functionConvert(Math::asin));
