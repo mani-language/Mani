@@ -1,0 +1,49 @@
+# "tester";
+load "math";
+
+let t = Tester();
+let x = 1.23;
+
+t.msg("TESTING MATH" + NL);
+
+t.msg("Test floor");
+t.match(floor(x), 1);
+
+t.msg("Test ceil");
+t.match(ceil(x), 2);
+
+t.msg("Test asin");
+t.match(asin(1), 1.5707963267948966);
+
+t.msg("Test acos");
+t.match(acos(1), 0.0);
+
+t.msg("Test atan");
+t.match(atan(1), 0.7853981633974483);
+
+t.msg("Test atan2");
+t.match(atan2(x, x), 0.7853981633974483);
+
+t.msg("Test cbrt");
+t.match(cbrt(x), 1.0714412696907731);
+
+t.msg("Test cos");
+t.match(cos(x), 0.3342377271245026);
+
+t.msg("Test sin");
+t.match(sin(x), 0.9424888019316975);
+
+t.msg("Test tan");
+t.match(tan(x), 2.819815734268152);
+
+t.msg("Test cosh");
+t.match(cosh(x), 1.8567610569852664);
+
+t.msg("Test exp");
+t.match(exp(x), 3.4212295362896734);
+
+t.msg("Test expm1");
+t.match(expm1(x), 2.4212295362896734);
+
+
+t.results();
