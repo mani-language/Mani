@@ -5,7 +5,9 @@ import java.util.Map;
 
 class Environment {
     final Environment enclosing;
-    private final Map<String, Object> values = new HashMap<>();
+    private final Map<nspace, Object> values = new HashMap<>();
+
+    String SPACE="namespace";
 
     Environment() {
         enclosing = null;
@@ -17,15 +19,15 @@ class Environment {
 
 
     void define(String name, Object value) {
-        values.put(name, value);
+        values.put(new nspace(SPACE, name), value);
     }
 
     Object getAt(int distance, String name) {
-        return ancestor(distance).values.get(name);
+        return ancestor(distance).values.get(new nspace(SPACE, name));
     }
 
     void assignAt(int distance, Token name, Object value) {
-        ancestor(distance).values.put(name.lexeme, value);
+        ancestor(distance).values.put(new nspace(SPACE, name.lexeme), value);
     }
 
     Environment ancestor(int distance) {
@@ -45,19 +47,26 @@ class Environment {
      */
 
     Object get(Token name) {
-        if(values.containsKey(name.lexeme)) {
-            return values.get(name.lexeme);
+        if(values.containsKey(new nspace(SPACE, name.lexeme))) {
+            return values.get(new nspace(SPACE, name.lexeme));
         }
-        if(enclosing != null) return enclosing.get(name);
+        if(enclosing != null){
+            System.out.println(enclosing);
+            return enclosing.get(name);
+        }
         throw new RuntimeError(name, "Undefined variable '" + name.lexeme +"'.");
     }
 
     Object get(String name) {
         
-        if (values.containsKey(name)) {
-            return values.get(name);
+        if (values.containsKey(new nspace(SPACE, name))) {
+            return values.get(new nspace(SPACE, name));
         }
-        if (enclosing != null) return enclosing.get(name);
+        if (enclosing != null) {
+            System.out.println(enclosing);
+
+            return enclosing.get(name);
+        }
         throw new RuntimeError(null, "Undefined variable '" + name + "'.");
     }
 
@@ -68,8 +77,8 @@ class Environment {
      */
 
     void assign(Token name, Object value) {
-        if(values.containsKey(name.lexeme)) {
-            values.put(name.lexeme, value);
+        if(values.containsKey(new nspace(SPACE, name.lexeme))) {
+            values.put(new nspace(SPACE, name.lexeme), value);
             return;
         }
 
@@ -87,7 +96,7 @@ class Environment {
             return;
         }
 
-        values.put(name.lexeme, value);
+        values.put(new nspace(SPACE, name.lexeme), value);
     }
 
     void cleanupForce(Token name) {
