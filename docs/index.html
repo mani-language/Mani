@@ -19,7 +19,7 @@
       loadNavbar: true,
       loadSidebar: true,
       search: 'auto', // default
-      
+
       plugins: [
         function (hook, vm) {
           hook.beforeEach(function (html) {
@@ -45,7 +45,7 @@
   <script src="//unpkg.com/prismjs/components/prism-java.min.js"></script>
   <script type="application/javascript">
     Prism.languages.mani = Prism.languages.extend('clike', {
-      'keyword': /\b(?:for|if|private|internal|this|else|return|class|super|while|let|load|#|say|fn|true|false|nil)\b/,
+      'keyword': /\b(?:for|if|is|private|internal|this|else|return|class|super|while|let|load|#|say|fn|true|false|nil)\b/,
       'number': /\b0b[01]+\b|\b0x[\da-f]*\.?[\da-fp-]+\b|(?:\b\d+\.?\d*|\B\.\d+)(?:e[+-]?\d+)?[df]?/i,
       'operator': {
         pattern: /(^|[^.])(?:\+[+=]?|-[-=]?|!=?|<<?=?|>>?>?=?|==?|&[&=]?|\|[|=]?|\*=?|\/=?|%=?|\^=?|[?:~])/m,
