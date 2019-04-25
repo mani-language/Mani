@@ -6,7 +6,7 @@ The idea behind it is, take some of the good parts of other languages like nodej
 Implement them into this, and try and build an "Alpha" language... if that is even a such thing.
 
 ## What Máni code looks like.
-~~~ JS
+~~~ mani
 # "arrays";
 
 class Vector {
