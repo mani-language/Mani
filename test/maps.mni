@@ -62,6 +62,10 @@ t.msg("Deleting item");
 mapToTest.del(1);
 t.match(mapToTest.map, {3 : 4, 5 : 6, 7 : 8, 9 : 10});
 
+let values = mapToTest.getValues();
+t.msg("Get values");
+t.match(values, [4, 6, 8, 10]);
+
 t.msg("Updating an item");
 mapToTest.update(3,"update");
 t.match(mapToTest.map, {9.0 : 10.0, 5.0 : 6.0, 3.0 : "update", 7.0 : 8.0});
@@ -77,4 +81,13 @@ t.msg("Reset a map");
 mapToTest.reset();
 t.match(mapToTest.map, {});
 
+let anotherMap = Map();
+let dMap1 = Map();
+let dMap2 = Map();
+
+dMap1.add("test", "name");
+dMap2.add("test", "name1");
+anotherMap.add("first", dMap1);
+anotherMap.add("second", dMapTwo);
+t.match(anotherMap.find("test", "name"), dMap1);
 t.results();
