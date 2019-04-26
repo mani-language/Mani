@@ -50,10 +50,7 @@ class Environment {
         if(values.containsKey(new nspace(SPACE, name.lexeme))) {
             return values.get(new nspace(SPACE, name.lexeme));
         }
-        if(enclosing != null){
-            System.out.println(enclosing);
-            return enclosing.get(name);
-        }
+        if(enclosing != null) return enclosing.get(name);
         throw new RuntimeError(name, "Undefined variable '" + name.lexeme +"'.");
     }
 
@@ -62,11 +59,7 @@ class Environment {
         if (values.containsKey(new nspace(SPACE, name))) {
             return values.get(new nspace(SPACE, name));
         }
-        if (enclosing != null) {
-            System.out.println(enclosing);
-
-            return enclosing.get(name);
-        }
+        if (enclosing != null) return enclosing.get(name);
         throw new RuntimeError(null, "Undefined variable '" + name + "'.");
     }
 
