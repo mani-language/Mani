@@ -22,7 +22,7 @@ class Map {
     find(key, val) {
       return mapFind(this.map, key, val);
     }
-    
+
     update(key, val) {
         return mapUpdateItem(this.map, key, val);
     }
@@ -60,15 +60,7 @@ class Map {
     }
 
     show() {
-        let r = "{ ";
-        for (key, val : this.map) {
-            r += key;
-            r += ": "
-            r += val;
-            r += ", "
-        }
-        r += "}";
-        return r;
+
     }
 
 }
