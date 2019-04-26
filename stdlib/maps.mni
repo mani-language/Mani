@@ -60,7 +60,15 @@ class Map {
     }
 
     show() {
-
+        /*let r = "{ ";
+        for (key, val : this.map) {
+            r += key;
+            r += ": "
+            r += val;
+            r += ", "
+        }
+        r += "}";
+        return r;*/
+        return nil;
     }
-
 }
