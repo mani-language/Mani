@@ -33,6 +33,7 @@ public final class maps_mapFind implements ManiCallable {
 
         HashMap<Object, Object> indexedValue;
         for (Object key : keys) {
+            if (!(given.get(key) instanceof HashMap)) continue;
             indexedValue = given.get(key);
             if (indexedValue != null && indexedValue.get(keyParam) != null){
               if (indexedValue.get(keyParam).equals(arguments.get(2))) return indexedValue;
