@@ -14,6 +14,7 @@
   * [Classes](class.md)
   * [Control Flow](controlflow.md)
   * [Loops](loop.md)
+  * [Change Language](changelanguage.md)
 
 * API
   * [STD](api/std.md)

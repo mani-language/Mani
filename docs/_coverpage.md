@@ -1,4 +1,4 @@
-
+<h1>Máni</h1>
 <p align="center">
 <img src="assets/images/logo.png" height="200px" alt="Moon Lang" title="Mani Lang">
 </p>

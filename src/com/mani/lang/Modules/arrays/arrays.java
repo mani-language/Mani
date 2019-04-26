@@ -64,7 +64,7 @@ public final class arrays implements Module {
         locals.put("count", new ManiCallableInternal() {
             @Override
             public Object call(Interpreter interpreter, List<Object> arguments) {
-                return new Double(((ArrayList) this.workWith).size());
+                return (double) ((ArrayList) this.workWith).size();
             }
         });
 
