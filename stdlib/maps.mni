@@ -52,7 +52,7 @@ class Map {
     }
 
     show() {
-        let r = "{ ";
+        /*let r = "{ ";
         for (key, val : this.map) {
             r += key;
             r += ": "
@@ -60,6 +60,7 @@ class Map {
             r += ", "
         }
         r += "}";
-        return r;
+        return r;*/
+        return nil;
     }
 }
