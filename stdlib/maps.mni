@@ -19,8 +19,16 @@ class Map {
         return mapRemoveItem(this.map, key);
     }
 
+    find(key, val) {
+      return mapFind(this.map, key, val);
+    }
+    
     update(key, val) {
         return mapUpdateItem(this.map, key, val);
+    }
+
+    getValues() {
+      return mapGetValues(this.map);
     }
 
     getKeys() {
@@ -62,4 +70,5 @@ class Map {
         r += "}";
         return r;
     }
+
 }
