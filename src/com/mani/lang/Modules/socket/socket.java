@@ -1,8 +1,13 @@
 package com.mani.lang.Modules.socket;
 
 import com.mani.lang.Interpreter;
+import com.mani.lang.ManiCallableInternal;
+import com.mani.lang.ManiFunction;
 import com.mani.lang.Modules.Module;
 import io.socket.client.Socket;
+
+import java.util.HashMap;
+import java.util.List;
 
 public class socket implements Module {
 
@@ -28,11 +33,61 @@ public class socket implements Module {
 
     @Override
     public boolean hasExtensions() {
-        return false;
+        return true;
     }
 
     @Override
     public Object extensions() {
-        return null;
+        HashMap<String, HashMap<String, ManiCallableInternal>> db = new HashMap<>();
+        HashMap<String, ManiCallableInternal> locals = new HashMap<>();
+
+        locals.put("close", new ManiCallableInternal() {
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                ((Socket) this.workWith).close();
+                return null;
+            }
+        });
+
+        locals.put("connect", new ManiCallableInternal() {
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                ((Socket) this.workWith).connect();
+                return null;
+            }
+        });
+
+        locals.put("connected", new ManiCallableInternal() {
+           @Override
+           public Object call(Interpreter interpreter, List<Object> arguments) {
+               return ((Socket) this.workWith).connected();
+           }
+        });
+
+        locals.put("emit", new ManiCallableInternal() {
+            @Override
+            public int arity() { return 2; }
+
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+               ((Socket) this.workWith).emit((String) arguments.get(0), arguments.get(1));
+               return null;
+            }
+        });
+
+        locals.put("open", new ManiCallableInternal() {
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                ((Socket) this.workWith).open();
+                return null;
+            }
+        });
+
+        db.put("socket", locals);
+        return db;
+    }
+
+    private void executeSocketListener(ManiFunction listener, List<Object> args) {
+
     }
 }
