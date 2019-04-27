@@ -76,6 +76,10 @@ class List {
         }
     }
 
+    reverse() {
+      return arrayReverse(myArr);
+    }
+    
     forEach(f) {
         // This function is used to iterate through the array, and execute a function everytime.
         arrayForEach(this.list, f):

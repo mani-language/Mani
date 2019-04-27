@@ -26,6 +26,10 @@ t.msg("Testing add lots function");
 myList.addLots(["stringTwo", "stringThree"]);
 t.match(myList.list, ["stringOne", "stringTwo", "stringThree"]);
 
+t.msg("Reversing an array");
+let reversedArray = t.reverse();
+t.match(reversedArray, ["stringThree", "stringTwo", "stringOne"]);
+
 //Add a different type to the list and show
 t.msg("Adding a number");
 myList.add(2);
