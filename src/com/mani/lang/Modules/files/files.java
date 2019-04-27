@@ -27,6 +27,10 @@ public class files implements Module {
                 return ((File) arguments.get(0)).getAbsolutePath();
             }
         });
+        interpreter.addSTD("flistDir", new files_listdir());
+        interpreter.addSTD("fmkdir", new files_mkdir());
+        interpreter.addSTD("fdel", new files_deldir());
+        interpreter.addSTD("fexists", new files_dirExists());
     }
 
     @Override
