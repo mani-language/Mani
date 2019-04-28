@@ -3,6 +3,7 @@ package com.mani.lang.local;
 import com.mani.lang.ManiCallable;
 import com.mani.lang.ManiCallableInternal;
 import com.mani.lang.ManiInstance;
+import io.socket.client.Socket;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -44,6 +45,8 @@ public class Locals {
             return ((ManiInstance) workWith).getClassName();
         } else if (workWith instanceof Thread) {
             return "thread";
+        } else if (workWith instanceof Socket) {
+            return "socket";
         }
         return null;
     }
