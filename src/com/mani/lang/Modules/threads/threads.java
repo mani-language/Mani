@@ -25,6 +25,23 @@ public class threads implements Module {
                 return thread;
             }
         });
+
+        interpreter.addSTD("sleep", new ManiCallable() {
+            @Override
+            public int arity() {
+                return 1;
+            }
+
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                try {
+                    Thread.sleep(((Double) arguments.get(0)).longValue());
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+                return null;
+            }
+        });
     }
 
     @Override
