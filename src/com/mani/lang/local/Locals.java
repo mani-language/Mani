@@ -42,6 +42,8 @@ public class Locals {
             return "file";
         } else if (workWith instanceof ManiInstance) {
             return ((ManiInstance) workWith).getClassName();
+        } else if (workWith instanceof Thread) {
+            return "thread";
         }
         return null;
     }
