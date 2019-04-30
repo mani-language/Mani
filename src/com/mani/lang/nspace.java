@@ -10,6 +10,7 @@ public class nspace {
         this.name = name;
     }
 
+    //These must be overriden to make sure the .equals and .containsKey functions work as expected
     @Override
     public int hashCode() {
         final int prime = 31;
