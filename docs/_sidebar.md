@@ -21,6 +21,16 @@
   * [Types](api/types.md)
   * [Maps](api/maps.md)
   * [Lists](api/lists.md)
+  * [Frame](api/frame.md)
+  * [Math](api/math.md)
+  * [Socket](api/socket.md)
+  * [Thread](api/threads.md)
+  * [JSON](api/json.md)
+  * [Files](api/files.md)
+  * [Downloader](api/downloader.md)
+  * [DB](api/db.md)
+  * [Date & Time](api/datetime.md)
+  * [Atomic](api/atomic.md)
 
 * LIBRARIES
   * [Lists](std/lists.md)
