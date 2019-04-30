@@ -51,6 +51,28 @@ public class Locals {
         return null;
     }
 
+    public static Boolean canConvert(Object type1, Object type2) {
+        String standard = type1.toString();
+        switch (standard.toLowerCase()) {
+            case "string":
+            case "number":
+                if (getType(type2).equals("string")) { return true; }
+                if (getType(type2).equals("number")) { return true; }
+                if (getType(type2).equals("list")) { return true; }
+                return false;
+            case "map":
+                if (getType(type2).equals("string")) { return true; }
+                if (getType(type2).equals("list")) { return true; }
+                if (getType(type2).equals("map")) { return true; }
+                return false;
+            case "list":
+                if (getType(type2).equals("String")) { return true; }
+                if (getType(type2).equals("list")) { return true; }
+                return false;
+        }
+        return false;
+    }
+
     public static ManiCallable getFunction(Object workWith, String lookingFor) {
         HashMap<String, ManiCallableInternal> funcs = db.get(getType(workWith));
         return funcs.get(lookingFor);
