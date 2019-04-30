@@ -66,7 +66,7 @@ This is a set of words that cannot be used as variable names, just like most oth
 ~~~ mani
 	if or and else fn let true false break return
 	nil STRICT CHANGE_LANG class for say super this
-	internal while loop load is #
+	internal while loop load is # as
 ~~~
 
 ### Identifiers
