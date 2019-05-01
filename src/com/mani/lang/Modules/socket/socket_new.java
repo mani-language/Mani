@@ -34,13 +34,6 @@ public class socket_new implements ManiCallable {
                 System.err.println("Argument #2 must be a map!");
             }
 
-//            IO.Options options = null;
-//
-//            if (arguments.size() == 2 && arguments.get(1) instanceof HashMap) {
-//                options = parseOptions((HashMap<Object, Object>) arguments.get(1));
-//            }
-//
-//            return IO.socket(url, options);
             if (arguments.size() == 2 && arguments.get(1) instanceof HashMap) {
                 Socket.Options options = parseOptions((HashMap<Object, Object>) arguments.get(1));
                 return new Socket(url, options);
@@ -56,9 +49,6 @@ public class socket_new implements ManiCallable {
     private static Socket.Options parseOptions(HashMap<Object, Object> db) {
         Socket.Options result = new Socket.Options();
 
-//        if (db.containsKey("forceNew")) { result.forceNew = Std.DoubleToInt((Double) db.get("forceNew")) != 0; }
-//        if (db.containsKey("multiplex")) { result.multiplex = Std.DoubleToInt((Double) db.get("multiplex")) != 0; }
-//        if (db.containsKey("reconnection")) { result.reconnection = Std.DoubleToInt((Double) db.get("reconnection")) != 0; }
         if (db.containsKey("rememberUpgrade")) { result.rememberUpgrade = Std.DoubleToInt((Double) db.get("rememberUpgrade")) != 0; }
         if (db.containsKey("secure")) { result.secure = Std.DoubleToInt((Double) db.get("secure")) != 0; }
         if (db.containsKey("timestampRequests")) { result.timestampRequests = Std.DoubleToInt((Double) db.get("timestampRequests")) != 0; }
@@ -66,13 +56,6 @@ public class socket_new implements ManiCallable {
 
         if (db.containsKey("policyPort")) { result.policyPort = Std.DoubleToInt((Double) db.get("policyPort")); }
         if (db.containsKey("port")) { result.port = Std.DoubleToInt((Double) db.get("port")); }
-//        if (db.containsKey("reconnectionAttempts")) { result.reconnectionAttempts = Std.DoubleToInt((Double) db.get("reconnectionAttempts")); }
-
-//        if (db.containsKey("reconnectionDelay")) { result.reconnectionDelay = new Long(String.valueOf(db.get("reconnectionDelay"))); }
-//        if (db.containsKey("reconnectionDelayMax")) { result.reconnectionDelayMax = new Long(String.valueOf(db.get("reconnectionDelayMax"))); }
-//        if (db.containsKey("timeout")) { result.timeout = new Long(String.valueOf(db.get("timeout"))); }
-//
-//        if (db.containsKey("randomizationFactor")) { result.randomizationFactor = (Double) db.get("randomizationFactor"); }
 
         if (db.containsKey("host")) { result.host = String.valueOf(db.get("host")); }
         if (db.containsKey("hostname")) { result.hostname = String.valueOf(db.get("hostname")); }
