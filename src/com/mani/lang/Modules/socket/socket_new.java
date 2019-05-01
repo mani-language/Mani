@@ -5,7 +5,9 @@ import com.mani.lang.ManiCallable;
 import com.mani.lang.Std;
 import com.mani.lang.local.Locals;
 import io.socket.client.IO;
+import io.socket.engineio.client.Socket;
 
+import java.net.URISyntaxException;
 import java.sql.Types;
 import java.util.HashMap;
 import java.util.List;
@@ -19,23 +21,34 @@ public class socket_new implements ManiCallable {
     @Override
     public Object call(Interpreter interpreter, List<Object> arguments) {
 
-        if (!(arguments.size() <= 2 || arguments.size() >= 1)) {
-            System.err.println("Arguments must be 1 or 2. Address and options map.");
+        try {
+            final String url = (String) arguments.get(0);
+
+            if (!(arguments.size() <= 2 || arguments.size() >= 1)) {
+                System.err.println("Arguments must be 1 or 2. Address and options map.");
+                return null;
+            }
+
+            if (arguments.size() == 2 && !(arguments.get(1) instanceof HashMap)) {
+                System.err.println("Argument #2 must be a map!");
+            }
+
+            IO.Options options = null;
+
+            if (arguments.size() == 2 && arguments.get(1) instanceof HashMap) {
+                options = parseOptions((HashMap<Object, Object>) arguments.get(1));
+            }
+
+            return IO.socket(url, options);
+        } catch(URISyntaxException ue) {
             return null;
         }
 
-        if (arguments.size() == 2 && !(arguments.get(1) instanceof HashMap)) {
-            System.err.println("Argument #2 must be a map!");
-        }
-
-        IO.Options options = parseOptions((HashMap<Object, Object>) arguments.get(0));
-
-        return null;
     }
 
 
     private static IO.Options parseOptions(HashMap<Object, Object> db) {
-        final IO.Options result = new IO.Options();
+        IO.Options result = new IO.Options();
 
         if (db.containsKey("forceNew")) { result.forceNew = Std.DoubleToInt((Double) db.get("forceNew")) != 0; }
         if (db.containsKey("multiplex")) { result.multiplex = Std.DoubleToInt((Double) db.get("multiplex")) != 0; }
