@@ -1,5 +1,5 @@
 *.class
-*.jar
+## *.jar
 .gradle
 
 ## Intellij
