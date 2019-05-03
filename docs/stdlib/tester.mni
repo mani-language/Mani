@@ -1,0 +1,62 @@
+load "std";
+
+class Tester {
+    Tester() {
+        this.passed = 0;
+        this.run = 0;
+        this.quitOnFail = true;
+        this.override = false;
+        this.setup();
+    }
+
+    internal setup() {
+        if (enviro("PRODUCTION") != nil and enviro("PRODUCTION") == "true") {
+            this.override = true;
+        }
+    }
+
+    msg(message) {
+        say "TASK: " + message;
+    }
+
+    match(item, shouldBe) {
+        this.run++;
+        this.printResult(item == shouldBe);
+    }
+
+    matchType(item, shouldbe) {
+        this.run++;
+        this.printResult(item is shouldbe);
+    }
+
+    printResult(passFail) {
+        if (passFail) {
+            this.passed++;
+            say ANSI_GREEN + "    PASSED" + ANSI_RESET;
+        } else {
+            say ANSI_RED + "    FAILED" + ANSI_RESET;
+            if (this.quitOnFail or this.override) {
+                this.results();
+                exit(1);
+            }
+        }
+    }
+
+    results() {
+        if (this.passed == this.run) {
+            say ANSI_GREEN + "ALL " + this.run + " PASSED" + ANSI_RESET;
+        } else {
+            say ANSI_RED + (this.run - this.passed) + " failed..." + ANSI_RESET;
+        }
+
+        if (((this.run - this.passed) / this.run) * 100 >= 75) {
+            say ANSI_RED + "Test failed with fail rate of: " + (((this.run - this.passed) / this.run) * 100) + "%"  + ANSI_RESET;
+            say "=============================";
+            say NL + NL;
+            exit(1);
+        }
+
+        say "=============================";
+        say NL + NL;
+    }
+}

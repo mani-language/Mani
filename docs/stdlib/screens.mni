@@ -1,0 +1,63 @@
+load "frame";
+load "std";
+# "maps";
+
+class Screen {
+    Screen(title) {
+        this.title = title;
+        this.frame = window(title);
+        this.showing = false;
+        this.components = Map();
+        this.setup();
+    }
+
+    internal setup() {
+        let btnMap = Map();
+        this.components.add("btn", btnMap);
+    }
+
+    toggle() {
+        if (!this.showing) {
+            this.showing = true;
+        } else {
+            this.showing = false;
+        }
+        windowVis(this.showing);
+    }
+
+    addBasicBtn(title) {
+        let pos <- size(this.components.get("btn"));
+        let btn = this.addBtn(title, 0, 0, 100, 100);
+        return btn;
+    }
+
+    addBtn(title, x, y, width, height) {
+        let btn = Button(title, x, y, width, height);
+        this.components.get("btn").add(title, btn);
+        return btn.raw();
+    }
+
+    showMap() {
+        return this.components;
+    }
+}
+
+class Button {
+    Button(title, x, y, w, h) {
+        this.title = title;
+        this.x = x;
+        this.y = y;
+        this.w = w;
+        this.h = h;
+        this.button = windowButton(title, x, y, w, h);
+        this.showing = false;
+    }
+
+    show() {
+        this.showing = buttonVis(this.button, this.showing);
+    }
+
+    raw() {
+        return this.button;
+    }
+}
