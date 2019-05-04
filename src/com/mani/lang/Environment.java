@@ -5,7 +5,16 @@ import java.util.Map;
 
 class Environment {
     final Environment enclosing;
-    private final Map<String, Object> values = new HashMap<>();
+//    private final Map<String, Object> values = new HashMap<>();
+
+    /*
+       Updated  Map<String, Object> so it now uses a custom Namespace object to specify each value
+       Wherever "values" was being assigned with name and value, it is now assigned with Namespace and value
+     */
+
+    private final Map<Namespace, Object> values = new HashMap<>();
+
+    String DefaultNamespace = "defaultNamespace";
 
     Environment() {
         enclosing = null;
@@ -17,15 +26,18 @@ class Environment {
 
 
     void define(String name, Object value) {
-        values.put(name, value);
+//        values.put(name, value);
+        values.put(new Namespace(DefaultNamespace, name), value);
     }
 
     Object getAt(int distance, String name) {
-        return ancestor(distance).values.get(name);
+//        return ancestor(distance).values.get(name);
+        return ancestor(distance).values.get(new Namespace(DefaultNamespace, name));
     }
 
     void assignAt(int distance, Token name, Object value) {
-        ancestor(distance).values.put(name.lexeme, value);
+//        ancestor(distance).values.put(name.lexeme, value);
+        ancestor(distance).values.put(new Namespace(DefaultNamespace, name.lexeme), value);
     }
 
     Environment ancestor(int distance) {
@@ -45,8 +57,11 @@ class Environment {
      */
 
     Object get(Token name) {
-        if(values.containsKey(name.lexeme)) {
-            return values.get(name.lexeme);
+//        if(values.containsKey(name.lexeme)) {
+//            return values.get(name.lexeme);
+//        }
+        if (values.containsKey(new Namespace(DefaultNamespace, name.lexeme))) {
+            return values.get(new Namespace(DefaultNamespace, name.lexeme));
         }
         if(enclosing != null) return enclosing.get(name);
         throw new RuntimeError(name, "Undefined variable '" + name.lexeme +"'.");
@@ -54,8 +69,11 @@ class Environment {
 
     Object get(String name) {
         
+//        if (values.containsKey(name)) {
+//            return values.get(name);
+//        }
         if (values.containsKey(name)) {
-            return values.get(name);
+            return values.get(new Namespace(DefaultNamespace, name));
         }
         if (enclosing != null) return enclosing.get(name);
         throw new RuntimeError(null, "Undefined variable '" + name + "'.");
@@ -68,9 +86,12 @@ class Environment {
      */
 
     void assign(Token name, Object value) {
-        if(values.containsKey(name.lexeme)) {
-            values.put(name.lexeme, value);
-            return;
+//        if(values.containsKey(name.lexeme)) {
+//            values.put(name.lexeme, value);
+//            return;
+//        }
+        if (values.containsKey(new Namespace(DefaultNamespace, name.lexeme))) {
+            values.put(new Namespace(DefaultNamespace, name.lexeme), value);
         }
 
         if(enclosing != null) {
@@ -87,7 +108,8 @@ class Environment {
             return;
         }
 
-        values.put(name.lexeme, value);
+//        values.put(name.lexeme, value);
+        values.put(new Namespace(DefaultNamespace, name.lexeme), value);
     }
 
     void cleanupForce(Token name) {
