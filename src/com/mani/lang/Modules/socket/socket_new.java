@@ -4,7 +4,8 @@ import com.mani.lang.Interpreter;
 import com.mani.lang.ManiCallable;
 import com.mani.lang.Std;
 import com.mani.lang.local.Locals;
-import io.socket.client.IO;
+import com.mongodb.util.Hash;
+//import io.socket.client.IO;
 import io.socket.engineio.client.Socket;
 
 import java.net.URISyntaxException;
@@ -33,13 +34,11 @@ public class socket_new implements ManiCallable {
                 System.err.println("Argument #2 must be a map!");
             }
 
-            IO.Options options = null;
-
             if (arguments.size() == 2 && arguments.get(1) instanceof HashMap) {
-                options = parseOptions((HashMap<Object, Object>) arguments.get(1));
+                Socket.Options options = parseOptions((HashMap<Object, Object>) arguments.get(1));
+                return new Socket(url, options);
             }
-
-            return IO.socket(url, options);
+            return new Socket(url);
         } catch(URISyntaxException ue) {
             return null;
         }
@@ -47,12 +46,9 @@ public class socket_new implements ManiCallable {
     }
 
 
-    private static IO.Options parseOptions(HashMap<Object, Object> db) {
-        IO.Options result = new IO.Options();
+    private static Socket.Options parseOptions(HashMap<Object, Object> db) {
+        Socket.Options result = new Socket.Options();
 
-        if (db.containsKey("forceNew")) { result.forceNew = Std.DoubleToInt((Double) db.get("forceNew")) != 0; }
-        if (db.containsKey("multiplex")) { result.multiplex = Std.DoubleToInt((Double) db.get("multiplex")) != 0; }
-        if (db.containsKey("reconnection")) { result.reconnection = Std.DoubleToInt((Double) db.get("reconnection")) != 0; }
         if (db.containsKey("rememberUpgrade")) { result.rememberUpgrade = Std.DoubleToInt((Double) db.get("rememberUpgrade")) != 0; }
         if (db.containsKey("secure")) { result.secure = Std.DoubleToInt((Double) db.get("secure")) != 0; }
         if (db.containsKey("timestampRequests")) { result.timestampRequests = Std.DoubleToInt((Double) db.get("timestampRequests")) != 0; }
@@ -60,13 +56,6 @@ public class socket_new implements ManiCallable {
 
         if (db.containsKey("policyPort")) { result.policyPort = Std.DoubleToInt((Double) db.get("policyPort")); }
         if (db.containsKey("port")) { result.port = Std.DoubleToInt((Double) db.get("port")); }
-        if (db.containsKey("reconnectionAttempts")) { result.reconnectionAttempts = Std.DoubleToInt((Double) db.get("reconnectionAttempts")); }
-
-        if (db.containsKey("reconnectionDelay")) { result.reconnectionDelay = new Long(String.valueOf(db.get("reconnectionDelay"))); }
-        if (db.containsKey("reconnectionDelayMax")) { result.reconnectionDelayMax = new Long(String.valueOf(db.get("reconnectionDelayMax"))); }
-        if (db.containsKey("timeout")) { result.timeout = new Long(String.valueOf(db.get("timeout"))); }
-
-        if (db.containsKey("randomizationFactor")) { result.randomizationFactor = (Double) db.get("randomizationFactor"); }
 
         if (db.containsKey("host")) { result.host = String.valueOf(db.get("host")); }
         if (db.containsKey("hostname")) { result.hostname = String.valueOf(db.get("hostname")); }

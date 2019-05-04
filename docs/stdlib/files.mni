@@ -1,0 +1,40 @@
+load "files";
+# "lists";
+
+class File {
+    File(filename) {
+        this.filename = filename;
+        this.file = nil;
+        this.contents = nil;
+        this.opened = false;
+    }
+
+    open() {
+        this.file = fopen(this.filename);
+    }
+
+    read() {
+        this.contents = fread(this.filename);
+        return this.contents;
+    }
+
+    toList() {
+        return List().direct(split(this.contents, "\n"));
+    }
+
+    write(lines) {
+        if (!(lines is "list" or lines is "string")) {
+            say "Must be a string or list, please convert and try again!";
+            return;
+        }
+        fwrite(this.file, this.contents, "w");
+    }
+
+    append(lines) {
+        if (!(lines is "list" or lines is "string")) {
+            say "Must be a string or list, please convert and try again!";
+            return;
+        }
+        fwrite(this.file, this.contents);
+    }
+}

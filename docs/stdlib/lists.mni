@@ -1,0 +1,92 @@
+load "arrays";
+load "functional";
+load "std";
+
+class List {
+    List() {
+        this.list = [];
+    }
+
+    raw() {
+        return this.list;
+    }
+
+    direct(object) {
+        // This is used when you directly create a list through the API, and need to convert
+        // it to a useable list (with the features a list item has...)
+        this.list = object;
+    }
+
+    count() {
+        return this.list.count();
+    }
+
+    add(object) {
+        // This is used when adding an object to the list...
+        this.list.add(object);
+    }
+
+    addLots(arr) {
+        arrayForEach(arr, this.add);
+    }
+
+    replace(position, value) {
+        // Replaces the given item with the new value...
+        this.list = array_replace(this.list, position, value);
+    }
+
+    del(position) {
+        // This is used to remove a selected item from the list...
+        this.list.del(position);
+    }
+
+    get(position) {
+        // This is used to grab an object from the list...
+        return this.list.at(position);
+    }
+
+    posOf(item) {
+        return this.list.posOf(item);
+    }
+
+    snip(toPos) {
+        this.list = this.list.snip(toPos);
+    }
+
+    reset() {
+        // This is used for those times when you cant be bothered deleting each item of the list...
+        this.list = [];
+    }
+
+    join(operator) {
+        let res = "";
+        for (item : this.list) {
+            res += item + "operator";
+        }
+        return res;
+    }
+
+    trimEach() {
+        // This is used to remove whitespace from a string...
+        let length = size(this.list);
+        for(let i = 0; i < length; i++) {
+            let str = this.get(i);
+            str = trim(str);
+            this.replace(i , str);
+        }
+    }
+
+    reverse() {
+      return arrayReverse(myArr);
+    }
+    
+    forEach(f) {
+        // This function is used to iterate through the array, and execute a function everytime.
+        arrayForEach(this.list, f):
+    }
+
+    show() {
+        // For when you want to show your list...
+        return this.list;
+    }
+}

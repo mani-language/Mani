@@ -1,0 +1,74 @@
+load "maps";
+load "std";
+
+class Map {
+    Map() {
+        this.map = newMap();
+    }
+
+    add(key, val) {
+        mapAddItem(this.map, key, val);
+        return this;
+    }
+
+    get(key) {
+        return mapGetValue(this.map, key);
+    }
+
+    del(key) {
+        return mapRemoveItem(this.map, key);
+    }
+
+    find(key, val) {
+      return mapFind(this.map, key, val);
+    }
+
+    update(key, val) {
+        return mapUpdateItem(this.map, key, val);
+    }
+
+    getValues() {
+      return mapGetValues(this.map);
+    }
+
+    getKeys() {
+        return mapGetKeys(this.map);
+    }
+
+    copy(newMap) {
+        this.map = newMap.map;
+    }
+
+    size() {
+        return size(this.map);
+    }
+
+    exists(key) {
+        return mapKeyExists(this.map, key);
+    }
+
+    combine(list1, list2) {
+        this.map = arraysToMap(list1.raw(), list2.raw());
+    }
+
+    raw() {
+        return this.map;
+    }
+
+    reset() {
+        this.map = newMap();
+    }
+
+    show() {
+        /*let r = "{ ";
+        for (key, val : this.map) {
+            r += key;
+            r += ": "
+            r += val;
+            r += ", "
+        }
+        r += "}";
+        return r;*/
+        return nil;
+    }
+}
