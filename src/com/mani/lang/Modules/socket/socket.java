@@ -82,13 +82,18 @@ public class socket implements Module {
             public Object call(Interpreter interpreter, List<Object> arguments) {
                 final String event = arguments.get(0).toString();
                 final ManiFunction listener = ((ManiFunction) arguments.get(1));
+                List<Object> fnargs = new ArrayList<>();
                 List<Object> nothing = new ArrayList<>();
 
                 ((Socket) this.workWith).on(event, new Emitter.Listener() {
 
                     @Override
                     public void call(Object... args) {
-                        listener.call(interpreter, nothing);
+                        for (Object arg : args) {
+                            nothing.add(arg);
+                        }
+                        fnargs.add(nothing);
+                        listener.call(interpreter, fnargs);
                     }
                 });
                 return null;
