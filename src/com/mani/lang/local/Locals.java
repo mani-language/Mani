@@ -18,8 +18,11 @@ public class Locals {
 
     public static boolean canWorkWith(Object workWith, String lookingFor) {
         String type = getType(workWith);
-
         return (type == null ? false : functionFound(type, lookingFor));
+    }
+
+    public static boolean areFunctions(Object workWith) {
+        return (!(db.get(getType(workWith)).isEmpty()));
     }
 
     private static boolean functionFound(String type, String lookingFor) {
@@ -42,12 +45,12 @@ public class Locals {
             return "string";
         } else if (workWith instanceof File) {
             return "file";
-        } else if (workWith instanceof ManiInstance) {
-            return ((ManiInstance) workWith).getClassName();
         } else if (workWith instanceof Thread) {
             return "thread";
         } else if (workWith instanceof Socket) {
             return "socket";
+        } else if (workWith instanceof ManiInstance) {
+            return ((ManiInstance) workWith).getClassName();
         }
         return null;
     }

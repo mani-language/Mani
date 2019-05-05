@@ -558,6 +558,10 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
         //TODO: Create a whole method, that checks for methods built into the system. So then
         // we dont have to keep creating STANDARD LIBRARIES for no reason.
 
+       if (Locals.areFunctions(object)) {
+           throw new RuntimeError(expr.name, "Error: '" + expr.name.lexeme + "'" + " is not a known extension.");
+       }
+
         throw new RuntimeError(expr.name, "Only instances have properties.");
     }
     @Override
