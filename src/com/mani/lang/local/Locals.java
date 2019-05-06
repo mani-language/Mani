@@ -3,8 +3,7 @@ package com.mani.lang.local;
 import com.mani.lang.ManiCallable;
 import com.mani.lang.ManiCallableInternal;
 import com.mani.lang.ManiInstance;
-//import io.socketClient.client.Socket;
-import io.socket.engineio.client.Socket;
+import io.socket.client.Socket;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -22,7 +21,8 @@ public class Locals {
     }
 
     public static boolean areFunctions(Object workWith) {
-        return (!(db.get(getType(workWith)).isEmpty()));
+//        return (!(db.get(getType(workWith)).isEmpty()));
+        return db.get(getType(workWith)).size() != 0;
     }
 
     private static boolean functionFound(String type, String lookingFor) {

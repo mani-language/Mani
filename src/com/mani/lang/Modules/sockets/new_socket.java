@@ -1,19 +1,17 @@
-package com.mani.lang.Modules.socket;
+package com.mani.lang.Modules.sockets;
 
 import com.mani.lang.Interpreter;
 import com.mani.lang.ManiCallable;
 import com.mani.lang.Std;
 import com.mani.lang.local.Locals;
-import com.mongodb.util.Hash;
-//import io.socket.client.IO;
+import io.socket.client.IO;
 import io.socket.engineio.client.Socket;
 
 import java.net.URISyntaxException;
-import java.sql.Types;
 import java.util.HashMap;
 import java.util.List;
 
-public class socket_new implements ManiCallable {
+public class new_socket implements ManiCallable {
     @Override
     public int arity() {
         return -1;
@@ -21,33 +19,25 @@ public class socket_new implements ManiCallable {
 
     @Override
     public Object call(Interpreter interpreter, List<Object> arguments) {
-
         try {
-            final String url = (String) arguments.get(0);
+            final String url = arguments.get(0).toString();
+            if (arguments.size() == 1) {
+                return IO.socket(url);
+            }
 
-            if (!(arguments.size() <= 2 || arguments.size() >= 1)) {
-                System.err.println("Arguments must be 1 or 2. Address and options map.");
+            if (!(Locals.getType(arguments.get(1)).equals("map"))) {
+                System.err.println("Map expected in second argument");
                 return null;
             }
-
-            if (arguments.size() == 2 && !(arguments.get(1) instanceof HashMap)) {
-                System.err.println("Argument #2 must be a map!");
-            }
-
-            if (arguments.size() == 2 && arguments.get(1) instanceof HashMap) {
-                Socket.Options options = parseOptions((HashMap<Object, Object>) arguments.get(1));
-                return new Socket(url, options);
-            }
-            return new Socket(url);
-        } catch(URISyntaxException ue) {
-            return null;
+            IO.Options options = parseOptions((HashMap<Object, Object>) arguments.get(1));
+            return IO.socket(url, options);
+        } catch (URISyntaxException ue) {
+            return -1;
         }
-
     }
 
-
-    private static Socket.Options parseOptions(HashMap<Object, Object> db) {
-        Socket.Options result = new Socket.Options();
+    private static IO.Options parseOptions(HashMap<Object, Object> db) {
+        final IO.Options result = new IO.Options();
 
         if (db.containsKey("rememberUpgrade")) { result.rememberUpgrade = Std.DoubleToInt((Double) db.get("rememberUpgrade")) != 0; }
         if (db.containsKey("secure")) { result.secure = Std.DoubleToInt((Double) db.get("secure")) != 0; }

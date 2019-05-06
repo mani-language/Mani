@@ -1,0 +1,20 @@
+load "sockets";
+
+let s = newSocket("http://localhost:4416/");
+
+fn handleMessage(msg) {
+    say msg;
+}
+
+fn connected() {
+  say "We've connected successfully";
+}
+
+
+s.open();
+
+s.on(EVENT_CONNECT, connected);
+s.on("response", handleMessage);
+
+let t = ask("What do you want to ask? ");
+s.emit("command", t);
