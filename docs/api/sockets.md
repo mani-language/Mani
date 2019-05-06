@@ -27,66 +27,106 @@ As many people use sockets in their projects, we added them to ours.
 
 ### Function descriptions
 
-#### newMap();
-Usage: `newMap( );`
-Used to create a new map object. This can also be achieved with `{}`.
+#### newSocket();
+Usage: `newSocket("url");` or `newSocket("url", options_map);`
+Used to create a new socket connection with the url provided.
+> Go to bottom of this page for information on the options avaliable.
 
-#### mapGetValue();
-Usage: `mapGetValue( mapObject, key );`
-Used to collect a specific value, from a key inside of the map.
-
-#### mapAddItem();
-Usage: `mapAddItem( mapObject, key, value );`
-Used to add a key-value pair to a map object.
-
-#### mapRemoveItem();
-Usage: `mapRemoveItem( mapObject, key );`
-Used to remove the specified key-value pair from the map object.
-
-#### mapUpdateItem();
-Usage: `mapUpdateItem(  mapObject, key, newValue );`
-Used to update an existing key-value pair from the list.
-> This can also be achieved with `mapAddItem()` as only one of each key can exist.
-
-#### mapGetKeys();
-Usage: `mapGetKeys( mapObject );`
-> Returns a list of all the keys in the map.
-Used to return a list of all the keys in the map.
-
-#### arraysToMap();
-Usage: `arraysToMap( listObject, listObject );`
-This is used to combined two lists together into a map object. The first being the keys list, and the second being the values list.
-> For best results, please make sure both are the same size.
-
-#### mapKeyExists();
-Usage: `mapKeyExists( mapObject, key );`
-This is used to return a boolean value of if the key exists in the presented map or not.
-
-#### mapGetValues();
-Usage: `mapGetValues( mapObject );`
-> Returns a list of all the values.
-Used to return a list of all the values present in the map.
-
-#### mapFind();
-Usage: `mapFind( mapObject, key, value );`
-Used to find the map that contains the key-value pair.
-> Must be a map with submaps.
-
+> So far, we dont support `ws` or `wss` urls.
 
 ### Extension descriptions
 
-#### .count();
-Usage: `mapObject.count( );`
-Used to return the amount of objects (keys) in the map.
+#### .open();
+Usage: `mapObject.open( );`
+Used to start the connection to the provided url.
 
-#### .add();
-Usage: `mapObject.add( key, value )`
-Used to add a key-value pair to the given map.
+#### .emit();
+Usage: `mapObject.emit( event, message )`
+Used to emit a packet to the server, with an event message.
 
-#### .del();
-Usage: `mapObject.del( key );`
-Used to delete a key-value pair from the given map.
+#### .send();
+Usage: `mapObject.send( package );`
+Used to send a package to the server, much like `emit`, but without the event name.
 
-#### .at();
-Usage: `mapObject.at( key );`
-Used to return the value of the provided key.
+#### .close();
+Usage: `mapObject.close( );`
+Used to close the connection to the provided url.
+
+#### .id();
+Usage: `mapObject.id( );`
+Used to return the ID of the connected socket.
+
+#### .on();
+Usage: `mapObject.on( event, function );`
+Used to run a function when we receive a package with a specified event.
+
+#### .logging();
+Usage: `mapObject.logging( boolean );`
+Used to toggle on or off the default logging. Simply provide either true or false as the argument.
+
+### Options for newSocket()
+
+#### rememberUpgrade
+> Requires `Number`.
+#### secure
+> Requires `Number`.
+#### timestampRequests
+> Requires `Number`.
+#### upgrade
+> Requires `Number`.
+#### policyPort
+> Requires `Number`.
+#### port
+> Requires `Number`.
+#### host
+> Requires `String`.
+#### hostname
+> Requires `String`.
+#### path
+> Requires `String`.
+#### query
+> Requires `String`.
+#### timestampParam
+> Requires `String`.
+#### transports
+> Requires `List of Strings`.
+
+### Working example.
+In this example, we are using [Asher.Ai](https://github.com/crazywolf132/Asher.Ai) as our socket server.
+The path for this will be `http://localhost:4416`.
+
+~~~ mani
+    load "sockets";
+    
+    // Creating a connection to the Asher server.
+    let s = newSocket("http://localhost:4416/");
+    
+    // This is the function used 
+    fn handleMessage(msg) {
+        say "Asher >> " + msg;
+    }
+    
+    // This is the function that will get run once we are connected.
+    fn main() {
+        let t = ask("What do you want to ask? ");
+        s.emit("command", t);
+    }
+    
+    // This function will run on the connection event.
+    fn connected() {
+      // Letting the user know we are now connected.
+      say "We've connected successfully";
+      // We are now going to run the main method.
+      main();
+    }
+    
+    // Opening the connection to the server.
+    s.open();
+    
+    // We are defining the event handlers here.
+    // The first event handler handles the connection event.
+    s.on(EVENT_CONNECT, connected);
+    // This event handler handles the packets with the event type of "response"
+    s.on("response", handleMessage);
+    
+~~~
