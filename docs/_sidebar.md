@@ -23,7 +23,7 @@
   * [Lists](api/lists.md)
   * [Frame](api/frame.md)
   * [Math](api/math.md)
-  * [Socket](api/socket.md)
+  * [Sockets](api/sockets.md)
   * [Thread](api/threads.md)
   * [JSON](api/json.md)
   * [Files](api/files.md)
