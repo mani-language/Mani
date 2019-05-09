@@ -111,6 +111,13 @@ public class webSocket implements Module {
             }
         });
 
+        locals.put("getState", new ManiCallableInternal() {
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                return ((WebSocket) this.workWith).getState();
+            }
+        });
+
         locals.put("setHeaders", new ManiCallableInternal() {
             @Override
             public int arity() { return 1; }
