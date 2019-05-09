@@ -135,6 +135,14 @@ public class webSocket implements Module {
             }
         });
 
+        locals.put("clearHeaders", new ManiCallableInternal() {
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                ((WebSocket) this.workWith).clearHeaders();
+                return null;
+            }
+        });
+
         locals.put("close", new ManiCallableInternal() {
            @Override
            public Object call(Interpreter interpreter, List<Object> arguments) {
