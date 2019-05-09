@@ -2,6 +2,8 @@
 Sockets are a really handy feature of most languages.
 As many people use sockets in their projects, we added them to ours.
 
+> Websockets cannot be used at the same time as sockets!
+
 ### How to import
 ~~~ mani
     load "sockets";
@@ -23,8 +25,6 @@ As many people use sockets in their projects, we added them to ours.
     .logging();
 ~~~
 
-> These extensions are used in the regular map Object too.
-
 ### Function descriptions
 
 #### newSocket();
@@ -37,31 +37,31 @@ Used to create a new socket connection with the url provided.
 ### Extension descriptions
 
 #### .open();
-Usage: `mapObject.open( );`
+Usage: `socketObject.open( );`
 Used to start the connection to the provided url.
 
 #### .emit();
-Usage: `mapObject.emit( event, message )`
+Usage: `socketObject.emit( event, message )`
 Used to emit a packet to the server, with an event message.
 
 #### .send();
-Usage: `mapObject.send( package );`
+Usage: `socketObject.send( package );`
 Used to send a package to the server, much like `emit`, but without the event name.
 
 #### .close();
-Usage: `mapObject.close( );`
+Usage: `socketObject.close( );`
 Used to close the connection to the provided url.
 
 #### .id();
-Usage: `mapObject.id( );`
+Usage: `socketObject.id( );`
 Used to return the ID of the connected socket.
 
 #### .on();
-Usage: `mapObject.on( event, function );`
+Usage: `socketObject.on( event, function );`
 Used to run a function when we receive a package with a specified event.
 
 #### .logging();
-Usage: `mapObject.logging( boolean );`
+Usage: `socketObject.logging( boolean );`
 Used to toggle on or off the default logging. Simply provide either true or false as the argument.
 
 ### Options for newSocket()
