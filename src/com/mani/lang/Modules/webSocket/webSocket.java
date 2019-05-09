@@ -4,6 +4,7 @@ import com.mani.lang.Interpreter;
 import com.mani.lang.ManiCallableInternal;
 import com.mani.lang.ManiFunction;
 import com.mani.lang.Modules.Module;
+import com.mani.lang.local.Locals;
 import com.neovisionaries.ws.client.WebSocket;
 import com.neovisionaries.ws.client.WebSocketAdapter;
 import com.neovisionaries.ws.client.WebSocketException;
@@ -82,6 +83,30 @@ public class webSocket implements Module {
                 } catch (WebSocketException e) {
                     System.err.println("Could not connect to server!");
                     return null;
+                }
+                return null;
+            }
+        });
+
+        locals.put("isOpen", new ManiCallableInternal() {
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                return ((WebSocket) this.workWith).isOpen();
+            }
+        });
+
+        locals.put("setHeaders", new ManiCallableInternal() {
+            @Override
+            public int arity() { return 1; }
+
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                if (!(Locals.getType(arguments.get(0)).equalsIgnoreCase("map"))) {
+                    System.err.println("Argument must be a map!");
+                    return null;
+                }
+                for (Object header : ((HashMap<Object, Object>) arguments.get(0)).keySet()) {
+                    ((WebSocket) this.workWith).addHeader((String) header, (String) (((HashMap<Object, Object>) this.workWith).get(header)));
                 }
                 return null;
             }
