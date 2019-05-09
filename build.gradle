@@ -42,4 +42,5 @@ dependencies {
 //    compile 'io.socketClient:engine.io-client:1.0.0'
 //    compile ('io.socket:engine.io-server:1.3.1')
     compile 'io.socket:socket.io-client:1.0.0'
+    compile 'com.neovisionaries:nv-websocket-client:2.8'
 }
