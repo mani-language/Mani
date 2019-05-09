@@ -24,6 +24,7 @@
   * [Frame](api/frame.md)
   * [Math](api/math.md)
   * [Sockets](api/sockets.md)
+  * [WebSockets](api/websockets.md)
   * [Thread](api/threads.md)
   * [JSON](api/json.md)
   * [Files](api/files.md)
