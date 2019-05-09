@@ -6,6 +6,7 @@ import com.mani.lang.ManiInstance;
 import io.socket.client.Socket;
 
 import java.io.File;
+import com.neovisionaries.ws.client.WebSocket;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -49,6 +50,8 @@ public class Locals {
             return "thread";
         } else if (workWith instanceof Socket) {
             return "socket";
+        } else if (workWith instanceof WebSocket) {
+            return "webSocket";
         } else if (workWith instanceof ManiInstance) {
             return ((ManiInstance) workWith).getClassName();
         }
