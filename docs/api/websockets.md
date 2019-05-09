@@ -79,3 +79,25 @@ Used to close the socket connection to the provided url.
 #### .send();
 Usage: `socketObject.send( message );`
 Used to send a message to the server.
+
+
+### Working example.
+Here we are going to use the discord gateway API.
+
+~~~ mani
+load "webSocket";
+
+// Creates a socket object.
+let connection = newSocket( "wss://gateway.discord.gg/?v=6&encoding=json" );
+
+// The handler for all the data returned.
+fn handler( data ) {
+    say data;
+}
+
+// Seting the handler.
+connection.on( handler );
+
+// Opening the connection.
+connection.open( );
+~~~
