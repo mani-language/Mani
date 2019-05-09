@@ -103,6 +103,14 @@ public class webSocket implements Module {
             }
         });
 
+        locals.put("sendPong", new ManiCallableInternal() {
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                ((WebSocket) this.workWith).sendPong();
+                return null;
+            }
+        });
+
         locals.put("setHeaders", new ManiCallableInternal() {
             @Override
             public int arity() { return 1; }
