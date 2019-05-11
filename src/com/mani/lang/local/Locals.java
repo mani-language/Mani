@@ -1,12 +1,19 @@
 package com.mani.lang.local;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.mani.lang.ManiCallable;
 import com.mani.lang.ManiCallableInternal;
+import com.mani.lang.ManiFunction;
 import com.mani.lang.ManiInstance;
+import com.mani.lang.Modules.munit.Tester;
 import io.socket.client.Socket;
 
 import java.io.File;
 import com.neovisionaries.ws.client.WebSocket;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +30,7 @@ public class Locals {
 
     public static boolean areFunctions(Object workWith) {
 //        return (!(db.get(getType(workWith)).isEmpty()));
+        //TODO: Fix this, just need to return false if there is no functions.
         return db.get(getType(workWith)).size() != 0;
     }
 
@@ -44,6 +52,8 @@ public class Locals {
             return "map";
         } else if (workWith instanceof String) {
             return "string";
+        } else if (workWith instanceof Boolean) {
+            return "boolean";
         } else if (workWith instanceof File) {
             return "file";
         } else if (workWith instanceof Thread) {
@@ -52,32 +62,118 @@ public class Locals {
             return "socket";
         } else if (workWith instanceof WebSocket) {
             return "webSocket";
+        } else if (workWith instanceof Tester) {
+            return "tester";
+        } else if (workWith instanceof ManiFunction) {
+            return "function";
         } else if (workWith instanceof ManiInstance) {
             return ((ManiInstance) workWith).getClassName();
         }
         return null;
     }
 
-    public static Boolean canConvert(Object type1, Object type2) {
-        String standard = type1.toString();
-        switch (standard.toLowerCase()) {
+    public static Boolean canConvert(Object left, Object right) {
+        String toType = right.toString().toLowerCase();
+        String fromType = getType(left).toLowerCase();
+        switch (toType) {
             case "string":
+                if (fromType.equals("string")) { return true; }
+                if (fromType.equals("number")) { return true; }
+                if (fromType.equals("list")) { return true; }
+                if (fromType.equals("map")) { return true; }
             case "number":
-                if (getType(type2).equals("string")) { return true; }
-                if (getType(type2).equals("number")) { return true; }
-                if (getType(type2).equals("list")) { return true; }
-                return false;
-            case "map":
-                if (getType(type2).equals("string")) { return true; }
-                if (getType(type2).equals("list")) { return true; }
-                if (getType(type2).equals("map")) { return true; }
-                return false;
+                if (fromType.equals("number")) { return true; }
+                if (fromType.equals("string")) { return true; }
+                if (fromType.equals("list")) { return true; }
+                if (fromType.equals("map")) { return true; }
             case "list":
-                if (getType(type2).equals("String")) { return true; }
-                if (getType(type2).equals("list")) { return true; }
-                return false;
+                if (fromType.equals("list")) { return true; }
+                if (fromType.equals("map")) { return true; }
+                if (fromType.equals("number")) { return true; }
+                if (fromType.equals("string")) { return true; }
+            case "map":
+                if (fromType.equals("map")) { return true; }
+                if (fromType.equals("string")) { return true; }
         }
         return false;
+    }
+
+    public static Object convert(Object left, Object right) {
+        String toType = right.toString().toLowerCase();
+        String fromType = getType(left).toLowerCase();
+        switch(toType) {
+            case "string":
+                if (fromType.equals("string") || fromType.equals("number")) {
+                    return String.valueOf(left);
+                }
+                if (fromType.equals("list")) {
+                    String str = "";
+                    int i = 0;
+                    for (Object obj : ((ArrayList<Object>) left)) {
+                        if (i != 0) {
+                            str += ", ";
+                        }
+                        str += obj;
+                        i++;
+                    }
+                    return str;
+                }
+                if (fromType.equals("map")) {
+                    String str = "";
+                    int i = 0;
+                    for (Object key : ((HashMap<Object, Object>) left).keySet()) {
+                        if (i != 0) {
+                            str += ", ";
+                        }
+                        str += "key: " + key + " : val: " + ((HashMap<Object, Object>) left).get(key);
+                        i++;
+                    }
+                    return str;
+                }
+            case "number":
+                if (fromType.equals("number")) { return left; }
+                if (fromType.equals("string")) { return ((String) left).length(); }
+                if (fromType.equals("list")) { return ((ArrayList<Object>) left).size(); }
+                if (fromType.equals("map")) { return ((HashMap<Object, Object>) left).keySet().size(); }
+            case "list":
+                if (fromType.equals("string")) {
+                    ArrayList<Object> to = new ArrayList<>();
+                    boolean splitting = false;
+                    if (((String) left).contains(" ")) {
+                        splitting = true;
+                    }
+                    for (Object obj : ((String) left).split((splitting ? " " : ""))) {
+                        to.add(obj);
+                    }
+                    return to;
+                }
+                if (fromType.equals("map")) {
+                    ArrayList<Object> to = new ArrayList<>();
+                    for (Object keys : ((HashMap<Object, Object>) left).keySet()) {
+                        to.add(keys);
+                        to.add(((HashMap<Object, Object>) left).get(keys));
+                    }
+                    return to;
+                }
+                if (fromType.equals("number")) {
+                    ArrayList<Object> to = new ArrayList<>();
+                    for (char chr : ((String) left).toCharArray()) {
+                        to.add(chr);
+                    }
+
+                    return to;
+                }
+                if (fromType.equals("list")) { return left; }
+            case "map":
+                if (fromType.equals("map")) { return left; }
+                if (fromType.equals("string")) {
+                    Gson gson = new GsonBuilder().create();
+                    Type type = new TypeToken<Map<Object, Object>>(){}.getType();
+                    Map<Object, Object> theMap = gson.fromJson((String) left, type);
+                    return theMap;
+                }
+        }
+        return null;
     }
 
     public static ManiCallable getFunction(Object workWith, String lookingFor) {
