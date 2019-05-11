@@ -21,7 +21,7 @@ t.assertEquals(myList.list, ["stringOne"], "Add item to list");
 myList.addLots(["stringTwo", "stringThree"]);
 t.assertEquals(myList.list, ["stringOne", "stringTwo", "stringThree"], "Testing add lots function");
 
-let reversedArray = t.reverse();
+let reversedArray = myList.reverse();
 t.assertEquals(reversedArray, ["stringThree", "stringTwo", "stringOne"], "Reversing an array");
 
 //Add a different type to the list and show
