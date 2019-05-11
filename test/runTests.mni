@@ -2,12 +2,16 @@ load "std";
 
 load "basics.mni";
 wipeMemory();
-load "files.mni";
-wipeMemory();
+// Disabling the files tester simply because it needs to be redone
+//load "files.mni";
+//wipeMemory();
+load "std";
 load "forEach.mni";
 wipeMemory();
+load "std";
 load "lists.mni";
 wipeMemory();
+load "std";
 load "maps.mni";
 wipeMemory();
 load "math.mni";
