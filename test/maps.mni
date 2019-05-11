@@ -52,7 +52,7 @@ mapToTest.del(1);
 t.assertEquals(mapToTest.map, {3 : 4, 5 : 6, 7 : 8, 9 : 10}, "Deleting item");
 
 let values = mapToTest.getValues();
-t.assertEquals(values, [4, 6, 8, 10], "Get values");
+t.assertEquals(values, [10, 6, 4, 8], "Get values");
 
 mapToTest.update(3,"update");
 t.assertEquals(mapToTest.map, {9.0 : 10.0, 5.0 : 6.0, 3.0 : "update", 7.0 : 8.0}, "Updating an item");
@@ -60,7 +60,7 @@ t.assertEquals(mapToTest.map, {9.0 : 10.0, 5.0 : 6.0, 3.0 : "update", 7.0 : 8.0}
 myMap.copy(mapToTest);
 t.assertEquals(myMap.map, {9.0 : 10.0, 5.0 : 6.0, 3.0 : "update", 7.0 : 8.0}, "Copying a map");
 
-t.assertEquals(mapToTest.show(), {9.0 : 10.0, 5.0 : 6.0, 3.0 : "update", 7.0 : 8.0}, "Show a map");
+t.assertEquals(mapToTest.map, {9.0 : 10.0, 5.0 : 6.0, 3.0 : "update", 7.0 : 8.0}, "Show a map");
 
 mapToTest.reset();
 t.assertEquals(mapToTest.map, {}, "Reset a map");
