@@ -1,48 +1,38 @@
-# "tester";
 /*
 Test program to demonstrate all
 functionality using maps
 */
+load "munit";
 # "maps";
 # "lists";
 
-let t <- Tester();
-t.quitOnFail = false;
+let t <- newTester();
 
-t.msg("TESTING MAPS");
-say NL;
+t.header("Maps");
 
-t.msg("Creating map");
 let myMap = Map();
-t.match(myMap.map, {});
+t.assertEquals(myMap.map, {}, "Creating map");
 
-t.msg("Adding keys");
 myMap.add("keyName1","valueName1");
 myMap.add("keyName2","valueName2");
-t.match(myMap.map, {"keyName1" : "valueName1", "keyName2" : "valueName2"});
+t.assertEquals(myMap.map, {"keyName1" : "valueName1", "keyName2" : "valueName2"}, "Adding keys");
 
-t.msg("Get key");
 let item = myMap.get("keyName2");
-t.match(item, "valueName2");
+t.assertEquals(item, "valueName2", "Get key");
 
-t.msg("List of keys");
 let listOfKeys = List();
 listOfKeys.direct(myMap.getKeys());
-t.match(listOfKeys.list, ["keyName1", "keyName2"]);
+t.assertEquals(listOfKeys.list, ["keyName1", "keyName2"], "List of keys");
 
-t.msg("Size of map");
-t.match(myMap.size(), 2);
+t.assertEquals(myMap.size(), 2, "Size of map");
 
-t.msg("Check for existing key");
 let mapExists = myMap.exists("keyName1");
-t.match(mapExists, true);
+t.assertEquals(mapExists, true, "Check for existing key");
 
-t.msg("Check for non-existing key");
 mapExists = myMap.exists("nonExistentKey");
-t.match(mapExists, false);
+t.assertEquals(mapExists, false, "Check for non-existing key");
 
 
-t.msg("Checking combine function of 2 lists");
 // Combine two lists into a map
 // Both Lists must be the same length.
 let keys = List(); // The keys of the map.
@@ -56,30 +46,24 @@ vals.addLots([2, 4, 6, 8, 10]);
 // Using the vals List, as the values.
 let mapToTest = Map();
 mapToTest.combine(keys, vals); // changes the contents of the map to these keys and values.
-t.match(mapToTest.map, {1 : 2, 3 : 4, 5 : 6, 7 : 8, 9 : 10});
+t.assertEquals(mapToTest.map, {1 : 2, 3 : 4, 5 : 6, 7 : 8, 9 : 10}, "Checking combine function of 2 lists");
 
-t.msg("Deleting item");
 mapToTest.del(1);
-t.match(mapToTest.map, {3 : 4, 5 : 6, 7 : 8, 9 : 10});
+t.assertEquals(mapToTest.map, {3 : 4, 5 : 6, 7 : 8, 9 : 10}, "Deleting item");
 
 let values = mapToTest.getValues();
-t.msg("Get values");
-t.match(values, [4, 6, 8, 10]);
+t.assertEquals(values, [4, 6, 8, 10], "Get values");
 
-t.msg("Updating an item");
 mapToTest.update(3,"update");
-t.match(mapToTest.map, {9.0 : 10.0, 5.0 : 6.0, 3.0 : "update", 7.0 : 8.0});
+t.assertEquals(mapToTest.map, {9.0 : 10.0, 5.0 : 6.0, 3.0 : "update", 7.0 : 8.0}, "Updating an item");
 
-t.msg("Copying a map");
 myMap.copy(mapToTest);
-t.match(myMap.map, {9.0 : 10.0, 5.0 : 6.0, 3.0 : "update", 7.0 : 8.0});
+t.assertEquals(myMap.map, {9.0 : 10.0, 5.0 : 6.0, 3.0 : "update", 7.0 : 8.0}, "Copying a map");
 
-t.msg("Show a map");
-t.match(mapToTest.show(), {9.0 : 10.0, 5.0 : 6.0, 3.0 : "update", 7.0 : 8.0});
+t.assertEquals(mapToTest.show(), {9.0 : 10.0, 5.0 : 6.0, 3.0 : "update", 7.0 : 8.0}, "Show a map");
 
-t.msg("Reset a map");
 mapToTest.reset();
-t.match(mapToTest.map, {});
+t.assertEquals(mapToTest.map, {}, "Reset a map");
 
 let anotherMap = Map();
 let dMap1 = Map();
@@ -88,6 +72,8 @@ let dMap2 = Map();
 dMap1.add("test", "name");
 dMap2.add("test", "name1");
 anotherMap.add("first", dMap1);
-anotherMap.add("second", dMapTwo);
-t.match(anotherMap.find("test", "name"), dMap1);
+anotherMap.add("second", dMap2);
+t.assertEquals(anotherMap.find("test", "name"), dMap1, "Map search");
+
+
 t.results();

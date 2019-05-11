@@ -68,12 +68,12 @@ public class Tester {
     }
 
     private boolean display() {
-        System.out.println((this.passed == this.count && this.failed == 0 ? "\u001B[102m\u001B[90m PASSED " : " \u001B[101m FAILED ") + "\u001B[97m " + this.header + "\u001B[49m");
+        System.out.println((this.passed == this.count && this.failed == 0 ? " \u001B[102m\u001B[90m PASSED " : " \u001B[101m FAILED ") + "\u001B[0m\u001B[97m\u001B[1m " + this.header + "\u001B[49m\u001B[0m");
         for (Test test : testList) {
             System.out.println(test);
         }
         if (this.passed != this.count && this.failed >= 0) {
-            System.exit(-1);
+            System.exit(1);
         }
         return (this.passed == this.count && this.failed == 0);
     }
@@ -99,7 +99,7 @@ public class Tester {
 
         @Override
         public String toString() {
-            return "\t" + (this.passed ? "\u001B[92m✔" : "\u001B[91m✘") + "\u001B[90m \"" + this.message + "\"";
+            return "\t" + (this.passed ? "\u001B[92m✔" : "\u001B[91m✘") + "\u001B[90m \"" + this.message + "\"\u001B[0m";
         }
 
         private boolean passed;
