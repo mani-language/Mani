@@ -1,86 +1,69 @@
 /*
 Testing all the basics of the language
 */
-# "tester";
+load "munit";
 
-let t <- Tester();
-t.quitOnFail = false;
+let t <- newTester();
+t.header("Testing the basics");
 
 let x = 0;
 
-t.msg("Test <- assign operator");
 x <- 1;
-t.match(x, 1);
+t.assertEquals(x, 1, "Test <- assign operator");
 
-t.msg("Test << assign operator");
 x << 0;
-t.match(x, 0);
+t.assertEquals(x, 0, "Test << assign operator");
 
-t.msg("Test + operator");
 x = x + 1;
-t.match(x, 1);
+t.assertEquals(x, 1, "Test + operator");
 
-t.msg("Test ++ after opeator");
 x++;
-t.match(x, 2);
+t.assertEquals(x, 2, "Test ++ after opeator");
 
-t.msg("Test ++ before operator");
 ++x;
-t.match(x, 4);
+t.assertEquals(x, 4, "Test ++ before operator");
 
-t.msg("Test - operator");
 x = x - 1;
-t.match(x, 3);
+t.assertEquals(x, 3, "Test - operator");
 
-t.msg("Test -- after operator");
 x--;
-t.match(x, 2);
+t.assertEquals(x, 2, "Test -- after operator");
 
-t.msg("Test -- before operator");
 --x;
-t.match(x, 0);
+t.assertEquals(x, 0, "Test -- before operator");
 
-t.msg("Test += operator");
 x += 43;
-t.match(x, 43);
+t.assertEquals(x, 43, "Test += operator");
 
-t.msg("Test -= operator");
 x -= 3;
-t.match(x, 40);
+t.assertEquals(x, 40, "Test -= operator");
 
-t.msg("Test % operator");
 x = x % 3;
-t.match(x, 1);
+t.assertEquals(x, 1, "Test % operator");
 
-t.msg("Test ** power operator");
 x++;
 x = x ** 2;
-t.match(x, 4);
+t.assertEquals(x, 4, "Test ** power operator");
 
-t.msg("Test * operator");
 x = x * 2;
-t.match(x, 8);
+t.assertEquals(x, 8, "Test * operator");
 
-t.msg("Test / operator");
 x = x / 4;
-t.match(x, 2);
+t.assertEquals(x, 2, "Test / operator");
 
-t.msg("Test -> copy operator");
 let y = nil;
 x -> y;
-t.match(y, 2);
+t.assertEquals(y, 2, "Test -> copy operator");
 
-t.msg("Test -> copy operator changing");
 x = "String";
 x -> y;
 x = "String1";
-t.match(y, x);
+t.assertEquals(y, x, "Test -> copy operator changing");
 
-t.msg("Test block statement");
 {
     x = 10;
     let z = "test";
 }
-t.match(x, 10);
+t.assertEquals(x, 10, "Test block statement");
 
 t.results();
