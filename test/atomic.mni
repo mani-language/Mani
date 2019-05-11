@@ -1,0 +1,23 @@
+load "munit";
+load "atomic";
+
+let t = newTester();
+t.header("Atomic");
+
+let x = AtomicBool();
+t.assertEquals(x, AtomicBool(), "new atomic boolean");
+
+ABSet(x, true);
+t.assertTrue(x, "setting atomic boolean");
+
+let y = "dino";
+ABCompareSet(x, y == "dino", false);
+t.assertFalse(x, "compare set atomic boolean");
+
+y = ABGetSet(x, true);
+t.assertFalse(y, "get set atomic boolean");
+
+y = ABGet(x);
+t.assertTrue(x, "get atomic boolean");
+
+t.results();
