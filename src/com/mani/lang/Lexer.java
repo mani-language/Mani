@@ -41,6 +41,7 @@ class Lexer {
         keywords.put("loop", LOOP);
         keywords.put("load", LOAD);
         keywords.put("is", IS);
+        keywords.put("as", AS);
     }
     private final String source;
     private final List<Token> tokens = new ArrayList<>();
