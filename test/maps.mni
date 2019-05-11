@@ -72,6 +72,8 @@ let dMap2 = Map();
 dMap1.add("test", "name");
 dMap2.add("test", "name1");
 anotherMap.add("first", dMap1);
-anotherMap.add("second", dMapTwo);
-t.assertEquals(anotherMap.find("test", "name"), dMap1, "");
+anotherMap.add("second", dMap2);
+t.assertEquals(anotherMap.find("test", "name"), dMap1, "Map search");
+
+
 t.results();
