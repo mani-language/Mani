@@ -36,6 +36,8 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
         globals.define(key, val);
     }
 
+    public void wipeMemory() { this.globals.wipe();}
+
     public ManiFunction getFunction(String key) {
         return (ManiFunction) globals.get(key);
     }
