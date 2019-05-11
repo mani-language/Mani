@@ -77,7 +77,7 @@ class List {
     }
 
     reverse() {
-      return arrayReverse(myArr);
+      return arrayReverse(this.list);
     }
     
     forEach(f) {
