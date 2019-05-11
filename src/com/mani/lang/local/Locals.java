@@ -8,10 +8,10 @@ import com.mani.lang.ManiCallableInternal;
 import com.mani.lang.ManiFunction;
 import com.mani.lang.ManiInstance;
 import com.mani.lang.Modules.munit.Tester;
-import io.socket.client.Socket;
 
 import java.io.File;
 import com.neovisionaries.ws.client.WebSocket;
+import io.socket.client.Socket;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -58,12 +58,12 @@ public class Locals {
             return "file";
         } else if (workWith instanceof Thread) {
             return "thread";
-        } else if (workWith instanceof Socket) {
-            return "socket";
-        } else if (workWith instanceof WebSocket) {
-            return "webSocket";
         } else if (workWith instanceof Tester) {
             return "tester";
+        } else if (workWith instanceof WebSocket) {
+            return "webSocket";
+        } else if (workWith instanceof Socket) {
+            return "socket";
         } else if (workWith instanceof ManiFunction) {
             return "function";
         } else if (workWith instanceof ManiInstance) {
