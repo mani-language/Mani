@@ -2,25 +2,20 @@
 Test program to demonstrate all
 functionality using files
 */
-# "tester";
+load "munit";
 //Import lists library
 # "files";
 
-let t <- Tester();
-t.msg("TESTING FILES");
-t.quitOnFail = false;
-say NL;
+let t <- newTester();
+t.header("Files");
 
-t.msg("Open a file");
 let f = File("./import/file_test_import.txt");
 f.open();
-t.match(f.filename, "./import/file_test_import.txt");
+t.assertEquals(f.filename, "./import/file_test_import.txt", "Open a file");
 
-t.msg("Read opened file");
-t.match(f.read(),"test contents of a file" + NL + "imported by test/files.mni" + NL)
+t.assertEquals(f.read(),"test contents of a file" + NL + "imported by test/files.mni" + NL, "Read opened file")
 
-t.msg("Write string to list");
 //f.write("add this to file");
-//t.match(f.read(),"test contents of a file" + NL + "imported by test/files.mn" + NL + "add this to file" + NL);
+//t.assertEquals(f.read(),"test contents of a file" + NL + "imported by test/files.mn" + NL + "add this to file" + NL, "Write string to list");
 
 t.results();

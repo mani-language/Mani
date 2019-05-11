@@ -4,7 +4,7 @@ Testing all the basics of the language
 load "munit";
 
 let t <- newTester();
-t.header("Testing the basics");
+t.header("Basics");
 
 let x = 0;
 

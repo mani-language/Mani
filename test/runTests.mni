@@ -1,0 +1,13 @@
+load "std";
+
+load "basics.mni";
+wipeMemory();
+load "files.mni";
+wipeMemory();
+load "forEach.mni";
+wipeMemory();
+load "lists.mni";
+wipeMemory();
+load "maps.mni";
+wipeMemory();
+load "math.mni";

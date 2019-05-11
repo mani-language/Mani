@@ -1,8 +1,7 @@
-# "tester";
+load "munit";
 
-let t <- Tester();
-t.msg("TESTING FOR-EACH-LOOPS");
-say NL;
+let t <- newTester();
+t.header("ForEach loops");
 
 /* t.msg("Testing regular for-each");
 let l = [1, 2, 3, 4];

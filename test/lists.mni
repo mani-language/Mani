@@ -2,69 +2,56 @@
 Test program to demonstrate all
 functionality using lists
 */
-# "tester";
+load "munit";
 //Import lists library
 # "lists";
 
-let t <- Tester();
-t.msg("TESTING LISTS");
-t.quitOnFail = false;
-say NL;
+let t <- newTester();
+t.header("Lists");
 
 //Create a new list
-t.msg("Create new list");
 let myList = List();
-t.match(myList.list, []);
+t.assertEquals(myList.list, [], "Create new list");
 
 
 //Add a string to the list
-t.msg("Add item to list");
 myList.add("stringOne");
-t.match(myList.list, ["stringOne"]);
+t.assertEquals(myList.list, ["stringOne"], "Add item to list");
 
-t.msg("Testing add lots function");
 myList.addLots(["stringTwo", "stringThree"]);
-t.match(myList.list, ["stringOne", "stringTwo", "stringThree"]);
+t.assertEquals(myList.list, ["stringOne", "stringTwo", "stringThree"], "Testing add lots function");
 
-t.msg("Reversing an array");
 let reversedArray = t.reverse();
-t.match(reversedArray, ["stringThree", "stringTwo", "stringOne"]);
+t.assertEquals(reversedArray, ["stringThree", "stringTwo", "stringOne"], "Reversing an array");
 
 //Add a different type to the list and show
-t.msg("Adding a number");
 myList.add(2);
-t.match(myList.list, ["stringOne", "stringTwo", "stringThree", 2]);
+t.assertEquals(myList.list, ["stringOne", "stringTwo", "stringThree", 2], "Adding a number");
 
 //Replace an item in the list
-t.msg("Replace item in list");
 myList.replace(1, "replacementString");
-t.match(myList.list, ["stringOne", "replacementString", "stringThree", 2]);
+t.assertEquals(myList.list, ["stringOne", "replacementString", "stringThree", 2], "Replace item in list");
 
 
 //Delete an item
-t.msg("Delete item");
 myList.del(1);
-t.match(myList.list, ["stringOne", "stringThree", 2]);
+t.assertEquals(myList.list, ["stringOne", "stringThree", 2], "Delete item");
 
-t.msg("Reseting list");
 myList.reset();
-t.match(myList.list, []);
+t.assertEquals(myList.list, [], "Reseting list");
 
-t.msg("String trimming");
 myList.add("      spaceThenString");
 myList.add("stringThenSpace     ");
 myList.trimEach();
-t.match(myList.list, ["spaceThenString", "stringThenSpace"]);
+t.assertEquals(myList.list, ["spaceThenString", "stringThenSpace"], "String trimming");
 
-t.msg("Direct listing");
 let directList = [1,2,3,4];
 let norm = List();
 
 norm.direct(directList);
-t.match(norm.list, directList);
+t.assertEquals(norm.list, directList, "Direct listing");
 
 // This is the function we want to run each time.
-t.msg("Testing forEach function");
 let r <- List();
 r.addLots([1, 2, 3, 4]);
 fn someFunction(item) {
@@ -73,6 +60,6 @@ fn someFunction(item) {
 
 let result <- [];
 r.forEach(someFunction); // This will run the "someFunction" parsing the data from the position in the list.
-t.match(r.list, result);
+t.assertEquals(r.list, result, "Testing forEach function");
 
 t.results();
