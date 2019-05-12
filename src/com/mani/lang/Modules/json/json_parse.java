@@ -19,9 +19,6 @@ public final class json_parse implements ManiCallable {
 
     @Override
     public Object call(Interpreter interpreter, List<Object> arguments) {
-//        String jsonRaw = arguments.get(0).toString();
-//        Object res = new JSONTokener(jsonRaw).nextValue();
-//        return res;
         Gson gson = new GsonBuilder().create();
         Type type = new TypeToken<Map<Object, Object>>(){}.getType();
         Map<Object, Object> theMap = gson.fromJson((String) arguments.get(0), type);

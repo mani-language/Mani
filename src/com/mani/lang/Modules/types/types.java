@@ -4,6 +4,7 @@ import com.mani.lang.Interpreter;
 import com.mani.lang.ManiCallable;
 import com.mani.lang.Modules.Module;
 import com.mani.lang.Std;
+import com.mani.lang.local.Locals;
 
 import java.util.List;
 
@@ -125,20 +126,7 @@ public final class types implements Module {
 
             @Override
             public Object call(Interpreter interpreter, List<Object> arguments) {
-                if (arguments.size() != 1) {
-                    return "Please provide a single arguement of an object to check.";
-                }
-                switch (arguments.get(0).getClass().getSimpleName()) {
-                case "String":
-                    return "String";
-                case "Double":
-                    return "Number";
-                case "ManiFunction":
-                    return "Function";
-                case "Boolean":
-                    return "Boolean";
-                }
-                return arguments.get(0).getClass().getSimpleName();
+                return Locals.getType(arguments.get(0));
             }
         });
 	}

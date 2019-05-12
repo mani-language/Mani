@@ -106,6 +106,20 @@ public final class std implements Module{
                 return null;
             }
         });
+
+        interpreter.addSTD("wipeMemory", new ManiCallable() {
+            @Override
+            public int arity() {
+                return 0;
+            }
+
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                interpreter.wipeMemory();
+                Std.loaded.clear();
+                return null;
+            }
+        });
     }
 
     @Override

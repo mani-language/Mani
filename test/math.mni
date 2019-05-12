@@ -1,49 +1,35 @@
-# "tester";
+load "munit";
 load "math";
 
-let t = Tester();
+let t = newTester();
 let x = 1.23;
 
-t.msg("TESTING MATH" + NL);
+t.header("Math");
 
-t.msg("Test floor");
-t.match(floor(x), 1);
+t.assertEquals(floor(x), 1, "Test floor");
 
-t.msg("Test ceil");
-t.match(ceil(x), 2);
+t.assertEquals(ceil(x), 2, "Test ceil");
 
-t.msg("Test asin");
-t.match(asin(1), 1.5707963267948966);
+t.assertEquals(asin(1), 1.5707963267948966, "Test asin");
 
-t.msg("Test acos");
-t.match(acos(1), 0.0);
+t.assertEquals(acos(1), 0.0, "Test acos");
 
-t.msg("Test atan");
-t.match(atan(1), 0.7853981633974483);
+t.assertEquals(atan(1), 0.7853981633974483, "Test atan");
 
-t.msg("Test atan2");
-t.match(atan2(x, x), 0.7853981633974483);
+t.assertEquals(atan2(x, x), 0.7853981633974483, "Test atan2");
 
-t.msg("Test cbrt");
-t.match(cbrt(x), 1.0714412696907731);
+t.assertEquals(cbrt(x), 1.0714412696907731, "Test cbrt");
 
-t.msg("Test cos");
-t.match(cos(x), 0.3342377271245026);
+t.assertEquals(cos(x), 0.3342377271245026, "Test cos");
 
-t.msg("Test sin");
-t.match(sin(x), 0.9424888019316975);
+t.assertEquals(sin(x), 0.9424888019316975, "Test sin");
 
-t.msg("Test tan");
-t.match(tan(x), 2.819815734268152);
+t.assertEquals(tan(x), 2.819815734268152, "Test tan");
 
-t.msg("Test cosh");
-t.match(cosh(x), 1.8567610569852664);
+t.assertEquals(cosh(x), 1.8567610569852664, "Test cosh");
 
-t.msg("Test exp");
-t.match(exp(x), 3.4212295362896734);
+t.assertEquals(exp(x), 3.4212295362896734, "Test exp");
 
-t.msg("Test expm1");
-t.match(expm1(x), 2.4212295362896734);
-
+t.assertEquals(expm1(x), 2.4212295362896734, "Test expm1");
 
 t.results();

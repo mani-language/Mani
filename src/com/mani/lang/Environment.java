@@ -120,4 +120,8 @@ class Environment {
         values.remove(name);
 
     }
+
+    void wipe() {
+        values.clear();
+    }
 }

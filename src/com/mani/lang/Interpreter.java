@@ -36,6 +36,8 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
         globals.define(key, val);
     }
 
+    public void wipeMemory() { this.globals.wipe();}
+
     public ManiFunction getFunction(String key) {
         return (ManiFunction) globals.get(key);
     }
@@ -517,6 +519,12 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
                 return isEqual(left, right);
             case IS:
                 return Locals.getType(left).equalsIgnoreCase(right.toString());
+            case AS:
+                if (Locals.canConvert(left, right)) {
+                    return Locals.convert(left, right.toString());
+                }
+                System.err.println("Cannot convert to that type!");
+                return null;
         }
         return null;
     }
@@ -557,6 +565,10 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
         }
         //TODO: Create a whole method, that checks for methods built into the system. So then
         // we dont have to keep creating STANDARD LIBRARIES for no reason.
+
+       if (Locals.areFunctions(object)) {
+           throw new RuntimeError(expr.name, "Error: '" + expr.name.lexeme + "'" + " is not a known extension.");
+       }
 
         throw new RuntimeError(expr.name, "Only instances have properties.");
     }
