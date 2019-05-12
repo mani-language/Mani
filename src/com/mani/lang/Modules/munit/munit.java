@@ -6,7 +6,6 @@ import com.mani.lang.Modules.Module;
 import com.mani.lang.ManiCallable;
 import com.mani.lang.local.Locals;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -51,6 +50,16 @@ public class munit implements Module {
             @Override
             public Object call(Interpreter interpreter, List<Object> arguments) {
                 ((Tester) this.workWith).assertEquals(arguments.get(0), arguments.get(1), (String) arguments.get(2));
+                return null;
+            }
+        });
+
+        locals.put("assertType", new ManiCallableInternal() {
+            @Override
+            public int arity() { return 3; }
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                ((Tester) this.workWith).assertEquals(Locals.getType(arguments.get(0)), Locals.getType(arguments.get(1)), (String) arguments.get(2));
                 return null;
             }
         });
