@@ -21,19 +21,6 @@ public class Inbuilt {
 
     public static Map<String, ManiCallable> inBuilts = new HashMap<>();
     static{
-        inBuilts.put("find", new ManiCallable() {
-
-            @Override
-            public int arity() {
-                return 1;
-            }
-
-            @Override
-            public Object call(Interpreter interpreter, List<Object> arguments) {
-                return inBuilts.get(arguments.get(0).toString());
-            }
-
-        });
 
         inBuilts.put("use", new ManiCallable() {
             @Override
