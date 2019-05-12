@@ -14,7 +14,8 @@ class Environment {
 
     private final Map<Namespace, Object> values = new HashMap<>();
 
-    String DefaultNamespace = "defaultNamespace";
+    String defaultNamespace = "default";
+    String loadedNamesapce = defaultNamespace;
 
     Environment() {
         enclosing = null;
