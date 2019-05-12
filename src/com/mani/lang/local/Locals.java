@@ -156,8 +156,9 @@ public class Locals {
                     return to;
                 }
                 if (fromType.equals("number")) {
+                    String version = Double.toString((Double) left);
                     ArrayList<Object> to = new ArrayList<>();
-                    for (char chr : ((String) left).toCharArray()) {
+                    for (char chr : version.toCharArray()) {
                         to.add(chr);
                     }
 
@@ -169,7 +170,7 @@ public class Locals {
                 if (fromType.equals("string")) {
                     Gson gson = new GsonBuilder().create();
                     Type type = new TypeToken<Map<Object, Object>>(){}.getType();
-                    Map<Object, Object> theMap = gson.fromJson((String) left, type);
+                    Map<Object, Object> theMap = gson.fromJson(left.toString(), type);
                     return theMap;
                 }
         }
