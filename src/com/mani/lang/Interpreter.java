@@ -521,7 +521,6 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
                 return Locals.getType(left).equalsIgnoreCase(right.toString());
             case AS:
                 if (Locals.canConvert(left, right)) {
-                    System.err.println(Locals.getType(left) + " to " + ((String) right));
                     return Locals.convert(left, right.toString());
                 }
                 System.err.println("Cannot convert to that type!");
