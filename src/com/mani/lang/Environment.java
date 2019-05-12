@@ -25,20 +25,23 @@ class Environment {
         this.enclosing = enclosing;
     }
 
+    void switchNamespace(String namespace) {
+        this.loadedNamesapce = namespace;
+    }
 
     void define(String name, Object value) {
 //        values.put(name, value);
-        values.put(new Namespace(DefaultNamespace, name), value);
+        values.put(new Namespace(defaultNamespace, name), value);
     }
 
     Object getAt(int distance, String name) {
 //        return ancestor(distance).values.get(name);
-        return ancestor(distance).values.get(new Namespace(DefaultNamespace, name));
+        return ancestor(distance).values.get(new Namespace(defaultNamespace, name));
     }
 
     void assignAt(int distance, Token name, Object value) {
 //        ancestor(distance).values.put(name.lexeme, value);
-        ancestor(distance).values.put(new Namespace(DefaultNamespace, name.lexeme), value);
+        ancestor(distance).values.put(new Namespace(defaultNamespace, name.lexeme), value);
     }
 
     Environment ancestor(int distance) {
