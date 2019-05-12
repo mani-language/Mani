@@ -64,8 +64,8 @@ class Environment {
 //        if(values.containsKey(name.lexeme)) {
 //            return values.get(name.lexeme);
 //        }
-        if (values.containsKey(new Namespace(DefaultNamespace, name.lexeme))) {
-            return values.get(new Namespace(DefaultNamespace, name.lexeme));
+        if (values.containsKey(new Namespace(defaultNamespace, name.lexeme))) {
+            return values.get(new Namespace(defaultNamespace, name.lexeme));
         }
         if(enclosing != null) return enclosing.get(name);
         throw new RuntimeError(name, "Undefined variable '" + name.lexeme +"'.");
@@ -77,7 +77,7 @@ class Environment {
 //            return values.get(name);
 //        }
         if (values.containsKey(name)) {
-            return values.get(new Namespace(DefaultNamespace, name));
+            return values.get(new Namespace(defaultNamespace, name));
         }
         if (enclosing != null) return enclosing.get(name);
         throw new RuntimeError(null, "Undefined variable '" + name + "'.");
@@ -114,7 +114,7 @@ class Environment {
         }
 
 //        values.put(name.lexeme, value);
-        values.put(new Namespace(DefaultNamespace, name.lexeme), value);
+        values.put(new Namespace(defaultNamespace, name.lexeme), value);
     }
 
     void cleanupForce(Token name) {
