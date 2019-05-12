@@ -1,0 +1,48 @@
+load "munit";
+load "types";
+load "json";
+load "std";
+
+let t = newTester();
+t.header("Testing conversions");
+
+let str = "Im a string";
+let mp = {"im" : "a map", "i" : "sure am"};
+let lst = ["im", "a list", "thats for sure"];
+let number = 12.0;
+
+t.assertType(str, "string", "Testing base string");
+t.assertType(mp, {"some":"map"}, "Testing base map");
+t.assertType(lst, ["base", "map"], "Testing base list");
+t.assertType(number, 1.0, "Testing base number");
+
+
+let nowString = number as "string";
+t.assertType(nowString, "a string", "Converting number to string");
+
+nowString = str as "string";
+t.assertType(nowString, "a string", "Converting string to string");
+
+nowString = mp as "string";
+t.assertType(nowString, "a string", "Converting map to string");
+
+nowString = lst as "string";
+t.assertType(nowString, "a string", "Converting list to string");
+
+let nowList = str as "list";
+t.assertType(nowList, [1, 2, 3], "Converting string to list");
+
+nowList = number as "list";
+t.assertType(nowList, [1, 2, 3], "Converting number to list");
+
+nowList = mp as "list";
+t.assertType(nowList, [1, 2, 3], "Converting map to list");
+
+nowList = lst as "list";
+t.assertType(nowList, [1, 2, 3], "Converting list to list");
+
+let nowMap = mp as "map";
+t.assertType(nowMap, {"a" : "map"}, "Converting map to map");
+
+
+t.results();
