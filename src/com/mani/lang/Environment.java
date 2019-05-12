@@ -94,8 +94,9 @@ class Environment {
 //            values.put(name.lexeme, value);
 //            return;
 //        }
-        if (values.containsKey(new Namespace(DefaultNamespace, name.lexeme))) {
-            values.put(new Namespace(DefaultNamespace, name.lexeme), value);
+        if (values.containsKey(new Namespace(defaultNamespace, name.lexeme))) {
+            values.put(new Namespace(defaultNamespace, name.lexeme), value);
+            return;
         }
 
         if(enclosing != null) {
