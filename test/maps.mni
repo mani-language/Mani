@@ -64,7 +64,7 @@ t.assertEquals(mapToTest.map, {9.0 : 10.0, 5.0 : 6.0, 3.0 : "update", 7.0 : 8.0}
 
 mapToTest.reset();
 t.assertEquals(mapToTest.map, {}, "Reset a map");
-
+/*
 let anotherMap = Map();
 let dMap1 = Map();
 let dMap2 = Map();
@@ -75,5 +75,5 @@ anotherMap.add("first", dMap1);
 anotherMap.add("second", dMap2);
 t.assertEquals(anotherMap.find("test", "name"), dMap1, "Map search");
 
-
+*/
 t.results();

@@ -16,9 +16,9 @@ load "lists.mni";
 wipeMemory();
 load "std";
 load "maps.mni";
-wipeMemory();
+/*wipeMemory();
 load "std";
-load "atomic.mni";
+load "atomic.mni";*/
 wipeMemory();
 load "std";
 load "math.mni";

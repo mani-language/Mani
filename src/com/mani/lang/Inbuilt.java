@@ -21,79 +21,7 @@ public class Inbuilt {
 
     public static Map<String, ManiCallable> inBuilts = new HashMap<>();
     static{
-        inBuilts.put("find", new ManiCallable() {
 
-            @Override
-            public int arity() {
-                return 1;
-            }
-
-            @Override
-            public Object call(Interpreter interpreter, List<Object> arguments) {
-                return inBuilts.get(arguments.get(0).toString());
-            }
-
-        });
-
-        inBuilts.put("use", new ManiCallable() {
-            @Override
-            public int arity() {
-                return 1;
-            }
-
-            @Override
-            public Object call(Interpreter interpreter, List<Object> arguments) {
-                if (arguments.size() != 1) {
-                    System.out.println("Please provide 1 argument with what library to use.");
-                    return "Please provide 1 argument with what library to use.";
-                }
-                try {
-                    final String moduleName = arguments.get(0).toString();
-                    final Module module = (Module) Class.forName("com.mani.lang.Modules." + moduleName + "." + moduleName).newInstance();
-                    module.init(interpreter);
-                    return null;
-                } catch (Exception e) {
-                    return "Couldn't load for some reason!";
-                }
-            }
-        });
-
-        inBuilts.put("readInt", new ManiCallable(){
-            @Override
-            public int arity() {
-                return 0;
-            }
-            @Override
-            public Object call(Interpreter interpreter, List<Object> arguments) {
-                int number;
-                Scanner scanner = new Scanner(System.in);
-                try {
-                    number = scanner.nextInt();
-                    } catch(InputMismatchException e) {
-                        return e.getMessage();
-                    }
-                    return number;
-                }
-            
-        }); 
-
-        inBuilts.put("readString", new ManiCallable(){
-            @Override
-            public int arity() {
-                return 0;
-            }
-            @Override
-            public Object call(Interpreter interpreter, List<Object> arguments) {
-                String str;
-                Scanner scanner =  new Scanner(System.in);
-                try{
-                    str = scanner.next();
-                } catch(InputMismatchException e) {
-                    return e.getMessage();
-                }
-                return str;
-            }
-        });
         
         inBuilts.put("date", new ManiCallable(){
             @Override
@@ -127,30 +55,6 @@ public class Inbuilt {
             }
         });
 
-        inBuilts.put("getFile", new ManiCallable() {
-            @Override
-            public int arity() {
-                return 1;
-            }
-
-            @Override
-            public Object call(Interpreter interpreter, List<Object> arguments) {
-                String output = "";
-                if(arguments.get(0) instanceof String){
-                    Scanner scanner = null;
-                    try {
-                        scanner = new Scanner( new File((String) arguments.get(0)) );
-                    } catch (FileNotFoundException e) {
-                        return "getFile : Error in opening file!";
-                    }
-                    output = scanner.useDelimiter("\\A").next();
-                    scanner.close(); // Put this call in a finally block
-                } else {
-                    return "getFile : argument needs to be a string.";
-                }
-                return output;
-            }
-        });
 
         inBuilts.put("split", new ManiCallable() {
             @Override
@@ -196,75 +100,6 @@ public class Inbuilt {
             }
         });
         
-        inBuilts.put("sqrt", new ManiCallable(){
-            @Override
-            public int arity() {
-                return 1;
-            }
-            @Override
-            public Object call(Interpreter interpreter, List<Object> arguments) {
-                Double numSqrt;
-                if(arguments.get(0) instanceof Double) {
-                    numSqrt = Math.sqrt((Double)arguments.get(0));
-                } else {
-                    return "sqrt : argument must be a number";
-                }
-                return numSqrt;
-            }
-        });
-
-
-        inBuilts.put("at", new ManiCallableInternal() {
-
-            @Override
-            public int arity() {
-                return 1;
-            }
-
-            @Override
-            public Object call(Interpreter interpreter, List<Object> arguments) {
-                if (this.workWith instanceof ArrayList) {
-                    if (((Double) arguments.get(0)).intValue() > ((ArrayList) this.workWith).size() - 1|| ((Double) arguments.get(0)).intValue() < 0) {
-                        System.err.println("Range must be between 0 and " + (((ArrayList) this.workWith).size() - 1));
-                        return null;
-                    }
-                    return ((ArrayList) this.workWith).get(((Double)arguments.get(0)).intValue());
-                } else if (this.workWith instanceof HashMap) {
-                    return ((HashMap) this.workWith).get(arguments.get(0));
-                }
-                return null;
-            }
-        });
-
-        inBuilts.put("load", new ManiCallable() {
-            @Override
-            public int arity() {
-                return 1;
-            }
-
-            @Override
-            public Object call(Interpreter interpreter, List<Object> arguments) {
-
-                if (arguments.get(0) instanceof String){
-                    try {
-                        byte[] bytes = Files.readAllBytes(Paths.get((String) arguments.get(0)));
-                        Lexer lexer = new Lexer(new String(bytes, Charset.defaultCharset()));
-                        List<Token> tokens = lexer.scanTokens();
-                        Parser parser = new Parser(tokens);
-                        List<Stmt> statements = parser.parse();
-                        Resolver resolver = new Resolver(interpreter);
-                        resolver.resolve(statements);
-                        interpreter.interpret(statements);
-                        return "Should have worked!";
-                    } catch (IOException e) {
-                        return "Oh shit!";
-                    }
-                }
-
-                return "load : argument must be a string.";
-            }
-        });
-
         inBuilts.put("import", new ManiCallable() {
             @Override
             public int arity() {
