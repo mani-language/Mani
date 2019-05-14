@@ -79,5 +79,6 @@ idea {
 
 cleanIdea.doLast {
     new File('Mani.iws').delete()
+    new File('Mani.ipr').delete()
 }
 
