@@ -54,7 +54,7 @@ idea {
 
     project {
         // Set JDK
-        jdkname = '1.8'
+        jdkName = '1.8'
         wildcards -= '!?*.groovy'
 
         ipr {
