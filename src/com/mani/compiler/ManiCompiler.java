@@ -2,10 +2,10 @@ package com.mani.compiler;
 
 import com.mani.lang.Mani;
 
-import java.io.File;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 public class ManiCompiler {
 
     public static void main(String[] args) {
@@ -17,12 +17,18 @@ public class ManiCompiler {
         Mani.hasInternet = true; // To make it completely un-needed to have mani installed.
 
         ClassLoader classLoader = ManiCompiler.class.getClassLoader();
-        File file = new File(classLoader.getResource("main.mn").getFile());
+        InputStream stream = classLoader.getResourceAsStream("main.mni");
+        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+        String inputString = "";
         try {
-            byte[] bytes = Files.readAllBytes(file.toPath());
-            Mani.run(new String(bytes, Charset.defaultCharset()));
-        } catch(IOException e) {
+            String line = reader.readLine();
+            while (line != null) {
+                inputString += line + "\n";
+                line = reader.readLine();
+            }
+        } catch (IOException e) {
             e.printStackTrace();
         }
+        Mani.run(inputString);
     }
 }

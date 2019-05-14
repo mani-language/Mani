@@ -130,13 +130,7 @@ public class Mani {
 
     public static boolean fileExists(String fName) {
         File f;
-        if (compiledMode) {
-            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-            f = new File(classLoader.getResource(fName).getFile());
-        } else {
-            f = new File(fName);
-        }
-
+        f = new File(fName);
         return f.exists();
     }
 

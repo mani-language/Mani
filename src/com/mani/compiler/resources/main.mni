@@ -1,0 +1,61 @@
+/*
+Test program to demonstrate all
+functionality using maps
+*/
+# "maps";
+# "lists";
+
+
+let myMap = Map();
+
+myMap.add("keyName1","valueName1");
+myMap.add("keyName2","valueName2");
+
+let item = myMap.get("keyName2");
+
+let listOfKeys = List();
+listOfKeys.direct(myMap.getKeys());
+
+
+let mapExists = myMap.exists("keyName1");
+
+mapExists = myMap.exists("nonExistentKey");
+
+
+// Combine two lists into a map
+// Both Lists must be the same length.
+let keys = List(); // The keys of the map.
+let vals = List(); // The values of the map.
+
+// Filling the 2 lists with values...
+keys.addLots([1, 3, 5, 7, 9]);
+vals.addLots([2, 4, 6, 8, 10]);
+
+// Using keys List, as the keys.
+// Using the vals List, as the values.
+let mapToTest = Map();
+mapToTest.combine(keys, vals); // changes the contents of the map to these keys and values.
+
+mapToTest.del(1);
+
+let values = mapToTest.getValues();
+
+mapToTest.update(3,"update");
+
+myMap.copy(mapToTest);
+
+
+mapToTest.reset();
+/*
+let anotherMap = Map();
+let dMap1 = Map();
+let dMap2 = Map();
+
+dMap1.add("test", "name");
+dMap2.add("test", "name1");
+anotherMap.add("first", dMap1);
+anotherMap.add("second", dMap2);
+
+*/
+
+say myMap.map;
