@@ -2,7 +2,7 @@ ext {
     // Activate copyright conventions
     ideaActivateCopyright = { Node iprNode ->
         // Setup copyright statement injection
-        def copyrightManager - iprNode.find { it.@name == 'CopyrightManager' }
+        def copyrightManager = iprNode.find { it.@name == 'CopyrightManager' }
         copyrightManager.@default = 'Mani'
         def copyright = copyrightManager.appendNode("copyright")
         copyright.appendNode("option", [name: "notice", value: 'Copyright ' + Calendar.getInstance().get(Calendar.Year) + 'Máni.'])
