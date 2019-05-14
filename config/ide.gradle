@@ -75,7 +75,7 @@ ext {
         </list>
         '''))
 
-        def runManagerTag = iwsNode.component.find { it@name == 'RunManager' }
+        def runManagerTag = iwsNode.component.find { it.@name == 'RunManager' }
         runManager.@selected = 'Application.Mani'
 
     }
