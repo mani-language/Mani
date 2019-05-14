@@ -7,8 +7,11 @@ println """
 group 'Mani'
 version '1.0-SNAPSHOT'
 
+apply from: 'config/ide.gradle'
+
 apply plugin: 'java'
 apply plugin: 'application'
+apply plugin: 'idea'
 
 mainClassName = 'Mani'
 
