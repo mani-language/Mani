@@ -5,7 +5,7 @@ ext {
         def copyrightManager = iprNode.find { it.@name == 'CopyrightManager' }
         copyrightManager.@default = 'Mani'
         def copyright = copyrightManager.appendNode("copyright")
-        copyright.appendNode("option", [name: "notice", value: 'Copyright ' + Calendar.getInstance().get(Calendar.Year) + 'Máni.'])
+        copyright.appendNode("option", [name: "notice", value: 'Copyright ' + Calendar.getInstance().get(Calendar.YEAR) + 'Máni.'])
         copyright.appendNode("option", [name: "keywords", value: "Copyright"])
         copyright.appendNode("option", [name: "allowReplaceKeyword", value: ""])
         copyright.appendNode("option", [name: "myName", value: "Mani"])
