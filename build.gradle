@@ -48,7 +48,7 @@ dependencies {
 
 // For IntelliJ
 idea {
-    modules.excludeDirs += file('examples');
+    module.excludeDirs += file('examples');
 
     module.downloadSources = true
 
