@@ -7,8 +7,11 @@ println """
 group 'Mani'
 version '1.0-SNAPSHOT'
 
+apply from: 'config/ide.gradle'
+
 apply plugin: 'java'
 apply plugin: 'application'
+apply plugin: 'idea'
 
 mainClassName = 'Mani'
 
@@ -42,3 +45,40 @@ dependencies {
     compile 'io.socket:socket.io-client:1.0.0'
     compile 'com.neovisionaries:nv-websocket-client:2.8'
 }
+
+// For IntelliJ
+idea {
+    module.excludeDirs += file('examples');
+
+    module.downloadSources = true
+
+    project {
+        // Set JDK
+        jdkName = '1.8'
+        wildcards -= '!?*.groovy'
+
+        ipr {
+            withXml { xmlProvider ->
+                def iprNode = xmlProvider.asNode()
+                ideaActivateCopyright(iprNode)
+                ideaActivateGradle(iprNode)
+            }
+
+            whenMerged { project -> 
+                project.jdk.languageLevel = 'JDK_1_8'
+            }
+        }
+    }
+
+    workspace.iws.withXml { xmlProvider ->
+        def iwsNode = xmlProvider.asNode()
+        ideaMakeAutomatically(iwsNode)
+        ideaRunConfig(iwsNode)
+    }
+}
+
+cleanIdea.doLast {
+    new File('Mani.iws').delete()
+    new File('Mani.ipr').delete()
+}
+
