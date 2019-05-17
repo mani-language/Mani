@@ -24,12 +24,12 @@ version 'Stable'
 
 task start(type: JavaExec) {
     classpath sourceSets.main.runtimeClasspath
-    main = "com.mani.lang.Mani"
+    main = "com.mani.compiler.ManiCompiler"
 }
 
 jar {
     manifest {
-        attributes 'Main-Class': 'com.mani.lang.Mani'
+        attributes 'Main-Class': 'com.mani.compiler.ManiCompiler'
     }
 }
 

@@ -1,9 +1,6 @@
 package com.mani.lang;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -130,8 +127,15 @@ public class Mani {
 
     public static boolean fileExists(String fName) {
         File f;
-        f = new File(fName);
-        return f.exists();
+        if (compiledMode) {
+            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+            InputStream stream = classLoader.getResourceAsStream(fName);
+            return (stream != null);
+        } else {
+            f = new File(fName);
+            return f.exists();
+        }
+
     }
 
     public static File internalFile(String fName) {
@@ -148,6 +152,23 @@ public class Mani {
         return f;
     }
 
+
+    public static byte[] readFileToByteArray(File toRead) throws IOException {
+        if (!compiledMode) {
+            return Files.readAllBytes(toRead.toPath());
+        } else {
+            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+            InputStream stream = classLoader.getResourceAsStream(toRead.getName());
+            BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+            String inputString = "";
+            String line = reader.readLine();
+            while (line != null) {
+                inputString += line + "\n";
+                line = reader.readLine();
+            }
+            return inputString.getBytes();
+        }
+    }
 
     /**
      * Used for reporting an error, with the line and message.
