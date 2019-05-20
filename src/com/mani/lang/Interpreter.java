@@ -3,11 +3,15 @@ package com.mani.lang;
 import com.mani.lang.Modules.Module;
 import com.mani.lang.local.Locals;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 
 public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
 
