@@ -1,12 +1,12 @@
-package com.mani.lang;
+package com.mani.lang.token;
 
-class Token {
-    final TokenType type;
-    final String lexeme;
-    final Object literal;
-    final int line;
+public class Token {
+    public final TokenType type;
+    public final String lexeme;
+    public final Object literal;
+    public final int line;
 
-    Token(TokenType type, String lexeme, Object literal, int line) {
+    public Token(TokenType type, String lexeme, Object literal, int line) {
         this.type = type;
         this.lexeme = lexeme;
         this.literal = literal;
