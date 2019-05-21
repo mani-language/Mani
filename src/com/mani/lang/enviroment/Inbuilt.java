@@ -1,7 +1,7 @@
-package com.mani.lang.Enviroment;
+package com.mani.lang.enviroment;
 
-import com.mani.lang.Mani;
-import com.mani.lang.Std;
+import com.mani.lang.main.Mani;
+import com.mani.lang.main.Std;
 import com.mani.lang.core.Interpreter;
 import com.mani.lang.domain.ManiCallable;
 
@@ -121,7 +121,7 @@ public class Inbuilt {
 
                 /**
                  * Section that checks to see if there is internet avaliable. If there is... it
-                 * will use that online version over the Local version. Just so
+                 * will use that online version over the local version. Just so
                  * it is more up-to-date.
                  */
 
@@ -129,7 +129,7 @@ public class Inbuilt {
                 arguments.set(0, ((String) arguments.get(0)).toLowerCase());
 
                 if (Mani.hasInternet) {
-                    // If there is internet, we will choose to use that STDLIB over the Local...
+                    // If there is internet, we will choose to use that STDLIB over the local...
                     // simply due to the fact that it will be more up-to-date.
                     if (Std.find(arguments.get(0).toString()).equalsIgnoreCase("-2")){
                         // This means it has already been loaded.
@@ -155,7 +155,7 @@ public class Inbuilt {
                         }
                     }
                 } else {
-                    // As there is no internet. We are going to have to try and use the Local version
+                    // As there is no internet. We are going to have to try and use the local version
                     // That is if the user actually has them installed...
                     if (arguments.get(0) instanceof String) {
                         if (!Std.hasRun) {
