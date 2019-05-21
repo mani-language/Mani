@@ -1,4 +1,4 @@
-package com.mani.lang;
+package com.mani.lang.main;
 
 import com.mani.lang.token.Token;
 import com.mani.lang.core.*;
