@@ -17,8 +17,11 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 
 public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
 
@@ -336,7 +339,7 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
             File f = Mani.internalFile((String) res);
             try {
                 //byte[] bytes = Files.readAllBytes(Paths.get((String) res));
-                byte[] bytes = Files.readAllBytes(f.toPath());
+                byte[] bytes = Mani.readFileToByteArray(f);
                 Lexer lexer = new Lexer(new String(bytes, Charset.defaultCharset()));
                 List<Token> tokens = lexer.scanTokens();
                 Parser parser = new Parser(tokens);

@@ -1,0 +1,10 @@
+# "maps";
+# "lists";
+load "summation.mni";
+
+say addTogether(5, 2);
+
+let myMap = Map();
+myMap.add("keyName1","valueName1");
+myMap.add("keyName2","valueName2");
+say myMap.map;

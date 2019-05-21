@@ -27,9 +27,28 @@ task start(type: JavaExec) {
     main = "com.mani.lang.main.Mani"
 }
 
+task startCompiled(type: JavaExec) {
+    classpath sourceSets.main.runtimeClasspath
+    main = "com.mani.compiler.ManiCompiler"
+}
+
 jar {
     manifest {
         attributes 'Main-Class': 'com.mani.lang.main.Mani'
+    }
+}
+
+task buildCompiler(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'com.mani.compiler.ManiCompiler'
+    }
+    with jar
+    sourceSets {
+        main {
+            resources {
+                srcDirs "src/com/mani/compiler/resources"
+            }
+        }
     }
 }
 
