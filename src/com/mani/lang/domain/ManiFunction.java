@@ -1,5 +1,7 @@
-package com.mani.lang;
+package com.mani.lang.domain;
 
+import com.mani.lang.Enviroment.Environment;
+import com.mani.lang.Return;
 import com.mani.lang.core.Interpreter;
 import com.mani.lang.core.Stmt;
 

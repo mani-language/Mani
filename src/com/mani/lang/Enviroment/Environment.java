@@ -1,13 +1,16 @@
-package com.mani.lang;
+package com.mani.lang.Enviroment;
+
+import com.mani.lang.RuntimeError;
+import com.mani.lang.Token.Token;
 
 import java.util.HashMap;
 import java.util.Map;
 
-class Environment {
+public class Environment {
     final Environment enclosing;
     private final Map<String, Object> values = new HashMap<>();
 
-    Environment() {
+    public Environment() {
         enclosing = null;
     }
 

@@ -1,5 +1,6 @@
-package com.mani.lang;
+package com.mani.lang.domain;
 
+import com.mani.lang.RuntimeError;
 import com.mani.lang.Token.Token;
 import com.mani.lang.core.Interpreter;
 
