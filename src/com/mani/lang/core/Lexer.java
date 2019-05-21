@@ -1,17 +1,18 @@
-package com.mani.lang;
+package com.mani.lang.core;
 
-import com.mani.lang.Token.Token;
-import com.mani.lang.Token.TokenType;
-import com.mani.lang.Language.Lang;
+import com.mani.lang.main.Mani;
+import com.mani.lang.token.Token;
+import com.mani.lang.token.TokenType;
+import com.mani.lang.language.Lang;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.mani.lang.Token.TokenType.*;
+import static com.mani.lang.token.TokenType.*;
 
-class Lexer {
+public class Lexer {
     private static Map<String, TokenType> keywords;
 
     private boolean awaitingLangName = false;
@@ -52,10 +53,10 @@ class Lexer {
     private int start = 0;
     private int current = 0;
     private int line = 1;
-    Lexer(String source){
+    public Lexer(String source){
         this.source = source;
     }
-    List<Token> scanTokens(){
+    public List<Token> scanTokens(){
         while(! isAtEnd()){
             start = current;
             scanToken();
@@ -65,7 +66,7 @@ class Lexer {
 
     }
     private void scanToken(){
-        // Just going to check for a new Language to load.
+        // Just going to check for a new language to load.
         if (customLangName != "" && !(customLangName.equalsIgnoreCase(lastLangName))) {
             loadLanguage();
         }
@@ -127,7 +128,7 @@ class Lexer {
         try {
             Map<String, TokenType> newLang = new HashMap<>();
             Map<String, String> trans = new HashMap<>();
-            final Lang module = (Lang) Class.forName("com.mani.lang.Language." + customLangName).newInstance();
+            final Lang module = (Lang) Class.forName("com.mani.lang.language." + customLangName).newInstance();
             trans = (Map<String, String>) module.init(trans);
             for (String key : keywords.keySet()) {
                 if (trans.containsKey(key)) {
@@ -137,7 +138,7 @@ class Lexer {
                 }
             }
             keywords = newLang;
-            // Resetting so we don't keep loading th the Language.
+            // Resetting so we don't keep loading th the language.
             lastLangName = customLangName;
             customLangName = "";
         } catch (Exception e) {
@@ -225,7 +226,7 @@ class Lexer {
     //we use overloading for tokens with literals
     private void addToken(TokenType type, Object literal){
         // We are going to check through each added token, for the CHANGELANG
-        // token. If that is found, then the next token will be the Language
+        // token. If that is found, then the next token will be the language
         // to change it to.
         if (type == TokenType.CHANGELANG) {
             awaitingLangName = true;
