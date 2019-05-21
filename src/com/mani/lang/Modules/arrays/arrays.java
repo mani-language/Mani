@@ -1,10 +1,10 @@
 package com.mani.lang.Modules.arrays;
 
-import com.mani.lang.Interpreter;
-import com.mani.lang.ManiCallable;
-import com.mani.lang.ManiCallableInternal;
+import com.mani.lang.core.Interpreter;
+import com.mani.lang.domain.ManiCallable;
+import com.mani.lang.domain.ManiCallableInternal;
 import com.mani.lang.Modules.Module;
-import com.mani.lang.Std;
+import com.mani.lang.main.Std;
 
 import java.util.ArrayList;
 import java.util.HashMap;
