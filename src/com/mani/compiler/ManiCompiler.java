@@ -1,6 +1,6 @@
 package com.mani.compiler;
 
-import com.mani.lang.Mani;
+import com.mani.lang.main.Mani;
 
 import java.io.BufferedReader;
 import java.io.IOException;
