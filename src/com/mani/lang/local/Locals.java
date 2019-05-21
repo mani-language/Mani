@@ -3,10 +3,10 @@ package com.mani.lang.local;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.mani.lang.ManiCallable;
-import com.mani.lang.ManiCallableInternal;
-import com.mani.lang.ManiFunction;
-import com.mani.lang.ManiInstance;
+import com.mani.lang.domain.ManiCallable;
+import com.mani.lang.domain.ManiCallableInternal;
+import com.mani.lang.domain.ManiFunction;
+import com.mani.lang.domain.ManiInstance;
 import com.mani.lang.Modules.munit.Tester;
 
 import java.io.File;
