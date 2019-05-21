@@ -1,4 +1,4 @@
-package com.mani.lang;
+package com.mani.lang.token;
 public enum TokenType {
 
     //Single-character Tokens
