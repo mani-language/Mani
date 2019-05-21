@@ -64,6 +64,7 @@ let v3 = v1 + v2;
 
 say v1 + " + " + v2 + " = " + v3;
 ~~~
+Checkout some more examples of Mani code and submit your own [here](https://github.com/Kalekdan/Mani-examples).
 
 ### Syntax highlighting
 |   [**ATOM**](https://github.com/crazywolf132/Mani-Atom)   |   [**VSCODE**](https://github.com/crazywolf132/Mani-vscode)   |
