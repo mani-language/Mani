@@ -60,7 +60,7 @@ class Vector {
 
 let v1 = Vector(1, 2, 3);
 let v2 = Vector(4, 5, 6);
-let v3 = v1.add(v2);
+let v3 = v1 + v2;
 
 say v1 + " + " + v2 + " = " + v3;
 ~~~
