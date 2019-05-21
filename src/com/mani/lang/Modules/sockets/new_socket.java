@@ -1,11 +1,10 @@
 package com.mani.lang.Modules.sockets;
 
-import com.mani.lang.Interpreter;
-import com.mani.lang.ManiCallable;
-import com.mani.lang.Std;
+import com.mani.lang.core.Interpreter;
+import com.mani.lang.domain.ManiCallable;
+import com.mani.lang.main.Std;
 import com.mani.lang.local.Locals;
 import io.socket.client.IO;
-import io.socket.engineio.client.Socket;
 
 import java.net.URISyntaxException;
 import java.util.HashMap;
