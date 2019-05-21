@@ -1,13 +1,13 @@
-package com.mani.lang;
+package com.mani.lang.exceptions;
 
-class Return extends RuntimeException {
-    final Object value;
+public class Return extends RuntimeException {
+    public final Object value;
 
-    Return(Object value) {
+    public Return(Object value) {
         this.value = value;
     }
 
-    Return() {
+    public Return() {
         value = null;
     }
 }
