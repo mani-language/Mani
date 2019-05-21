@@ -1,7 +1,7 @@
 package com.mani.lang.local;
 
-import com.mani.lang.Interpreter;
-import com.mani.lang.ManiCallableInternal;
+import com.mani.lang.core.Interpreter;
+import com.mani.lang.domain.ManiCallableInternal;
 
 import java.util.HashMap;
 import java.util.List;
