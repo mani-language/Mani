@@ -1,5 +1,7 @@
 package com.mani.lang;
 
+import com.mani.lang.core.Interpreter;
+
 import java.util.List;
 
 /*public interface ManiCallableInternal {

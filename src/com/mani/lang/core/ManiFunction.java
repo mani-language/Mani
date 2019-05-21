@@ -1,5 +1,8 @@
 package com.mani.lang;
 
+import com.mani.lang.core.Interpreter;
+import com.mani.lang.core.Stmt;
+
 import java.util.List;
 
 public class ManiFunction implements ManiCallable {

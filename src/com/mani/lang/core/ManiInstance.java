@@ -1,5 +1,8 @@
 package com.mani.lang;
 
+import com.mani.lang.Token.Token;
+import com.mani.lang.core.Interpreter;
+
 import java.util.HashMap;
 import java.util.Map;
 
