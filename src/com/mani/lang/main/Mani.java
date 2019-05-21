@@ -1,4 +1,4 @@
-package com.mani.lang;
+package com.mani.lang.main;
 
 import com.mani.lang.token.Token;
 import com.mani.lang.token.TokenType;
@@ -165,7 +165,7 @@ public class Mani {
      * @param line
      * @param message
      */
-    static void error(int line, String message) {
+    public static void error(int line, String message) {
         report(line, "", message);
     }
 
@@ -198,7 +198,7 @@ public class Mani {
      * in the console.
      * @param error
      */
-    static void runtimeError(RuntimeError error) {
+    public static void runtimeError(RuntimeError error) {
         System.err.println(error.getMessage() + "\n[line " + error.token.line + "]");
         hadRuntimeError = true;
     }
