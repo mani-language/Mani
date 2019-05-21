@@ -1,9 +1,11 @@
 package com.mani.lang;
 
+import com.mani.lang.Token.Token;
+
 import java.util.List;
 
-abstract class Stmt {
-  interface Visitor<R> {
+public abstract class Stmt {
+  public interface Visitor<R> {
     R visitBlockStmt(Block stmt);
     R visitClassStmt(Class stmt);
     R visitExpressionStmt(Expression stmt);
@@ -17,7 +19,7 @@ abstract class Stmt {
     R visitForEachStmt(ForEach stmt);
     R visitForEachMapStmt(ForEachMap stmt);
   }
-  static class Block extends Stmt {
+  public static class Block extends Stmt {
     Block(List<Stmt> statements) {
       this.statements = statements;
     }
@@ -26,9 +28,9 @@ abstract class Stmt {
       return visitor.visitBlockStmt(this);
     }
 
-    final List<Stmt> statements;
+    public final List<Stmt> statements;
   }
-  static class Class extends Stmt {
+  public static class Class extends Stmt {
     Class(Token name, Expr.Variable superclass, List<Function> methods) {
       this.name = name;
       this.superclass = superclass;
@@ -39,11 +41,11 @@ abstract class Stmt {
       return visitor.visitClassStmt(this);
     }
 
-    final Token name;
-    final Expr.Variable superclass;
-    final List<Function> methods;
+    public final Token name;
+    public final Expr.Variable superclass;
+    public final List<Function> methods;
   }
-  static class Expression extends Stmt {
+  public static class Expression extends Stmt {
     Expression(Expr expression) {
       this.expression = expression;
     }
@@ -54,7 +56,7 @@ abstract class Stmt {
 
     final Expr expression;
   }
-  static class If extends Stmt {
+  public static class If extends Stmt {
     If(Expr condition, Stmt thenBranch, Stmt elseBranch) {
       this.condition = condition;
       this.thenBranch = thenBranch;
@@ -69,7 +71,7 @@ abstract class Stmt {
     final Stmt thenBranch;
     final Stmt elseBranch;
   }
-  static class Function extends Stmt {
+  public static class Function extends Stmt {
     Function(Token name, List<Token> parameters, List<Stmt> body, Boolean isprivate) {
       this.name = name;
       this.parameters = parameters;
@@ -82,11 +84,11 @@ abstract class Stmt {
     }
 
     final Token name;
-    final List<Token> parameters;
+    public final List<Token> parameters;
     final List<Stmt> body;
     final Boolean isprivate;
   }
-  static class Print extends Stmt {
+  public static class Print extends Stmt {
     Print(Expr expression) {
       this.expression = expression;
     }
@@ -97,7 +99,7 @@ abstract class Stmt {
 
     final Expr expression;
   }
-  static class Return extends Stmt {
+  public static class Return extends Stmt {
     Return(Token keyword, Expr value) {
       this.keyword = keyword;
       this.value = value;
@@ -110,7 +112,7 @@ abstract class Stmt {
     final Token keyword;
     final Expr value;
   }
-  static class Break extends Stmt {
+  public static class Break extends Stmt {
       Break(Token keyword){
         this.keyword = keyword;
       }
@@ -119,7 +121,7 @@ abstract class Stmt {
       }
       final Token keyword;
    }
-  static class Var extends Stmt {
+  public static class Var extends Stmt {
     Var(Token name, Expr initializer) {
       this.name = name;
       this.initializer = initializer;
@@ -132,7 +134,7 @@ abstract class Stmt {
     final Token name;
     final Expr initializer;
   }
-  static class While extends Stmt {
+  public static class While extends Stmt {
     While(Expr condition, Stmt body) {
       this.condition = condition;
       this.body = body;
@@ -146,7 +148,7 @@ abstract class Stmt {
     final Stmt body;
   }
 
-  static class ForEach extends Stmt {
+  public static class ForEach extends Stmt {
       ForEach(Token id, Stmt block, Expr container) {
         this.id = id;
         this.body = block;
@@ -160,7 +162,7 @@ abstract class Stmt {
       final Expr container;
   }
 
-  static class ForEachMap extends Stmt {
+  public static class ForEachMap extends Stmt {
     ForEachMap(Token key, Token val, Stmt block, Expr container) {
       this.key = key;
       this.val = val;
@@ -176,5 +178,5 @@ abstract class Stmt {
     final Expr container;
   }
 
-  abstract <R> R accept(Visitor<R> visitor);
+  public abstract <R> R accept(Visitor<R> visitor);
 }

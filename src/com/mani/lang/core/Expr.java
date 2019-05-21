@@ -1,10 +1,12 @@
 package com.mani.lang;
 
+import com.mani.lang.Token.Token;
+
 import java.util.HashMap;
 import java.util.List;
 
-abstract class Expr {
-  interface Visitor<R> {
+public abstract class Expr {
+  public interface Visitor<R> {
     R visitAssignExpr(Assign expr);
     R visitBinaryExpr(Binary expr);
     R visitThisExpr(This expr);
@@ -23,7 +25,7 @@ abstract class Expr {
     R visitLoadExpr(Load expr);
     R visitImportExpr(Import expr);
   }
-  static class Assign extends Expr {
+  public static class Assign extends Expr {
     Assign(Token name, Expr value) {
       this.name = name;
       this.value = value;
@@ -37,7 +39,7 @@ abstract class Expr {
     final Expr value;
   }
 
-  static class Copy extends Expr {
+  public static class Copy extends Expr {
     Copy(Token name, Token from) {
       this.name = name;
       this.from = from;
@@ -51,7 +53,7 @@ abstract class Expr {
     final Token from;
   }
   
-  static class Binary extends Expr {
+  public static class Binary extends Expr {
     Binary(Expr left, Token operator, Expr right) {
       this.left = left;
       this.operator = operator;
@@ -67,7 +69,7 @@ abstract class Expr {
     final Expr right;
   }
 
-  static class This extends Expr {
+  public static class This extends Expr {
     This(Token keyword) {
       this.keyword = keyword;
     }
@@ -78,7 +80,7 @@ abstract class Expr {
 
     final Token keyword;
   }
-  static class Call extends Expr {
+  public static class Call extends Expr {
     Call(Expr callee, Token paren, List<Expr> arguments) {
       this.callee = callee;
       this.paren = paren;
@@ -93,7 +95,7 @@ abstract class Expr {
     final Token paren;
     final List<Expr> arguments;
   }
-  static class Get extends Expr {
+  public static class Get extends Expr {
     Get(Expr object, Token name, Boolean fromThis) {
       this.object = object;
       this.name = name;
@@ -108,7 +110,7 @@ abstract class Expr {
     final Token name;
     final Boolean fromThis;
   }
-  static class Super extends Expr {
+  public static class Super extends Expr {
     Super(Token keyword, Token method) {
       this.keyword = keyword;
       this.method = method;
@@ -121,7 +123,7 @@ abstract class Expr {
     final Token keyword;
     final Token method;
   }
-  static class Grouping extends Expr {
+  public static class Grouping extends Expr {
     Grouping(Expr expression) {
       this.expression = expression;
     }
@@ -132,7 +134,7 @@ abstract class Expr {
 
     final Expr expression;
   }
-  static class Literal extends Expr {
+  public static class Literal extends Expr {
     Literal(Object value) {
       this.value = value;
     }
@@ -143,7 +145,7 @@ abstract class Expr {
 
     final Object value;
   }
-  static class Logical extends Expr {
+  public static class Logical extends Expr {
     Logical(Expr left, Token operator, Expr right) {
       this.left = left;
       this.operator = operator;
@@ -158,7 +160,7 @@ abstract class Expr {
     final Token operator;
     final Expr right;
   }
-  static class Set extends Expr {
+  public static class Set extends Expr {
     Set(Expr object, Token name, Expr value) {
       this.object = object;
       this.name = name;
@@ -174,7 +176,7 @@ abstract class Expr {
     final Expr value;
   }
 
-  static class Unary extends Expr {
+  public static class Unary extends Expr {
     Unary(Token operator, Expr right) {
       this.operator = operator;
       this.right = right;
@@ -188,7 +190,7 @@ abstract class Expr {
     final Expr right;
   }
   
-  static class Variable extends Expr {
+  public static class Variable extends Expr {
     Variable(Token name) {
       this.name = name;
     }
@@ -200,7 +202,7 @@ abstract class Expr {
     final Token name;
   }
 
-  static class Array extends Expr {
+  public static class Array extends Expr {
     Array(List<Expr> els) {
       this.elements = els;
     }
@@ -210,7 +212,7 @@ abstract class Expr {
     final List<Expr> elements;
   }
 
-  static class Map extends Expr {
+  public static class Map extends Expr {
     Map(HashMap<Expr, Expr> els) {
       this.elements = els;
     }
@@ -220,7 +222,7 @@ abstract class Expr {
     final HashMap<Expr, Expr> elements;
   }
 
-  static class Load extends Expr {
+  public static class Load extends Expr {
     Load(Expr toLoad) { this.toLoad = toLoad; }
 
     <R> R accept(Visitor<R> visitor) { return visitor.visitLoadExpr(this); }
@@ -228,7 +230,7 @@ abstract class Expr {
     final Expr toLoad;
   }
 
-  static class Import extends Expr {
+  public static class Import extends Expr {
     Import(Expr toImport) { this.toImport = toImport; }
 
     <R> R accept(Visitor<R> visitor) { return visitor.visitImportExpr(this); }
@@ -236,5 +238,5 @@ abstract class Expr {
     final Expr toImport;
   }
 
-  abstract <R> R accept(Visitor<R> visitor);
+  public abstract <R> R accept(Visitor<R> visitor);
 }
