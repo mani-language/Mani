@@ -1,7 +1,7 @@
 package com.mani.lang.domain;
 
-import com.mani.lang.Enviroment.Environment;
-import com.mani.lang.Return;
+import com.mani.lang.enviroment.Environment;
+import com.mani.lang.exceptions.Return;
 import com.mani.lang.core.Interpreter;
 import com.mani.lang.core.Stmt;
 
@@ -13,7 +13,7 @@ public class ManiFunction implements ManiCallable {
     private final Boolean isInitializer;
     private final Boolean isPrivate;
 
-    ManiFunction(Stmt.Function declaration, Environment closure, Boolean isInitializer, Boolean isPrivate) {
+    public ManiFunction(Stmt.Function declaration, Environment closure, Boolean isInitializer, Boolean isPrivate) {
         this.declaration = declaration;
         this.closure = closure;
         this.isInitializer = isInitializer;
