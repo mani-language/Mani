@@ -30,6 +30,10 @@ public class ManiInstance {
         return this.klass.findMethod(this, "show") != null;
     }
 
+    boolean hasFunction(String functionName) {
+        return this.klass.findMethod(this, functionName) != null;
+    }
+
     void set(Token name, Object value) {
         fields.put(name.lexeme, value);
     }

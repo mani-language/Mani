@@ -500,6 +500,11 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
                     left = stringfy(left);
                     return (String) left + (String) right;
                 }
+                if (left instanceof ManiInstance && ((ManiInstance) left).hasFunction("add")) {
+                    List<Object> arguments = new ArrayList<>();
+                    arguments.add(right);
+                    return ((ManiFunction)((ManiInstance) left).get(new Token(TokenType.IDENTIFIER, "add", "", 0))).call(this, arguments);
+                }
                 throw new RuntimeError(expr.operator, "Operands must be numbers or strings");
             case GREATER:
                 checkNumberOperands(expr.operator, left, right);
