@@ -1,9 +1,9 @@
 package com.mani.lang.Modules.threads;
 
-import com.mani.lang.Interpreter;
-import com.mani.lang.ManiCallable;
-import com.mani.lang.ManiCallableInternal;
-import com.mani.lang.ManiFunction;
+import com.mani.lang.core.Interpreter;
+import com.mani.lang.domain.ManiCallable;
+import com.mani.lang.domain.ManiCallableInternal;
+import com.mani.lang.domain.ManiFunction;
 import com.mani.lang.Modules.Module;
 
 import java.util.ArrayList;
