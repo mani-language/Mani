@@ -1,12 +1,12 @@
-package com.mani.lang;
+package com.mani.lang.core;
 
-import com.mani.lang.Token.Token;
+import com.mani.lang.token.Token;
 
 import java.util.HashMap;
 import java.util.List;
 
 public abstract class Expr {
-  public interface Visitor<R> {
+  protected interface Visitor<R> {
     R visitAssignExpr(Assign expr);
     R visitBinaryExpr(Binary expr);
     R visitThisExpr(This expr);
@@ -25,13 +25,13 @@ public abstract class Expr {
     R visitLoadExpr(Load expr);
     R visitImportExpr(Import expr);
   }
-  public static class Assign extends Expr {
+  static class Assign extends Expr {
     Assign(Token name, Expr value) {
       this.name = name;
       this.value = value;
     }
 
-    <R> R accept(Visitor<R> visitor) {
+    protected <R> R accept(Visitor<R> visitor) {
       return visitor.visitAssignExpr(this);
     }
 
@@ -39,13 +39,13 @@ public abstract class Expr {
     final Expr value;
   }
 
-  public static class Copy extends Expr {
+  static class Copy extends Expr {
     Copy(Token name, Token from) {
       this.name = name;
       this.from = from;
     }
 
-    <R> R accept(Visitor<R> visitor) {
+    protected <R> R accept(Visitor<R> visitor) {
       return visitor.visitCopyExpr(this);
     }
 
@@ -53,14 +53,14 @@ public abstract class Expr {
     final Token from;
   }
   
-  public static class Binary extends Expr {
+  static class Binary extends Expr {
     Binary(Expr left, Token operator, Expr right) {
       this.left = left;
       this.operator = operator;
       this.right = right;
     }
 
-    <R> R accept(Visitor<R> visitor) {
+    protected <R> R accept(Visitor<R> visitor) {
       return visitor.visitBinaryExpr(this);
     }
 
@@ -69,25 +69,25 @@ public abstract class Expr {
     final Expr right;
   }
 
-  public static class This extends Expr {
+  static class This extends Expr {
     This(Token keyword) {
       this.keyword = keyword;
     }
 
-    <R> R accept(Visitor<R> visitor) {
+    protected <R> R accept(Visitor<R> visitor) {
       return visitor.visitThisExpr(this);
     }
 
     final Token keyword;
   }
-  public static class Call extends Expr {
+  static class Call extends Expr {
     Call(Expr callee, Token paren, List<Expr> arguments) {
       this.callee = callee;
       this.paren = paren;
       this.arguments = arguments;
     }
 
-    <R> R accept(Visitor<R> visitor) {
+    protected <R> R accept(Visitor<R> visitor) {
       return visitor.visitCallExpr(this);
     }
 
@@ -95,14 +95,14 @@ public abstract class Expr {
     final Token paren;
     final List<Expr> arguments;
   }
-  public static class Get extends Expr {
+  static class Get extends Expr {
     Get(Expr object, Token name, Boolean fromThis) {
       this.object = object;
       this.name = name;
       this.fromThis = fromThis;
     }
 
-    <R> R accept(Visitor<R> visitor) {
+    protected <R> R accept(Visitor<R> visitor) {
       return visitor.visitGetExpr(this);
     }
 
@@ -110,49 +110,49 @@ public abstract class Expr {
     final Token name;
     final Boolean fromThis;
   }
-  public static class Super extends Expr {
+  static class Super extends Expr {
     Super(Token keyword, Token method) {
       this.keyword = keyword;
       this.method = method;
     }
 
-    <R> R accept(Visitor<R> visitor) {
+    protected <R> R accept(Visitor<R> visitor) {
       return visitor.visitSuperExpr(this);
     }
 
     final Token keyword;
     final Token method;
   }
-  public static class Grouping extends Expr {
+  static class Grouping extends Expr {
     Grouping(Expr expression) {
       this.expression = expression;
     }
 
-    <R> R accept(Visitor<R> visitor) {
+    protected <R> R accept(Visitor<R> visitor) {
       return visitor.visitGroupingExpr(this);
     }
 
     final Expr expression;
   }
-  public static class Literal extends Expr {
+  static class Literal extends Expr {
     Literal(Object value) {
       this.value = value;
     }
 
-    <R> R accept(Visitor<R> visitor) {
+    protected <R> R accept(Visitor<R> visitor) {
       return visitor.visitLiteralExpr(this);
     }
 
     final Object value;
   }
-  public static class Logical extends Expr {
+  static class Logical extends Expr {
     Logical(Expr left, Token operator, Expr right) {
       this.left = left;
       this.operator = operator;
       this.right = right;
     }
 
-    <R> R accept(Visitor<R> visitor) {
+    protected <R> R accept(Visitor<R> visitor) {
       return visitor.visitLogicalExpr(this);
     }
 
@@ -160,14 +160,14 @@ public abstract class Expr {
     final Token operator;
     final Expr right;
   }
-  public static class Set extends Expr {
+  static class Set extends Expr {
     Set(Expr object, Token name, Expr value) {
       this.object = object;
       this.name = name;
       this.value = value;
     }
 
-    <R> R accept(Visitor<R> visitor) {
+    protected <R> R accept(Visitor<R> visitor) {
       return visitor.visitSetExpr(this);
     }
 
@@ -176,13 +176,13 @@ public abstract class Expr {
     final Expr value;
   }
 
-  public static class Unary extends Expr {
+  static class Unary extends Expr {
     Unary(Token operator, Expr right) {
       this.operator = operator;
       this.right = right;
     }
 
-    <R> R accept(Visitor<R> visitor) {
+    protected <R> R accept(Visitor<R> visitor) {
       return visitor.visitUnaryExpr(this);
     }
 
@@ -190,53 +190,53 @@ public abstract class Expr {
     final Expr right;
   }
   
-  public static class Variable extends Expr {
+  static class Variable extends Expr {
     Variable(Token name) {
       this.name = name;
     }
 
-    <R> R accept(Visitor<R> visitor) {
+    protected <R> R accept(Visitor<R> visitor) {
       return visitor.visitVariableExpr(this);
     }
 
     final Token name;
   }
 
-  public static class Array extends Expr {
+  static class Array extends Expr {
     Array(List<Expr> els) {
       this.elements = els;
     }
 
-    <R> R accept(Visitor<R> visitor) { return visitor.visitArrayExpr(this); }
+    protected <R> R accept(Visitor<R> visitor) { return visitor.visitArrayExpr(this); }
 
     final List<Expr> elements;
   }
 
-  public static class Map extends Expr {
+  static class Map extends Expr {
     Map(HashMap<Expr, Expr> els) {
       this.elements = els;
     }
 
-    <R> R accept(Visitor<R> visitor) { return visitor.visitMapExpr(this); }
+    protected <R> R accept(Visitor<R> visitor) { return visitor.visitMapExpr(this); }
 
     final HashMap<Expr, Expr> elements;
   }
 
-  public static class Load extends Expr {
+  static class Load extends Expr {
     Load(Expr toLoad) { this.toLoad = toLoad; }
 
-    <R> R accept(Visitor<R> visitor) { return visitor.visitLoadExpr(this); }
+    protected <R> R accept(Visitor<R> visitor) { return visitor.visitLoadExpr(this); }
 
     final Expr toLoad;
   }
 
-  public static class Import extends Expr {
+  static class Import extends Expr {
     Import(Expr toImport) { this.toImport = toImport; }
 
-    <R> R accept(Visitor<R> visitor) { return visitor.visitImportExpr(this); }
+    protected <R> R accept(Visitor<R> visitor) { return visitor.visitImportExpr(this); }
 
     final Expr toImport;
   }
 
-  public abstract <R> R accept(Visitor<R> visitor);
+  protected abstract <R> R accept(Visitor<R> visitor);
 }
