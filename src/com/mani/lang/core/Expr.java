@@ -1,10 +1,12 @@
-package com.mani.lang;
+package com.mani.lang.core;
+
+import com.mani.lang.token.Token;
 
 import java.util.HashMap;
 import java.util.List;
 
-abstract class Expr {
-  interface Visitor<R> {
+public abstract class Expr {
+  protected interface Visitor<R> {
     R visitAssignExpr(Assign expr);
     R visitBinaryExpr(Binary expr);
     R visitThisExpr(This expr);
@@ -29,7 +31,7 @@ abstract class Expr {
       this.value = value;
     }
 
-    <R> R accept(Visitor<R> visitor) {
+    protected <R> R accept(Visitor<R> visitor) {
       return visitor.visitAssignExpr(this);
     }
 
@@ -43,7 +45,7 @@ abstract class Expr {
       this.from = from;
     }
 
-    <R> R accept(Visitor<R> visitor) {
+    protected <R> R accept(Visitor<R> visitor) {
       return visitor.visitCopyExpr(this);
     }
 
@@ -58,7 +60,7 @@ abstract class Expr {
       this.right = right;
     }
 
-    <R> R accept(Visitor<R> visitor) {
+    protected <R> R accept(Visitor<R> visitor) {
       return visitor.visitBinaryExpr(this);
     }
 
@@ -72,7 +74,7 @@ abstract class Expr {
       this.keyword = keyword;
     }
 
-    <R> R accept(Visitor<R> visitor) {
+    protected <R> R accept(Visitor<R> visitor) {
       return visitor.visitThisExpr(this);
     }
 
@@ -85,7 +87,7 @@ abstract class Expr {
       this.arguments = arguments;
     }
 
-    <R> R accept(Visitor<R> visitor) {
+    protected <R> R accept(Visitor<R> visitor) {
       return visitor.visitCallExpr(this);
     }
 
@@ -100,7 +102,7 @@ abstract class Expr {
       this.fromThis = fromThis;
     }
 
-    <R> R accept(Visitor<R> visitor) {
+    protected <R> R accept(Visitor<R> visitor) {
       return visitor.visitGetExpr(this);
     }
 
@@ -114,7 +116,7 @@ abstract class Expr {
       this.method = method;
     }
 
-    <R> R accept(Visitor<R> visitor) {
+    protected <R> R accept(Visitor<R> visitor) {
       return visitor.visitSuperExpr(this);
     }
 
@@ -126,7 +128,7 @@ abstract class Expr {
       this.expression = expression;
     }
 
-    <R> R accept(Visitor<R> visitor) {
+    protected <R> R accept(Visitor<R> visitor) {
       return visitor.visitGroupingExpr(this);
     }
 
@@ -137,7 +139,7 @@ abstract class Expr {
       this.value = value;
     }
 
-    <R> R accept(Visitor<R> visitor) {
+    protected <R> R accept(Visitor<R> visitor) {
       return visitor.visitLiteralExpr(this);
     }
 
@@ -150,7 +152,7 @@ abstract class Expr {
       this.right = right;
     }
 
-    <R> R accept(Visitor<R> visitor) {
+    protected <R> R accept(Visitor<R> visitor) {
       return visitor.visitLogicalExpr(this);
     }
 
@@ -165,7 +167,7 @@ abstract class Expr {
       this.value = value;
     }
 
-    <R> R accept(Visitor<R> visitor) {
+    protected <R> R accept(Visitor<R> visitor) {
       return visitor.visitSetExpr(this);
     }
 
@@ -180,7 +182,7 @@ abstract class Expr {
       this.right = right;
     }
 
-    <R> R accept(Visitor<R> visitor) {
+    protected <R> R accept(Visitor<R> visitor) {
       return visitor.visitUnaryExpr(this);
     }
 
@@ -193,7 +195,7 @@ abstract class Expr {
       this.name = name;
     }
 
-    <R> R accept(Visitor<R> visitor) {
+    protected <R> R accept(Visitor<R> visitor) {
       return visitor.visitVariableExpr(this);
     }
 
@@ -205,7 +207,7 @@ abstract class Expr {
       this.elements = els;
     }
 
-    <R> R accept(Visitor<R> visitor) { return visitor.visitArrayExpr(this); }
+    protected <R> R accept(Visitor<R> visitor) { return visitor.visitArrayExpr(this); }
 
     final List<Expr> elements;
   }
@@ -215,7 +217,7 @@ abstract class Expr {
       this.elements = els;
     }
 
-    <R> R accept(Visitor<R> visitor) { return visitor.visitMapExpr(this); }
+    protected <R> R accept(Visitor<R> visitor) { return visitor.visitMapExpr(this); }
 
     final HashMap<Expr, Expr> elements;
   }
@@ -223,7 +225,7 @@ abstract class Expr {
   static class Load extends Expr {
     Load(Expr toLoad) { this.toLoad = toLoad; }
 
-    <R> R accept(Visitor<R> visitor) { return visitor.visitLoadExpr(this); }
+    protected <R> R accept(Visitor<R> visitor) { return visitor.visitLoadExpr(this); }
 
     final Expr toLoad;
   }
@@ -231,10 +233,10 @@ abstract class Expr {
   static class Import extends Expr {
     Import(Expr toImport) { this.toImport = toImport; }
 
-    <R> R accept(Visitor<R> visitor) { return visitor.visitImportExpr(this); }
+    protected <R> R accept(Visitor<R> visitor) { return visitor.visitImportExpr(this); }
 
     final Expr toImport;
   }
 
-  abstract <R> R accept(Visitor<R> visitor);
+  protected abstract <R> R accept(Visitor<R> visitor);
 }

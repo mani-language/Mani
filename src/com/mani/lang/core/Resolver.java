@@ -1,17 +1,20 @@
-package com.mani.lang;
+package com.mani.lang.core;
+
+import com.mani.lang.main.Mani;
+import com.mani.lang.token.Token;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
-class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
+public class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
     private final Interpreter interpreter;
     private final Stack<Map<String, Boolean>> scopes = new Stack<>();
     private FunctionType currentFunction = FunctionType.NONE;
     private ClassType currentClass = ClassType.NONE;
     private Boolean isInLoop = false;
-    Resolver(Interpreter interpreter) {
+    public Resolver(Interpreter interpreter) {
         this.interpreter = interpreter;
     }
     enum FunctionType {
@@ -26,7 +29,7 @@ class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
         SUBCLASS
     }
 
-    void resolve(List<Stmt> statements) {
+    public void resolve(List<Stmt> statements) {
         for(Stmt statement : statements) {
             resolve(statement);
         }

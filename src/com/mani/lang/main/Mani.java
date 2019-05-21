@@ -1,4 +1,9 @@
-package com.mani.lang;
+package com.mani.lang.main;
+
+import com.mani.lang.token.Token;
+import com.mani.lang.token.TokenType;
+import com.mani.lang.core.*;
+import com.mani.lang.exceptions.RuntimeError;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -88,7 +93,7 @@ public class Mani {
      * This is our REPL. It is basic, so please be nice.
      */
     private static void runPrompt() {
-        System.out.println("The \u001B[36mMani\033[0m Programming Language");
+        System.out.println("The \u001B[36mMani\033[0m Programming language");
         try{
             InputStreamReader input = new InputStreamReader(System.in);
             BufferedReader reader = new BufferedReader(input);
@@ -160,7 +165,7 @@ public class Mani {
      * @param line
      * @param message
      */
-    static void error(int line, String message) {
+    public static void error(int line, String message) {
         report(line, "", message);
     }
 
@@ -169,7 +174,7 @@ public class Mani {
      * @param token
      * @param message
      */
-    static void error(Token token, String message) {
+    public static void error(Token token, String message) {
         if(token.type == TokenType.EOF) {
             report(token.line, "at end", message);
         } else {
@@ -183,7 +188,7 @@ public class Mani {
      * @param where
      * @param message
      */
-    static void report(int line, String where, String message) {
+    private static void report(int line, String where, String message) {
         System.err.println("[line " + line + "] Error " + where +" : " + message );
         hadError = true;
     }
@@ -193,7 +198,7 @@ public class Mani {
      * in the console.
      * @param error
      */
-    static void runtimeError(RuntimeError error) {
+    public static void runtimeError(RuntimeError error) {
         System.err.println(error.getMessage() + "\n[line " + error.token.line + "]");
         hadRuntimeError = true;
     }

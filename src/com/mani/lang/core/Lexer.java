@@ -1,5 +1,8 @@
-package com.mani.lang;
+package com.mani.lang.core;
 
+import com.mani.lang.main.Mani;
+import com.mani.lang.token.Token;
+import com.mani.lang.token.TokenType;
 import com.mani.lang.language.Lang;
 
 import java.util.ArrayList;
@@ -7,9 +10,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.mani.lang.TokenType.*;
+import static com.mani.lang.token.TokenType.*;
 
-class Lexer {
+public class Lexer {
     private static Map<String, TokenType> keywords;
 
     private boolean awaitingLangName = false;
@@ -42,16 +45,18 @@ class Lexer {
         keywords.put("load", LOAD);
         keywords.put("is", IS);
         keywords.put("as", AS);
+        keywords.put("match", MATCH);
+        keywords.put("case", CASE);
     }
     private final String source;
     private final List<Token> tokens = new ArrayList<>();
     private int start = 0;
     private int current = 0;
     private int line = 1;
-    Lexer(String source){
+    public Lexer(String source){
         this.source = source;
     }
-    List<Token> scanTokens(){
+    public List<Token> scanTokens(){
         while(! isAtEnd()){
             start = current;
             scanToken();

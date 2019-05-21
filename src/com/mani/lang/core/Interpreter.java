@@ -1,7 +1,17 @@
-package com.mani.lang;
+package com.mani.lang.core;
 
+import com.mani.lang.exceptions.*;
+
+import com.mani.lang.enviroment.Environment;
+import com.mani.lang.enviroment.Inbuilt;
 import com.mani.lang.Modules.Module;
+import com.mani.lang.exceptions.RuntimeError;
+import com.mani.lang.main.Mani;
+import com.mani.lang.main.Std;
+import com.mani.lang.token.Token;
+import com.mani.lang.token.TokenType;
 import com.mani.lang.local.Locals;
+import com.mani.lang.domain.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,13 +20,13 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.util.*;
 
-public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
+public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
 
     final Environment globals = new Environment();
     private final Map<Expr, Integer> locals = new HashMap<>();
     private Environment environment = globals;
 
-    Interpreter() {
+    public Interpreter() {
         /**
          * Loading the inBuilts hashMap, which is the built in functions / apis for the language.
          * We are just defining them in the enviroment
@@ -46,7 +56,7 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
      * This function is used to go through every single statement and execute it, one by one.
      * @param statements
      */
-    void interpret(List<Stmt> statements) {
+    public void interpret(List<Stmt> statements) {
         try{
             for(Stmt statement : statements) {
                 execute(statement);
@@ -111,7 +121,7 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
         locals.put(expr, depth);
     }
 
-    void executeBlock(List<Stmt> statements, Environment environment) {
+    public void executeBlock(List<Stmt> statements, Environment environment) {
         Environment previous = this.environment;
         try{
             this.environment = environment;

@@ -1,6 +1,6 @@
 package com.mani.lang.Modules.functional;
 
-import com.mani.lang.Interpreter;
+import com.mani.lang.core.Interpreter;
 import com.mani.lang.Modules.Module;
 
 public final class functional implements Module {

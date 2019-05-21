@@ -3,8 +3,8 @@ package com.mani.lang.Modules.json;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.mani.lang.Interpreter;
-import com.mani.lang.ManiCallable;
+import com.mani.lang.core.Interpreter;
+import com.mani.lang.domain.ManiCallable;
 
 import java.lang.reflect.Type;
 import java.util.List;

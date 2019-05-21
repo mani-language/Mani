@@ -1,8 +1,7 @@
 package com.mani.lang.Modules.webSocket;
 
-import com.mani.lang.Interpreter;
-import com.mani.lang.ManiCallable;
-import com.neovisionaries.ws.client.WebSocket;
+import com.mani.lang.core.Interpreter;
+import com.mani.lang.domain.ManiCallable;
 import com.neovisionaries.ws.client.WebSocketFactory;
 
 import java.io.IOException;

@@ -1,14 +1,12 @@
-package com.mani.lang;
+package com.mani.lang.enviroment;
 
-import com.mani.lang.Modules.Module;
+import com.mani.lang.main.Mani;
+import com.mani.lang.main.Std;
+import com.mani.lang.core.Interpreter;
+import com.mani.lang.domain.ManiCallable;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 
 public class Inbuilt {
