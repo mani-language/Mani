@@ -1,37 +1,37 @@
-package com.mani.lang.Enviroment;
+package com.mani.lang.enviroment;
 
-import com.mani.lang.RuntimeError;
-import com.mani.lang.Token.Token;
+import com.mani.lang.exceptions.RuntimeError;
+import com.mani.lang.token.Token;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class Environment {
-    final Environment enclosing;
+    public final Environment enclosing;
     private final Map<String, Object> values = new HashMap<>();
 
     public Environment() {
         enclosing = null;
     }
 
-    Environment(Environment enclosing) {
+    public Environment(Environment enclosing) {
         this.enclosing = enclosing;
     }
 
 
-    void define(String name, Object value) {
+    public void define(String name, Object value) {
         values.put(name, value);
     }
 
-    Object getAt(int distance, String name) {
+    public Object getAt(int distance, String name) {
         return ancestor(distance).values.get(name);
     }
 
-    void assignAt(int distance, Token name, Object value) {
+    public void assignAt(int distance, Token name, Object value) {
         ancestor(distance).values.put(name.lexeme, value);
     }
 
-    Environment ancestor(int distance) {
+    public Environment ancestor(int distance) {
        Environment environment = this;
         for( int i = 0 ; i < distance ; i++ ) {
             environment = environment.enclosing;
@@ -47,7 +47,7 @@ public class Environment {
      * @return
      */
 
-    Object get(Token name) {
+    public Object get(Token name) {
         if(values.containsKey(name.lexeme)) {
             return values.get(name.lexeme);
         }
@@ -55,7 +55,7 @@ public class Environment {
         throw new RuntimeError(name, "Undefined variable '" + name.lexeme +"'.");
     }
 
-    Object get(String name) {
+    public Object get(String name) {
         
         if (values.containsKey(name)) {
             return values.get(name);
@@ -70,7 +70,7 @@ public class Environment {
      * @param value
      */
 
-    void assign(Token name, Object value) {
+    public void assign(Token name, Object value) {
         if(values.containsKey(name.lexeme)) {
             values.put(name.lexeme, value);
             return;
@@ -84,7 +84,7 @@ public class Environment {
         throw new RuntimeError(name, "Undefined variable '" + name.lexeme +"'.");
     }
 
-    void assignForce(Token name, Object value) {
+    public void assignForce(Token name, Object value) {
         if (enclosing != null) {
             enclosing.assignForce(name, value);
             return;
@@ -93,7 +93,7 @@ public class Environment {
         values.put(name.lexeme, value);
     }
 
-    void cleanupForce(Token name) {
+    public void cleanupForce(Token name) {
         if (enclosing != null) {
             enclosing.cleanupForce(name);
             return;
@@ -102,7 +102,7 @@ public class Environment {
 
     }
 
-    void wipe() {
+    public void wipe() {
         values.clear();
     }
 }
