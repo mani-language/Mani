@@ -1,23 +1,24 @@
 //Parser for moonLang - A straight recursive descent paser.
-package com.mani.lang;
+package com.mani.lang.core;
 
-import com.mani.lang.Token.Token;
-import com.mani.lang.Token.TokenType;
+import com.mani.lang.main.Mani;
+import com.mani.lang.token.Token;
+import com.mani.lang.token.TokenType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-class Parser {
+public class Parser {
     private static class ParserError extends RuntimeException{}
     private final List<Token> tokens;
     private int current = 0;
 
-    Parser(List<Token> tokens) {
+    public Parser(List<Token> tokens) {
         this.tokens = tokens;
     }
-    List<Stmt> parse() {
+    public List<Stmt> parse() {
         List<Stmt> statements = new ArrayList<>();
         while(!isAtEnd()) {
             if (peek().type == TokenType.STRICT) {
