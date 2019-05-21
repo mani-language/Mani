@@ -460,6 +460,11 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
             case STAR_STAR:
                 return new Double(Math.pow((double) left, (double) right));
             case MINUS:
+                if (left instanceof ManiInstance && ((ManiInstance) left).hasFunction("minus")) {
+                    List<Object> arguments = new ArrayList<>();
+                    arguments.add(right);
+                    return ((ManiFunction)((ManiInstance) left).get(new Token(TokenType.IDENTIFIER, "minus", "", 0))).call(this, arguments);
+                }
                 checkNumberOperands(expr.operator, left, right);
                 return (double) left  - (double) right;
             case SLASH:
