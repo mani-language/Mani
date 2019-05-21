@@ -1,8 +1,8 @@
 package com.mani.lang.Modules.webSocket;
 
-import com.mani.lang.Interpreter;
-import com.mani.lang.ManiCallableInternal;
-import com.mani.lang.ManiFunction;
+import com.mani.lang.core.Interpreter;
+import com.mani.lang.domain.ManiCallableInternal;
+import com.mani.lang.domain.ManiFunction;
 import com.mani.lang.Modules.Module;
 import com.mani.lang.local.Locals;
 import com.neovisionaries.ws.client.WebSocket;
