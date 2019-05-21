@@ -1,5 +1,7 @@
 package com.mani.lang;
 
+import com.mani.lang.Token.Token;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -176,7 +178,7 @@ class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
     @Override
     public Void visitVariableExpr(Expr.Variable expr) {
         if(!scopes.isEmpty() && scopes.peek().get(expr.name.lexeme) == Boolean.FALSE) {
-            Mani.error(expr.name, "Cannot read local variable in its own initializer.");
+            Mani.error(expr.name, "Cannot read Local variable in its own initializer.");
         }
         resolveLocal(expr, expr.name);
         return null;

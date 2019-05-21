@@ -1,7 +1,9 @@
 package com.mani.lang;
 
 import com.mani.lang.Modules.Module;
-import com.mani.lang.local.Locals;
+import com.mani.lang.Token.Token;
+import com.mani.lang.Token.TokenType;
+import com.mani.lang.Local.Locals;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,7 +20,7 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
 
     Interpreter() {
         /**
-         * Loading the inBuilts hashMap, which is the built in functions / apis for the language.
+         * Loading the inBuilts hashMap, which is the built in functions / apis for the Language.
          * We are just defining them in the enviroment
          */
         if(! Inbuilt.inBuilts.isEmpty()) {
@@ -355,7 +357,7 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
 
     @Override
     public Object visitImportExpr(Expr.Import expr) {
-        // This is where we need to import the library from the internet, or local. Depends if there is internet.
+        // This is where we need to import the library from the internet, or Local. Depends if there is internet.
         Object result = evaluate(expr.toImport);
         if (!(result instanceof String)) {
             System.err.println(result.getClass().getSimpleName());
@@ -364,7 +366,7 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
         }
 
         if (Mani.hasInternet) {
-            // If there is internet, we will choose to use that STDLIB over the local...
+            // If there is internet, we will choose to use that STDLIB over the Local...
             // simply due to the fact that it will be more up-to-date.
             if (Std.find((String) result).equalsIgnoreCase("-2")){
                 // This means it has already been loaded.
@@ -390,7 +392,7 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
                 }
             }
         } else {
-            // As there is no internet. We are going to have to try and use the local version
+            // As there is no internet. We are going to have to try and use the Local version
             // That is if the user actually has them installed...
             if (!Std.hasRun) {
                 Std.Load();

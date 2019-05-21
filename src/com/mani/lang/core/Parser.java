@@ -1,6 +1,9 @@
 //Parser for moonLang - A straight recursive descent paser.
 package com.mani.lang;
 
+import com.mani.lang.Token.Token;
+import com.mani.lang.Token.TokenType;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -410,6 +413,21 @@ class Parser {
         if(match(TokenType.FALSE)) return new Expr.Literal(false);
         if(match(TokenType.TRUE)) return new Expr.Literal(true);
         if(match(TokenType.NIL)) return new Expr.Literal(null);
+
+//        if(match(TokenType.MATCH)) {
+//            Expr expression = expression();
+//            consume(TokenType.LEFT_BRACE, "Expected '{' after expression.");
+//            final List<Pattern> patterns = new ArrayList<>();
+//            do {
+//                consume(TokenType.CASE, "Expected 'case' statements.");
+//                Pattern pattern = null;
+//                final Token current = getAt(0);
+//                if (match(TokenType.NUMBER)) {
+//                    // case 0.5;
+//                    pattern = new
+//                }
+//            } while(! match(TokenType.RIGHT_BRACE));
+//        }
 
         if(match(TokenType.SUPER)) {
             Token keyword = previous();
