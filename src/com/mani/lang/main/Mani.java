@@ -1,5 +1,10 @@
 package com.mani.lang;
 
+import com.mani.lang.token.Token;
+import com.mani.lang.token.TokenType;
+import com.mani.lang.core.*;
+import com.mani.lang.exceptions.RuntimeError;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -88,7 +93,7 @@ public class Mani {
      * This is our REPL. It is basic, so please be nice.
      */
     private static void runPrompt() {
-        System.out.println("The \u001B[36mMani\033[0m Programming Language");
+        System.out.println("The \u001B[36mMani\033[0m Programming language");
         try{
             InputStreamReader input = new InputStreamReader(System.in);
             BufferedReader reader = new BufferedReader(input);
@@ -169,7 +174,7 @@ public class Mani {
      * @param token
      * @param message
      */
-    static void error(Token token, String message) {
+    public static void error(Token token, String message) {
         if(token.type == TokenType.EOF) {
             report(token.line, "at end", message);
         } else {
@@ -183,7 +188,7 @@ public class Mani {
      * @param where
      * @param message
      */
-    static void report(int line, String where, String message) {
+    private static void report(int line, String where, String message) {
         System.err.println("[line " + line + "] Error " + where +" : " + message );
         hadError = true;
     }
