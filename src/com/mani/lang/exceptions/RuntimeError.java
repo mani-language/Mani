@@ -1,10 +1,10 @@
-package com.mani.lang;
+package com.mani.lang.exceptions;
 
-import com.mani.lang.Token.Token;
+import com.mani.lang.token.Token;
 
-class RuntimeError extends RuntimeException {
-    final Token token;
-    RuntimeError(Token token, String message) {
+public class RuntimeError extends RuntimeException {
+    public final Token token;
+    public RuntimeError(Token token, String message) {
         super(message);
         this.token = token;
     }
