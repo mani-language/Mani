@@ -1,7 +1,7 @@
 package com.mani.lang.Modules.http;
 
-import com.mani.lang.Interpreter;
-import com.mani.lang.ManiCallable;
+import com.mani.lang.core.Interpreter;
+import com.mani.lang.domain.ManiCallable;
 
 import java.util.List;
 
