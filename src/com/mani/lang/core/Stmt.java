@@ -1,11 +1,11 @@
-package com.mani.lang;
+package com.mani.lang.core;
 
-import com.mani.lang.Token.Token;
+import com.mani.lang.token.Token;
 
 import java.util.List;
 
 public abstract class Stmt {
-  public interface Visitor<R> {
+  interface Visitor<R> {
     R visitBlockStmt(Block stmt);
     R visitClassStmt(Class stmt);
     R visitExpressionStmt(Expression stmt);
@@ -19,7 +19,7 @@ public abstract class Stmt {
     R visitForEachStmt(ForEach stmt);
     R visitForEachMapStmt(ForEachMap stmt);
   }
-  public static class Block extends Stmt {
+  static class Block extends Stmt {
     Block(List<Stmt> statements) {
       this.statements = statements;
     }
@@ -28,9 +28,9 @@ public abstract class Stmt {
       return visitor.visitBlockStmt(this);
     }
 
-    public final List<Stmt> statements;
+    final List<Stmt> statements;
   }
-  public static class Class extends Stmt {
+  static class Class extends Stmt {
     Class(Token name, Expr.Variable superclass, List<Function> methods) {
       this.name = name;
       this.superclass = superclass;
@@ -41,11 +41,11 @@ public abstract class Stmt {
       return visitor.visitClassStmt(this);
     }
 
-    public final Token name;
-    public final Expr.Variable superclass;
-    public final List<Function> methods;
+    final Token name;
+    final Expr.Variable superclass;
+    final List<Function> methods;
   }
-  public static class Expression extends Stmt {
+  static class Expression extends Stmt {
     Expression(Expr expression) {
       this.expression = expression;
     }
@@ -56,7 +56,7 @@ public abstract class Stmt {
 
     final Expr expression;
   }
-  public static class If extends Stmt {
+  static class If extends Stmt {
     If(Expr condition, Stmt thenBranch, Stmt elseBranch) {
       this.condition = condition;
       this.thenBranch = thenBranch;
@@ -83,12 +83,12 @@ public abstract class Stmt {
       return visitor.visitFunctionStmt(this);
     }
 
-    final Token name;
+    public final Token name;
     public final List<Token> parameters;
-    final List<Stmt> body;
+    public final List<Stmt> body;
     final Boolean isprivate;
   }
-  public static class Print extends Stmt {
+  static class Print extends Stmt {
     Print(Expr expression) {
       this.expression = expression;
     }
@@ -99,7 +99,7 @@ public abstract class Stmt {
 
     final Expr expression;
   }
-  public static class Return extends Stmt {
+  static class Return extends Stmt {
     Return(Token keyword, Expr value) {
       this.keyword = keyword;
       this.value = value;
@@ -112,7 +112,7 @@ public abstract class Stmt {
     final Token keyword;
     final Expr value;
   }
-  public static class Break extends Stmt {
+  static class Break extends Stmt {
       Break(Token keyword){
         this.keyword = keyword;
       }
@@ -121,7 +121,7 @@ public abstract class Stmt {
       }
       final Token keyword;
    }
-  public static class Var extends Stmt {
+  static class Var extends Stmt {
     Var(Token name, Expr initializer) {
       this.name = name;
       this.initializer = initializer;
@@ -134,7 +134,7 @@ public abstract class Stmt {
     final Token name;
     final Expr initializer;
   }
-  public static class While extends Stmt {
+  static class While extends Stmt {
     While(Expr condition, Stmt body) {
       this.condition = condition;
       this.body = body;
@@ -148,7 +148,7 @@ public abstract class Stmt {
     final Stmt body;
   }
 
-  public static class ForEach extends Stmt {
+  static class ForEach extends Stmt {
       ForEach(Token id, Stmt block, Expr container) {
         this.id = id;
         this.body = block;
@@ -162,7 +162,7 @@ public abstract class Stmt {
       final Expr container;
   }
 
-  public static class ForEachMap extends Stmt {
+  static class ForEachMap extends Stmt {
     ForEachMap(Token key, Token val, Stmt block, Expr container) {
       this.key = key;
       this.val = val;
@@ -178,5 +178,5 @@ public abstract class Stmt {
     final Expr container;
   }
 
-  public abstract <R> R accept(Visitor<R> visitor);
+  abstract <R> R accept(Visitor<R> visitor);
 }
