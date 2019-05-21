@@ -1,7 +1,17 @@
-package com.mani.lang;
+package com.mani.lang.core;
 
+import com.mani.lang.exceptions.*;
+
+import com.mani.lang.enviroment.Environment;
+import com.mani.lang.enviroment.Inbuilt;
 import com.mani.lang.Modules.Module;
+import com.mani.lang.exceptions.RuntimeError;
+import com.mani.lang.main.Mani;
+import com.mani.lang.main.Std;
+import com.mani.lang.token.Token;
+import com.mani.lang.token.TokenType;
 import com.mani.lang.local.Locals;
+import com.mani.lang.domain.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,13 +23,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
+public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
 
     final Environment globals = new Environment();
     private final Map<Expr, Integer> locals = new HashMap<>();
     private Environment environment = globals;
 
-    Interpreter() {
+    public Interpreter() {
         /**
          * Loading the inBuilts hashMap, which is the built in functions / apis for the language.
          * We are just defining them in the enviroment
@@ -49,7 +59,7 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
      * This function is used to go through every single statement and execute it, one by one.
      * @param statements
      */
-    void interpret(List<Stmt> statements) {
+    public void interpret(List<Stmt> statements) {
         try{
             for(Stmt statement : statements) {
                 execute(statement);
@@ -114,7 +124,7 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
         locals.put(expr, depth);
     }
 
-    void executeBlock(List<Stmt> statements, Environment environment) {
+    public void executeBlock(List<Stmt> statements, Environment environment) {
         Environment previous = this.environment;
         try{
             this.environment = environment;
@@ -463,6 +473,11 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
             case STAR_STAR:
                 return new Double(Math.pow((double) left, (double) right));
             case MINUS:
+                if (left instanceof ManiInstance && ((ManiInstance) left).hasFunction("minus")) {
+                    List<Object> arguments = new ArrayList<>();
+                    arguments.add(right);
+                    return ((ManiFunction)((ManiInstance) left).get(new Token(TokenType.IDENTIFIER, "minus", "", 0))).call(this, arguments);
+                }
                 checkNumberOperands(expr.operator, left, right);
                 return (double) left  - (double) right;
             case SLASH:
@@ -502,6 +517,11 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void>{
                 if (left instanceof ManiInstance && right instanceof String) {
                     left = stringfy(left);
                     return (String) left + (String) right;
+                }
+                if (left instanceof ManiInstance && ((ManiInstance) left).hasFunction("add")) {
+                    List<Object> arguments = new ArrayList<>();
+                    arguments.add(right);
+                    return ((ManiFunction)((ManiInstance) left).get(new Token(TokenType.IDENTIFIER, "add", "", 0))).call(this, arguments);
                 }
                 throw new RuntimeError(expr.operator, "Operands must be numbers or strings");
             case GREATER:

@@ -1,8 +1,8 @@
 package com.mani.lang.Modules.functional;
 
-import com.mani.lang.Interpreter;
-import com.mani.lang.ManiCallable;
-import com.mani.lang.ManiFunction;
+import com.mani.lang.core.Interpreter;
+import com.mani.lang.domain.ManiCallable;
+import com.mani.lang.domain.ManiFunction;
 
 import java.util.ArrayList;
 import java.util.List;

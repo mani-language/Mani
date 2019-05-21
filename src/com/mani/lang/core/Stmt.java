@@ -1,8 +1,10 @@
-package com.mani.lang;
+package com.mani.lang.core;
+
+import com.mani.lang.token.Token;
 
 import java.util.List;
 
-abstract class Stmt {
+public abstract class Stmt {
   interface Visitor<R> {
     R visitBlockStmt(Block stmt);
     R visitClassStmt(Class stmt);
@@ -69,7 +71,7 @@ abstract class Stmt {
     final Stmt thenBranch;
     final Stmt elseBranch;
   }
-  static class Function extends Stmt {
+  public static class Function extends Stmt {
     Function(Token name, List<Token> parameters, List<Stmt> body, Boolean isprivate) {
       this.name = name;
       this.parameters = parameters;
@@ -81,9 +83,9 @@ abstract class Stmt {
       return visitor.visitFunctionStmt(this);
     }
 
-    final Token name;
-    final List<Token> parameters;
-    final List<Stmt> body;
+    public final Token name;
+    public final List<Token> parameters;
+    public final List<Stmt> body;
     final Boolean isprivate;
   }
   static class Print extends Stmt {

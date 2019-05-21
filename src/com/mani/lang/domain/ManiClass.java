@@ -1,20 +1,24 @@
-package com.mani.lang;
+package com.mani.lang.domain;
+
+import com.mani.lang.exceptions.RuntimeError;
+import com.mani.lang.token.Token;
+import com.mani.lang.core.Interpreter;
 
 import java.util.List;
 import java.util.Map;
 
-class ManiClass implements ManiCallable {
+public class ManiClass implements ManiCallable {
     public final String name;
     private final Map<String, ManiFunction> methods;
     final ManiClass superclass;
 
-    ManiClass(String name, ManiClass superclass, Map<String, ManiFunction> methods) {
+    public ManiClass(String name, ManiClass superclass, Map<String, ManiFunction> methods) {
         this.name = name;
         this.superclass = superclass;
         this.methods = methods;
     }
 
-    ManiFunction findMethod(ManiInstance instance, String name) {
+    public ManiFunction findMethod(ManiInstance instance, String name) {
         if(methods.containsKey(name)) return methods.get(name).bind(instance);
 
         if (superclass != null) {

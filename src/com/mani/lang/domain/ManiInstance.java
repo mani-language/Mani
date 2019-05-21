@@ -1,4 +1,8 @@
-package com.mani.lang;
+package com.mani.lang.domain;
+
+import com.mani.lang.exceptions.RuntimeError;
+import com.mani.lang.token.Token;
+import com.mani.lang.core.Interpreter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,7 +16,7 @@ public class ManiInstance {
         this.klass = klass;
     } 
 
-    Object get(Token name) {
+    public Object get(Token name) {
         if(fields.containsKey(name.lexeme)) {
             return fields.get(name.lexeme);
         }
@@ -22,15 +26,19 @@ public class ManiInstance {
         throw new RuntimeError(name, "Undefined Property '" + name.lexeme +"'.");
     }
 
-    String runShowFn(Interpreter inter) {
+    public String runShowFn(Interpreter inter) {
         return (String) this.klass.findMethod(this, "show").call(inter, null);
     }
 
-    boolean hasShowFn() {
+    public boolean hasShowFn() {
         return this.klass.findMethod(this, "show") != null;
     }
 
-    void set(Token name, Object value) {
+    public boolean hasFunction(String functionName) {
+        return this.klass.findMethod(this, functionName) != null;
+    }
+
+    public void set(Token name, Object value) {
         fields.put(name.lexeme, value);
     }
 

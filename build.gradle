@@ -24,7 +24,7 @@ version 'Stable'
 
 task start(type: JavaExec) {
     classpath sourceSets.main.runtimeClasspath
-    main = "com.mani.lang.Mani"
+    main = "com.mani.lang.main.Mani"
 }
 
 task startCompiled(type: JavaExec) {
@@ -34,7 +34,7 @@ task startCompiled(type: JavaExec) {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'com.mani.lang.Mani'
+        attributes 'Main-Class': 'com.mani.lang.main.Mani'
     }
 }
 
@@ -99,5 +99,6 @@ idea {
 cleanIdea.doLast {
     new File('Mani.iws').delete()
     new File('Mani.ipr').delete()
+    new File('Mani.iml').delete()
 }
 

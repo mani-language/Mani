@@ -1,6 +1,6 @@
 package com.mani.lang.Modules.atomic;
 
-import com.mani.lang.Interpreter;
+import com.mani.lang.core.Interpreter;
 import com.mani.lang.Modules.Module;
 
 public final class atomic implements Module {

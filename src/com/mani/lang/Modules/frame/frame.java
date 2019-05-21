@@ -1,9 +1,9 @@
 package com.mani.lang.Modules.frame;
 
-import com.mani.lang.Interpreter;
-import com.mani.lang.ManiCallable;
+import com.mani.lang.core.Interpreter;
+import com.mani.lang.domain.ManiCallable;
 import com.mani.lang.Modules.Module;
-import com.mani.lang.Std;
+import com.mani.lang.main.Std;
 
 import javax.swing.*;
 import java.awt.*;
