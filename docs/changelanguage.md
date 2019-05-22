@@ -19,6 +19,7 @@ Currently there is only a few languages supported.
     - German
     - Japanese
     - Spanish
+    - French
 ~~~
 
 ### Adding a language
