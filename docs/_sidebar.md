@@ -2,6 +2,7 @@
 
   * [Overview](README.md)
   * [Getting Started](quickstart.md)
+  * [Compiler](compiler.md)
 
 * LANGUAGE GUIDE
 
