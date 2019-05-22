@@ -3,7 +3,7 @@ load "std";
 
 class Map {
     Map() {
-        this.map = newMap();
+        this.map = {};
     }
 
     add(key, val) {
@@ -56,7 +56,7 @@ class Map {
     }
 
     reset() {
-        this.map = newMap();
+        this.map = {};
     }
 
     show() {
