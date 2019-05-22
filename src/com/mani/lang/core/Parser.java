@@ -516,14 +516,14 @@ public class Parser {
 
         if (match(TokenType.LOAD)) {
             final Expr toLoad = expression();
-            //consume(TokenType.SEMICOLON, "Expected ';' after Load tag", Mani.isStrictMode);
+            consume(TokenType.SEMICOLON, "Expected ';' after Load tag");
 
             return new Expr.Load(toLoad);
         }
 
         if (match(TokenType.IMPORT)) {
             final Expr toImport = expression();
-            //consume(TokenType.SEMICOLON, "Expected ';' after Import tag", Mani.isStrictMode);
+            consume(TokenType.SEMICOLON, "Expected ';' after Import tag");
 
             return new Expr.Import(toImport);
         }
