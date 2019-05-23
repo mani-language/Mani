@@ -2,8 +2,12 @@ kind: pipeline
 name: default
 
 steps:
-  - name: test
+  - name: compile
     image: gradle:jdk10
     commands:
       - gradle clean
       - gradle build
+    when:
+      event:
+        - push
+        - pull_request
