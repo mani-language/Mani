@@ -8,6 +8,8 @@ steps:
       - gradle clean
       - gradle build
     when:
+      branch:
+        - master
       event:
         - push
         - pull_request
