@@ -11,3 +11,12 @@ steps:
       event:
         - push
         - pull_request
+trigger:
+  branch:
+    - master
+  event:
+    - push
+    - pull_request
+    - tag
+    - promote
+    - rollback
