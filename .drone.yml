@@ -3,7 +3,8 @@ name: default
 
 steps:
   - name: compile
-    image: gradle:jdk12
+    image: gradle:jdk10
+    privileged: true
     commands:
       - gradle clean
       - gradle build
