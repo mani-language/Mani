@@ -4,7 +4,6 @@ name: default
 steps:
   - name: compile
     image: gradle:jdk10
-    privileged: true
     commands:
       - gradle clean
       - gradle build
