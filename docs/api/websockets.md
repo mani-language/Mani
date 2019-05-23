@@ -6,7 +6,7 @@ They also have slightly different functions.
 
 ### How to import
 ~~~ mani
-    load "sockets";
+    load "webSockets";
 ~~~
 
 ### List of all points
