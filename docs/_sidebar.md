@@ -18,6 +18,7 @@
   * [Change Language](changelanguage.md)
 
 * API
+  * [System](api/system.md)
   * [STD](api/std.md)
   * [Types](api/types.md)
   * [Maps](api/maps.md)
