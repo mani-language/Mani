@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+
 public class ManiCompiler {
 
     public static void main(String[] args) {
@@ -21,6 +22,16 @@ public class ManiCompiler {
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
         String inputString = "";
         try {
+            // Loading the arguments first.
+            inputString += "let args = [";
+            for (int i = 0; i < args.length; i++) {
+                if (i != 0) {
+                    inputString += ",";
+                }
+                inputString += "\"" + args[i] + "\"";
+            }
+            inputString += "];\n";
+
             String line = reader.readLine();
             while (line != null) {
                 inputString += line + "\n";
