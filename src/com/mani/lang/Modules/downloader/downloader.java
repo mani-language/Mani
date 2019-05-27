@@ -43,8 +43,8 @@ public class downloader implements Module {
 
                 if (calculateProgressEnabled) {
                     List<Object> db = new ArrayList<>();
-                    db.add(new Double(0));
-                    db.add(new Double(0));
+                    db.add((double) 0);
+                    db.add((double) 0);
                     db.add(contentLength);
                     callback.call(interpreter, db);
                 }
@@ -61,18 +61,19 @@ public class downloader implements Module {
                         if (calculateProgressEnabled) {
                             final int percent = (int) (downloaded / ((double) contentLength) * 100.0);
                             List<Object> db = new ArrayList<>();
-                            db.add(new Double(percent));
-                            db.add(new Double(downloaded));
+                            db.add((double) percent);
+                            db.add((double) downloaded);
                             db.add(contentLength);
                             callback.call(interpreter, db);
                         }
                     }
                 } catch (IOException ioe) {
-                    return new Double(0);
+                    System.err.println(ioe);
+                    return (double) 0;
                 } finally {
                     if (callback != null) {
                         List<Object> db = new ArrayList<>();
-                        db.add(new Double(100));
+                        db.add(100d);
                         db.add(contentLength);
                         db.add(contentLength);
                         callback.call(interpreter, db);
