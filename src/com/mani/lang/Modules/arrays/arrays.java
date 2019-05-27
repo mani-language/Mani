@@ -138,6 +138,16 @@ public final class arrays implements Module {
             }
         });
 
+        locals.put("has", new ManiCallableInternal() {
+            @Override
+            public int arity() { return 1; }
+
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                return ((List<Object>) this.workWith).contains(arguments.get(0));
+            }
+        });
+
         db.put("list", locals);
         return db;
     }
