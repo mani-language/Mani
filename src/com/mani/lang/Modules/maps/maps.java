@@ -43,6 +43,16 @@ public final class maps implements Module {
             }
         });
 
+        locals.put("has", new ManiCallableInternal() {
+            @Override
+            public int arity() { return 1; }
+
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                return ((HashMap<Object, Object>) this.workWith).keySet().contains(arguments.get(0));
+            }
+        });
+
         locals.put("add", new ManiCallableInternal() {
             @Override
             public int arity() { return 2; }
