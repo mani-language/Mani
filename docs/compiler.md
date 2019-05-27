@@ -35,3 +35,11 @@ fn addTogether(a, b) {
   - This will output your compiled program into ```build/libs/Mani-Stable.jar```. This is your compiled file.
 5. Run your compiled code
   - This .jar file can be run like a normal .jar file using the command ```java -jar Mani-Stable.jar``` in the directory the file is located.
+  
+### Arguments
+Much like the language Máni is built on, java. Máni can handle program arguments.
+
+The way you access these arguments is through the `args` variable.
+The `args` variable is a list, so you can use [all the list methods](lists.md) to access the data.
+
+> This variable is only avaliable to compiled programs.
