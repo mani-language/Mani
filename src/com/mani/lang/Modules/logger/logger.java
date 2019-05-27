@@ -140,22 +140,30 @@ public class logger implements Module {
         });
         locals.put("setWarning", new ManiCallableInternal() {
             @Override
+            public int arity() { return 1; }
+
+            @Override
             public Object call(Interpreter interpreter, List<Object> arguments) {
-                ((Logman) this.workWith).setLevel(1);
+                ((Logman) this.workWith).setWarning((String) arguments.get(0));
                 return null;
             }
         });
         locals.put("setError", new ManiCallableInternal() {
             @Override
+            public int arity() { return 1; }
+
+            @Override
             public Object call(Interpreter interpreter, List<Object> arguments) {
-                ((Logman) this.workWith).setLevel(3);
+                ((Logman) this.workWith).setError((String) arguments.get(0));
                 return null;
             }
         });
         locals.put("setInfo", new ManiCallableInternal() {
             @Override
-            public Object call(Interpreter interpreter, List<Object> argumests) {
-                ((Logman) this.workWith).setLevel(0);
+            public int arity() { return 1; }
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                ((Logman) this.workWith).setInfo((String) arguments.get(0));
                 return null;
             }
         });
@@ -166,12 +174,13 @@ public class logger implements Module {
 
 
 
-    private static class Logman {
-        private int logLevel = 0;
+    public static class Logman {
+        private int logLevel = -1;
         private int lastLogLevel = 0;
         private String warningNotice = "";
         private String errorNotice = "";
         private String infoNotice = "";
+        private String pastHeader = "";
         private boolean recordDateTime = false;
         private List<String> records = new ArrayList<>();
 
@@ -184,21 +193,29 @@ public class logger implements Module {
                 Date d = new Date();
                 msg += "[" + d.getDate() +"/"+ d.getMonth() +"/"+ d.getYear() + " - " + d.getHours() + ":" + d.getMinutes() + "]\t";
             }
+            String header = "";
+            switch(logLevel) {
+                case 2:
+                    header += warningNotice;
+                    break;
+                case 3:
+                    header += errorNotice;
+                    break;
+                case 1:
+                default:
+                    header += infoNotice;
+                    break;
+            }
 
             if (this.lastLogLevel != this.logLevel) {
-                switch(logLevel) {
-                    case 2:
-                        msg += warningNotice;
-                        break;
-                    case 3:
-                        msg += errorNotice;
-                        break;
-                    case 1:
-                    default:
-                        msg += infoNotice;
-                        break;
-                }
+                msg += header;
+                this.pastHeader = header;
+            } else if (this.pastHeader != header) {
+                // This means its the same type, but the header has changed...
+                msg += header;
+                this.pastHeader = header;
             }
+
             msg += "\t|\t";
             msg += message;
 
