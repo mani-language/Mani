@@ -31,7 +31,7 @@ If applicable, please provide the full error.
 Were you using a standard library?
  - [] Yes
  - [] No
-If yes, what libaries?
+If yes, what libraries?
 
 
 If applicable, did you have internet connection?
