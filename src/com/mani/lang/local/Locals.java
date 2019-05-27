@@ -3,6 +3,7 @@ package com.mani.lang.local;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.mani.lang.Modules.logger.logger;
 import com.mani.lang.domain.ManiCallable;
 import com.mani.lang.domain.ManiCallableInternal;
 import com.mani.lang.domain.ManiFunction;
@@ -31,7 +32,7 @@ public class Locals {
     public static boolean areFunctions(Object workWith) {
 //        return (!(db.get(getType(workWith)).isEmpty()));
         //TODO: Fix this, just need to return false if there is no functions.
-        return db.get(getType(workWith)).size() != 0;
+        return db.containsKey(getType(workWith)) && db.get(getType(workWith)).size() != 0;
     }
 
     private static boolean functionFound(String type, String lookingFor) {
@@ -64,6 +65,8 @@ public class Locals {
             return "webSocket";
         } else if (workWith instanceof Socket) {
             return "socket";
+        } else if (workWith instanceof logger.Logman) {
+            return "logger";
         } else if (workWith instanceof ManiFunction) {
             return "function";
         } else if (workWith instanceof ManiInstance) {
