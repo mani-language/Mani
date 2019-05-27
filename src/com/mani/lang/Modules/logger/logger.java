@@ -63,6 +63,19 @@ public class logger implements Module {
                 return null;
             }
         });
+        locals.put("singleLine", new ManiCallableInternal() {
+            @Override
+            public int arity() { return 2; }
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                if (!(arguments.get(0) instanceof Double && arguments.get(1) instanceof String)) {
+                    System.err.println("Arguments must be a Number and String");
+                    return null;
+                }
+                ((Logman) this.workWith).logLevel((String) arguments.get(1), ((Double) arguments.get(0)).intValue(), "\r");
+                return null;
+            }
+        });
         locals.put("write", new ManiCallableInternal() {
             @Override
             public int arity() { return 1; }
@@ -186,8 +199,14 @@ public class logger implements Module {
 
         Logman() {}
 
-        public String log(String message) {
+        public String log(String message, String prefix) {
             String msg = "";
+
+            if (!prefix.isEmpty()) {
+                msg += prefix;
+            } else {
+                System.out.print("\n");
+            }
 
             if (this.recordDateTime) {
                 Date d = new Date();
@@ -210,23 +229,31 @@ public class logger implements Module {
             if (this.lastLogLevel != this.logLevel) {
                 msg += header;
                 this.pastHeader = header;
-            } else if (this.pastHeader != header) {
+            } else if (!this.pastHeader.equals(header)) {
                 // This means its the same type, but the header has changed...
                 msg += header;
                 this.pastHeader = header;
+            } else {
+                for (int i = 0; i < this.pastHeader.length(); i++) {
+                    msg += " ";
+                }
             }
 
             msg += "\t|\t";
             msg += message;
 
-            System.err.println(msg);
-            this.records.add(msg);
+            System.err.print(msg);
+            this.records.add(msg + "\n");
             return msg;
         }
 
         public String logLevel(String message, int level) {
+            return this.logLevel(message, level, "");
+        }
+
+        public String logLevel(String message, int level, String prefix) {
             this.setLevel(level);
-            return this.log(message);
+            return this.log(message, prefix);
         }
 
         public int setLevel(int level) {
