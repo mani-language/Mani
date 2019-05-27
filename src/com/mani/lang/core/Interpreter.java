@@ -220,7 +220,7 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
         assert result != null;
         switch (result) {
             case "list":
-                for (Object item : (ArrayList) evaluate(stmt.container)) {
+                for (Object item : (List) evaluate(stmt.container)) {
                     globals.assignForce(stmt.id, item);
                     execute(stmt.body);
                 }
