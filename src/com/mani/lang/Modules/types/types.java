@@ -84,6 +84,20 @@ public final class types implements Module {
                 return arguments.get(0).getClass().getSimpleName() == "Double";
             }
         });
+        interpreter.addSTD("isAlpha", new ManiCallable() {
+            @Override
+            public int arity() {
+                return 1;
+            }
+
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                char c = arguments.get(0).toString().charAt(0);
+                return (c >= 'a' && c <= 'z') ||
+                        (c >= 'A' && c <= 'Z') ||
+                        c == '_';
+            }
+        });
         interpreter.addSTD("isChar", new ManiCallable(){
             @Override
             public int arity() {
