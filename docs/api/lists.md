@@ -17,6 +17,7 @@ The arrays API is used by the List STDLIB. This is how we get that extra functio
     .at( );
     .add( );
     .del( );
+    .has( );
     .snip( );
     .count( );
     .clear( );
@@ -48,6 +49,10 @@ Used to append another object onto the end of the listObject.
 #### .del();
 Usage: `listObject.del( object );`
 Used to delete an object from the listObject.
+
+#### .has();
+Usage: `listObject.has( object );`
+Used to return a boolean value of if the provided object exists in the listObject.
 
 #### .snip();
 Usage: `listObject.snip( number );`
