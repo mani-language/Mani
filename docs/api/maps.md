@@ -23,6 +23,7 @@ The maps API is used by the Maps STDLIB. This is how we get that extra functiona
 ### List of all extensions
 ~~~ mani
     .count();
+    .has();
     .add();
     .del();
     .at();
@@ -83,6 +84,10 @@ Used to find the map that contains the key-value pair.
 #### .count();
 Usage: `mapObject.count( );`
 Used to return the amount of objects (keys) in the map.
+
+#### .has();
+Usage: `mapObject.has( object );`
+Used to return a boolean value of if the mapObject contains the provided object (key).
 
 #### .add();
 Usage: `mapObject.add( key, value )`
