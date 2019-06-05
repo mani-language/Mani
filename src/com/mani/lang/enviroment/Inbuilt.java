@@ -20,19 +20,6 @@ public class Inbuilt {
     public static Map<String, ManiCallable> inBuilts = new HashMap<>();
     static{
 
-        
-        inBuilts.put("date", new ManiCallable(){
-            @Override
-            public int arity() {
-                return 0;
-            }
-
-            @Override
-            public Object call(Interpreter interpreter, List<Object> arguments) {
-                return new Date();
-            }
-        });
-
         inBuilts.put("ask", new ManiCallable() {
             @Override
             public int arity() {
@@ -77,24 +64,6 @@ public class Inbuilt {
             public Object call(Interpreter interpreter, List<Object> arguments) {
                 String str = arguments.get(0).toString();
                 return str.trim();
-            }
-        });
-
-        inBuilts.put("pow", new ManiCallable() {
-            @Override
-            public int arity() {
-                return 2;
-            }
-
-            @Override
-            public Object call(Interpreter interpreter, List<Object> arguments) {
-                Double numPow;
-                if ((arguments.get(0) instanceof Double) && (arguments.get(1) instanceof  Double)) {
-                    numPow = Math.pow((Double)arguments.get(0), (Double)arguments.get(1));
-                } else {
-                    return "pow : both arguments need to be a number!";
-                }
-                return numPow;
             }
         });
         
