@@ -84,6 +84,7 @@ public class Locals {
                 if (fromType.equals("number")) { return true; }
                 if (fromType.equals("list")) { return true; }
                 if (fromType.equals("map")) { return true; }
+                if (fromType.equals("file")) { return true; }
             case "number":
                 if (fromType.equals("number")) { return true; }
                 if (fromType.equals("string")) { return true; }
@@ -132,6 +133,9 @@ public class Locals {
                         i++;
                     }
                     return str;
+                }
+                if (fromType.equals("file")) {
+                    return ((File) left).toString();
                 }
             case "number":
                 if (fromType.equals("number")) { return left; }
