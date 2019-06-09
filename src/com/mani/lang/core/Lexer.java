@@ -18,6 +18,7 @@ public class Lexer {
     private boolean awaitingLangName = false;
     private String customLangName = "";
     private String lastLangName = "english";
+    private char lastStringChar = 'E'; // Using 'E' as a placeholder.
 
     static{
         keywords = new HashMap<>();
@@ -111,7 +112,14 @@ public class Lexer {
             case '\n':
                 line++;
                 break;
-            case '"': string(); break;
+            case '\'':
+                this.lastStringChar = (this.lastStringChar == 'E' ? '\'' : this.lastStringChar);
+                string();
+                break;
+            case '"':
+                this.lastStringChar = (this.lastStringChar == 'E' ? '"' : this.lastStringChar);
+                string();
+                break;
             default:
                 if(isDigit(c)){
                     number();
@@ -162,10 +170,11 @@ public class Lexer {
         addToken(NUMBER, Double.parseDouble(source.substring(start, current)));
     }
     private void string(){
-        while(peek() != '"' && !isAtEnd()){
+        while((peek() != this.lastStringChar) && !isAtEnd()){
             if (peek() == '\n') line++;
             advance();
         }
+        this.lastStringChar = 'E'; // Resetting to the placeholder.
         if(isAtEnd()){
             Mani.error(line, "Unterminated string");
             return;
