@@ -8,6 +8,8 @@ import com.mani.lang.Modules.Module;
 import javax.net.ssl.HttpsURLConnection;
 import java.io.*;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -68,7 +70,7 @@ public class downloader implements Module {
                         }
                     }
                 } catch (IOException ioe) {
-                    System.err.println(ioe);
+                    ioe.printStackTrace();
                     return (double) 0;
                 } finally {
                     if (callback != null) {
@@ -80,6 +82,27 @@ public class downloader implements Module {
                     }
                 }
 
+                return null;
+            }
+        });
+        interpreter.addSTD("urlExists", new ManiCallable() {
+            @Override
+            public int arity() {
+                return 1;
+            }
+
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                try {
+                    URL u = new URL((String) arguments.get(0));
+                    HttpURLConnection huc =  (HttpURLConnection)  u.openConnection();
+                    HttpURLConnection.setFollowRedirects(false);
+                    huc.setRequestMethod("HEAD");
+                    huc.connect();
+                    return (huc.getResponseCode() == HttpURLConnection.HTTP_OK);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 return null;
             }
         });
