@@ -29,13 +29,11 @@ public class Environment {
 
     public void switchNamespace(String namespace) {
         this.loadedNamespace = namespace;
-        System.err.println("Namespace switched: " + this.loadedNamespace);
     }
 
     public void define(String name, Object value) {
 //        values.put(name, value);
         values.put(new Namespace(loadedNamespace, name), value);
-        System.err.println(values);
     }
 
     public Object getAt(int distance, String name) {
