@@ -113,7 +113,7 @@ public final class arrays implements Module {
 
             @Override
             public Object call(Interpreter interpreter, List<Object> arguments) {
-                return ((ArrayList) this.workWith).indexOf(arguments.get(0));
+                return (double) ((ArrayList) this.workWith).indexOf(arguments.get(0));
             }
         });
 
