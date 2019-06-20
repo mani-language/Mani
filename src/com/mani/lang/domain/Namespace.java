@@ -47,12 +47,4 @@ public class Namespace {
         }
         return true;
     }
-
-    @Override
-    public String toString() {
-        return "Namespace {" +
-                "space='" + space + '\'' +
-                ", name='" + name + '\'' +
-                '}';
-    }
 }
