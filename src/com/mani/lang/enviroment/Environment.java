@@ -1,5 +1,6 @@
 package com.mani.lang.enviroment;
 
+import com.mani.lang.domain.Namespace;
 import com.mani.lang.exceptions.RuntimeError;
 import com.mani.lang.token.Token;
 
@@ -8,7 +9,15 @@ import java.util.Map;
 
 public class Environment {
     public final Environment enclosing;
-    private final Map<String, Object> values = new HashMap<>();
+
+    /*
+       Updated  Map<String, Object> so it now uses a custom Namespace object to specify each value
+       Wherever "values" was being assigned with name and value, it is now assigned with Namespace and value
+     */
+    private final Map<Namespace, Object> values = new HashMap<>();
+
+    public String defaultNamespace = "default";
+    String loadedNamespace = defaultNamespace;
 
     public Environment() {
         enclosing = null;
@@ -18,17 +27,25 @@ public class Environment {
         this.enclosing = enclosing;
     }
 
+    public void switchNamespace(String namespace) {
+        this.loadedNamespace = namespace;
+        System.err.println("Namespace switched: " + this.loadedNamespace);
+    }
 
     public void define(String name, Object value) {
-        values.put(name, value);
+//        values.put(name, value);
+        values.put(new Namespace(loadedNamespace, name), value);
+        System.err.println(values);
     }
 
     public Object getAt(int distance, String name) {
-        return ancestor(distance).values.get(name);
+//        return ancestor(distance).values.get(name);
+        return ancestor(distance).values.get(new Namespace(loadedNamespace, name));
     }
 
     public void assignAt(int distance, Token name, Object value) {
-        ancestor(distance).values.put(name.lexeme, value);
+//        ancestor(distance).values.put(name.lexeme, value);
+        ancestor(distance).values.put(new Namespace(loadedNamespace, name.lexeme), value);
     }
 
     public Environment ancestor(int distance) {
@@ -48,8 +65,10 @@ public class Environment {
      */
 
     public Object get(Token name) {
-        if(values.containsKey(name.lexeme)) {
-            return values.get(name.lexeme);
+//        if(values.containsKey(name.lexeme)) {
+//            return values.get(name.lexeme);
+        if (values.containsKey(new Namespace(loadedNamespace, name.lexeme))) {
+            return values.get(new Namespace(loadedNamespace, name.lexeme));
         }
         if(enclosing != null) return enclosing.get(name);
         throw new RuntimeError(name, "Undefined variable '" + name.lexeme +"'.");
@@ -58,7 +77,7 @@ public class Environment {
     public Object get(String name) {
         
         if (values.containsKey(name)) {
-            return values.get(name);
+            return values.get(new Namespace(loadedNamespace, name));
         }
         if (enclosing != null) return enclosing.get(name);
         throw new RuntimeError(null, "Undefined variable '" + name + "'.");
@@ -71,8 +90,10 @@ public class Environment {
      */
 
     public void assign(Token name, Object value) {
-        if(values.containsKey(name.lexeme)) {
-            values.put(name.lexeme, value);
+//        if(values.containsKey(name.lexeme)) {
+//            values.put(name.lexeme, value);
+        if (values.containsKey(new Namespace(loadedNamespace, name.lexeme))) {
+            values.put(new Namespace(loadedNamespace, name.lexeme), value);
             return;
         }
 
@@ -90,7 +111,8 @@ public class Environment {
             return;
         }
 
-        values.put(name.lexeme, value);
+//        values.put(name.lexeme, value);
+        values.put(new Namespace(loadedNamespace, name.lexeme), value);
     }
 
     public void cleanupForce(Token name) {
