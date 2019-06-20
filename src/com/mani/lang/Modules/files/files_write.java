@@ -30,9 +30,11 @@ public class files_write implements ManiCallable {
             if (arguments.get(2) == "w") {
                 PrintWriter p = new PrintWriter(file);
                 p.write("");
+                p.flush();
                 p.close();
             } else {
                 pw.write((String) arguments.get(1));
+                pw.flush();
                 pw.close();
             }
         } catch (IOException e) {
