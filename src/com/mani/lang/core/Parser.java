@@ -528,6 +528,18 @@ public class Parser {
             return new Expr.Import(toImport);
         }
 
+        if (match(TokenType.NAMESET)) {
+            Expr value = null;
+            // This is the namespace handler.
+            if (!(peek().type == TokenType.SEMICOLON)) {
+                value = expression();
+            }
+
+            consume(TokenType.SEMICOLON, "Expected ';' after Namespace tag");
+
+            return new Expr.Namespace(value);
+        }
+
         throw error(peek(), "Expect expression.");
     }
 

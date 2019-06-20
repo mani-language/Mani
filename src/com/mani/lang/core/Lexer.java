@@ -48,6 +48,7 @@ public class Lexer {
         keywords.put("as", AS);
         keywords.put("match", MATCH);
         keywords.put("case", CASE);
+        keywords.put("nameset", NAMESET);
     }
     private final String source;
     private final List<Token> tokens = new ArrayList<>();

@@ -340,4 +340,12 @@ public class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
         return null;
     }
 
+    @Override
+    public Void visitNameSpaceExpr(Expr.Namespace expr) {
+        if (expr.newNamespace != null) {
+            resolve(expr.newNamespace);
+        }
+        return null;
+    }
+
 }
