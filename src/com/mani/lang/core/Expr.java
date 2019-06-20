@@ -24,6 +24,7 @@ public abstract class Expr {
     R visitMapExpr(Map expr);
     R visitLoadExpr(Load expr);
     R visitImportExpr(Import expr);
+    R visitNameSpaceExpr(Namespace expr);
   }
   static class Assign extends Expr {
     Assign(Token name, Expr value) {
@@ -236,6 +237,14 @@ public abstract class Expr {
     protected <R> R accept(Visitor<R> visitor) { return visitor.visitImportExpr(this); }
 
     final Expr toImport;
+  }
+
+  static class Namespace extends Expr {
+      Namespace(Expr value) { this.newNamespace = value; }
+
+      protected <R> R accept(Visitor<R> visitor) { return visitor.visitNameSpaceExpr(this); }
+
+      final Expr newNamespace;
   }
 
   protected abstract <R> R accept(Visitor<R> visitor);
