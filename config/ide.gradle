@@ -70,8 +70,40 @@ ext {
         '''))
 
         runManager.append(new XmlParser().parseText('''
-        <list size="1">
+            <configuration default="false" name="Mani Compiler" type="Application" factoryName="Application">
+              <extension name="coverage" enabled="false" merge="false" runner="idea">
+                <pattern>
+                  <option name="PATTERN" value="com.mani.compiler.*"/>
+                  <option name="ENABLED" value="true"/>
+                </pattern>
+              </extension>
+              <option name="MAIN_CLASS_NAME" value="com.mani.compiler.ManiCompiler"/>
+              <option name="VM_PARAMETERS" value="-Xms256m -Xmx1536m"/>
+              <option name="PROGRAM_PARAMETERS" value=""/>
+              <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$"/>
+              <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false"/>
+              <option name="ALTERNATIVE_JRE_PATH" value=""/>
+              <option name="ENABLE_SWING_INSPECTOR" value="false"/>
+              <option name="ENV_VARIABLES"/>
+              <option name="PASS_PARENT_ENVS" value="true"/>
+              <module name="Mani"/>
+              <envs/>
+              <RunnerSettings RunnerId="Debug">
+                <option name="DEBUG_PORT" value=""/>
+                <option name="TRANSPORT" value="0"/>
+                <option name="LOCAL" value="true"/>
+              </RunnerSettings>
+              <RunnerSettings RunnerId="Run"/>
+              <ConfigurationWrapper RunnerId="Debug"/>
+              <ConfigurationWrapper RunnerId="Run"/>
+              <method/>
+            </configuration>
+        '''))
+
+        runManager.append(new XmlParser().parseText('''
+        <list size="2">
         <item index="0" class="java.lang.String" itemvalue="Application.Mani" />
+        <item index="1" class="java.lang.String" itemvalue="Application.Mani Compiler" />
         </list>
         '''))
 
