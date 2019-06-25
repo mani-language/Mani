@@ -574,8 +574,22 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
         for(Expr argument : expr.arguments) {
             arguments.add(evaluate(argument));
         }
+
         if(! (callee instanceof ManiCallable)) {
-            throw new RuntimeError(expr.paren, "Can only call functions and classes");
+            // Used by function over loader.
+            if (!(callee instanceof List && ((List<Object>) callee).get(0) instanceof ManiCallable)) {
+                throw new RuntimeError(expr.paren, "Can only call functions and classes");
+            }
+        }
+        // Used for overloading functions
+        if (callee instanceof List) {
+            for (Object callable : (List<Object>) callee) {
+                ManiCallable function = (ManiCallable) callable;
+                if (function.arity() == -1 || arguments.size() == function.arity()) {
+                    return function.call(this, arguments);
+                }
+            }
+            throw new RuntimeError(expr.paren, "No function like that found!");
         }
         ManiCallable function = (ManiCallable)callee;
         if(function.arity() != -1 && arguments.size() != function.arity()) {
