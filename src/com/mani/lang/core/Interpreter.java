@@ -181,7 +181,12 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
     @Override
     public Void visitFunctionStmt(Stmt.Function stmt) {
         ManiFunction function = new ManiFunction(stmt, environment, false, stmt.isprivate);
-        environment.define(stmt.name.lexeme, function);
+        // Check if the function exists...
+        if (environment.contains(stmt.name)) {
+            environment.defineMultiple(stmt.name.lexeme, function);
+        } else {
+            environment.define(stmt.name.lexeme, function);
+        }
         return null;
     }
 
