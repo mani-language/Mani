@@ -77,7 +77,6 @@ public final class arrays implements Module {
 
             @Override
             public Object call(Interpreter interpreter, List<Object> arguments) {
-                return ((ArrayList) this.workWith).add(arguments.get(0));
                 return ((List) this.workWith).add(arguments.get(0));
             }
         });
