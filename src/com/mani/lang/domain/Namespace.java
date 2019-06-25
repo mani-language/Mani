@@ -16,7 +16,7 @@ public class Namespace {
         int result = 1;
         result = prime * result + ((space == null) ? 0 : space.hashCode());
         result = prime * result + ((name == null) ? 0 : name.hashCode());
-        return  result;
+        return result;
     }
 
     @Override
