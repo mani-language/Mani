@@ -1,10 +1,14 @@
 package com.mani.lang.enviroment;
 
+import com.mani.lang.domain.ManiCallable;
+import com.mani.lang.domain.ManiFunction;
 import com.mani.lang.domain.Namespace;
 import com.mani.lang.exceptions.RuntimeError;
 import com.mani.lang.token.Token;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Environment {
@@ -35,6 +39,29 @@ public class Environment {
         values.put(new Namespace(loadedNamespace, name), value);
     }
 
+    public void defineMultiple(String name, com.mani.lang.domain.ManiFunction value) {
+        // This is assuming that there are other items with this name and namespace
+        // already...
+        if (values.get(new Namespace(loadedNamespace, name)).getClass().getSimpleName().equals("ArrayList")) {
+
+            // We need to go through the list and find any with the exact same number of arguments.
+            for (ManiCallable fn : (List< ManiCallable >) values.get(new Namespace(loadedNamespace, name))) {
+                if (((ManiFunction) fn).arity() == value.arity()) {
+                    // This is the item we need to remove.
+                    ((List<Object>) values.get(new Namespace(loadedNamespace, name))).remove(fn);
+                }
+            }
+            // We can now add it.
+            ((List<Object>) values.get(new Namespace(loadedNamespace, name))).add(value);
+        } else {
+            System.out.println("Running here");
+            List<Object> objs = new ArrayList<>();
+            objs.add(values.get(new Namespace(loadedNamespace, name)));
+            objs.add(value);
+            values.put(new Namespace(loadedNamespace, name), objs);
+        }
+    }
+
     public Object getAt(int distance, String name) {
         return ancestor(distance).values.get(new Namespace(loadedNamespace, name));
     }
@@ -49,6 +76,14 @@ public class Environment {
             environment = environment.enclosing;
        }
        return environment;
+    }
+
+    public boolean contains(Token name) {
+        return this.contains(name.lexeme);
+    }
+
+    public boolean contains(String name) {
+        return values.containsKey(new Namespace(loadedNamespace, name));
     }
 
     /**
