@@ -54,6 +54,60 @@ public class ManiFunction implements ManiCallable {
     }
 
     @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((declaration == null) ? 0 : declaration.hashCode());
+        result = prime * result + ((closure == null) ? 0 : closure.hashCode());
+        result = prime * result + ((isInitializer == null) ? 0 : isInitializer.hashCode());
+        result = prime * result + ((isPrivate == null) ? 0 : isPrivate.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        ManiFunction other = (ManiFunction) obj;
+        if (declaration.name == null) {
+            if (other.declaration.name != null) {
+                return false;
+            }
+        } else if (!declaration.name.equals(other.declaration.name)) {
+            return false;
+        }
+        if (isPrivate == null) {
+            if (other.isPrivate != null) {
+                return false;
+            }
+        } else if (!isPrivate.equals(other.isPrivate)) {
+            return false;
+        }
+        if (closure == null) {
+            if (other.closure != null) {
+                return false;
+            }
+        } else if (!closure.equals(other.closure)) {
+            return false;
+        }
+        if (isInitializer == null) {
+            if (other.isInitializer != null) {
+                return false;
+            }
+        } else if (!isInitializer.equals(other.isInitializer)) {
+            return false;
+        }
+        return this.arity() == other.arity();
+    }
+
+    @Override
     public String toString() {
         return "<maniFn " + declaration.name.lexeme + ">" ;
     }
