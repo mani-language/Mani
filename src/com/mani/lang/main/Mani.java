@@ -222,6 +222,10 @@ public class Mani {
         hadRuntimeError = true;
     }
 
+    public static void generalError(GeneralError error) {
+        System.err.println(error.getMessage());
+    }
+
     
 
 
