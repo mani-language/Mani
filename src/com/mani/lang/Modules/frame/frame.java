@@ -9,7 +9,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.List;
 
 public final class frame implements Module {
@@ -20,9 +23,24 @@ public final class frame implements Module {
     private static BufferedImage img;
 
     private static double lastKey;
+    private static List<Double> mouseHover;
+
+    private void registerKeys(Interpreter interpreter) {
+        interpreter.define("KEY_UP", KeyEvent.VK_UP);
+        interpreter.define("KEY_DOWN", KeyEvent.VK_DOWN);
+        interpreter.define("KEY_LEFT", KeyEvent.VK_LEFT);
+        interpreter.define("KEY_RIGHT", KeyEvent.VK_RIGHT);
+        interpreter.define("KEY_FIRE", KeyEvent.VK_ENTER);
+        interpreter.define("KEY_ESCAPE", KeyEvent.VK_ESCAPE);
+    }
 
     @Override
     public void init(Interpreter interpreter) {
+        registerKeys(interpreter);
+        mouseHover = new ArrayList<>();
+        mouseHover.add(0.00);
+        mouseHover.add(0.00);
+
         interpreter.addSTD("window", new CreateWindow());
         interpreter.addSTD("windowVis", new setVisibility());
         interpreter.addSTD("windowButton", new windowButton());
@@ -30,6 +48,9 @@ public final class frame implements Module {
         interpreter.addSTD("keyPressed", new keyPressed());
         interpreter.addSTD("windowRepaint", new windowRepaint());
         interpreter.addSTD("windowPrompt", new windowPrompt());
+        interpreter.addSTD("keyPressed", new keyPressed());
+        interpreter.addSTD("mouseHover", new MouseHover());
+        interpreter.addSTD("drawstring", new DrawString());
         interpreter.addSTD("line", intConsumer4Convert(com.mani.lang.Modules.frame.frame::line));
         interpreter.addSTD("oval", intConsumer4Convert(com.mani.lang.Modules.frame.frame::oval));
         interpreter.addSTD("foval", intConsumer4Convert(com.mani.lang.Modules.frame.frame::foval));
@@ -174,6 +195,18 @@ public final class frame implements Module {
         }
     }
 
+    private static class MouseHover implements ManiCallable {
+        @Override
+        public int arity() {
+            return 0;
+        }
+
+        @Override
+        public Object call(Interpreter interpreter, List<Object> arguments) {
+            return mouseHover;
+        }
+    }
+
     private static class windowButton implements ManiCallable {
 
         @Override
@@ -228,6 +261,24 @@ public final class frame implements Module {
         }
     }
 
+    private static class DrawString implements ManiCallable {
+
+        @Override
+        public int arity() {
+            return 3;
+        }
+
+        @Override
+        public Object call(Interpreter interpreter, List<Object> arguments) {
+
+            int x = Std.DoubleToInt((Double) arguments.get(1));
+            int y = Std.DoubleToInt((Double) arguments.get(2));
+            graphics.drawString(String.valueOf( arguments.get(0) ), x, y);
+
+            return null;
+        }
+    }
+
     private static class CanvasPanel extends JPanel {
         public CanvasPanel(int width, int height) {
             setPreferredSize(new Dimension(width, height));
@@ -244,6 +295,13 @@ public final class frame implements Module {
                 @Override
                 public void keyReleased(KeyEvent e) {
                     lastKey = -1;
+                }
+            });
+            addMouseMotionListener(new MouseMotionAdapter() {
+                @Override
+                public void mouseMoved(MouseEvent e) {
+                    mouseHover.set(0, Double.valueOf(e.getX()));
+                    mouseHover.set(1, Double.valueOf(e.getY()));
                 }
             });
         }
