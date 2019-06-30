@@ -15,9 +15,6 @@ public final class arrays implements Module {
     @Override
     public void init(Interpreter interpreter) {
         interpreter.addSTD("arrayReverse", new arrays_reverseArray());
-        //interpreter.addSTD("arrayRemoveItem", new arrays_arrayRemoveItem());
-        //interpreter.addSTD("arrayUpdateItem", new arrays_arrayUpdateItem());
-        //interpreter.addSTD("arrayDelItem", new arrays_arrayDelItem());
         interpreter.addSTD("array_replace", new ManiCallable() {
 
             @Override
