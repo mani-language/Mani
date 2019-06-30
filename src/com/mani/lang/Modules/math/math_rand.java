@@ -22,7 +22,7 @@ public class math_rand implements ManiCallable {
         Random rand = new Random();
 
         if (arguments.size() == 1) {
-            return Std.makeDouble(rand.nextInt( (int) arguments.get(0) ));
+            return Std.makeDouble(rand.nextInt( Std.DoubleToInt((Double) arguments.get(0)) ));
         } else if (arguments.size() == 2) {
             int max = new Double((Double) arguments.get(1)).intValue();
             int min = new Double((Double) arguments.get(0)).intValue();
