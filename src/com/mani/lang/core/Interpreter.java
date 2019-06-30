@@ -60,10 +60,12 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
      * @param statements
      */
     public void interpret(List<Stmt> statements) {
-        try{
-            for(Stmt statement : statements) {
+        try {
+            for (Stmt statement : statements) {
                 execute(statement);
             }
+        }catch(GeneralError ge) {
+            Mani.generalError(ge);
         } catch(RuntimeError error) {
             Mani.runtimeError(error);
         }
