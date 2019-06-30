@@ -3,7 +3,9 @@ package com.mani.lang.local;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.mani.lang.Modules.flatmap.flatmap;
 import com.mani.lang.Modules.logger.logger;
+import com.mani.lang.Modules.requests.requests;
 import com.mani.lang.domain.ManiCallable;
 import com.mani.lang.domain.ManiCallableInternal;
 import com.mani.lang.domain.ManiFunction;
@@ -71,6 +73,10 @@ public class Locals {
             return "function";
         } else if (workWith instanceof ManiInstance) {
             return ((ManiInstance) workWith).getClassName();
+        } else if (workWith instanceof requests.Request) {
+            return "request";
+        } else if (workWith instanceof flatmap.FlatMap) {
+            return "flatmap";
         }
         return null;
     }
