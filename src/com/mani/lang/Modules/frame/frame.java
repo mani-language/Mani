@@ -26,12 +26,12 @@ public final class frame implements Module {
     private static List<Double> mouseHover;
 
     private void registerKeys(Interpreter interpreter) {
-        interpreter.define("KEY_UP", KeyEvent.VK_UP);
-        interpreter.define("KEY_DOWN", KeyEvent.VK_DOWN);
-        interpreter.define("KEY_LEFT", KeyEvent.VK_LEFT);
-        interpreter.define("KEY_RIGHT", KeyEvent.VK_RIGHT);
-        interpreter.define("KEY_FIRE", KeyEvent.VK_ENTER);
-        interpreter.define("KEY_ESCAPE", KeyEvent.VK_ESCAPE);
+        interpreter.define("KEY_UP", Std.makeDouble(KeyEvent.VK_UP));
+        interpreter.define("KEY_DOWN", Std.makeDouble(KeyEvent.VK_DOWN));
+        interpreter.define("KEY_LEFT", Std.makeDouble(KeyEvent.VK_LEFT));
+        interpreter.define("KEY_RIGHT", Std.makeDouble(KeyEvent.VK_RIGHT));
+        interpreter.define("KEY_FIRE", Std.makeDouble(KeyEvent.VK_ENTER));
+        interpreter.define("KEY_ESCAPE", Std.makeDouble(KeyEvent.VK_ESCAPE));
     }
 
     @Override
