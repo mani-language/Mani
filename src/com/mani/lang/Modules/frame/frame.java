@@ -290,11 +290,11 @@ public final class frame implements Module {
             addKeyListener(new KeyAdapter() {
                 @Override
                 public void keyPressed(KeyEvent e) {
-                    lastKey = new Double(e.getKeyCode()).intValue();
+                    lastKey = Double.valueOf(e.getKeyCode());
                 }
                 @Override
                 public void keyReleased(KeyEvent e) {
-                    lastKey = -1;
+                    lastKey = -1d;
                 }
             });
             addMouseMotionListener(new MouseMotionAdapter() {
