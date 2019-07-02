@@ -1,5 +1,6 @@
 package com.mani.lang.main;
 
+import com.mani.lang.exceptions.GeneralError;
 import com.mani.lang.token.Token;
 import com.mani.lang.token.TokenType;
 import com.mani.lang.core.*;
