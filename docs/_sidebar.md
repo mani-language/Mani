@@ -36,6 +36,7 @@
   * [Atomic](api/atomic.md)
 
 * LIBRARIES
+  * [Math](sdt/math.md)
   * [Lists](std/lists.md)
   * [Maps](std/maps.md)
   * [Files](std/files.md)
