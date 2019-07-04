@@ -5,7 +5,7 @@ about: Used to ask for a recode of a function or a class
 ---
 
 **Name of the function or class, and location**
-Please provide a link from github to the exact location.
+Please provide a link from GitHub to the exact location.
 
 > Please paste link here.
 
@@ -20,8 +20,10 @@ Please select one of the following:
 > - [ ] Yes
 > - [ ] No
 
+> If so, other file names or functions here.
+
 **Is the re-code required for any feature requests?**
-If so, please specify the feature request it applys to.
+If so, please specify the feature request it applies to.
 
 > Feature request here.
 
