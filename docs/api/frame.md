@@ -16,6 +16,8 @@ port of the Java Swing framework.
     keyPressed( );
     windowRepaint( );
     windowPrompt( );
+    mouseHover( );
+    drawstring( );
     line( );
     oval( );
     foval( );
@@ -66,6 +68,18 @@ Used to repaint the created window, incase changes have been made to it.
 #### windowPrompt();
 Usage `windowPrompt( questionString );`
 Used to create a popup with an input field. The provided questionString will be displayed above.
+
+
+#### mouseHover();
+usage `mouseHover( );`
+Used to get the x and y coordinates of the current position of the mouse.
+
+> Uses a Map, so you must load the map API
+
+
+#### drawstring();
+usage `drawstring("some message", x, y);`
+Used to create a textlabel in the frame at those x and y coordinates
 
 
 #### line();
