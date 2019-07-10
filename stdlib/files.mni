@@ -19,7 +19,9 @@ class File {
     }
 
     toList() {
-        return List().direct(split(this.contents, "\n"));
+        let fileToList = List();
+        fileToList.direct(split(this.read(), "\n"));
+        return fileToList.list;
     }
 
     write(lines) {
@@ -27,7 +29,7 @@ class File {
             say "Must be a string or list, please convert and try again!";
             return;
         }
-        fwrite(this.file, this.contents, "w");
+        fwrite(this.file, lines, false);
     }
 
     append(lines) {
@@ -35,6 +37,6 @@ class File {
             say "Must be a string or list, please convert and try again!";
             return;
         }
-        fwrite(this.file, this.contents);
+        fwrite(this.file, lines, true);
     }
 }

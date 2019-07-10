@@ -2,9 +2,8 @@ load "std";
 
 load "basics.mni";
 wipeMemory();
-// Disabling the files tester simply because it needs to be redone
-//load "files.mni";
-//wipeMemory();
+load "files.mni";
+wipeMemory();
 load "std";
 load "asOperator.mni";
 wipeMemory();
