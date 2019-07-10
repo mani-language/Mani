@@ -10,21 +10,26 @@ class File {
     }
 
     open() {
+        // Opens the file for reading and writing
         this.file = fopen(this.filename);
     }
 
     read() {
+        // Returns the contents of the file as a String
         this.contents = fread(this.filename);
         return this.contents;
     }
 
     toList() {
+        // Returns the contents of the file as a list with
+        // each line in the file as a separate list item
         let fileToList = List();
         fileToList.direct(split(this.read(), "\n"));
         return fileToList.list;
     }
 
     write(lines) {
+        // Overrites all existing data in the file and writes "lines" to it
         if (!(lines is "list" or lines is "string")) {
             say "Must be a string or list, please convert and try again!";
             return;
@@ -33,6 +38,7 @@ class File {
     }
 
     append(lines) {
+        // Appends "lines" to the end of the file
         if (!(lines is "list" or lines is "string")) {
             say "Must be a string or list, please convert and try again!";
             return;
