@@ -1,24 +1,45 @@
 load "std";
+load "system";
 
 load "basics.mni";
+if (hadError()) { exit(1); }
+
 wipeMemory();
 // Disabling the files tester simply because it needs to be redone
 //load "files.mni";
 //wipeMemory();
+
 load "std";
+load "system";
 load "asOperator.mni";
+if (hadError()) { exit(1); }
+
 wipeMemory();
 load "std";
+load "system";
 load "forEach.mni";
+if (hadError()) { exit(1); }
+
 wipeMemory();
 load "std";
+load "system";
 load "lists.mni";
+if (hadError()) { exit(1); }
+
 wipeMemory();
 load "std";
+load "system";
 load "maps.mni";
-/*wipeMemory();
-load "std";
-load "atomic.mni";*/
+if (hadError()) { exit(1); }
+
 wipeMemory();
 load "std";
+load "system";
+load "atomic.mni";
+if (hadError()) { exit(1); }
+
+wipeMemory();
+load "std";
+load "system";
 load "math.mni";
+if (hadError()) { exit(1); }

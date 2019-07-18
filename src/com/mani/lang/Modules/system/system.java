@@ -39,6 +39,35 @@ public class system implements Module {
                 return null;
             }
         });
+
+        interpreter.addSTD("stdlib_path", new ManiCallable() {
+            @Override
+            public int arity() {
+                return 1;
+            }
+
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                if (!(arguments.get(0) instanceof String)) {
+                    System.err.println("Argument must be a string!");
+                    return null;
+                }
+                Mani.stdlib_path = (String) arguments.get(0);
+                return true;
+            }
+        });
+
+        interpreter.addSTD("hadError", new ManiCallable() {
+            @Override
+            public int arity() {
+                return 0;
+            }
+
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                return Mani.hadRuntimeError;
+            }
+        });
     }
 
     @Override
