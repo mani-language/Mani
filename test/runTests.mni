@@ -32,11 +32,11 @@ load "system";
 load "maps.mni";
 if (hadError()) { exit(1); }
 
-wipeMemory();
-load "std";
-load "system";
-load "atomic.mni";
-if (hadError()) { exit(1); }
+//wipeMemory();
+//load "std";
+//load "system";
+//load "atomic.mni";
+//if (hadError()) { exit(1); }
 
 wipeMemory();
 load "std";
