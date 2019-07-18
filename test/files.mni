@@ -13,9 +13,14 @@ let f = File("./import/file_test_import.txt");
 f.open();
 t.assertEquals(f.filename, "./import/file_test_import.txt", "Open a file");
 
-t.assertEquals(f.read(),"test contents of a file" + NL + "imported by test/files.mni" + NL, "Read opened file")
+t.assertEquals(f.read(),"test contents of a file" + NL + "imported by test/files.mni" + NL, "Read opened file");
 
-//f.write("add this to file");
-//t.assertEquals(f.read(),"test contents of a file" + NL + "imported by test/files.mn" + NL + "add this to file" + NL, "Write string to list");
+f.append(NL + "append this to end of file");
+t.assertEquals(f.read(),"test contents of a file" + NL + "imported by test/files.mni" + NL + "append this to end of file" + NL, "Append string to file");
+
+t.assertEquals(f.toList(), ["test contents of a file", "imported by test/files.mni", "append this to end of file"], "File contents to list");
+
+f.write("write to the file as blank");
+t.assertEquals(f.read(),"write to the file as blank" + NL, "Write string to blank file");
 
 t.results();

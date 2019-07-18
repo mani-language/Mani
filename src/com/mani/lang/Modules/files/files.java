@@ -16,17 +16,7 @@ public class files implements Module {
         interpreter.addSTD("fopen", new files_open());
         interpreter.addSTD("fwrite", new files_write());
         interpreter.addSTD("fread", new files_read());
-        interpreter.addSTD("fgetPath", new ManiCallable() {
-            @Override
-            public int arity() {
-                return 1;
-            }
-
-            @Override
-            public Object call(Interpreter interpreter, List<Object> arguments) {
-                return ((File) arguments.get(0)).getAbsolutePath();
-            }
-        });
+        interpreter.addSTD("fgetPath", new files_getPath());
         interpreter.addSTD("flistDir", new files_listdir());
         interpreter.addSTD("fmkdir", new files_mkdir());
         interpreter.addSTD("fdel", new files_deldir());

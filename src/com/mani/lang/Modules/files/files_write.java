@@ -14,7 +14,7 @@ public class files_write implements ManiCallable {
     /**
      * 1 - File object.
      * 2 - What we are writing.
-     * 3 - Mode.
+     * 3 - true for append, false for write blank file
      */
     @Override
     public int arity() {
@@ -26,17 +26,10 @@ public class files_write implements ManiCallable {
         File file = (File) arguments.get(0);
 
         try {
-            PrintWriter pw = new PrintWriter(new FileOutputStream(file, true));
-            if (arguments.get(2) == "w") {
-                PrintWriter p = new PrintWriter(file);
-                p.write("");
-                p.flush();
-                p.close();
-            } else {
-                pw.write((String) arguments.get(1));
-                pw.flush();
-                pw.close();
-            }
+            PrintWriter pw = new PrintWriter(new FileOutputStream(file, (Boolean) arguments.get(2)));
+            pw.write((String) arguments.get(1));
+            pw.flush();
+            pw.close();
         } catch (IOException e) {
             return "Failed to load file.";
         }

@@ -5,10 +5,12 @@ load "basics.mni";
 if (hadError()) { exit(1); }
 
 wipeMemory();
-// Disabling the files tester simply because it needs to be redone
-//load "files.mni";
-//wipeMemory();
+load "std";
+load "system";
+load "files.mni";
+if (hadError()) { exit(1); }
 
+wipeMemory();
 load "std";
 load "system";
 load "asOperator.mni";
