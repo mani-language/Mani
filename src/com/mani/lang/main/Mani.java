@@ -53,6 +53,23 @@ public class Mani {
     }
 
     /**
+     * Gets a stdlib url based on the repo/branch it is being run from
+     * If not on CI, will use default origin master repo for stdlib
+     *
+     * @return the url beneath which stdlib is found
+     */
+    public static String getStdLibURL() {
+        String stdlibURL = "https://raw.githubusercontent.com/Mani-Language/Mani/master/stdlib/";
+        if ("true".equals(System.getenv("CI"))){
+            String sourceUser = System.getenv("CIRCLE_PROJECT_USERNAME");
+            String sourceRepo = System.getenv("CIRCLE_PROJECT_REPONAME");
+            String sourceBranch = System.getenv("CIRCLE_BRANCH");
+            stdlibURL = "https://raw.githubusercontent.com/" + sourceUser + "/" + sourceRepo + "/" + sourceBranch + "/stdlib/";
+        }
+        return stdlibURL;
+    }
+
+    /**
      * Used to figure out if we are connected to the internet or not.
      *
      * @return internetStatus (boolean)
@@ -227,7 +244,7 @@ public class Mani {
         System.err.println(error.getMessage());
     }
 
-    
+
 
 
 
