@@ -120,10 +120,14 @@ public final class frame implements Module {
             double height = 700;
             switch (arguments.size()) {
                 case 1:
+
+                    // TITLE
                     if (!(arguments.get(0) instanceof String)) { return "Please make sure argument is a string"; }
                     title = arguments.get(0).toString();
                     break;
                 case 2:
+
+                    // WIDTH, HEIGHT
                     if (!(arguments.get(0) instanceof Double || arguments.get(1) instanceof Double)) {
                         return "Both arguments must be a number, width and height";
                     }
@@ -131,6 +135,8 @@ public final class frame implements Module {
                     height = (double) arguments.get(1);
                     break;
                 case 3:
+
+                    // TITLE, WIDTH, HEIGHT
                     if (!(arguments.get(0) instanceof String || arguments.get(1) instanceof Double || arguments.get(2) instanceof Double)) {
                         return "First argument must be a String, Other 2 must be a number. Width and height.";
                     }
@@ -217,7 +223,7 @@ public final class frame implements Module {
         @Override
         public Object call(Interpreter interpreter, List<Object> arguments) {
             if (arguments.size() < 1) {
-                return "Please provide atleast a button name.";
+                return "Please provide at least a button name.";
             }
             JButton b = new JButton(arguments.get(0).toString());
             if (arguments.size() == 5) {

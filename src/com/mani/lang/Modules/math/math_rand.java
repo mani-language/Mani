@@ -21,8 +21,13 @@ public class math_rand implements ManiCallable {
 
         Random rand = new Random();
 
-        if (arguments.size() == 1) {
+        if (arguments.size() == 1 && arguments.get(0) instanceof Double) {
             return Std.makeDouble(rand.nextInt( Std.DoubleToInt((Double) arguments.get(0)) ));
+        } else if (arguments.size() == 1 && arguments.get(0) instanceof String) {
+            Long to = Long.valueOf((String) ((String) arguments.get(0)).substring(1, ((String) arguments.get(0)).length() - 1));
+            Long from = 0L;
+            final long randomLong = rand.nextLong() >>> 1;
+            return (randomLong % (to - from) + from);
         } else if (arguments.size() == 2) {
             int max = new Double((Double) arguments.get(1)).intValue();
             int min = new Double((Double) arguments.get(0)).intValue();
