@@ -391,14 +391,7 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
                 return "Already loaded!";
             } else {
                 try {
-                    String stdlibURL = "https://raw.githubusercontent.com/crazywolf132/Mani/master/stdlib/";
-                    if ("true".equals(System.getenv("CI"))){
-                        String sourceUser = System.getenv("CIRCLE_PROJECT_USERNAME");
-                        String sourceRepo = System.getenv("CIRCLE_PROJECT_REPONAME");
-                        String sourceBranch = System.getenv("CIRCLE_BRANCH");
-                        stdlibURL = "https://raw.githubusercontent.com/" + sourceUser + "/" + sourceRepo + "/" + sourceBranch + "/stdlib/";
-                    }
-                    URL url = new URL(stdlibURL + (String) result + ".mni");
+                    URL url = new URL(Mani.getStdLibURL() + (String) result + ".mni");
                     Scanner s = new Scanner(url.openStream());
                     String final_file = "";
                     while(s.hasNextLine()){
