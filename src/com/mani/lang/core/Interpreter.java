@@ -512,7 +512,6 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
                 }
                 throw new RuntimeError(expr.operator, "Operands must be number and number or string and number.");
             case PLUS:
-                // TODO: ADD A METHOD TO LOOK FOR A "+" METHOD IN THE CLASS.
                 if(left instanceof Double && right instanceof Double) {
                     return (double) left + (double) right;
                 }
