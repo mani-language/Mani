@@ -16,6 +16,7 @@ import java.io.File;
 import com.neovisionaries.ws.client.WebSocket;
 import io.socket.client.Socket;
 
+import javax.swing.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -77,6 +78,10 @@ public class Locals {
             return "request";
         } else if (workWith instanceof flatmap.FlatMap) {
             return "flatmap";
+        } else if (workWith instanceof JButton) {
+            return "button";
+        } else if (workWith instanceof JFrame) {
+            return "frame";
         }
         return null;
     }

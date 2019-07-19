@@ -3,16 +3,17 @@ package com.mani.lang.Modules.frame;
 import com.mani.lang.core.Interpreter;
 import com.mani.lang.domain.ManiCallable;
 import com.mani.lang.Modules.Module;
+import com.mani.lang.domain.ManiCallableInternal;
+import com.mani.lang.domain.ManiFunction;
+import com.mani.lang.exceptions.GeneralError;
 import com.mani.lang.main.Std;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public final class frame implements Module {
@@ -44,11 +45,9 @@ public final class frame implements Module {
         interpreter.addSTD("window", new CreateWindow());
         interpreter.addSTD("windowVis", new setVisibility());
         interpreter.addSTD("windowButton", new windowButton());
-        interpreter.addSTD("buttonVis", new setButtonVis());
         interpreter.addSTD("keyPressed", new keyPressed());
         interpreter.addSTD("windowRepaint", new windowRepaint());
         interpreter.addSTD("windowPrompt", new windowPrompt());
-        interpreter.addSTD("keyPressed", new keyPressed());
         interpreter.addSTD("mouseHover", new MouseHover());
         interpreter.addSTD("drawstring", new DrawString());
         interpreter.addSTD("line", intConsumer4Convert(com.mani.lang.Modules.frame.frame::line));
@@ -155,22 +154,6 @@ public final class frame implements Module {
 		}
     }
 
-    private static class setButtonVis implements ManiCallable {
-
-        @Override
-        public int arity() {
-            return 2;
-        }
-
-        @Override
-        public Object call(Interpreter interpreter, List<Object> arguments) {
-            JButton btn = (JButton) arguments.get(0);
-            btn.setVisible((Boolean) arguments.get(1) ? false : true);
-            return (Boolean) arguments.get(1) ? false : true;
-        }
-
-    }
-
     private static class setVisibility implements ManiCallable {
 
         @Override
@@ -234,7 +217,7 @@ public final class frame implements Module {
                 b.setBounds(x, y, w, h);
             }
             panel.add(b);
-            return null;
+            return b;
         }
 
     }
@@ -321,11 +304,83 @@ public final class frame implements Module {
 
     @Override
     public boolean hasExtensions() {
-        return false;
+        return true;
     }
 
     @Override
     public Object extensions() {
-        return null;
+        HashMap<String, HashMap<String, ManiCallableInternal>> db = new HashMap<>();
+        HashMap<String, ManiCallableInternal> localsBtn = new HashMap<>();
+        HashMap<String, ManiCallableInternal> localsFrame = new HashMap<>();
+
+        /** Buttons **/
+        localsBtn.put("del", new ManiCallableInternal() {
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                frame.remove(((JButton) this.workWith));
+                return true;
+            }
+        });
+
+        localsBtn.put("vis", new ManiCallableInternal() {
+            @Override
+            public int arity() {
+                return 1;
+            }
+
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                if (!(arguments.get(0) instanceof Boolean)) {
+                    throw new GeneralError("Must be a boolean");
+                }
+                ((JButton) this.workWith).setVisible(((Boolean) arguments.get(0)));
+                return ((JButton) this.workWith).isVisible();
+            }
+        });
+
+        localsBtn.put("listener", new ManiCallableInternal() {
+            @Override
+            public int arity() {
+                return 1;
+            }
+
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+
+                ((JButton) this.workWith).addMouseListener(new CustomMouseListener(interpreter, arguments.get(0)));
+                return null;
+
+            }
+        });
+
+
+        db.put("button", localsBtn);
+        db.put("frame", localsFrame);
+        return db;
+    }
+
+    private static class CustomMouseListener implements MouseListener {
+
+        Interpreter interpreter;
+        Object obj;
+
+
+        public CustomMouseListener(Interpreter interpreter, Object obj) {
+            this.interpreter = interpreter;
+            this.obj = obj;
+        }
+        public void mouseClicked(MouseEvent e) {
+            ManiFunction run = (ManiFunction) obj;
+            List<Object> args = new ArrayList<>();
+            run.call(interpreter, args);
+        }
+        public void mousePressed(MouseEvent e) {
+        }
+        public void mouseReleased(MouseEvent e) {
+        }
+        public void mouseEntered(MouseEvent e) {
+        }
+        public void mouseExited(MouseEvent e) {
+        }
     }
 }
