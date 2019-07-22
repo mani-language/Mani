@@ -347,7 +347,7 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
             try {
                 //byte[] bytes = Files.readAllBytes(Paths.get((String) res));
                 byte[] bytes = Mani.readFileToByteArray(f);
-                Lexer lexer = new Lexer(new String(bytes, Charset.defaultCharset()));
+                Lexer lexer = new Lexer(new String(bytes, Charset.defaultCharset()), f.getName());
                 List<Token> tokens = lexer.scanTokens();
                 Parser parser = new Parser(tokens);
                 List<Stmt> statements = parser.parse();

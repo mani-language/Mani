@@ -55,8 +55,10 @@ public class Lexer {
     private int start = 0;
     private int current = 0;
     private int line = 1;
-    public Lexer(String source){
+    private String fileName;
+    public Lexer(String source, String fileName){
         this.source = source;
+        this.fileName = fileName;
     }
     public List<Token> scanTokens(){
         while(! isAtEnd()){
@@ -128,7 +130,7 @@ public class Lexer {
                     identifier();
                 }
                 else {
-                    Mani.error(line, "Unexpected character");
+                    Mani.error(line, fileName,"Unexpected character");
                 }
                 break;
         }
@@ -177,7 +179,7 @@ public class Lexer {
         }
         this.lastStringChar = 'E'; // Resetting to the placeholder.
         if(isAtEnd()){
-            Mani.error(line, "Unterminated string");
+            Mani.error(line, fileName, "Unterminated string");
             return;
         }
         //The closing "
@@ -248,6 +250,8 @@ public class Lexer {
             return;
         }
         String text = source.substring(start, current);
-        tokens.add(new Token(type, text, literal, line));
+        Token tokenToAdd = new Token(type, text, literal, line);
+        tokenToAdd.setFile(fileName);
+        tokens.add(tokenToAdd);
     }
 }

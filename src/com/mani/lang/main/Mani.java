@@ -96,7 +96,11 @@ public class Mani {
         if(path.endsWith(".mni")) {
             try {
                 byte[] bytes = Files.readAllBytes(Paths.get(path));
-                run(new String(bytes, Charset.defaultCharset()));
+                String fileName = path;
+                if (path.contains("/")) {
+                    fileName = path.substring(path.lastIndexOf('/' + 1));
+                }
+                run(new String(bytes, Charset.defaultCharset()), fileName);
                 if(hadError) System.exit(65);
             } catch(NoSuchFileException e) {
                 System.out.println(path + ": File not Found");
@@ -119,7 +123,7 @@ public class Mani {
 
             for(;;) {
                 System.out.print(">> ");
-                run(reader.readLine());
+                run(reader.readLine(), "REPL");
                 hadError = false;
             }
         } catch(IOException e) {
@@ -138,9 +142,10 @@ public class Mani {
      * - Run statements.
      * - Interpreter
      * @param source
+     * @param fileName the name of the file being run
      */
-    public static void run(String source) {
-        Lexer lexer = new Lexer(source);
+    public static void run(String source, String fileName) {
+        Lexer lexer = new Lexer(source, fileName);
         List<Token> tokens = lexer.scanTokens();
         Parser parser = new Parser(tokens);
         List<Stmt> statements = parser.parse();
@@ -200,10 +205,11 @@ public class Mani {
     /**
      * Used for reporting an error, with the line and message.
      * @param line
+     * @param where
      * @param message
      */
-    public static void error(int line, String message) {
-        report(line, "", message);
+    public static void error(int line, String where, String message) {
+        report(line, where, message);
     }
 
     /**
@@ -213,9 +219,9 @@ public class Mani {
      */
     public static void error(Token token, String message) {
         if(token.type == TokenType.EOF) {
-            report(token.line, "at end", message);
+            report(token.line, "at end of " + token.file, message);
         } else {
-            report(token.line, "at '" + token.lexeme + "' " , message);
+            report(token.line, "at '" + token.lexeme + "' " + token.file , message);
         }
     }
 
@@ -236,7 +242,7 @@ public class Mani {
      * @param error
      */
     public static void runtimeError(RuntimeError error) {
-        System.err.println(error.getMessage() + "\n[line " + error.token.line + "]");
+        System.err.println(error.getMessage() + "\n[line " + error.token.line + "] at " + error.token.file);
         hadRuntimeError = true;
     }
 

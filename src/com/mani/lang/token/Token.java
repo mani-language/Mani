@@ -6,6 +6,8 @@ public class Token {
     public final Object literal;
     public final int line;
 
+    public String file = "~unknown file~";
+
     public Token(TokenType type, String lexeme, Object literal, int line) {
         this.type = type;
         this.lexeme = lexeme;
@@ -14,5 +16,9 @@ public class Token {
     }
     public String toString() {
         return type  + " " + lexeme + " " + literal;
+    }
+
+    public void setFile(String file) {
+        this.file = file;
     }
 }

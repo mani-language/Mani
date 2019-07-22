@@ -72,7 +72,7 @@ public class Std {
     }
 
     public static String loadFromUrl(Interpreter interpreter, String f) {
-        Lexer lexer = new Lexer(f.toString());
+        Lexer lexer = new Lexer(f.toString(), f);
         List<Token> tokens = lexer.scanTokens();
         Parser parser = new Parser(tokens);
         List<Stmt> statements = parser.parse();
@@ -93,7 +93,7 @@ public class Std {
                 inputString.append(line).append("\n");
                 line = reader.readLine();
             }
-            Lexer lexer = new Lexer(inputString.toString());
+            Lexer lexer = new Lexer(inputString.toString(), f);
             List<Token> tokens = lexer.scanTokens();
             Parser parser = new Parser(tokens);
             List<Stmt> statements = parser.parse();
