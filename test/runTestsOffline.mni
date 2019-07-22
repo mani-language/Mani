@@ -1,0 +1,54 @@
+load "std";
+load "system";
+
+online(false);
+load "basics.mni";
+if (hadError()) { exit(1); }
+
+wipeMemory();
+load "std";
+load "system";
+online(false);
+load "files.mni";
+if (hadError()) { exit(1); }
+
+wipeMemory();
+load "std";
+load "system";
+online(false);
+load "asOperator.mni";
+if (hadError()) { exit(1); }
+
+wipeMemory();
+load "std";
+load "system";
+online(false);
+load "forEach.mni";
+if (hadError()) { exit(1); }
+
+wipeMemory();
+load "std";
+load "system";
+online(false);
+load "lists.mni";
+if (hadError()) { exit(1); }
+
+wipeMemory();
+load "std";
+load "system";
+online(false);
+load "maps.mni";
+if (hadError()) { exit(1); }
+
+//wipeMemory();
+//load "std";
+//load "system";
+//load "atomic.mni";
+//if (hadError()) { exit(1); }
+
+wipeMemory();
+load "std";
+load "system";
+online(false);
+load "math.mni";
+if (hadError()) { exit(1); }

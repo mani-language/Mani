@@ -1,17 +1,24 @@
 package com.mani.lang.main;
 
+import com.mani.lang.core.Interpreter;
+import com.mani.lang.core.Lexer;
+import com.mani.lang.core.Parser;
+import com.mani.lang.core.Resolver;
+import com.mani.lang.core.Stmt;
 import com.mani.lang.token.Token;
-import com.mani.lang.core.*;
 
-import java.io.File;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
 public class Std {
 
@@ -22,14 +29,22 @@ public class Std {
 
 
     public static void Load() {
-        File folder = new File(System.getProperty( "user.home" ) + "/mani");
-        File[] listOfFiles = folder.listFiles();
-
-        for (File file : listOfFiles) {
-            if (file.isFile()) {
-                String name =  file.getName();
-                std.put(name.substring(0, name.lastIndexOf(".")), System.getProperty("user.home") + "/mani/" + name);
+        JarFile jarFile = null;
+        try {
+            jarFile = new JarFile(Mani.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        Enumeration<JarEntry> e = jarFile.entries();    // Gets the content of the jarfile
+        while (e.hasMoreElements()) {
+            JarEntry entry = e.nextElement();
+            String name = entry.getName();
+            if (!name.contains("stdlib") || !name.contains(".mni")) { // If file is .mni script and is stdlib then add it to list of stlib files
+                continue;
             }
+            std.put(name.substring(name.lastIndexOf('/') + 1, name.lastIndexOf('.')), name);
         }
 
         hasRun = true;
@@ -69,8 +84,16 @@ public class Std {
 
     public static String loadFile(Interpreter interpreter, String f) {
         try {
-            byte[] bytes = Files.readAllBytes(Paths.get(f));
-            Lexer lexer = new Lexer(new String(bytes, Charset.defaultCharset()));
+            ClassLoader classLoader = Mani.class.getClassLoader();      // Loads stdlib from directory within .jar file
+            InputStream stream = classLoader.getResourceAsStream(f);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+            StringBuilder inputString = new StringBuilder();
+            String line = reader.readLine();
+            while (line != null) {
+                inputString.append(line).append("\n");
+                line = reader.readLine();
+            }
+            Lexer lexer = new Lexer(inputString.toString());
             List<Token> tokens = lexer.scanTokens();
             Parser parser = new Parser(tokens);
             List<Stmt> statements = parser.parse();
