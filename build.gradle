@@ -58,6 +58,7 @@ task buildCompiler(type: Jar) {
 }
 
 task fatJar(type: Jar) {
+    version 'FatJar'
     manifest {
         attributes 'Main-Class': 'com.mani.lang.main.Mani'
     }

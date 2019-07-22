@@ -13,4 +13,4 @@ gradle fatJar
 clear
 cp -r ./test/* ./build/libs
 cd ./build/libs
-java -jar Mani-Stable.jar runTestsOffline.mni
+java -jar Mani-FatJar.jar runTestsOffline.mni
