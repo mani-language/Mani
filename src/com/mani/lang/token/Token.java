@@ -17,8 +17,4 @@ public class Token {
     public String toString() {
         return type  + " " + lexeme + " " + literal;
     }
-
-    public void setFile(String file) {
-        this.file = file;
-    }
 }

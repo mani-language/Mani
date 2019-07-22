@@ -251,7 +251,7 @@ public class Lexer {
         }
         String text = source.substring(start, current);
         Token tokenToAdd = new Token(type, text, literal, line);
-        tokenToAdd.setFile(fileName);
+        tokenToAdd.file = fileName;
         tokens.add(tokenToAdd);
     }
 }
