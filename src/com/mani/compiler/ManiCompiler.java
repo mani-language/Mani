@@ -40,6 +40,6 @@ public class ManiCompiler {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Mani.run(inputString);
+        Mani.run(inputString, "main.mni");
     }
 }
