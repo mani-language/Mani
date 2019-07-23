@@ -25,6 +25,14 @@ if (hadError()) { exit(1); }
 wipeMemory();
 load "std";
 load "system";
+// Script intended to throw error
+load "errorScript.mni";
+// Tests that error was output correctly
+load "testErrorOutputs.mni";
+
+wipeMemory();
+load "std";
+load "system";
 load "lists.mni";
 if (hadError()) { exit(1); }
 

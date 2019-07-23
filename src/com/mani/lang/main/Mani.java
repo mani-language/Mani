@@ -27,6 +27,8 @@ public class Mani {
     public static boolean isStrictMode = false;
     public static boolean compiledMode = false;
 
+    public static String latestErrorMsg = null;
+
     private static final Interpreter interpreter = new Interpreter();
 
     /**
@@ -103,12 +105,12 @@ public class Mani {
                 run(new String(bytes, Charset.defaultCharset()), fileName);
                 if(hadError) System.exit(65);
             } catch(NoSuchFileException e) {
-                System.out.println(path + ": File not Found");
+                printAndStoreError(path + ": File not Found");
             } catch(IOException e) {
-                System.out.println(e.getMessage());
+                printAndStoreError(e.getMessage());
             }
         } else {
-            System.err.println("Mani scripts must end with '.mni'.");
+            printAndStoreError("Mani scripts must end with '.mni'.");
         }
     }
 
@@ -127,7 +129,7 @@ public class Mani {
                 hadError = false;
             }
         } catch(IOException e) {
-            System.err.println(e.getMessage());
+            printAndStoreError(e.getMessage());
         }
     }
 
@@ -232,7 +234,7 @@ public class Mani {
      * @param message
      */
     private static void report(int line, String where, String message) {
-        System.err.println("[line " + line + "] Error " + where +" : " + message );
+        printAndStoreError("[line " + line + "] Error " + where +" : " + message );
         hadError = true;
     }
 
@@ -242,16 +244,18 @@ public class Mani {
      * @param error
      */
     public static void runtimeError(RuntimeError error) {
-        System.err.println(error.getMessage() + "\n[line " + error.token.line + "] at " + error.token.file);
+        printAndStoreError(error.getMessage() + "\n[line " + error.token.line + "] at " + error.token.file);
         hadRuntimeError = true;
     }
 
     public static void generalError(GeneralError error) {
-        System.err.println(error.getMessage());
+        printAndStoreError(error.getMessage());
     }
 
-
-
+    public static void printAndStoreError(String errorMsg) {
+        latestErrorMsg = errorMsg;
+        System.err.println(errorMsg);
+    }
 
 
 }

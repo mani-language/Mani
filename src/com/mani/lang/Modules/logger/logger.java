@@ -4,6 +4,7 @@ import com.mani.lang.core.Interpreter;
 import com.mani.lang.domain.ManiCallableInternal;
 import com.mani.lang.Modules.Module;
 import com.mani.lang.domain.ManiCallable;
+import com.mani.lang.main.Mani;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -56,7 +57,7 @@ public class logger implements Module {
             @Override
             public Object call(Interpreter interpreter, List<Object> arguments) {
                 if (!(arguments.get(0) instanceof Double && arguments.get(1) instanceof String)) {
-                    System.err.println("Arguments must be a Number and String");
+                    Mani.printAndStoreError("Arguments must be a Number and String");
                     return null;
                 }
                 ((Logman) this.workWith).logLevel((String) arguments.get(1), ((Double) arguments.get(0)).intValue());
@@ -69,7 +70,7 @@ public class logger implements Module {
             @Override
             public Object call(Interpreter interpreter, List<Object> arguments) {
                 if (!(arguments.get(0) instanceof Double && arguments.get(1) instanceof String)) {
-                    System.err.println("Arguments must be a Number and String");
+                    Mani.printAndStoreError("Arguments must be a Number and String");
                     return null;
                 }
                 ((Logman) this.workWith).logLevel((String) arguments.get(1), ((Double) arguments.get(0)).intValue(), "\r");
@@ -82,7 +83,7 @@ public class logger implements Module {
             @Override
             public Object call(Interpreter interpreter, List<Object> arguments) {
                 if (!(arguments.get(0) instanceof String)) {
-                    System.err.println("Argument must be a String");
+                    Mani.printAndStoreError("Argument must be a String");
                     return null;
                 }
                 String result;
@@ -107,7 +108,7 @@ public class logger implements Module {
                     result = "Finished writing";
 
                 } catch (FileNotFoundException e) {
-                   System.out.println("Could not write to file!");
+                    Mani.printAndStoreError("Could not write to file!");
                    return e.getMessage();
                 }
                 return result;
@@ -242,7 +243,7 @@ public class logger implements Module {
             msg += "\t|\t";
             msg += message;
 
-            System.err.print(msg);
+            Mani.printAndStoreError(msg);
             this.records.add(msg + "\n");
             return msg;
         }

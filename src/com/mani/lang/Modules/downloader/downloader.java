@@ -4,6 +4,7 @@ import com.mani.lang.core.Interpreter;
 import com.mani.lang.domain.ManiCallable;
 import com.mani.lang.domain.ManiFunction;
 import com.mani.lang.Modules.Module;
+import com.mani.lang.main.Mani;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.*;
@@ -26,7 +27,7 @@ public class downloader implements Module {
             @Override
             public Object call(Interpreter interpreter, List<Object> arguments) {
                 if (!(arguments.size() >= 2)) {
-                    System.err.println("Must be atleast 2 arguments in downloader.");
+                    Mani.printAndStoreError("Must be atleast 2 arguments in downloader.");
                     return null;
                 }
                 final String downloadURL = (String) arguments.get(0);

@@ -4,6 +4,7 @@ import com.mani.lang.core.Interpreter;
 import com.mani.lang.domain.ManiCallable;
 import com.mani.lang.domain.ManiFunction;
 import com.mani.lang.Modules.Module;
+import com.mani.lang.main.Mani;
 import com.mani.lang.main.Std;
 
 import java.util.ArrayList;
@@ -117,6 +118,7 @@ public final class std implements Module{
             public Object call(Interpreter interpreter, List<Object> arguments) {
                 interpreter.wipeMemory();
                 Std.loaded.clear();
+                Mani.hadRuntimeError = false;
                 return null;
             }
         });

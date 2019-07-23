@@ -4,6 +4,7 @@ import com.mani.lang.core.Interpreter;
 import com.mani.lang.domain.ManiCallable;
 import com.mani.lang.domain.ManiCallableInternal;
 import com.mani.lang.Modules.Module;
+import com.mani.lang.main.Mani;
 import com.mani.lang.main.Std;
 
 import java.util.ArrayList;
@@ -48,7 +49,7 @@ public final class arrays implements Module {
                 if (this.workWith instanceof ArrayList) {
                     if (Std.DoubleToInt((double) arguments.get(0)) > ((ArrayList) this.workWith).size() - 1
                             || Std.DoubleToInt((double) arguments.get(0)) < 0) {
-                        System.err.println("Range must be between 0 and " + (((ArrayList) this.workWith).size() - 1));
+                        Mani.printAndStoreError("Range must be between 0 and " + (((ArrayList) this.workWith).size() - 1));
                         return null;
                     }
                     return ((ArrayList) this.workWith).get(Std.DoubleToInt((double) arguments.get(0)));
@@ -87,7 +88,7 @@ public final class arrays implements Module {
             @Override
             public Object call(Interpreter interpreter, List<Object> arguments) {
                 if (!(arguments.get(0) instanceof Double)) {
-                    System.err.println("Position must be a number!");
+                    Mani.printAndStoreError("Position must be a number!");
                     return null;
                 }
                 return ((ArrayList) this.workWith).remove(Std.DoubleToInt((double) arguments.get(0)));
@@ -123,7 +124,7 @@ public final class arrays implements Module {
             @Override
             public Object call(Interpreter interpreter, List<Object> arguments) {
                 if (!(arguments.get(0) instanceof Double)) {
-                    System.err.println("Size must be a number");
+                    Mani.printAndStoreError("Size must be a number");
                     return null;
                 }
                 List<Object> fin = new ArrayList<>();
