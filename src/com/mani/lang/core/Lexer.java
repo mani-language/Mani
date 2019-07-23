@@ -101,6 +101,7 @@ public class Lexer {
                     while (peek() != '\n' && !isAtEnd()) advance();
                 } else if (match('*')) {
                     do {
+                        if (peek() == ('\n')) line ++;
                         advance();
                     } while(!(match('*') && match('/')) && !isAtEnd());
                 } else {

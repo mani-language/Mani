@@ -98,7 +98,7 @@ public class Mani {
                 byte[] bytes = Files.readAllBytes(Paths.get(path));
                 String fileName = path;
                 if (path.contains("/")) {
-                    fileName = path.substring(path.lastIndexOf('/' + 1));
+                    fileName = path.substring(path.lastIndexOf('/') + 1);
                 }
                 run(new String(bytes, Charset.defaultCharset()), fileName);
                 if(hadError) System.exit(65);
