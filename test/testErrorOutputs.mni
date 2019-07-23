@@ -1,0 +1,13 @@
+/*
+Tests that the error output is as expected
+*/
+
+
+load "munit";
+
+let t <- newTester();
+t.header("Assert error outputs");
+
+t.assertEquals(latestError(), "Expected 1 argument(s) but got 0." + NL + "[line 10] at errorScript.mni", "Error thrown as epected");
+
+t.results();

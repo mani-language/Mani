@@ -336,7 +336,7 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
         // This is where we need to actually load the file now, or API... depends if the file exists.
         Object res = evaluate(expr.toLoad);
         if (!(res instanceof String)) {
-            System.err.println("Must be presented as a string");
+            Mani.printAndStoreError("Must be presented as a string");
             return null;
         }
         // If we have gotten this far, we should check for a file.
@@ -378,8 +378,8 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
         // This is where we need to import the library from the internet, or local. Depends if there is internet.
         Object result = evaluate(expr.toImport);
         if (!(result instanceof String)) {
-            System.err.println(result.getClass().getSimpleName());
-            System.err.println("Must be presented as a string");
+            Mani.printAndStoreError(result.getClass().getSimpleName());
+            Mani.printAndStoreError("Must be presented as a string");
             return null;
         }
 
@@ -403,7 +403,7 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
                 catch(IOException ex) {
                     String res = Std.find((String) result);
                     if (res.equalsIgnoreCase("-1")) {
-                        System.err.println("No such library!");
+                        Mani.printAndStoreError("No such library!");
                     } else {
                         return Std.loadFile(this, res);
                     }
@@ -417,7 +417,7 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
             }
             String res = Std.find((String) result);
             if (res.equalsIgnoreCase("-1")) {
-                System.err.println("No such library!");
+                Mani.printAndStoreError("No such library!");
             } else if (res.equalsIgnoreCase("-2")) {
                 return "Already loaded!";
             } else {
@@ -562,7 +562,7 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
                 if (Locals.canConvert(left, right)) {
                     return Locals.convert(left, right.toString());
                 }
-                System.err.println("Cannot convert to that type!");
+                Mani.printAndStoreError("Cannot convert to that type!");
                 return null;
         }
         return null;

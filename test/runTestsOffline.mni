@@ -30,6 +30,15 @@ wipeMemory();
 load "std";
 load "system";
 online(false);
+// Script intended to throw error
+load "errorScript.mni";
+// Tests that error was output correctly
+load "testErrorOutputs.mni";
+
+wipeMemory();
+load "std";
+load "system";
+online(false);
 load "lists.mni";
 if (hadError()) { exit(1); }
 

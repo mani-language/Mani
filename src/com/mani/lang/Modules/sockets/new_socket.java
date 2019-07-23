@@ -2,6 +2,7 @@ package com.mani.lang.Modules.sockets;
 
 import com.mani.lang.core.Interpreter;
 import com.mani.lang.domain.ManiCallable;
+import com.mani.lang.main.Mani;
 import com.mani.lang.main.Std;
 import com.mani.lang.local.Locals;
 import io.socket.client.IO;
@@ -25,7 +26,7 @@ public class new_socket implements ManiCallable {
             }
 
             if (!(Locals.getType(arguments.get(1)).equals("map"))) {
-                System.err.println("Map expected in second argument");
+                Mani.printAndStoreError("Map expected in second argument");
                 return null;
             }
             IO.Options options = parseOptions((HashMap<Object, Object>) arguments.get(1));

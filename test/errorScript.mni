@@ -1,0 +1,10 @@
+/*
+Script designed to throw an error
+*/
+
+//Import lists library
+# "files";
+
+
+// This line should throw an error
+let f = File();

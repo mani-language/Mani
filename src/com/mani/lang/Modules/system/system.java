@@ -17,7 +17,7 @@ public class system implements Module {
             @Override
             public Object call(Interpreter interpreter, List<Object> arguments) {
                 if (!(arguments.get(0) instanceof Boolean)) {
-                    System.err.println("Argument must be true or false!");
+                    Mani.printAndStoreError("Argument must be true or false!");
                     return null;
                 }
                 Mani.hasInternet = (Boolean) arguments.get(0);
@@ -32,7 +32,7 @@ public class system implements Module {
             @Override
             public Object call(Interpreter interpreter, List<Object> arguments) {
                 if (!(arguments.get(0) instanceof Boolean)) {
-                    System.err.println("Argument must be true or false!");
+                    Mani.printAndStoreError("Argument must be true or false!");
                     return null;
                 }
                 Mani.compiledMode = (Boolean) arguments.get(0);
@@ -49,7 +49,7 @@ public class system implements Module {
 //            @Override
 //            public Object call(Interpreter interpreter, List<Object> arguments) {
 //                if (!(arguments.get(0) instanceof String)) {
-//                    System.err.println("Argument must be a string!");
+//                    Mani.printAndStoreError("Argument must be a string!");
 //                    return null;
 //                }
 //                Mani.stdlib_path = (String) arguments.get(0);
@@ -66,6 +66,18 @@ public class system implements Module {
             @Override
             public Object call(Interpreter interpreter, List<Object> arguments) {
                 return Mani.hadRuntimeError;
+            }
+        });
+
+        interpreter.addSTD("latestError", new ManiCallable() {
+            @Override
+            public int arity() {
+                return 0;
+            }
+
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                return Mani.latestErrorMsg;
             }
         });
     }
