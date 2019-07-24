@@ -19,7 +19,7 @@ t.assertEquals(f.canWrite(), true, "Check can write");
 
 t.assertEquals(f.canRead(), true, "Check can read");
 
-t.assertEquals(f.canExecute(), true, "Check can execute");
+t.assertEquals(f.canExecute(), false, "Check can execute");
 
 t.assertEquals(f.read(),"test contents of a file" + NL + "imported by test/files.mni" + NL, "Read opened file");
 
