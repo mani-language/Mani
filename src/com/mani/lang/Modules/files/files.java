@@ -17,15 +17,11 @@ public class files implements Module {
         interpreter.addSTD("fwrite", new files_write());
         interpreter.addSTD("fread", new files_read());
         interpreter.addSTD("fgetPath", new files_getPath());
-        interpreter.addSTD("flistDir", new files_listdir());
-        interpreter.addSTD("fmkdir", new files_mkdir());
-        interpreter.addSTD("fdel", new files_deldir());
-        interpreter.addSTD("fexists", new files_dirExists());
     }
 
     @Override
     public boolean hasExtensions() {
-        return false;
+        return true;
     }
 
     @Override
@@ -36,28 +32,28 @@ public class files implements Module {
         locals.put("exists", new ManiCallableInternal() {
            @Override
            public Object call(Interpreter interpreter, List<Object> arguments) {
-               return ((File) arguments.get(0)).exists();
+               return ((File) workWith).exists();
            }
         });
 
         locals.put("canWrite", new ManiCallableInternal() {
             @Override
             public Object call(Interpreter interpreter, List<Object> arguments) {
-                return ((File) arguments.get(0)).canWrite();
+                return ((File) workWith).canWrite();
             }
         });
 
         locals.put("canRead", new ManiCallableInternal() {
             @Override
             public Object call(Interpreter interpreter, List<Object> arguments) {
-                return ((File) arguments.get(0)).canRead();
+                return ((File) workWith).canRead();
             }
         });
 
         locals.put("canExecute", new ManiCallableInternal() {
             @Override
             public Object call(Interpreter interpreter, List<Object> arguments) {
-                return ((File) arguments.get(0)).canExecute();
+                return ((File) workWith).canExecute();
             }
         });
 

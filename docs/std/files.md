@@ -1,7 +1,7 @@
 ## Files
 The files library is used to read and write to files.
 
-The library itself is a class written in Máni, that uses the [Files API](api/files.md).
+The library itself is a class written in Mï¿½ni, that uses the [Files API](api/files.md).
 
 ### How to import
 ~~~ mani
@@ -18,6 +18,11 @@ This Library does not require any others to run
     file.toList();
     file.write();
     file.append();
+    file.path();
+    file.exists();
+    file.canWrite();
+    file.canRead();
+    file.canExecute();
 ~~~
 
 ### Creating a file object.
@@ -75,4 +80,28 @@ The file must also be opened with `f.open()` before appending to it.
     f.open();
 
     f.append("this is a string")  // Writes "this is a string" to the end of the file
+~~~
+
+### File path
+To get the file path, use the method `f.path()`. This will return the path of the file as a string.
+
+~~~ mani
+    let f = List("filename.txt");
+    f.open();
+
+    f.path(); // Returns the path ....../filename.txt
+~~~
+
+### File flags
+To get the state of the file, MÃ¡ni can detect several file states. To access these, use the functions `f.exists()`, `f.canWrite()`, `f.canRead()`, `f.canExecute()`.
+These all return a boolean value matching the state of the file.
+
+~~~ mani
+    let f = List("filename.txt");
+    f.open();
+
+    f.exists();
+    f.canWrite();
+    f.canRead();
+    f.canExecute();
 ~~~

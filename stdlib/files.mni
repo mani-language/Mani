@@ -45,4 +45,24 @@ class File {
         }
         fwrite(this.file, lines, true);
     }
+
+    path() {
+        return fgetPath(this.file);
+    }
+
+    exists() {
+        return this.file.exists();
+    }
+
+    canWrite() {
+        return this.file.canWrite();
+    }
+
+    canRead() {
+        return this.file.canRead();
+    }
+
+    canExecute() {
+        return this.file.canExecute();
+    }
 }
