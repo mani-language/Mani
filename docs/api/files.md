@@ -11,6 +11,7 @@ The files API is used by the Files STDLIB. This is how we get that extra functio
     fopen();
     fread();
     fwrite();
+    fgetPath();
 ~~~
 
 ### Function descriptions
@@ -26,3 +27,8 @@ Used to read the contents of an opened file. Returns the contents of the file as
 #### fwrite();
 Usage: `fwrite( fileObject, value, boolean );`
 Used to write to the opened file. Takes the file object as the first parameter and the contents to write to it as the second parameter. Set the boolean to true to append to the file or false to write to it as a blank file.
+
+#### fgetPath();
+Usage: `fgetPath( fileObject );`
+Used to return the path to the file created.
+
