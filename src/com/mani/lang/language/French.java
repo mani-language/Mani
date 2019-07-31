@@ -1,6 +1,13 @@
 /*
- * Copyright 2019 Máni.
+ * Copyright 2019 This source file is part of the MÃ¡ni open source project
+ *
+ * Copyright (c) 2018 - 2019.
+ *
+ * Licensed under Mozilla Public License 2.0
+ *
+ * See https://github.com/mani-language/Mani/blob/master/LICENSE.md for license information.
  */
+
 package com.mani.lang.language;
 
 import java.util.Map;
@@ -25,7 +32,7 @@ public class French implements Lang {
         keywords.put("for", "pour");
         keywords.put("else", "sinon");
         keywords.put("if", "si");
-        keywords.put("nil", "néant");
+        keywords.put("nil", "nï¿½ant");
         keywords.put("let", "laisser");
         keywords.put("load", "charger");
 
