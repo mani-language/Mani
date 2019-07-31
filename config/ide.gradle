@@ -34,6 +34,21 @@ ext {
         }
     }
 
+    // Activate copyright conventions
+    ideaActivateCopyright = { Node iprNode ->
+        // Setup copyright statement injection
+        def copyrightManager = iprNode.find { it.@name == 'CopyrightManager' }
+        copyrightManager.@default = "Mani"
+        def copyright = copyrightManager.appendNode("copyright")
+        copyright.appendNode("option", [name: "notice", value: 'Copyright ' + Calendar.getInstance().get(Calendar.YEAR) + ' This source file is part of the Máni open source project\\n\\nCopyright (c) 2018 - $today.year. \\n\\nLicensed under Mozilla Public License 2.0\\n\\nSee https://github.com/mani-language/Mani/blob/master/LICENSE.md for license information.'])
+        copyright.appendNode("option", [name: "keyword", value: "Copyright"])
+        copyright.appendNode("option", [name: "allowReplaceKeyword", value: ""])
+        copyright.appendNode("option", [name: "myName", value: "Mani"])
+        copyright.appendNode("option", [name: "myLocal", value: "true"])
+        def langOptions = copyrightManager.appendNode("LanguageOptions", [name: "__TEMPLATE__"])
+        langOptions.appendNode("option", [name: "addBlankAfter", value: "false"])
+    }
+
     // Generate a run configuration for the project.
     ideaRunConfig = { Node iwsNode ->
         def runManager = iwsNode.find { it.@name == 'RunManager' }

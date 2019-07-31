@@ -106,6 +106,7 @@ idea {
                 def iprNode = xmlProvider.asNode()
                 ideaActivateCopyright(iprNode)
                 ideaActivateGradle(iprNode)
+                ideaActivateCopyright(iprNode)
             }
 
             whenMerged { project -> 
