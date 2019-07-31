@@ -156,7 +156,7 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
 
         Map<String, ManiFunction> methods = new HashMap<>();
         for(Stmt.Function method : stmt.methods) {
-            ManiFunction function = new ManiFunction(method, environment, ((String)method.name.lexeme).equals((String)stmt.name.lexeme), (Boolean) method.isprivate);
+            ManiFunction function = new ManiFunction(method, environment, ((String)method.name.lexeme).equals((String)stmt.name.lexeme), (Boolean) method.isPrivate, (Boolean) method.isDepreciated);
             methods.put(method.name.lexeme, function);
         }
 
@@ -182,7 +182,7 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
 
     @Override
     public Void visitFunctionStmt(Stmt.Function stmt) {
-        ManiFunction function = new ManiFunction(stmt, environment, false, stmt.isprivate);
+        ManiFunction function = new ManiFunction(stmt, environment, false, stmt.isPrivate, stmt.isDepreciated);
         // Check if the function exists...
         if (environment.contains(stmt.name)) {
             environment.defineMultiple(stmt.name.lexeme, function);
@@ -587,6 +587,10 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
             for (Object callable : (List<Object>) callee) {
                 ManiCallable function = (ManiCallable) callable;
                 if (function.arity() == -1 || arguments.size() == function.arity()) {
+                    // Checking to see if it is a depreciated function.
+                    if (((ManiFunction) function).isDepreciated()) {
+                        System.err.println("The developer has marked this function as Depreciated, Function name is: '" + ((ManiFunction) function).getName() + "'.");
+                    }
                     return function.call(this, arguments);
                 }
             }
@@ -594,7 +598,12 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
         }
         ManiCallable function = (ManiCallable)callee;
         if(function.arity() != -1 && arguments.size() != function.arity()) {
+            // Checking to see if it is a depreciated function.
+
             throw new RuntimeError(expr.paren, "Expected "+ function.arity() +" argument(s) but got "+ arguments.size() + ".");
+        }
+        if (function instanceof ManiFunction && ((ManiFunction) function).isDepreciated()) {
+            System.err.println("The developer has marked this function as Depreciated, Function name is: '" + ((ManiFunction) function).getName() + "'.");
         }
         return function.call(this, arguments);
     }
@@ -608,6 +617,7 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
                 if (holder.isPrivate() && !expr.fromThis) {
                     throw new RuntimeError(expr.name, "Sorry, this is a private function!");
                 }
+                // Adding it here, meaning if it has gotten to here... it should be allowed to run.
             }
             return ((ManiInstance)object).get(expr.name);
         } else if (Locals.canWorkWith(object, expr.name.lexeme)) {
@@ -645,6 +655,9 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
         ManiFunction method = superclass.findMethod(object, expr.method == null ? superclass.getName() : expr.method.lexeme);
         if (method.isPrivate()) {
             throw new RuntimeError(expr.method, "Sorry, this is a private function!");
+        }
+        if (method.isDepreciated()) {
+            System.out.println("The developer has marked this function as Depreciated, Function name is: '" + method.getName() + "'.");
         }
         if(method == null) {
             throw new RuntimeError(expr.method == null ? new Token(TokenType.IDENTIFIER, superclass.getName(), 0, 0) : expr.method, "Undefined property '" + (expr.method == null ? superclass.getName() : expr.method.lexeme) +"'.");

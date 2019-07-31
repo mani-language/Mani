@@ -122,12 +122,13 @@ public class Parser {
 
     private Stmt declarations() {
         try{
+            if(match(TokenType.DEPRECIATED)) return function("old function");
             if(match(TokenType.INTERNAL)) return function("function");
             if(match(TokenType.CLASS)) return classDeclaration();
             if(match(TokenType.FN)) return function("function");
             if(match(TokenType.LET)) return varDeclaration();
             return statement();
-        } catch (ParserError erorr) {
+        } catch (ParserError error) {
             synchnorize();
             return null;
         }
@@ -143,7 +144,18 @@ public class Parser {
         List<Stmt.Function> methods = new ArrayList<>();
         while(!check(TokenType.RIGHT_BRACE) && !isAtEnd()) {
             if (check(TokenType.INTERNAL)) {
-                methods.add(function("private method"));
+                if (peek(1).type == TokenType.DEPRECIATED) {
+                    methods.add(function("old private method"));
+                } else {
+                    methods.add(function("private method"));
+                }
+            } else if (check(TokenType.DEPRECIATED)) {
+                // Doing the reverse of above.
+                if (peek(1).type == TokenType.INTERNAL) {
+                    methods.add(function("old private method"));
+                } else {
+                    methods.add(function("old method"));
+                }
             } else {
                 methods.add(function("method"));
             }
@@ -155,7 +167,7 @@ public class Parser {
         if(match(TokenType.PRINT)) return printStatement();
         if(match(TokenType.RETURN)) return returnStatement();
         if(match(TokenType.BREAK)) return breakStatement();
-        if(match(TokenType.WHILE)) return whileStatemnt();
+        if(match(TokenType.WHILE)) return whileStatement();
         if(match(TokenType.FOR)) return forStatement();
         if(match(TokenType.IF)) return ifStatement();
         if(match(TokenType.LEFT_BRACE)) return new Stmt.Block(block());
@@ -269,7 +281,7 @@ public class Parser {
         return new Stmt.Var(name, initializer);
     }
 
-    private Stmt whileStatemnt() {
+    private Stmt whileStatement() {
         consume(TokenType.LEFT_PAREN, "Expect '(' after while.");
         Expr condition = expression();
         consume(TokenType.RIGHT_PAREN, "Expect ')' after while condition.");
@@ -284,9 +296,14 @@ public class Parser {
     }
 
     private Stmt.Function function(String kind) {
-        Boolean isPrivate = false;
-        if (previous().type == TokenType.INTERNAL || kind.equals("private method")) {
+        boolean isPrivate = false;
+        boolean isOld = false;
+        if (previous().type == TokenType.INTERNAL || kind.contains("private")) {
             isPrivate = true;
+            advance();
+        }
+        if (previous().type == TokenType.DEPRECIATED || kind.contains("old")) {
+            isOld = true;
             advance();
         }
         Token name = consume(TokenType.IDENTIFIER, "Expect " + kind + " name.");
@@ -295,7 +312,7 @@ public class Parser {
         consume(TokenType.RIGHT_PAREN, "Expect ')' after parameters");
         consume(TokenType.LEFT_BRACE, "Expect '{' before " + kind + " body.");
         List<Stmt> body = block();
-        return new Stmt.Function(name, parameters, body, isPrivate);
+        return new Stmt.Function(name, parameters, body, isPrivate, isOld);
     }
 
     private List<Stmt> block() {

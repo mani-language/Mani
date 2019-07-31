@@ -12,21 +12,27 @@ public class ManiFunction implements ManiCallable {
     private final Environment closure;
     private final Boolean isInitializer;
     private final Boolean isPrivate;
+    private final Boolean isDepreciated;
 
-    public ManiFunction(Stmt.Function declaration, Environment closure, Boolean isInitializer, Boolean isPrivate) {
+    public ManiFunction(Stmt.Function declaration, Environment closure, Boolean isInitializer, Boolean isPrivate, Boolean isDepreciated) {
         this.declaration = declaration;
         this.closure = closure;
         this.isInitializer = isInitializer;
         this.isPrivate = isPrivate;
+        this.isDepreciated = isDepreciated;
     }
 
     ManiFunction bind(ManiInstance instance) {
         Environment environment = new Environment(closure);
         environment.define("this", instance);
-        return new ManiFunction(declaration, environment, isInitializer, isPrivate);
+        return new ManiFunction(declaration, environment, isInitializer, isPrivate, isDepreciated);
     }
 
     public Boolean isPrivate() { return this.isPrivate; }
+
+    public Boolean isDepreciated() { return this.isDepreciated; }
+
+    public String getName() { return this.declaration.name.lexeme; }
 
     @Override
     public Object call(Interpreter interpreter, List<Object> arguments) {

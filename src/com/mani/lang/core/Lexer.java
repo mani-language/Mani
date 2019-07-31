@@ -26,6 +26,7 @@ public class Lexer {
         keywords.put("CHANGE_LANG", CHANGELANG);
         keywords.put("and", AND);
         keywords.put("internal", INTERNAL);
+        keywords.put("depreciated", DEPRECIATED);
         keywords.put("class", CLASS);
         keywords.put("for", FOR);
         keywords.put("else", ELSE);
