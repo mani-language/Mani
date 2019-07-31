@@ -91,6 +91,31 @@ public class system implements Module {
                 return Mani.latestErrorMsg;
             }
         });
+
+        interpreter.addSTD("System.nanoTime", new ManiCallable() {
+            @Override
+            public int arity() {
+                return 0;
+            }
+
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                return Std.makeDouble((int) System.currentTimeMillis());
+            }
+        });
+
+        interpreter.addSTD("System.exit", new ManiCallable() {
+            @Override
+            public int arity() {
+                return 1;
+            }
+
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                System.exit(Std.DoubleToInt((Double) arguments.get(0)));
+                return null;
+            }
+        });
     }
 
     @Override
