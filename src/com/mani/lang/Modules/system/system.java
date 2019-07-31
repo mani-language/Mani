@@ -14,13 +14,14 @@ import com.mani.lang.Modules.Module;
 import com.mani.lang.core.Interpreter;
 import com.mani.lang.domain.ManiCallable;
 import com.mani.lang.main.Mani;
+import com.mani.lang.main.Std;
 
 import java.util.List;
 
 public class system implements Module {
     @Override
     public void init(Interpreter interpreter) {
-        interpreter.addSTD("online", new ManiCallable() {
+        interpreter.addSTD("System.online", new ManiCallable() {
             @Override
             public int arity() { return 1; }
 
@@ -35,7 +36,7 @@ public class system implements Module {
             }
         });
 
-        interpreter.addSTD("compiled", new ManiCallable() {
+        interpreter.addSTD("System.compiled", new ManiCallable() {
             @Override
             public int arity() { return 1; }
 
@@ -67,7 +68,7 @@ public class system implements Module {
 //            }
 //        });
 
-        interpreter.addSTD("hadError", new ManiCallable() {
+        interpreter.addSTD("System.hadError", new ManiCallable() {
             @Override
             public int arity() {
                 return 0;
@@ -79,7 +80,7 @@ public class system implements Module {
             }
         });
 
-        interpreter.addSTD("latestError", new ManiCallable() {
+        interpreter.addSTD("System.latestError", new ManiCallable() {
             @Override
             public int arity() {
                 return 0;
