@@ -21,6 +21,7 @@ public class Strings {
     public static HashMap<String, ManiCallableInternal> locals = new HashMap<>();
 
     static {
+        //TODO: Needs to be moved to std module
         locals.put("startsWith", new ManiCallableInternal() {
             @Override
             public int arity() { return 1; }
