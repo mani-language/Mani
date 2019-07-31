@@ -34,6 +34,7 @@
   * [DB](api/db.md)
   * [Date & Time](api/datetime.md)
   * [Atomic](api/atomic.md)
+  * [Logger](api/logger.md)
 
 * LIBRARIES
   * [Math](sdt/math.md)
