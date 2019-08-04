@@ -20,6 +20,7 @@ public abstract class Stmt {
     R visitClassStmt(Class stmt);
     R visitExpressionStmt(Expression stmt);
     R visitIfStmt(If stmt);
+    R visitSwitchStmt(Switch stmt);
     R visitFunctionStmt(Function stmt);
     R visitPrintStmt(Print stmt);
     R visitReturnStmt(Return stmt);
@@ -81,6 +82,23 @@ public abstract class Stmt {
     final Stmt thenBranch;
     final Stmt elseBranch;
   }
+
+  static class Switch extends Stmt {
+    Switch(Expr condition, List<Object> literals, List<Stmt> statements) {
+      this.condition = condition;
+      this.literals = literals;
+      this.statements = statements;
+    }
+
+    <R> R accept(Visitor<R> visitor) {
+      return visitor.visitSwitchStmt(this);
+    }
+
+    final Expr condition;
+    final List<Object> literals;
+    final List<Stmt> statements;
+  }
+
   public static class Function extends Stmt {
     Function(Token name, List<Token> parameters, List<Stmt> body, Boolean isPrivate, Boolean isOld) {
       this.name = name;

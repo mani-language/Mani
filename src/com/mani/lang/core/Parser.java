@@ -179,6 +179,7 @@ public class Parser {
         if(match(TokenType.WHILE)) return whileStatement();
         if(match(TokenType.FOR)) return forStatement();
         if(match(TokenType.IF)) return ifStatement();
+        if(match(TokenType.SWITCH)) return switchStatement();
         if(match(TokenType.LEFT_BRACE)) return new Stmt.Block(block());
         return expressionStatement();
     }
@@ -260,6 +261,23 @@ public class Parser {
         return new Stmt.If(condition, thenBrach, elseBranch);
     }
 
+    private Stmt switchStatement() {
+        consume(TokenType.LEFT_PAREN, "Expect '(' after switch.");
+        Expr variable = expression();
+        List<Stmt> statements = new ArrayList<>();
+        List<Object> literals = new ArrayList<>();
+        consume(TokenType.RIGHT_PAREN, "Expect ')' after switch condition");
+        consume(TokenType.LEFT_BRACE, "Expect '{' after switch condition");
+        while (! match(TokenType.RIGHT_BRACE)) {
+            if (match(TokenType.CASE)) {
+                Token number = consume(TokenType.NUMBER, "Expect number in case");
+                literals.add(number.literal);
+                consume(TokenType.COLON, "Expect colon");
+                statements.add(statement());
+            }
+        }
+        return new Stmt.Switch(variable, literals, statements);
+    }
     private Stmt printStatement() {
         Expr value = expression();
         consume(TokenType.SEMICOLON, "Expect ';' after value", Mani.isStrictMode);
@@ -619,6 +637,7 @@ public class Parser {
                 case FOR:
                 case LET:
                 case IF:
+                case SWITCH:
                 case PRINT:
                 case RETURN:
                 case BREAK:
