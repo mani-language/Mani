@@ -216,22 +216,17 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
     public Void visitSwitchStmt(Stmt.Switch stmt) {
         Object value = evaluate(stmt.condition);
         int idx = stmt.literals.indexOf(value);
-        System.out.println("idx:" + idx);
         // TODO: Does not support default keyword.
         if (idx == -1) {
             return null;
         }
 
-        // TODO: Does not support multiple statements within a case, only one statement per case works for now.
-        // So, something like following does not work:
-        // switch (a) {
-        //      case 1 :
-        //          say "1";
-        //          say "2";
-        // }
-        for (Stmt stmt1 : stmt.statements.subList(idx, stmt.statements.size())) {
-            execute(stmt1);
+        for (int i = idx; i<stmt.statements.size(); i++){
+            for (Stmt stmt1 : stmt.statements.get(i)) {
+                execute(stmt1);
+            }
         }
+
         return null;
     }
 

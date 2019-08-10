@@ -264,7 +264,7 @@ public class Parser {
     private Stmt switchStatement() {
         consume(TokenType.LEFT_PAREN, "Expect '(' after switch.");
         Expr variable = expression();
-        List<Stmt> statements = new ArrayList<>();
+        List<List<Stmt>> statements = new ArrayList<>();
         List<Object> literals = new ArrayList<>();
         consume(TokenType.RIGHT_PAREN, "Expect ')' after switch condition");
         consume(TokenType.LEFT_BRACE, "Expect '{' after switch condition");
@@ -273,7 +273,9 @@ public class Parser {
                 Token number = consume(TokenType.NUMBER, "Expect number in case");
                 literals.add(number.literal);
                 consume(TokenType.COLON, "Expect colon");
-                statements.add(statement());
+                statements.add(new ArrayList<>());
+            } else {
+                statements.get(statements.size()-1).add(statement());
             }
         }
         return new Stmt.Switch(variable, literals, statements);

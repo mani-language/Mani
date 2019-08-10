@@ -84,7 +84,7 @@ public abstract class Stmt {
   }
 
   static class Switch extends Stmt {
-    Switch(Expr condition, List<Object> literals, List<Stmt> statements) {
+    Switch(Expr condition, List<Object> literals, List<List<Stmt>> statements) {
       this.condition = condition;
       this.literals = literals;
       this.statements = statements;
@@ -96,7 +96,7 @@ public abstract class Stmt {
 
     final Expr condition;
     final List<Object> literals;
-    final List<Stmt> statements;
+    final List<List<Stmt>> statements;
   }
 
   public static class Function extends Stmt {
