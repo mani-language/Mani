@@ -216,12 +216,15 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
     public Void visitSwitchStmt(Stmt.Switch stmt) {
         Object value = evaluate(stmt.condition);
         int idx = stmt.literals.indexOf(value);
-        // TODO: Does not support default keyword.
+        int numCases = stmt.statements.size();
         if (idx == -1) {
+            for (Stmt stmt1 : stmt.statements.get(numCases - 1)) {
+                execute(stmt1);
+            }
             return null;
         }
 
-        for (int i = idx; i<stmt.statements.size(); i++){
+        for (int i = idx; i < numCases; i++){
             for (Stmt stmt1 : stmt.statements.get(i)) {
                 execute(stmt1);
             }

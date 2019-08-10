@@ -10,6 +10,7 @@
 
 package com.mani.lang.core;
 
+import com.mani.lang.exceptions.Return;
 import com.mani.lang.main.Mani;
 import com.mani.lang.token.Token;
 import com.mani.lang.token.TokenType;
@@ -262,6 +263,7 @@ public class Parser {
     }
 
     private Stmt switchStatement() {
+        boolean seenDefault = false;
         consume(TokenType.LEFT_PAREN, "Expect '(' after switch.");
         Expr variable = expression();
         List<List<Stmt>> statements = new ArrayList<>();
@@ -270,13 +272,22 @@ public class Parser {
         consume(TokenType.LEFT_BRACE, "Expect '{' after switch condition");
         while (! match(TokenType.RIGHT_BRACE)) {
             if (match(TokenType.CASE)) {
+                if (seenDefault) {
+                    throw new Return("Default is already declared before.");
+                }
                 Token number = consume(TokenType.NUMBER, "Expect number in case");
                 literals.add(number.literal);
                 consume(TokenType.COLON, "Expect colon");
                 statements.add(new ArrayList<>());
-            } else {
-                statements.get(statements.size()-1).add(statement());
+                continue;
             }
+            if (match(TokenType.DEFAULT)) {
+                seenDefault = true;
+                consume(TokenType.COLON, "Expect colon");
+                statements.add(new ArrayList<>());
+                continue;
+            }
+            statements.get(statements.size()-1).add(statement());
         }
         return new Stmt.Switch(variable, literals, statements);
     }
