@@ -1,0 +1,58 @@
+/*
+Test program to demonstrate switch-case
+*/
+load "munit";
+//Import lists library
+# "lists";
+
+let t <- newTester();
+t.header("Switch-case");
+
+//Create a new list
+let myList = List();
+
+// Simple single statement per-case.
+let a = 1;
+switch (a) {
+	case 1 :
+		myList.add(1);
+	case 2 :
+		myList.add(2);
+	case 3 :
+		myList.add(3);
+	default :
+		myList.add(0);
+}
+t.assertEquals(myList.list, [1,2,3,0], "Add item to list");
+
+// When no case is matched; the default gets executed always.
+let a = 10;
+switch (a) {
+	case 1 :
+		myList.add(1);
+	case 2 :
+		myList.add(2);
+	case 3 :
+		myList.add(3);
+	default :
+		myList.add(0);
+}
+t.assertEquals(myList.list, [1,2,3,0,0], "Add item to list");
+
+// Multiple statements per-case.
+let a = 3;
+switch (a) {
+	case 1 :
+		myList.add(1);
+		myList.add(10);
+	case 2 :
+		myList.add(2);
+		myList.add(20);
+	case 3 :
+		myList.add(3);
+		myList.add(30);
+	default :
+		myList.add(0);
+		myList.add(100);
+}
+t.assertEquals(myList.list, [1,2,3,0,0,3,30,0,100], "Add item to list");

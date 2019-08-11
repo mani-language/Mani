@@ -273,7 +273,7 @@ public class Parser {
         while (! match(TokenType.RIGHT_BRACE)) {
             if (match(TokenType.CASE)) {
                 if (seenDefault) {
-                    throw new Return("Default is already declared before.");
+                    throw new Return("Default has already been declared.");
                 }
                 Token number = consume(TokenType.NUMBER, "Expect number in case");
                 literals.add(number.literal);
