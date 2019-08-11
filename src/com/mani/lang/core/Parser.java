@@ -10,6 +10,7 @@
 
 package com.mani.lang.core;
 
+import com.mani.lang.exceptions.Return;
 import com.mani.lang.main.Mani;
 import com.mani.lang.token.Token;
 import com.mani.lang.token.TokenType;
@@ -179,6 +180,7 @@ public class Parser {
         if(match(TokenType.WHILE)) return whileStatement();
         if(match(TokenType.FOR)) return forStatement();
         if(match(TokenType.IF)) return ifStatement();
+        if(match(TokenType.SWITCH)) return switchStatement();
         if(match(TokenType.LEFT_BRACE)) return new Stmt.Block(block());
         return expressionStatement();
     }
@@ -260,6 +262,35 @@ public class Parser {
         return new Stmt.If(condition, thenBrach, elseBranch);
     }
 
+    private Stmt switchStatement() {
+        boolean seenDefault = false;
+        consume(TokenType.LEFT_PAREN, "Expect '(' after switch.");
+        Expr variable = expression();
+        List<List<Stmt>> statements = new ArrayList<>();
+        List<Object> literals = new ArrayList<>();
+        consume(TokenType.RIGHT_PAREN, "Expect ')' after switch condition");
+        consume(TokenType.LEFT_BRACE, "Expect '{' after switch condition");
+        while (! match(TokenType.RIGHT_BRACE)) {
+            if (match(TokenType.CASE)) {
+                if (seenDefault) {
+                    throw new Return("Default has already been declared.");
+                }
+                Token number = consume(TokenType.NUMBER, "Expect number in case");
+                literals.add(number.literal);
+                consume(TokenType.COLON, "Expect colon");
+                statements.add(new ArrayList<>());
+                continue;
+            }
+            if (match(TokenType.DEFAULT)) {
+                seenDefault = true;
+                consume(TokenType.COLON, "Expect colon");
+                statements.add(new ArrayList<>());
+                continue;
+            }
+            statements.get(statements.size()-1).add(statement());
+        }
+        return new Stmt.Switch(variable, literals, statements);
+    }
     private Stmt printStatement() {
         Expr value = expression();
         consume(TokenType.SEMICOLON, "Expect ';' after value", Mani.isStrictMode);
@@ -619,6 +650,7 @@ public class Parser {
                 case FOR:
                 case LET:
                 case IF:
+                case SWITCH:
                 case PRINT:
                 case RETURN:
                 case BREAK:

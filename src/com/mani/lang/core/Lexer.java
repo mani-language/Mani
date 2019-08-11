@@ -43,6 +43,7 @@ public class Lexer {
         keywords.put("false", FALSE);
         keywords.put("fn", FN);
         keywords.put("if", IF);
+        keywords.put("switch", SWITCH);
         keywords.put("nil", NIL);
         keywords.put("say", PRINT);
         keywords.put("or", OR);
@@ -60,6 +61,7 @@ public class Lexer {
         keywords.put("match", MATCH);
         keywords.put("case", CASE);
         keywords.put("nameset", NAMESET);
+        keywords.put("default", DEFAULT);
     }
     private final String source;
     private final List<Token> tokens = new ArrayList<>();
