@@ -1,6 +1,6 @@
 
 <p align="center">
-<img src="docs/assets/images/header.png" alt="Máni" title="Máni" align="center">
+<img src="https://mani-language.github.io/assets/images/header.png" alt="Máni" title="Máni" align="center">
 </p>
 <h1 align="center" size="1">Máni</h1>
 
