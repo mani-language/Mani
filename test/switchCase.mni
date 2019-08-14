@@ -56,3 +56,36 @@ switch (a) {
 		myList.add(100);
 }
 t.assertEquals(myList.list, [1,2,3,0,0,3,30,0,100], "Add item to list");
+
+//Create a new list for strings
+let myStringList = List();
+
+// Simple single statement per-case.
+let var = "b";
+switch (var) {
+	case "a" :
+		myStringList.add("a");
+	case "b" :
+		myStringList.add("b");
+	case "c" :
+		myStringList.add("c");
+	default :
+		myStringList.add("default");
+}
+t.assertEquals(myStringList.list, [b, c, default], "Add item to list");
+
+// When switch variable is of number type, but cases are for string type, it
+// does not complain about type-mismatch and easily compiles. The default
+// block gets executed. Same behaviour is observered for the vice-versa case.
+let var = 1;
+switch (var) {
+	case "a" :
+		myStringList.add("a");
+	case "b" :
+		myStringList.add("b");
+	case "c" :
+		myStringList.add("c");
+	default :
+		myStringList.add("default");
+}
+t.assertEquals(myStringList.list, [b, c, default, default], "Add item to list");
