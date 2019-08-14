@@ -44,8 +44,6 @@ public final class maps implements Module {
         HashMap<String, ManiCallableInternal> locals = new HashMap<>();
 
         locals.put("count", new ManiCallableInternal() {
-            @Override
-            public int arity() { return 1; }
 
             @Override
             public Object call(Interpreter interpreter, List<Object> arguments) {
