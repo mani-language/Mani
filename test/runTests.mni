@@ -2,25 +2,25 @@ load "std";
 load "system";
 
 load "basics.mni";
-if (hadError()) { exit(1); }
+if (System.hadError()) { System.exit(1); }
 
 wipeMemory();
 load "std";
 load "system";
 load "files.mni";
-if (hadError()) { exit(1); }
+if (System.hadError()) { System.exit(1); }
 
 wipeMemory();
 load "std";
 load "system";
 load "asOperator.mni";
-if (hadError()) { exit(1); }
+if (System.hadError()) { System.exit(1); }
 
 wipeMemory();
 load "std";
 load "system";
 load "forEach.mni";
-if (hadError()) { exit(1); }
+if (System.hadError()) { System.exit(1); }
 
 wipeMemory();
 load "std";
@@ -34,13 +34,13 @@ wipeMemory();
 load "std";
 load "system";
 load "lists.mni";
-if (hadError()) { exit(1); }
+if (System.hadError()) { System.exit(1); }
 
 wipeMemory();
 load "std";
 load "system";
 load "maps.mni";
-if (hadError()) { exit(1); }
+if (System.hadError()) { System.exit(1); }
 
 //wipeMemory();
 //load "std";
@@ -52,4 +52,4 @@ wipeMemory();
 load "std";
 load "system";
 load "math.mni";
-if (hadError()) { exit(1); }
+if (System.hadError()) { System.exit(1); }
