@@ -275,8 +275,8 @@ public class Parser {
                 if (seenDefault) {
                     throw new Return("Default has already been declared.");
                 }
-                Token number = consume(TokenType.NUMBER, "Expect number in case");
-                literals.add(number.literal);
+                Token token = consume(TokenType.NUMBER, TokenType.STRING, "Expect number or string in case");
+                literals.add(token.literal);
                 consume(TokenType.COLON, "Expect colon");
                 statements.add(new ArrayList<>());
                 continue;
