@@ -89,3 +89,38 @@ switch (var) {
 		myStringList.add("default");
 }
 t.assertEquals(myStringList.list, [b, c, default, default], "Add item to list");
+
+//Create a new list
+let myList2 = List();
+
+// Simple switch-case with break.
+let a = 1;
+switch (a) {
+	case 1 :
+		myList2.add(1);
+		break;
+	case 2 :
+		myList2.add(2);
+		break;
+	case 3 :
+		myList2.add(3);
+		break;
+	default :
+		myList2.add(0);
+}
+t.assertEquals(myList2.list, [1], "Add item to list");
+
+let a = 1;
+switch (a) {
+	case 1 :
+		myList2.add(1);
+	case 2 :
+		myList2.add(2);
+		break;
+	case 3 :
+		myList2.add(3);
+		break;
+	default :
+		myList2.add(0);
+}
+t.assertEquals(myList2.list, [1,1,2], "Add item to list");

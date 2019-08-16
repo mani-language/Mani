@@ -219,6 +219,9 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
         int numCases = stmt.statements.size();
         if (idx == -1) {
             for (Stmt stmt1 : stmt.statements.get(numCases - 1)) {
+                if (stmt1 instanceof Stmt.Break) {
+                    return null;
+                }
                 execute(stmt1);
             }
             return null;
@@ -226,6 +229,9 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
 
         for (int i = idx; i < numCases; i++){
             for (Stmt stmt1 : stmt.statements.get(i)) {
+                if (stmt1 instanceof Stmt.Break) {
+                    return null;
+                }
                 execute(stmt1);
             }
         }
