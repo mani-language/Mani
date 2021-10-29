@@ -14,7 +14,10 @@ import com.mani.lang.main.Mani;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
 public class ManiCompiler {
@@ -27,11 +30,12 @@ public class ManiCompiler {
         Mani.compiledMode = true;
         Mani.hasInternet = true; // To make it completely un-needed to have mani installed.
 
-        ClassLoader classLoader = ManiCompiler.class.getClassLoader();
-        InputStream stream = classLoader.getResourceAsStream("main.mni");
-        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
         String inputString = "";
         try {
+            ClassLoader classLoader = ManiCompiler.class.getClassLoader();
+            InputStream stream = classLoader.getResourceAsStream("main.mni");
+            /// InputStream stream = new FileInputStream(input);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
             // Loading the arguments first.
             inputString += "let args = [";
             for (int i = 0; i < args.length; i++) {
@@ -47,7 +51,10 @@ public class ManiCompiler {
                 inputString += line + "\n";
                 line = reader.readLine();
             }
-        } catch (IOException e) {
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
         Mani.run(inputString, "main.mni");

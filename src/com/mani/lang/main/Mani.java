@@ -51,14 +51,15 @@ public class Mani {
      * @param args
      */
     public static void main(String[] args) {
-
+            System.out.println("Yay inside main " + args.length);
             hasInternet = checkInternet();
 
             if(args.length > 1) {
                 System.out.println("Usage mani [Script.mni]");
-            } else if (args.length == 1) {
-                runFile(args[0]);
+            } else if (args.length == 2) {
+                runFile(args[1]);
             } else if (!compiledMode) {
+                System.out.println("Right before runPrompt");
                 runPrompt();
             }
 
