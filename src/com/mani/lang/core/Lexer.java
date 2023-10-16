@@ -178,13 +178,17 @@ public class Lexer {
         addToken(type);
     }
     private void number(){
-        while(isDigit(peek())) advance();
+        //eat digits and underscores 
+        while(isDigit(peek()) || peek() == '_') advance();
         //look for the fractional part and consume '.'
         if(peek() == '.' && isDigit(peekNext())){
             advance();
         }
         while(isDigit(peek())) advance();
-        addToken(NUMBER, Double.parseDouble(source.substring(start, current)));
+        //getting rid of the underscores
+        String stringWithUnderScores = source.substring(start, current);
+        String stringWithoutUnderScores = stringWithUnderScores.replace("_", "");
+        addToken(NUMBER, Double.parseDouble(stringWithoutUnderScores));
     }
     private void string(){
         while((peek() != this.lastStringChar) && !isAtEnd()){

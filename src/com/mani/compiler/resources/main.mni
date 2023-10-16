@@ -4,6 +4,13 @@ load "summation.mni";
 
 say addTogether(5, 2);
 
+let num1 = 1000000;
+let num2 = 1000000;
+
+let sum = num1 + num2;
+
+say sum;
+
 let myMap = Map();
 myMap.add("keyName1","valueName1");
 myMap.add("keyName2","valueName2");
